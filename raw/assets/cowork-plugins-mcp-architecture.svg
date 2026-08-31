@@ -1,0 +1,61 @@
+<svg width="680" viewBox="0 0 680 510" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Cowork 插件体系架构</title>
+<desc>自上而下六层：用户下达目标，Cowork 编排 Agent 规划分解，经 MCP 统一连接标准将 N×M 定制集成降为 M+N，各领域插件本质是 MCP Server，重要写操作经人工把关后作用于后端 system of record。</desc>
+<style>
+text{font-family:'PingFang SC','Microsoft YaHei','Hiragino Sans GB','Helvetica Neue',Arial,sans-serif}
+.t{font-size:14px;font-weight:400}.th{font-size:14px;font-weight:500}.ts{font-size:12px;font-weight:400}
+.box{stroke-width:.8}
+.purple{fill:#EEEDFE;stroke:#534AB7}.teal{fill:#E1F5EE;stroke:#0F6E56}.gray{fill:#F1EFE8;stroke:#5F5E5A}.amber{fill:#FAEEDA;stroke:#854F0B}
+.xp{fill:#3C3489}.xpm{fill:#534AB7}.xt{fill:#085041}.xtm{fill:#0F6E56}.xg{fill:#444441}.xa{fill:#633806}.xs{fill:#5F5E5A}
+.conn{stroke:#888780;stroke-width:1.4;fill:none}
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+<rect class="box purple" x="40" y="18" width="11" height="11" rx="2"/><text class="ts xs" x="56" y="28">编排 Agent</text>
+<rect class="box teal" x="175" y="18" width="11" height="11" rx="2"/><text class="ts xs" x="191" y="28">MCP 连接层</text>
+<rect class="box gray" x="320" y="18" width="11" height="11" rx="2"/><text class="ts xs" x="336" y="28">系统 / 端点</text>
+<rect class="box amber" x="455" y="18" width="11" height="11" rx="2"/><text class="ts xs" x="471" y="28">人工把关</text>
+
+<rect class="box gray" x="260" y="44" width="160" height="42" rx="8"/><text class="th xg" x="340" y="66" text-anchor="middle">用户</text><text class="ts xs" x="340" y="82" text-anchor="middle">分配目标，要结果</text>
+<line class="conn" x1="340" y1="86" x2="340" y2="102" marker-end="url(#arrow)"/>
+
+<rect class="box purple" x="190" y="104" width="300" height="54" rx="8"/><text class="th xp" x="340" y="127" text-anchor="middle">Cowork · 编排 Agent</text><text class="ts xpm" x="340" y="146" text-anchor="middle">规划 · 分解 · 调用 · 交付</text>
+<line class="conn" x1="340" y1="158" x2="340" y2="166" marker-end="url(#arrow)"/>
+
+<rect class="box teal" x="285" y="168" width="110" height="24" rx="12"/><text class="ts xt" x="340" y="184" text-anchor="middle">MCP 客户端</text>
+<line class="conn" x1="340" y1="192" x2="340" y2="204" marker-end="url(#arrow)"/>
+
+<rect class="box teal" x="70" y="206" width="540" height="54" rx="8"/><text class="th xt" x="340" y="228" text-anchor="middle">MCP 协议 · 统一连接标准</text><text class="ts xtm" x="340" y="247" text-anchor="middle">N×M 定制集成 → M+N，跨系统保持上下文</text>
+
+<line class="conn" x1="94" y1="260" x2="94" y2="284" marker-end="url(#arrow)"/>
+<line class="conn" x1="217" y1="260" x2="217" y2="284" marker-end="url(#arrow)"/>
+<line class="conn" x1="340" y1="260" x2="340" y2="284" marker-end="url(#arrow)"/>
+<line class="conn" x1="463" y1="260" x2="463" y2="284" marker-end="url(#arrow)"/>
+<line class="conn" x1="586" y1="260" x2="586" y2="284" marker-end="url(#arrow)"/>
+
+<rect class="box teal" x="40" y="286" width="108" height="58" rx="8"/><text class="th xt" x="94" y="312" text-anchor="middle">法务</text><text class="ts xtm" x="94" y="330" text-anchor="middle">MCP Server</text>
+<rect class="box teal" x="163" y="286" width="108" height="58" rx="8"/><text class="th xt" x="217" y="312" text-anchor="middle">销售 · CRM</text><text class="ts xtm" x="217" y="330" text-anchor="middle">MCP Server</text>
+<rect class="box teal" x="286" y="286" width="108" height="58" rx="8"/><text class="th xt" x="340" y="312" text-anchor="middle">营销</text><text class="ts xtm" x="340" y="330" text-anchor="middle">MCP Server</text>
+<rect class="box teal" x="409" y="286" width="108" height="58" rx="8"/><text class="th xt" x="463" y="312" text-anchor="middle">数据分析</text><text class="ts xtm" x="463" y="330" text-anchor="middle">MCP Server</text>
+<rect class="box teal" x="532" y="286" width="108" height="58" rx="8"/><text class="th xt" x="586" y="312" text-anchor="middle">文件 · 邮件</text><text class="ts xtm" x="586" y="330" text-anchor="middle">MCP Server</text>
+
+<line class="conn" x1="94" y1="344" x2="94" y2="358" marker-end="url(#arrow)"/>
+<line class="conn" x1="217" y1="344" x2="217" y2="358" marker-end="url(#arrow)"/>
+<line class="conn" x1="340" y1="344" x2="340" y2="358" marker-end="url(#arrow)"/>
+<line class="conn" x1="463" y1="344" x2="463" y2="358" marker-end="url(#arrow)"/>
+<line class="conn" x1="586" y1="344" x2="586" y2="358" marker-end="url(#arrow)"/>
+
+<rect class="box amber" x="40" y="360" width="600" height="30" rx="6"/><text class="th xa" x="340" y="379" text-anchor="middle">人工把关 · 重要写操作需用户确认</text>
+
+<line class="conn" x1="118" y1="390" x2="118" y2="438" marker-end="url(#arrow)"/>
+<line class="conn" x1="266" y1="390" x2="266" y2="438" marker-end="url(#arrow)"/>
+<line class="conn" x1="414" y1="390" x2="414" y2="438" marker-end="url(#arrow)"/>
+<line class="conn" x1="562" y1="390" x2="562" y2="438" marker-end="url(#arrow)"/>
+
+<rect x="40" y="410" width="600" height="72" rx="10" fill="none" stroke="#888780" stroke-width="1" stroke-dasharray="5 4"/>
+<text class="ts xs" x="54" y="428">后端系统 · system of record</text>
+<rect class="box gray" x="53" y="440" width="130" height="32" rx="8"/><text class="t xg" x="118" y="461" text-anchor="middle">合同库</text>
+<rect class="box gray" x="201" y="440" width="130" height="32" rx="8"/><text class="t xg" x="266" y="461" text-anchor="middle">CRM / ERP</text>
+<rect class="box gray" x="349" y="440" width="130" height="32" rx="8"/><text class="t xg" x="414" y="461" text-anchor="middle">邮箱 · IM</text>
+<rect class="box gray" x="497" y="440" width="130" height="32" rx="8"/><text class="t xg" x="562" y="461" text-anchor="middle">数据仓库</text>
+</svg>

@@ -1,0 +1,1551 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向家庭的工程手工书推荐，以及一般意义上的书与 AI 优势、边界和组合方法。">
+  <meta name="canonical-source" content="wiki/analyses/书与AI的优势边界及家庭组合.md">
+  <meta name="generated" content="2026-07-27">
+  <title>工程手工书推荐，以及“书 vs AI”对比</title>
+  <style>
+    :root {
+      --ivory:   #FAF9F5;
+      --white:   #FFFFFF;
+      --slate:   #141413;
+      --clay:    #D97757;
+      --clay-d:  #B85C3E;
+      --oat:     #E3DACC;
+      --olive:   #788C5D;
+      --rust:    #B04A3F;
+      --gray-150:#F0EEE6;
+      --gray-300:#D1CFC5;
+      --gray-500:#87867F;
+      --gray-700:#3D3D3A;
+
+      --serif: ui-serif, Georgia, "Times New Roman", serif;
+      --sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+      --radius-panel: 12px;
+      --radius-row: 8px;
+      --radius-pill: 22px;
+      --border: 1.5px solid var(--gray-300);
+      --border-strong: 2px solid var(--slate);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--ivory);
+    }
+
+    body {
+      margin: 0;
+      padding: 56px 24px 110px;
+      overflow-x: hidden;
+      background: var(--ivory);
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input,
+    summary { font: inherit; }
+
+    a {
+      color: var(--clay-d);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover { color: var(--clay); }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(217, 119, 87, 0.32);
+      outline-offset: 3px;
+    }
+
+    .sheet {
+      width: min(1160px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin-bottom: 10px;
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      position: relative;
+      max-width: 980px;
+      padding: 10px 0 34px;
+      border-bottom: var(--border-strong);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--gray-150);
+      color: var(--gray-700);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+    }
+
+    .tag.accent {
+      background: rgba(217, 119, 87, 0.13);
+      color: var(--clay-d);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      color: var(--slate);
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    h1 {
+      max-width: 880px;
+      margin-bottom: 18px;
+      font-size: clamp(46px, 7vw, 82px);
+      line-height: 1.02;
+    }
+
+    .hero .lead {
+      max-width: 780px;
+      margin: 0;
+      color: var(--gray-700);
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.4vw, 29px);
+      line-height: 1.42;
+    }
+
+    .hero-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      max-width: 760px;
+      margin-top: 22px;
+      padding-left: 14px;
+      border-left: 3px solid var(--clay);
+      color: var(--gray-700);
+      font-size: 13.5px;
+    }
+
+    .hero-note strong { color: var(--slate); }
+
+    .tldr {
+      margin: 34px 0 22px;
+      padding: 24px 26px;
+      border-radius: var(--radius-panel);
+      background: var(--slate);
+      color: var(--ivory);
+    }
+
+    .tldr-label {
+      margin-bottom: 9px;
+      color: var(--oat);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .tldr p {
+      max-width: 920px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(19px, 2.2vw, 25px);
+      line-height: 1.48;
+    }
+
+    .triad {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr) 32px minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+      margin-bottom: 56px;
+    }
+
+    .triad-card {
+      min-width: 0;
+      padding: 20px;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+    }
+
+    .triad-card.focus { border-top: 4px solid var(--clay); }
+    .triad-card.support { border-top: 4px solid var(--olive); }
+    .triad-card.result { border-top: 4px solid var(--slate); }
+
+    .triad-card .micro {
+      margin-bottom: 9px;
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .triad-card h2 {
+      margin-bottom: 7px;
+      font-size: 22px;
+    }
+
+    .triad-card p {
+      margin: 0;
+      color: var(--gray-700);
+      font-size: 13.5px;
+    }
+
+    .triad-join {
+      display: grid;
+      place-items: center;
+      color: var(--gray-500);
+      font-family: var(--serif);
+      font-size: 28px;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 230px;
+      gap: 52px;
+      align-items: start;
+    }
+
+    main { min-width: 0; }
+
+    section {
+      margin-bottom: 66px;
+      scroll-margin-top: 24px;
+    }
+
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .sec-head .idx {
+      color: var(--clay);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .sec-head h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+    }
+
+    .sec-head .count {
+      margin-left: auto;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--gray-150);
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .section-lead {
+      max-width: 720px;
+      margin: 0 0 22px;
+      color: var(--gray-700);
+      font-size: 16px;
+    }
+
+    .objects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .object {
+      min-width: 0;
+      min-height: 176px;
+      padding: 18px;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+    }
+
+    .object .letter {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 15px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gray-150);
+      color: var(--clay-d);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .object h3 {
+      margin-bottom: 6px;
+      font-size: 20px;
+    }
+
+    .object p {
+      margin: 0;
+      color: var(--gray-700);
+      font-size: 13px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      min-width: 810px;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--gray-300);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: var(--gray-150);
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover td { background: rgba(227, 218, 204, 0.22); }
+
+    td:first-child {
+      width: 86px;
+      color: var(--slate);
+      font-weight: 650;
+    }
+
+    td.ai { border-left: 3px solid rgba(120, 140, 93, 0.65); }
+    td.book { border-left: 3px solid rgba(217, 119, 87, 0.65); }
+
+    .strengths {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .strength {
+      padding: 20px;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+    }
+
+    .strength.book { border-top: 4px solid var(--clay); }
+    .strength.ai { border-top: 4px solid var(--olive); }
+
+    .strength .label {
+      margin-bottom: 7px;
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .strength h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .strength ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--gray-700);
+    }
+
+    .strength li + li { margin-top: 5px; }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .evidence {
+      min-width: 0;
+      padding: 18px;
+      border-left: 4px solid var(--oat);
+      border-radius: 0 var(--radius-row) var(--radius-row) 0;
+      background: var(--gray-150);
+    }
+
+    .evidence .source {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--clay-d);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .evidence p {
+      margin: 0;
+      color: var(--gray-700);
+      font-size: 13px;
+    }
+
+    .scope-note {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border: 1.5px solid var(--oat);
+      border-radius: var(--radius-row);
+      background: rgba(227, 218, 204, 0.28);
+      color: var(--gray-700);
+    }
+
+    .scope-note strong { color: var(--slate); }
+
+    .book-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 18px;
+    }
+
+    .filter-btn,
+    .print-btn {
+      min-height: 34px;
+      padding: 7px 12px;
+      border: var(--border);
+      border-radius: 7px;
+      background: var(--white);
+      color: var(--gray-700);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.03em;
+    }
+
+    .filter-btn:hover,
+    .print-btn:hover { background: var(--gray-150); }
+
+    .filter-btn.active {
+      border-color: var(--clay);
+      background: rgba(217, 119, 87, 0.12);
+      color: var(--clay-d);
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    details.book-card {
+      min-width: 0;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+      overflow: clip;
+    }
+
+    details.book-card[hidden] { display: none; }
+
+    details.book-card summary {
+      position: relative;
+      min-height: 148px;
+      padding: 18px 42px 16px 18px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    details.book-card summary::-webkit-details-marker { display: none; }
+
+    details.book-card summary::after {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      color: var(--gray-500);
+      content: "+";
+      font-family: var(--mono);
+      font-size: 18px;
+    }
+
+    details.book-card[open] summary::after { content: "−"; }
+    details.book-card[open] summary { background: rgba(240, 238, 230, 0.5); }
+
+    .book-rank {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .book-no {
+      color: var(--clay);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .stars {
+      color: var(--olive);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .book-card h3 {
+      margin-bottom: 8px;
+      font-size: 19px;
+      line-height: 1.35;
+    }
+
+    .book-card .brief {
+      margin: 0;
+      color: var(--gray-700);
+      font-size: 12.5px;
+    }
+
+    .book-body {
+      padding: 16px 18px 18px;
+      border-top: 1px solid var(--gray-300);
+      color: var(--gray-700);
+      font-size: 13px;
+    }
+
+    .book-body dl {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 7px 10px;
+      margin: 0 0 12px;
+    }
+
+    .book-body dt {
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .book-body dd {
+      min-width: 0;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .book-body p { margin: 10px 0 0; }
+
+    .pick-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .pick {
+      min-width: 0;
+      padding: 16px;
+      border-right: 1px solid var(--gray-300);
+    }
+
+    .pick:last-child { border-right: 0; }
+
+    .pick .k {
+      margin-bottom: 5px;
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pick .v {
+      color: var(--slate);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      counter-reset: week;
+    }
+
+    .week {
+      min-width: 0;
+      padding: 18px;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+      counter-increment: week;
+    }
+
+    .week::before {
+      display: block;
+      margin-bottom: 18px;
+      color: var(--clay);
+      content: "W" counter(week);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .week h3 {
+      margin-bottom: 7px;
+      font-size: 18px;
+    }
+
+    .week p {
+      margin: 0 0 10px;
+      color: var(--gray-700);
+      font-size: 12.5px;
+    }
+
+    .week .measure {
+      padding-top: 10px;
+      border-top: 1px solid var(--gray-300);
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      line-height: 1.55;
+      text-transform: uppercase;
+    }
+
+    .loop {
+      display: grid;
+      grid-template-columns: repeat(9, auto);
+      gap: 6px;
+      align-items: center;
+      margin: 18px 0 0;
+      padding: 16px;
+      overflow-x: auto;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--gray-150);
+    }
+
+    .loop .step {
+      padding: 7px 9px;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--gray-700);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .loop .arrow {
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .rule-card {
+      padding: 20px;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+    }
+
+    .rule-card.yes { border-top: 4px solid var(--olive); }
+    .rule-card.no { border-top: 4px solid var(--rust); }
+
+    .rule-card .label {
+      margin-bottom: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .rule-card.yes .label { color: var(--olive); }
+    .rule-card.no .label { color: var(--rust); }
+
+    .rule-card h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .rule-card p,
+    .rule-card ul {
+      margin-top: 0;
+      color: var(--gray-700);
+    }
+
+    .rule-card ul {
+      margin-bottom: 0;
+      padding-left: 18px;
+    }
+
+    .rule-card li + li { margin-top: 6px; }
+
+    blockquote.rule {
+      margin: 18px 0 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--clay);
+      border-radius: 0 var(--radius-row) var(--radius-row) 0;
+      background: var(--gray-150);
+      color: var(--slate);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .safety {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 22px;
+      padding: 22px;
+      border: 1.5px solid rgba(176, 74, 63, 0.42);
+      border-radius: var(--radius-panel);
+      background: rgba(176, 74, 63, 0.06);
+    }
+
+    .safety h3 {
+      margin-bottom: 5px;
+      color: var(--rust);
+      font-size: 22px;
+    }
+
+    .safety .side-note {
+      color: var(--gray-700);
+      font-size: 12px;
+    }
+
+    .safety ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--gray-700);
+    }
+
+    .safety li + li { margin-top: 7px; }
+
+    aside.toc {
+      position: sticky;
+      top: 28px;
+      align-self: start;
+      padding: 18px 18px 16px;
+      border: var(--border);
+      border-radius: var(--radius-panel);
+      background: var(--white);
+    }
+
+    .toc .label {
+      margin-bottom: 12px;
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .toc nav {
+      display: grid;
+      gap: 2px;
+      margin-bottom: 18px;
+    }
+
+    .toc nav a {
+      display: block;
+      padding: 7px 8px;
+      border-left: 1.5px solid var(--gray-300);
+      color: var(--gray-700);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .toc nav a:hover,
+    .toc nav a.active {
+      border-left-color: var(--clay);
+      background: rgba(217, 119, 87, 0.09);
+      color: var(--clay-d);
+    }
+
+    .toc-rule {
+      padding-top: 14px;
+      border-top: 1px solid var(--gray-300);
+    }
+
+    .toc-rule .mini {
+      margin-bottom: 7px;
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .toc-rule p {
+      margin: 0 0 12px;
+      color: var(--gray-700);
+      font-family: var(--serif);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .print-btn { width: 100%; }
+
+    .sources {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: source;
+    }
+
+    .sources li {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 10px;
+      align-items: baseline;
+      min-width: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--gray-300);
+      counter-increment: source;
+    }
+
+    .sources li::before {
+      color: var(--gray-500);
+      content: counter(source, decimal-leading-zero);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .sources a {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-size: 12.5px;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 76px;
+      padding-top: 20px;
+      border-top: var(--border-strong);
+      color: var(--gray-500);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 980px) {
+      .page {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      aside.toc {
+        position: static;
+        order: -1;
+        margin-bottom: 46px;
+      }
+
+      .toc nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .toc nav a { border-left: 0; border-bottom: 1.5px solid var(--gray-300); }
+      .toc nav a:hover,
+      .toc nav a.active { border-bottom-color: var(--clay); }
+      .toc-rule { display: none; }
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 36px 18px 80px; }
+      h1 { font-size: clamp(42px, 13vw, 62px); }
+      .triad { grid-template-columns: 1fr; }
+      .triad-join { min-height: 16px; }
+      .triad-join::before { content: "+"; }
+      .triad-join { font-size: 0; }
+      .triad-join::before { font-size: 24px; }
+      .objects,
+      .strengths,
+      .evidence-grid,
+      .book-grid,
+      .rules { grid-template-columns: 1fr; }
+      .week-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pick-strip { grid-template-columns: 1fr; }
+      .pick { border-right: 0; border-bottom: 1px solid var(--gray-300); }
+      .pick:last-child { border-bottom: 0; }
+      .safety { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      body { padding-inline: 14px; }
+      .tldr { padding: 20px; }
+      .toc nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .week-grid { grid-template-columns: 1fr; }
+      .sec-head { align-items: flex-start; }
+      .sec-head .count { display: none; }
+      details.book-card summary { min-height: 0; }
+      .book-body dl { grid-template-columns: 1fr; gap: 2px; }
+      .book-body dd { margin-bottom: 7px; }
+      footer { display: block; }
+      footer span { display: block; margin-bottom: 6px; }
+    }
+
+    @media print {
+      body {
+        padding: 24px;
+        background: var(--white);
+        color: #000;
+      }
+
+      .sheet { width: 100%; }
+      aside.toc,
+      .book-tools,
+      .print-btn { display: none !important; }
+      .page { display: block; }
+      section { break-inside: avoid-page; }
+      details.book-card { break-inside: avoid; }
+      details.book-card .book-body { display: block; }
+      a { color: inherit; text-decoration: none; }
+      .table-wrap { overflow: visible; }
+      table { min-width: 0; font-size: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header class="hero">
+      <div class="eyebrow">Research &amp; Learning · Family Guide</div>
+      <div class="hero-meta">
+        <span class="tag accent">对外分享版</span>
+        <span class="tag">2026-07-27</span>
+        <span class="tag">适合家长阅读</span>
+      </div>
+      <h1>书不是 AI 的前一代</h1>
+      <p class="lead">工程手工书可以成为孩子走进阅读的一扇门；更一般地，书负责铺设完整道路，AI 负责沿途答疑，实践让理解真正落地。</p>
+      <div class="hero-note">
+        <span><strong>范围说明：</strong>后文“书 vs AI”比较的是故事、文学、历史、科普、传记、图画书、工具书等广义的书，并不限定于工程手工书。</span>
+      </div>
+    </header>
+
+    <div class="tldr">
+      <div class="tldr-label">TL;DR</div>
+      <p>不必在书和 AI 之间二选一。更稳妥的顺序是：书建立知识骨架，孩子先独立思考，动手项目负责验证，AI 最后用于答疑和反馈；手机娱乐则另设固定边界。</p>
+    </div>
+
+    <div class="triad" aria-label="书、AI 与实践的分工">
+      <div class="triad-card focus">
+        <div class="micro">Foundation</div>
+        <h2>书 · 建骨架</h2>
+        <p>稳定、连贯、经过组织。让孩子沿着完整章节、论证或故事线持续深入。</p>
+      </div>
+      <div class="triad-join" aria-hidden="true">+</div>
+      <div class="triad-card support">
+        <div class="micro">Feedback</div>
+        <h2>AI · 做教练</h2>
+        <p>快速、互动、个性化。负责换角度解释、追问、出题和检查思路，但不代替核验。</p>
+      </div>
+      <div class="triad-join" aria-hidden="true">+</div>
+      <div class="triad-card result">
+        <div class="micro">Understanding</div>
+        <h2>实践 · 去验证</h2>
+        <p>制作、测试、记录、修改和复述，把“我好像懂了”变成可以观察和解释的能力。</p>
+      </div>
+    </div>
+
+    <div class="page">
+      <main>
+        <section id="boundary">
+          <div class="eyebrow">Definitions</div>
+          <div class="sec-head">
+            <span class="idx">01</span>
+            <h2>先把比较对象分清</h2>
+          </div>
+          <p class="section-lead">AI、手机、书和阅读并非同一类事物。混在一起比较，很容易把“用手机读电子书”和“刷推荐流”当成同一种屏幕行为。</p>
+
+          <div class="objects">
+            <article class="object">
+              <div class="letter">B</div>
+              <h3>书</h3>
+              <p>内容载体。可以是纸书或电子书，题材包括故事、文学、科普、历史、传记、图画书和工具书。</p>
+            </article>
+            <article class="object">
+              <div class="letter">A</div>
+              <h3>AI</h3>
+              <p>交互式工具。可以解释、总结、翻译、提问和生成内容；回答流畅，并不自动等于事实正确。</p>
+            </article>
+            <article class="object">
+              <div class="letter">P</div>
+              <h3>手机</h3>
+              <p>设备。既能承载 AI 与电子书，也能承载游戏、短视频、社交和通知。AI 学习与手机娱乐应分开评价。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="comparison">
+          <div class="eyebrow">Comparative View</div>
+          <div class="sec-head">
+            <span class="idx">02</span>
+            <h2>书的优势 vs AI 的优势</h2>
+            <span class="count">10 个维度</span>
+          </div>
+          <p class="section-lead">下面不是胜负表，而是任务分配表。每一行都回答：这个时刻，孩子更需要一条完整道路，还是一个即时助手？</p>
+
+          <div class="table-wrap" role="region" aria-label="书与 AI 对比表" tabindex="0">
+            <table>
+              <thead>
+                <tr>
+                  <th>维度</th>
+                  <th>AI 的优势</th>
+                  <th>书的优势</th>
+                  <th>各自局限</th>
+                  <th>推荐分工</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>回答速度</td>
+                  <td class="ai">即问即答，搜索、总结和翻译很快</td>
+                  <td class="book">需要查目录、索引或逐步阅读</td>
+                  <td>AI 可能快而不准；书查找较慢</td>
+                  <td>临时疑问先问 AI，关键事实回到书和来源核对</td>
+                </tr>
+                <tr>
+                  <td>内容结构</td>
+                  <td class="ai">能按问题临时组织答案、跨主题连接</td>
+                  <td class="book">作者预先搭建完整章节、论证、故事和知识顺序</td>
+                  <td>AI 对话容易碎片化；书不一定适配每位读者</td>
+                  <td>第一次系统学习一个主题，优先读完整的书</td>
+                </tr>
+                <tr>
+                  <td>个性化</td>
+                  <td class="ai">可调整年龄、难度、例子和表达方式</td>
+                  <td class="book">孩子可停顿、回读、做标记</td>
+                  <td>AI 可能过度简化；书不会主动判断是否理解</td>
+                  <td>看不懂时让 AI 换说法，但保留原文</td>
+                </tr>
+                <tr>
+                  <td>互动反馈</td>
+                  <td class="ai">可以追问、出题、扮演讨论对象和检查思路</td>
+                  <td class="book">不抢答，为预测、想象和独立推断留空间</td>
+                  <td>过早问 AI 容易依赖；书不能即时纠错</td>
+                  <td>先自己想和写，再让 AI 反馈</td>
+                </tr>
+                <tr>
+                  <td>深度</td>
+                  <td class="ai">适合快速概览和多角度比较</td>
+                  <td class="book">好书能让孩子长时间停留在同一问题或世界中</td>
+                  <td>AI 摘要可能“看似完整”；书需要时间</td>
+                  <td>需要形成长期理解时，以完整读书为主</td>
+                </tr>
+                <tr>
+                  <td>可靠性</td>
+                  <td class="ai">可要求列来源、比较多个解释</td>
+                  <td class="book">正规出版通常经过作者、编辑和审校，版本稳定</td>
+                  <td>AI 会产生幻觉；书也可能错误或过时</td>
+                  <td>关键事实同时核对原始资料，不迷信任一方</td>
+                </tr>
+                <tr>
+                  <td>时效性</td>
+                  <td class="ai">能处理较新的资料和快速变化的问题</td>
+                  <td class="book">经典内容和基础原理不依赖即时更新</td>
+                  <td>AI 的新信息也可能未经证实；书更新较慢</td>
+                  <td>新动态用 AI 找线索，基础原理用书打底</td>
+                </tr>
+                <tr>
+                  <td>注意力</td>
+                  <td class="ai">互动能降低开始任务的门槛</td>
+                  <td class="book">纸书和专用阅读器通常干扰更少</td>
+                  <td>AI 易不断跳题；难书可能让孩子放弃</td>
+                  <td>深读时移开手机，读后再集中问 AI</td>
+                </tr>
+                <tr>
+                  <td>想象体验</td>
+                  <td class="ai">可生成图片、语音、角色对话和模拟情境</td>
+                  <td class="book">文学与故事让读者主动建构人物、场景和意义</td>
+                  <td>生成内容可能替代孩子自己的想象</td>
+                  <td>先读和想象，再让 AI 提供不同解释</td>
+                </tr>
+                <tr>
+                  <td>长期能力</td>
+                  <td class="ai">培养提问、比较和工具使用能力</td>
+                  <td class="book">训练持续注意、语言、推理与独立判断</td>
+                  <td>只用任一方都会偏科</td>
+                  <td>书打底—独立思考—实践—AI 反馈—孩子复述</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="strengths">
+            <article class="strength book">
+              <div class="label">Book · Best at</div>
+              <h3>连贯、稳定、经过组织</h3>
+              <ul>
+                <li>建立知识骨架与完整背景</li>
+                <li>训练语言、想象与持续注意</li>
+                <li>保留一份可回读、可引用的稳定文本</li>
+              </ul>
+            </article>
+            <article class="strength ai">
+              <div class="label">AI · Best at</div>
+              <h3>快速、互动、个性化</h3>
+              <ul>
+                <li>针对当前难点换一种说法</li>
+                <li>提供追问、反馈与练习</li>
+                <li>辅助翻译、比较、计时和记录</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="evidence-grid" aria-label="研究证据摘要">
+            <article class="evidence">
+              <a class="source" href="https://www.oecd.org/en/publications/oecd-digital-education-outlook-2026_062a7394-en.html" target="_blank" rel="noopener noreferrer">OECD · 2026</a>
+              <p>设计良好的 AI 辅导可能促进学习，但通用 AI 提高任务表现，并不自动等于知识获得；过度认知卸载可能削弱元认知投入。</p>
+            </article>
+            <article class="evidence">
+              <a class="source" href="https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research?hub=67098" target="_blank" rel="noopener noreferrer">UNESCO</a>
+              <p>教育中的生成式 AI 应维护人的能动性、责任与高阶思维，适合作为辅助，而不是替代学习者。</p>
+            </article>
+            <article class="evidence">
+              <a class="source" href="https://eric.ed.gov/?id=EJ1301549" target="_blank" rel="noopener noreferrer">Meta-analysis · 39 studies</a>
+              <p>同样故事只是从纸面移到数字设备时，儿童纸质阅读理解总体更好；但与故事一致的数字增强也可能产生帮助。</p>
+            </article>
+            <article class="evidence">
+              <a class="source" href="https://pubmed.ncbi.nlm.nih.gov/37042116/" target="_blank" rel="noopener noreferrer">Vocabulary meta-analysis</a>
+              <p>屏幕并非天然无益：教育性屏幕内容在适当条件下可以支持儿童词汇学习。</p>
+            </article>
+          </div>
+
+          <div class="scope-note">
+            <strong>证据边界：</strong>这些研究不能推出“任何书都优于任何 AI”。更稳妥的结论是，任务目的、内容质量、互动方式，以及是否挤占睡眠、运动和面对面交流，共同决定结果。
+          </div>
+        </section>
+
+        <section id="books">
+          <div class="eyebrow">Curated Bookshelf</div>
+          <div class="sec-head">
+            <span class="idx">03</span>
+            <h2>工程手工书：把兴趣变成入口</h2>
+            <span class="count" id="book-count">8 本</span>
+          </div>
+          <p class="section-lead">工程手工书不是“书”的全部，只是特别适合车、船、火箭和飞机爱好者的一类入口。点击分类筛选，再展开卡片查看 ISBN、适用场景与局限。</p>
+
+          <div class="book-tools" role="group" aria-label="按兴趣筛选书籍">
+            <button class="filter-btn active" type="button" data-filter="all">全部</button>
+            <button class="filter-btn" type="button" data-filter="air">飞机 / 火箭</button>
+            <button class="filter-btn" type="button" data-filter="water">轮船 / 水动力</button>
+            <button class="filter-btn" type="button" data-filter="vehicle">交通工具</button>
+            <button class="filter-btn" type="button" data-filter="build">结构搭建</button>
+            <button class="filter-btn" type="button" data-filter="bridge">阅读衔接</button>
+          </div>
+
+          <div class="book-grid" id="book-grid">
+            <details class="book-card" data-tags="air water vehicle build" open>
+              <summary>
+                <div class="book-rank"><span class="book-no">01</span><span class="stars">★★★★★</span></div>
+                <h3>《DK科学创想实验室·室内篇》</h3>
+                <p class="brief">综合首选：纸飞机、喷气赛车、动力纸船与水轮，材料门槛低。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>5–12 岁</dd>
+                  <dt>ISBN</dt><dd>9787556282272</dd>
+                  <dt>成人协助</dt><dd>低至中</dd>
+                </dl>
+                <p>适合第一次接触工程手工。不要替孩子把成品做得太完美，应保留失败、测试与重新调整的机会。</p>
+                <p><a href="https://search.megbook.com.hk/mall/detail.jsp?proID=4132876" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+
+            <details class="book-card" data-tags="air water build">
+              <summary>
+                <div class="book-rank"><span class="book-no">02</span><span class="stars">★★★★★</span></div>
+                <h3>《DK科学创想实验室·户外篇》</h3>
+                <p class="brief">把制作升级为户外测试，包括水动力火箭等需要更大空间的项目。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>5–12 岁</dd>
+                  <dt>ISBN</dt><dd>9787556282289</dd>
+                  <dt>成人协助</dt><dd>中至高</dd>
+                </dl>
+                <p>适合比较高度、距离和稳定性。压力与发射类项目必须由成人在空旷场地组织。</p>
+                <p><a href="https://product.m.dangdang.com/12416213947.html" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+
+            <details class="book-card" data-tags="air build">
+              <summary>
+                <div class="book-rank"><span class="book-no">03</span><span class="stars">★★★★☆</span></div>
+                <h3>《玩转火箭的70个小实验》</h3>
+                <p class="brief">主题集中：火箭、航天器、发射台，以及推力、重力与阻力。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>7 岁以上</dd>
+                  <dt>ISBN</dt><dd>9787571012694</dd>
+                  <dt>成人协助</dt><dd>中至高</dd>
+                </dl>
+                <p>适合已经明确“只想研究火箭”的孩子。项目难度不一，家长应提前筛选。</p>
+                <p><a href="https://e.dangdang.com/touch/products/1901293235.html" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+
+            <details class="book-card" data-tags="air vehicle">
+              <summary>
+                <div class="book-rank"><span class="book-no">04</span><span class="stars">★★★★☆</span></div>
+                <h3>《世界冠军纸飞机》</h3>
+                <p class="brief">不只教折法，还讲飞行原理与调校，最适合反复测试。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>7–12 岁</dd>
+                  <dt>ISBN</dt><dd>9789869534291</dd>
+                  <dt>版本</dt><dd>繁体中文版</dd>
+                </dl>
+                <p>一次只改变机翼角度、重心或投掷方式，再记录距离与稳定性。简体替代可考虑《孩子都喜欢的经典纸飞机110款》。</p>
+                <p><a href="https://www.books.com.tw/products/0010773599" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+
+            <details class="book-card" data-tags="air water vehicle">
+              <summary>
+                <div class="book-rank"><span class="book-no">05</span><span class="stars">★★★★☆</span></div>
+                <h3><em>Origami Transport</em></h3>
+                <p class="brief">35 种汽车、火车、轮船和飞机折纸，四类交通工具覆盖最完整。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>6 岁以上</dd>
+                  <dt>ISBN</dt><dd>9781800654228</dd>
+                  <dt>语言</dt><dd>英文图解</dd>
+                </dl>
+                <p>适合训练空间想象、顺序执行和精细动作；工程原理较少，最好与科学实验书搭配。</p>
+                <p><a href="https://www.simonandschuster.com/books/Origami-Transport/Mari-Ono/9781800654228" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+
+            <details class="book-card" data-tags="water build vehicle">
+              <summary>
+                <div class="book-rank"><span class="book-no">06</span><span class="stars">★★★★☆</span></div>
+                <h3>《无所不能的纸箱游戏》</h3>
+                <p class="brief">制作海盗船等大型纸箱结构，体验测量、连接、支撑和稳定性。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>7–12 岁</dd>
+                  <dt>ISBN</dt><dd>9787559625724</dd>
+                  <dt>成人协助</dt><dd>中</dd>
+                </dl>
+                <p>适合喜欢搭建“大东西”的孩子；占用空间较多，裁刀应由成人操作。</p>
+                <p><a href="https://www.megbook.com.hk/mall/detail.jsp?proID=3271012" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+
+            <details class="book-card" data-tags="air vehicle build">
+              <summary>
+                <div class="book-rank"><span class="book-no">07</span><span class="stars">★★★☆☆</span></div>
+                <h3>《让孩子痴迷的趣味科学游戏》</h3>
+                <p class="brief">气体火箭、滑翔机、纸直升机等项目丰富，适合作为综合项目库。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>4–10 岁为主</dd>
+                  <dt>ISBN</dt><dd>9787507423198</dd>
+                  <dt>出版提示</dt><dd>旧版，购买前核对完整性</dd>
+                </dl>
+                <p>覆盖面广，但知识组织不如主题专书集中，适合随兴趣挑项目。</p>
+                <p><a href="https://book.douban.com/subject/6885908/" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+
+            <details class="book-card" data-tags="bridge build">
+              <summary>
+                <div class="book-rank"><span class="book-no">08</span><span class="stars">★★★☆☆</span></div>
+                <h3>《教学生做可爱小书》</h3>
+                <p class="brief">把工程过程做成火箭试验册、轮船载重记录或未来汽车图鉴。</p>
+              </summary>
+              <div class="book-body">
+                <dl>
+                  <dt>建议年龄</dt><dd>6 岁以上</dd>
+                  <dt>ISBN</dt><dd>9787107349522</dd>
+                  <dt>定位</dt><dd>阅读与手工的桥梁</dd>
+                </dl>
+                <p>它不是交通工具制作书，却能把制作、绘图、记录和表达连在一起。</p>
+                <p><a href="https://www.pep.com.cn/products/zhytu/rjtsh/202012/t20201224_1962945.shtml" target="_blank" rel="noopener noreferrer">查看书目信息</a></p>
+              </div>
+            </details>
+          </div>
+
+          <div class="pick-strip" aria-label="按预算选书">
+            <div class="pick">
+              <div class="k">只买一本</div>
+              <div class="v">先选《DK科学创想实验室·室内篇》</div>
+            </div>
+            <div class="pick">
+              <div class="k">买两本</div>
+              <div class="v">再加《户外篇》，覆盖室内与户外</div>
+            </div>
+            <div class="pick">
+              <div class="k">第三本</div>
+              <div class="v">根据最强兴趣，在火箭或纸飞机中二选一</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="practice">
+          <div class="eyebrow">Four-week Starter</div>
+          <div class="sec-head">
+            <span class="idx">04</span>
+            <h2>四周，把手工变成工程学习</h2>
+          </div>
+          <p class="section-lead">目标不只是做出一个像样的成品，而是让孩子体验预测、测试、记录和迭代。</p>
+
+          <div class="week-grid">
+            <article class="week">
+              <h3>纸飞机</h3>
+              <p>问题：怎样飞得更远或更稳？</p>
+              <div class="measure">变量：机翼宽度或重心<br>记录：距离、偏航方向</div>
+            </article>
+            <article class="week">
+              <h3>喷气赛车</h3>
+              <p>问题：怎样跑得更远、更直？</p>
+              <div class="measure">变量：车轮大小或重量<br>记录：距离、行驶方向</div>
+            </article>
+            <article class="week">
+              <h3>纸船 / 动力船</h3>
+              <p>问题：怎样载更多而不沉？</p>
+              <div class="measure">变量：船底宽度或载荷位置<br>记录：载重、航行距离</div>
+            </article>
+            <article class="week">
+              <h3>水动力火箭</h3>
+              <p>问题：怎样飞得更稳定？</p>
+              <div class="measure">变量：尾翼大小或数量<br>记录：稳定性、相对高度</div>
+            </article>
+          </div>
+
+          <div class="loop" aria-label="简化工程循环">
+            <span class="step">提出问题</span><span class="arrow">→</span>
+            <span class="step">画图预测</span><span class="arrow">→</span>
+            <span class="step">读书</span><span class="arrow">→</span>
+            <span class="step">制作测试</span><span class="arrow">→</span>
+            <span class="step">记录</span><span class="arrow">→</span>
+            <span class="step">只改一个变量</span><span class="arrow">→</span>
+            <span class="step">再测试</span><span class="arrow">→</span>
+            <span class="step">AI 答疑</span><span class="arrow">→</span>
+            <span class="step">孩子复述</span>
+          </div>
+        </section>
+
+        <section id="rules">
+          <div class="eyebrow">Family Media Rules</div>
+          <div class="sec-head">
+            <span class="idx">05</span>
+            <h2>手机可以讲条件，但别把书当过路费</h2>
+          </div>
+
+          <div class="rules">
+            <article class="rule-card yes">
+              <div class="label">Recommended</div>
+              <h3>先完成，再进入固定时段</h3>
+              <ul>
+                <li>当天娱乐手机总量预先固定</li>
+                <li>先完成作业、洗漱和 10–15 分钟读书或工程项目</li>
+                <li>AI 工具与娱乐应用分开入口</li>
+                <li>两周复盘一次，再逐步弱化条件绑定</li>
+              </ul>
+            </article>
+            <article class="rule-card no">
+              <div class="label">Avoid</div>
+              <h3>读一分钟，换一分钟手机</h3>
+              <ul>
+                <li>手机总量容易越换越多</li>
+                <li>孩子会把读书理解为获取手机的代价</li>
+                <li>每天都要围绕分钟数讨价还价</li>
+                <li>可能挤占睡眠、运动和面对面交流</li>
+              </ul>
+            </article>
+          </div>
+
+          <blockquote class="rule">每天有一个预先固定的娱乐手机时段。在此之前，先完成作业、洗漱和 10–15 分钟读书或工程项目；多读可以获得认可，但不无限增加当天手机时间。</blockquote>
+          <div class="scope-note">
+            <strong>题材不设限：</strong>这 10–15 分钟可以读故事、图画书、文学、历史、科普或工程书。工程题材是兴趣入口，不是阅读范围的上限。
+          </div>
+        </section>
+
+        <section id="safety">
+          <div class="eyebrow">Safety</div>
+          <div class="sec-head">
+            <span class="idx">06</span>
+            <h2>工程实验的安全底线</h2>
+          </div>
+
+          <div class="safety">
+            <div>
+              <h3>失败可以，冒险不行</h3>
+              <div class="side-note">测试结果可以意外，安全边界必须预先确定。</div>
+            </div>
+            <ul>
+              <li>裁刀、热熔胶枪、针和强力订书工具由成人操作。</li>
+              <li>水火箭、弹射装置和任何有压力的实验只在空旷户外进行，成人负责发射并佩戴护目镜。</li>
+              <li>不朝向人、动物、道路、车辆、建筑物或电线。</li>
+              <li>不自行加入燃烧、爆炸或不明化学反应；只按正规出版物的安全说明使用材料。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="sources">
+          <div class="eyebrow">References</div>
+          <div class="sec-head">
+            <span class="idx">07</span>
+            <h2>研究与家庭媒体资料</h2>
+          </div>
+          <p class="section-lead">图书来源已附在各书卡片中。以下为“书、AI 与数字媒介”部分的主要研究依据，均检索于 2026-07-27。</p>
+
+          <ol class="sources">
+            <li><a href="https://www.oecd.org/en/publications/oecd-digital-education-outlook-2026_062a7394-en.html" target="_blank" rel="noopener noreferrer">OECD Digital Education Outlook 2026</a></li>
+            <li><a href="https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research?hub=67098" target="_blank" rel="noopener noreferrer">UNESCO · Guidance for Generative AI in Education and Research</a></li>
+            <li><a href="https://eric.ed.gov/?id=EJ1301549" target="_blank" rel="noopener noreferrer">A Meta-Analysis of Children’s Reading Comprehension of Digital and Paper Books</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/37042116/" target="_blank" rel="noopener noreferrer">Screen media exposure and children’s vocabulary learning: a meta-analysis</a></li>
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7225047/" target="_blank" rel="noopener noreferrer">Print exposure and reading comprehension</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/10589297/" target="_blank" rel="noopener noreferrer">A meta-analytic review of experiments examining the effects of extrinsic rewards on intrinsic motivation</a></li>
+            <li><a href="https://www.healthychildren.org/English/family-life/Media/Pages/helping-kids-thrive-in-a-digital-world-AAP-policy-explained.aspx" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics · Helping Kids Thrive in a Digital World</a></li>
+            <li><a href="https://www.healthychildren.org/English/family-life/Media/Pages/How-to-Make-a-Family-Media-Use-Plan.aspx" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics · Family Media Plan</a></li>
+          </ol>
+        </section>
+      </main>
+
+      <aside class="toc" aria-label="页面导航">
+        <div class="label">On this page</div>
+        <nav>
+          <a href="#boundary">比较对象</a>
+          <a href="#comparison">书 vs AI</a>
+          <a href="#books">工程书单</a>
+          <a href="#practice">四周计划</a>
+          <a href="#rules">手机规则</a>
+          <a href="#safety">安全底线</a>
+          <a href="#sources">资料来源</a>
+        </nav>
+        <div class="toc-rule">
+          <div class="mini">One-line rule</div>
+          <p>书建骨架，AI 做反馈，实践去验证，手机娱乐另设边界。</p>
+          <button class="print-btn" type="button" id="print-btn">打印 / 存为 PDF</button>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <span>来源：《书与 AI 的优势边界及家庭组合》</span>
+      <span>生成日期：2026-07-27 · 外部链接检索于 2026-07-27</span>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+      const cards = Array.from(document.querySelectorAll('.book-card'));
+      const count = document.getElementById('book-count');
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const filter = button.dataset.filter;
+          let visible = 0;
+
+          buttons.forEach((item) => item.classList.toggle('active', item === button));
+          cards.forEach((card) => {
+            const tags = (card.dataset.tags || '').split(/\s+/);
+            const show = filter === 'all' || tags.includes(filter);
+            card.hidden = !show;
+            if (show) visible += 1;
+          });
+
+          count.textContent = `${visible} 本`;
+        });
+      });
+
+      const tocLinks = Array.from(document.querySelectorAll('.toc nav a'));
+      const sections = tocLinks
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (!visible) return;
+          tocLinks.forEach((link) => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`);
+          });
+        }, { rootMargin: '-18% 0px -68% 0px', threshold: [0, 0.2, 0.5] });
+
+        sections.forEach((section) => observer.observe(section));
+      }
+
+      document.getElementById('print-btn')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</body>
+</html>

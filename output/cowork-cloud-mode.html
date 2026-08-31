@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Cowork 云模式 · 详细介绍</title>
+<style>
+  :root{
+    --bg:#faf7f2;
+    --surface:#ffffff;
+    --ink:#1d1a16;
+    --ink-2:#4a453d;
+    --muted:#8a8378;
+    --line:#e7e0d5;
+    --line-2:#efe9df;
+    --accent:#c8613f;      /* clay */
+    --accent-soft:#f6e7de;
+    --accent-ink:#8f3d1f;
+    --blue:#3a6b8c;
+    --blue-soft:#e4edf3;
+    --green:#4b7a52;
+    --green-soft:#e5f0e6;
+    --amber:#a9791f;
+    --amber-soft:#f6ecd6;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(29,26,22,.04),0 8px 28px rgba(29,26,22,.06);
+    --maxw:920px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.72;font-size:16px;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    background:linear-gradient(160deg,#fbf3ec 0%,#f7ede2 48%,#f3e6d6 100%);
+    border-bottom:1px solid var(--line);padding:64px 0 52px;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);
+    color:var(--accent-ink);font-size:13px;font-weight:600;padding:6px 13px;border-radius:999px;
+    border:1px solid #ecd4c6;letter-spacing:.02em;
+  }
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+  h1{font-size:2.55rem;line-height:1.12;margin:20px 0 12px;letter-spacing:-.02em;font-weight:800}
+  h1 .thin{color:var(--muted);font-weight:600}
+  .lede{font-size:1.16rem;color:var(--ink-2);max-width:660px;margin:0}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .chip{background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:13.5px;color:var(--ink-2)}
+  .chip b{color:var(--ink);font-weight:700}
+
+  /* ---------- TOC ---------- */
+  nav.toc{position:sticky;top:0;z-index:20;background:rgba(250,247,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding:11px 22px;scrollbar-width:none}
+  nav.toc .wrap::-webkit-scrollbar{display:none}
+  nav.toc a{white-space:nowrap;font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:6px 12px;border-radius:8px;font-weight:500;transition:.15s}
+  nav.toc a:hover{background:var(--accent-soft);color:var(--accent-ink)}
+
+  /* ---------- Sections ---------- */
+  section{padding:46px 0;border-bottom:1px solid var(--line-2)}
+  .kicker{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+  h2{font-size:1.62rem;margin:0 0 6px;letter-spacing:-.01em;font-weight:750}
+  .sub{color:var(--muted);margin:0 0 22px;font-size:15px}
+  p{margin:0 0 14px}
+  strong{font-weight:700}
+  a.inline{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px}
+
+  /* ---------- Stat tiles ---------- */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 4px}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px;box-shadow:var(--shadow)}
+  .tile .n{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .tile .l{font-size:12.5px;color:var(--muted);margin-top:7px}
+
+  /* ---------- Cards ---------- */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 8px;font-size:1.12rem;display:flex;align-items:center;gap:10px}
+  .card p{font-size:14.5px;color:var(--ink-2);margin:0}
+  .ic{width:30px;height:30px;flex:0 0 30px;border-radius:9px;display:grid;place-items:center;font-size:16px}
+  .ic.a{background:var(--accent-soft)}
+  .ic.b{background:var(--blue-soft)}
+  .ic.c{background:var(--green-soft)}
+  .ic.d{background:var(--amber-soft)}
+  .quote{margin-top:12px;padding:11px 14px;background:var(--bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink-2);font-style:italic}
+
+  /* ---------- Architecture diagram ---------- */
+  .arch{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;box-shadow:var(--shadow);margin-top:6px}
+  .arch-row{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:8px}
+  .node{border-radius:12px;padding:16px 14px;text-align:center;border:1.5px solid}
+  .node .t{font-weight:750;font-size:15px}
+  .node .d{font-size:12.5px;color:var(--ink-2);margin-top:5px;line-height:1.5}
+  .node.cloud{background:linear-gradient(150deg,#f6e7de,#fbf3ec);border-color:#e6c3af}
+  .node.bridge{background:var(--blue-soft);border-color:#b9d0de}
+  .node.local{background:var(--green-soft);border-color:#bcd6bf}
+  .arrow{color:var(--muted);font-size:22px;text-align:center;font-weight:700}
+  .arch-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:16px}
+  @media(max-width:680px){.arch-row{grid-template-columns:1fr;gap:4px}.arrow{transform:rotate(90deg);padding:2px 0}}
+
+  /* ---------- Matrix table ---------- */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+  th,td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--line-2)}
+  thead th{background:#f4ede3;font-size:12.5px;letter-spacing:.03em;color:var(--ink-2);text-transform:uppercase;font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  td.feat{font-weight:600;color:var(--ink)}
+  .yes{color:var(--green);font-weight:700}
+  .no{color:var(--muted)}
+  .partial{color:var(--amber);font-weight:600}
+
+  /* ---------- Flow steps (upload) ---------- */
+  .steps{counter-reset:s;display:grid;gap:12px;margin-top:4px}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:15px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+  .step .num{counter-increment:s;width:34px;height:34px;border-radius:10px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+  .step .num::before{content:counter(s)}
+  .step h4{margin:2px 0 5px;font-size:1.02rem}
+  .step p{font-size:14px;color:var(--ink-2);margin:0}
+
+  /* ---------- Callout ---------- */
+  .callout{background:linear-gradient(150deg,#f2f7f2,#e9f2ea);border:1px solid #cfe1d1;border-radius:var(--radius);padding:22px 24px;margin-top:8px}
+  .callout .lab{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+  .callout p{margin:0;font-size:15.5px;color:#26402a}
+  .callout b{color:#183a1d}
+
+  /* ---------- Limits ---------- */
+  .limits{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .limit{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+  .limit .m{color:var(--amber);font-weight:800;font-size:16px;line-height:1.4}
+  .limit p{margin:0;font-size:13.8px;color:var(--ink-2)}
+  .limit b{color:var(--ink)}
+
+  /* ---------- Sources / footer ---------- */
+  .sources{font-size:13.5px;color:var(--ink-2)}
+  .sources li{margin-bottom:7px}
+  .sources a{color:var(--accent-ink)}
+  footer{padding:30px 0 60px;color:var(--muted);font-size:12.5px}
+
+  @media(max-width:680px){
+    h1{font-size:2rem}
+    .tiles{grid-template-columns:1fr 1fr}
+    .cards,.limits{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge"><span class="dot"></span>2026-07-07 上线 · Web / iOS / Android Beta</span>
+    <h1>Claude Cowork <span class="thin">云模式</span></h1>
+    <p class="lede">从「桌面专属」到「云端常驻」——任务在你关机后照跑,会话可跨设备接续,桌面 app 退居为够到本地文件的「桥」。</p>
+    <div class="meta-row">
+      <span class="chip"><b>定位</b> · 面向非技术知识工作者的 agent</span>
+      <span class="chip"><b>运行处</b> · Anthropic 服务器隔离环境</span>
+      <span class="chip"><b>起始计划</b> · Max,数周内扩展</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#what">是什么变了</a>
+    <a href="#arch">云架构</a>
+    <a href="#caps">四大能力</a>
+    <a href="#matrix">平台矩阵</a>
+    <a href="#folder">处理本地文件夹</a>
+    <a href="#upload">会一次性上传吗</a>
+    <a href="#tools">工具与连接</a>
+    <a href="#limits">限制</a>
+    <a href="#why">战略与数据</a>
+    <a href="#src">溯源</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- WHAT CHANGED -->
+<section id="what"><div class="wrap">
+  <p class="kicker">发生了什么</p>
+  <h2>一次定位级的迁移</h2>
+  <p class="sub">2026 年 7 月 7 日,Anthropic 把 Cowork 从桌面端搬到云。</p>
+  <p>此前 Cowork 只在桌面运行,定时任务要求电脑一直开机。迁移后,<strong>核心计算跑在 Anthropic 服务器的隔离环境里</strong>,"会话和文件保存到你的 Claude 账户";任务在关机后继续,你可以从任何设备打开同一个会话。同时,Cowork 首次登上 <strong>web、iOS、Android</strong>(均为 beta),并把 Chat 与 Cowork 合并进同一个界面。</p>
+  <div class="tiles">
+    <div class="tile"><div class="n">2026-07-07</div><div class="l">桌面 → 云 上线日</div></div>
+    <div class="tile"><div class="n">4 端</div><div class="l">Desktop · Web · iOS · Android</div></div>
+    <div class="tile"><div class="n">Max 起</div><div class="l">数周内扩至其它付费计划</div></div>
+    <div class="tile"><div class="n">×2 至 8/5</div><div class="l">限时用量翻倍促销</div></div>
+  </div>
+</div></section>
+
+<!-- ARCHITECTURE -->
+<section id="arch"><div class="wrap">
+  <p class="kicker">架构本质</p>
+  <h2>算力在云端,本地靠「桥」够到</h2>
+  <p class="sub">桌面 app 的角色被降级:只在 Claude 需要碰你本地文件 / 浏览器 / 电脑功能时才充当通道。</p>
+  <div class="arch">
+    <div class="arch-row">
+      <div class="node cloud">
+        <div class="t">☁️ 云端 Claude</div>
+        <div class="d">Anthropic 服务器<br>隔离环境 · 绑定你的账户<br>后台常驻运行</div>
+      </div>
+      <div class="arrow">⇄</div>
+      <div class="node bridge">
+        <div class="t">🖥️ 桌面 App(桥)</div>
+        <div class="d">仅在开启且在线时导通<br>按需暴露本地资源</div>
+      </div>
+      <div class="arrow">⇄</div>
+      <div class="node local">
+        <div class="t">📁 你的电脑</div>
+        <div class="d">本地文件夹 · 浏览器<br>本地连接器 · computer use</div>
+      </div>
+    </div>
+    <p class="arch-note">Web / 移动端没有这座桥 → 只能发起、监督、取回任务,够不到本地文件。</p>
+  </div>
+</div></section>
+
+<!-- CAPABILITIES -->
+<section id="caps"><div class="wrap">
+  <p class="kicker">云模式带来的</p>
+  <h2>四个关键能力</h2>
+  <p class="sub">后台执行是最大卖点,其余三项围绕「跨设备、少打扰」展开。</p>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="ic a">⚡</span>后台持续执行</h3>
+      <p>关掉笔记本任务照跑,可从任意设备打开同一会话取回成品。定时任务全在远端跑,不需要电脑醒着。</p>
+      <div class="quote">"把周一客户准备排在早上 6 点:Claude 处理邮件、转录、近期新闻,生成 briefing,跟进邮件拟好但不发送。"</div>
+    </div>
+    <div class="card">
+      <h3><span class="ic b">🗓️</span>定时调度</h3>
+      <p>在会话里输入 <code>/schedule</code> 设置周期或定点任务。"定时任务在远端运行,不需要你的电脑开机或桌面 app 打开。"</p>
+    </div>
+    <div class="card">
+      <h3><span class="ic c">🔀</span>统一界面</h3>
+      <p>Web 与桌面上 Chat 与 Cowork 合并为一个视图(弹窗切换),projects 与 artifacts 在两者间无缝流转。</p>
+    </div>
+    <div class="card">
+      <h3><span class="ic d">✅</span>审批式运行</h3>
+      <p>无需全程盯着——agent 只在需要你做决策时通知,手机上一键批准。有后果的操作保留人类监督。</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- PLATFORM MATRIX -->
+<section id="matrix"><div class="wrap">
+  <p class="kicker">能力边界</p>
+  <h2>桌面 vs 云 / 移动</h2>
+  <p class="sub">桌面仍是「deep work 完整版」;web / 移动主打发起与监督。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>能力</th><th>桌面 App</th><th>Web / 移动(Beta)</th></tr></thead>
+      <tbody>
+        <tr><td class="feat">发起 / 恢复 / 监督任务</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td class="feat">后台云执行 · 关机续跑</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td class="feat">定时任务 /schedule</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td class="feat">本地文件 / 本地连接器</td><td class="yes">✓</td><td class="no">✕(够不到)</td></tr>
+        <tr><td class="feat">浏览器访问 · computer use</td><td class="yes">✓</td><td class="no">✕</td></tr>
+        <tr><td class="feat">Live artifacts(表格/演示/文档)</td><td class="yes">✓</td><td class="no">暂桌面独占</td></tr>
+        <tr><td class="feat">本地 MCP server</td><td class="yes">✓</td><td class="no">✕</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<!-- LOCAL FOLDER -->
+<section id="folder"><div class="wrap">
+  <p class="kicker">你最关心的</p>
+  <h2>怎么让它处理本地文件夹</h2>
+  <p class="sub">授权连接 → 桌面 app 当桥 → Claude 按需读取。</p>
+  <p>在 Claude 桌面 app 里点 <strong>「Add folder」</strong>(添加文件夹),选中目标目录,它(及子目录)就成为本次会话的可读写上下文。之后直接说"处理 XX 文件夹里的文件"即可,不用逐个上传。前提是<strong>桌面 app 开着且在线</strong>——关掉或纯从手机/web 端,这条桥就断了。</p>
+  <div class="cards" style="margin-top:6px">
+    <div class="card"><h3><span class="ic b">📌</span>读是快照</h3><p>读到的是那一刻的副本;你之后改了文件不会自动同步,需要重新读。</p></div>
+    <div class="card"><h3><span class="ic d">✍️</span>写回要确认</h3><p>结果可写回你指定路径,但覆盖/删除会先问你。删除受限:只能把文件挪进 <code>_to_delete/</code> 让你自己清。</p></div>
+  </div>
+</div></section>
+
+<!-- UPLOAD -->
+<section id="upload"><div class="wrap">
+  <p class="kicker">隐私要点</p>
+  <h2>文件夹会一次性上传到云吗?</h2>
+  <div class="callout">
+    <div class="lab">结论</div>
+    <p><b>不会。</b>连接文件夹只是「授权」,不等于上传。上传是<b>按需、逐文件</b>发生的——只有 Claude 为完成任务真正要读某个文件时,才把<b>那一个文件</b>的副本暂存到云端隔离工作区。没被点名读到的文件,不会离开你的电脑。</p>
+  </div>
+  <div class="steps" style="margin-top:18px">
+    <div class="step"><div class="num"></div><div><h4>授权 ≠ 上传</h4><p>加文件夹的那一刻,云端没有拷走任何内容,只是获得了「能看见」的权限。</p></div></div>
+    <div class="step"><div class="num"></div><div><h4>列目录 ≠ 上传内容</h4><p>浏览文件夹拿到的是文件名、大小、修改时间等元数据,<b>正文没有离开你电脑</b>。这一步很轻,可扫整个目录树。</p></div></div>
+    <div class="step"><div class="num"></div><div><h4>暂存(stage)才是真上传,且挑着传</h4><p>只有要读/处理的那几个文件被复制到云端。批量还有上限(单次数十个、单文件与总量都有大小限),真处理大文件夹是<b>分批取</b>,不是一次灌。</p></div></div>
+    <div class="step"><div class="num"></div><div><h4>传上去的是快照副本</h4><p>存在绑定你账户的隔离环境,会话结束回收;不是把文件夹挂载到云做实时镜像。想更保守,可只连一个更小的子文件夹。</p></div></div>
+  </div>
+</div></section>
+
+<!-- TOOLS -->
+<section id="tools"><div class="wrap">
+  <p class="kicker">连接层</p>
+  <h2>工具与集成</h2>
+  <p class="sub">Cowork 通过这些通道够到外部系统与产出交付物。</p>
+  <div class="cards">
+    <div class="card"><h3><span class="ic a">🔌</span>MCP</h3><p>Model Context Protocol——连外部系统的开放标准;Cowork 插件本质就是 MCP Server。</p></div>
+    <div class="card"><h3><span class="ic b">🌐</span>Claude in Chrome</h3><p>浏览器自动化;配合服务端的 web search / fetch(受限于搜索结果与分享的 URL)。</p></div>
+    <div class="card"><h3><span class="ic c">🧩</span>Plugins</h3><p>打包 skills 与 sub-agents,面向 legal / sales / marketing / data 等场景。</p></div>
+    <div class="card"><h3><span class="ic d">📊</span>Live Artifacts</h3><p>表格 / 演示 / 文档等实时产出物——目前仍是桌面独占。</p></div>
+  </div>
+</div></section>
+
+<!-- LIMITS -->
+<section id="limits"><div class="wrap">
+  <p class="kicker">截至发布</p>
+  <h2>已知限制</h2>
+  <p class="sub">beta 阶段的边界,后续可能变化。</p>
+  <div class="limits">
+    <div class="limit"><span class="m">!</span><p><b>Chat 与 Cowork 无 memory 互通</b>(project 内除外)。</p></div>
+    <div class="limit"><span class="m">!</span><p><b>会话不能跨用户共享。</b></p></div>
+    <div class="limit"><span class="m">!</span><p><b>Live artifacts 与本地 MCP server 仍桌面独占。</b></p></div>
+    <div class="limit"><span class="m">!</span><p><b>用量消耗高于普通 Chat</b>,因算力密集。</p></div>
+    <div class="limit"><span class="m">!</span><p><b>已有本地定时任务需手动迁移</b>到云,暂不支持自动搬迁。</p></div>
+    <div class="limit"><span class="m">!</span><p><b>Web / 移动为 beta</b>,先 Max、逐步放量。</p></div>
+  </div>
+</div></section>
+
+<!-- WHY -->
+<section id="why"><div class="wrap">
+  <p class="kicker">战略与数据</p>
+  <h2>为什么是现在</h2>
+  <p>TechCrunch 把这次扩张定性为<strong>"coding agent 战争正外溢到办公室的其它部门"</strong>——对标 OpenAI 的 Codex,把「AI 的胜负」从「谁的 chatbot 更强」重新定义为<strong>「谁拥有真实的工作界面」</strong>。配套的用量画像也印证 Cowork 主打非开发者知识工作:</p>
+  <div class="tiles" style="grid-template-columns:repeat(3,1fr)">
+    <div class="tile"><div class="n" style="color:var(--accent)">33.4%</div><div class="l">业务流程自动化(报表/核对/清单)</div></div>
+    <div class="tile"><div class="n" style="color:var(--blue)">16.4%</div><div class="l">内容创作 / 文案</div></div>
+    <div class="tile"><div class="n" style="color:var(--green)">8.7%</div><div class="l">软件开发</div></div>
+  </div>
+  <p class="sub" style="margin-top:14px">基于 60 万+ 组织、120 万个匿名会话的分析(2026-05)。</p>
+</div></section>
+
+<!-- SOURCES -->
+<section id="src"><div class="wrap">
+  <p class="kicker">可溯源</p>
+  <h2>来源</h2>
+  <ul class="sources">
+    <li><a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork">Anthropic 帮助中心 · Get started with Claude Cowork</a>(检索于 2026-07-13)</li>
+    <li><a href="https://thenewstack.io/claude-cowork-cloud-mobile/">The New Stack · Cowork now keeps working when you close your laptop</a>(检索于 2026-07-13)</li>
+    <li><a href="https://techcrunch.com/2026/07/07/the-coding-agent-wars-are-spilling-into-the-rest-of-the-office-claude-cowork/">TechCrunch · Cowork expands to mobile and web</a>(检索于 2026-07-13)</li>
+    <li><a href="https://www.testingcatalog.com/anthropic-brings-claude-cowork-to-web-and-mobile-for-max-users/">TestingCatalog · Cowork to web and mobile for Max users</a>(检索于 2026-07-13)</li>
+    <li><a href="https://en.softonic.com/articles/claude-cowork-comes-to-mobile-and-the-web-what-we-can-do-with-anthropics-agent">Softonic · Cowork comes to mobile and web</a>(检索于 2026-07-13)</li>
+  </ul>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">Claude Cowork 云模式 · 详细介绍 · 生成于 2026-07-13 · 内容基于公开报道与官方文档,产品处 beta 阶段、细节可能变化。</div></footer>
+
+<script>
+  // TOC active-link highlight
+  const links=[...document.querySelectorAll('nav.toc a')];
+  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  const obs=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.style.background='');
+        const a=map.get(e.target.id);
+        if(a){a.style.background='var(--accent-soft)';a.style.color='var(--accent-ink)';}
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
