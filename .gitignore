@@ -4,6 +4,9 @@
 # Claude Code 本机私有配置（权限白名单等，随机器不同）
 .claude/settings.local.json
 
+# Claude Code worktree 签出副本（会重复整棵 raw/，体积翻倍）
+.claude/worktrees/
+
 # LLM Wiki App 本机项目状态（不入库）
 .llm-wiki/
 
