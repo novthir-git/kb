@@ -163,7 +163,9 @@ Co-STORM 的 70%（胜搜索引擎）/ 78%（胜 RAG chatbot）偏好度同理�
 > ⚠️ 证据强度已降级（2026-07-29）：该文的摘录存档因**二手转写、非全文 verbatim、原文不可核验**
 > 被移出 `raw/`（用户判定质量不足）。原 URL 在本机实测无响应（curl 裸请求与浏览器 UA 均 HTTP 000，
 > DNS 与 443 均正常），既不能证实也不能证伪。存档内容仍可从 git 历史取回：
-> `git show 88c8ad8:"raw/sources/articles/2026-06-21-知乎-Stanford-STORM方法.md"`。
+> `git show 88c8ad8:"raw/sources/articles/2026-06-21-知乎-Stanford-STORM方法.md"`
+> ——该 commit 只存在于本机原始仓库。GitHub 上的 `novthir-git/kb` 是 2026-08-31 由目录快照
+> 新建的，历史自首个 commit 起算，在此仓库内取不到该对象。（发现于 2026-08-31）
 > 下方核对表的逐条对照基于该存档做出，**当前不在仓库内**——若要重新引证，应改用下方英文侧的活样本。
 
 **它抽掉了什么：** STORM 的名字里 **R 就是 Retrieval**，该文给出的却是
