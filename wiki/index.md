@@ -43,7 +43,7 @@
 - [[知识图谱]] — 实体与有类型关系的知识表示；区分知识图谱、图数据库和图检索，并强调来源、时间与派生视图治理。
 - [[RPA]] — Robotic Process Automation：面向稳定重复界面任务的软件机器人；与 Workflow、Agent、API/MCP 的互补边界。
 - [[生产力-体验悖论]] — 区分感知速度、实际任务速度、活动产出、维护负担与 release 价值，解释 AI 编码的多层背离。
-- [[llm-wiki-方法论]] — Karpathy LLM Wiki 模式：知识只编译一次、持续保鲜；三层架构 + 三大操作。本仓库方法论源头。
+- [[llm-wiki-方法论]] — Karpathy LLM Wiki 模式：知识只编译一次、持续保鲜；三层架构 + 三大操作 + 守门判据（知识的四条边界、范围先于普遍性）。本仓库方法论源头。
 - [[Specification-Driven Development]] — 以规格为开发契约的 AI 软件工程范式；区分规格保留层级与 artifact mutation model。
 - [[控制带]] — 按信号强度分级授予 agent 自主权（1σ 记录 / 2σ 只读诊断 / 3σ 受限行动），检测端完全确定性；与 T0–T4 产物风险分级正交。
 - [[STORM-研究提示词组]] — 把 Stanford STORM/Co-STORM 移植成 Claude 可执行的六阶段研究提示词；坚持检索驱动视角发现、Moderator 挖 unknown unknowns、以异源校验替代自评。
