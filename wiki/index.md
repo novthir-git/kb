@@ -1,9 +1,9 @@
 # Wiki 内容索引
 
 ## 概览
-- 素材（raw）：32（含 2 个 asset）
-- 页面（wiki）：61
-- 最后更新：2026-08-31
+- 素材（raw）：33（含 2 个 asset）
+- 页面（wiki）：62
+- 最后更新：2026-09-16
 
 ## 分析（analyses）
 - [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
@@ -79,6 +79,7 @@
 - [[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]] — A²E 论文的三层架构、1,035 次受控运行、轨迹审计方法、实验限制与代码复用边界。
 - [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]] — Anthropic 六阶段 AI 原生 SDLC 操作手册：committed artifact 产物链、控制带、eval 回归、skill/hook 分层；标注其零实证数据与产品营销性质。
 - [[2026-08-27-Uber-软件工厂成本效率-源摘要]] — Uber 软件工厂的成本方程、五层度量表、四类优化杠杆与全部自报数据；含七条口径与证据边界。
+- [[2026-09-14-Anthropic-CI规模化压力-源摘要]] — Anthropic 自曝 6 个月 CI job 涨 25×、测试影响分析服务被压垮与架构重写；含四条容量规划判断与"8×"口径冲突提示。
 
 ## 素材（raw）
 - sources/articles/2026-07-01-Andrew-Ng-三层产品开发循环 — Andrew Ng 关于 Loop Engineering 与三层产品开发循环的 X/The Batch post（源摘要 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
@@ -96,6 +97,7 @@
 - sources/articles/2026-06-17-heynavtoor-Stanford-STORM四提示词长文 — [[AI方法论的去机制化失真]] 传播链已确证上游节点的一级存档（fxtwitter 抓取，2026-08-11）。
 - sources/articles/2026-08-21-Anthropic-AI原生SDLC-playbook — Anthropic《The AI-Native SDLC Playbook》结构化存档，保留六阶段全部 play、配置示例与度量指标（源摘要 [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。
 - sources/articles/2026-08-27-Uber-软件工厂成本效率 — Uber 工程博客《Running a Software Factory Efficiently at Uber Scale》正文结构化存档；Figure 1–12 为图片未存档（源摘要 [[2026-08-27-Uber-软件工厂成本效率-源摘要]]）。
+- sources/articles/2026-09-14-Anthropic-CI规模化压力 — Anthropic 工程博客《Agentic coding is straining CI》结构化摘录；关键论断保留英文原句，非逐句原文镜像（源摘要 [[2026-09-14-Anthropic-CI规模化压力-源摘要]]）。
 - sources/notes/2026-07-28-从知识图谱到Agent编排-结构化内容草稿 — 用户确认冻结的 AI 结构化派生稿；基于飞书视频逐字稿，非一级来源，正式沉淀前须回查原始资料。
 - sources/notes/2026-08-07-AI编码技术债三层治理-用户研究草稿 — 用户提供的多源综合草稿；含未经核验的来源分级、工具配置与指标阈值，校正版见 [[AI编码技术债的三层治理]]。
 - sources/pdfs/2026-From-Technical-Debt-to-Cognitive-and-Intent-Debt-arXiv-2603.22106.pdf — Storey 提出的 technical / cognitive / intent debt 概念论文；ACM Queue 实践者文章的作者版本，属概念框架而非实证研究。
