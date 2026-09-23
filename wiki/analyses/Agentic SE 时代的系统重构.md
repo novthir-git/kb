@@ -9,6 +9,13 @@ sources:
   - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "https://arxiv.org/abs/2603.13428v4 （Deng 等，EvoClaw / SWE-Milestone；检索于 2026-09-23）"
+  - "https://www.isaqb.org/blog/ai-agents-dont-modernize-legacy-code-on-their-own/ （Markus Harrer 访谈，2026-05-18；检索于 2026-09-23）"
+  - "https://addyo.substack.com/p/brownfield-agentic-engineering （Addy Osmani，2026-09-14；检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2504.09691 （Ziftci 等，Google，FSE Companion '25；检索于 2026-09-23）"
+  - "https://martinfowler.com/articles/legacy-modernization-gen-ai.html （Thoughtworks，2024-09-24；检索于 2026-09-23）"
+  - "https://code.claude.com/docs/en/best-practices （检索于 2026-09-23）"
+  - "https://www.ycombinator.com/library/MW-andrej-karpathy-software-is-changing-again （检索于 2026-09-23）"
+  - "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic （检索于 2026-09-23）"
 ---
 
 # Agentic SE 时代的系统重构
@@ -56,7 +63,7 @@ Thoughtworks（Giles Edwards-Alexander，2026-07-30）的实验设计很干净�
 （[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]）。
 
 - **收益**：17,155 行的单文件经 15 步经典重构后最大文件降到 3,695 行，同一变更的输入 token 159,564 → 27,360
-  （约 −83%）；Rust 总行数基本不变。
+  （约 −83%）；数据访问层的代码总量只小幅下降（17,155 → 16,608 行），最终拆成 19 个文件。
 - **机制**：节省来自 agent **能找到并只读所需的最小文件子集**。代码量没变，变的是读取路径。
 - **成本**：未精确计量，上界 500 万 token（含计划与实验设计）。
 - **没变的**：输出 token 与耗时都没有下降——重构让 agent 读得更少，没让它写得更少，也没让单次变更更快
@@ -104,7 +111,114 @@ harness 里写着显式重构步骤，却从未促使 agent 处理那个 17,155 
 综合：这组证据把"验证优先"从一条工程格言变成了可观察的机制——**agent 在长期演化中缺的不是写新功能的能力，
 而是不破坏旧功能的能力**，而后者正是验证网提供的东西。
 
-<!-- 以下章节待调研稿核验完成后填写：五、遗留系统；六、调研稿的思想光谱（校正版）；七、重构的优先级顺序；八、争议；证据边界 -->
+两条约束，防止"验证优先"走样：
+
+- **约束结果，不规定过程。**Böckeler 2026-08-10 的小样本评估里，要求 agent 在自己的循环里做 TDD 没带来可见收益，
+  她改用变异测试直接衡量回归测试的质量（[[Specification-Driven Development]] 有展开）。
+- **推理型验证会制造噪音。**Claude Code 官方最佳实践提醒：被要求找缺口的 reviewer 通常总能报出一些，追逐每条
+  发现会导致过度工程，应只标记影响正确性或需求的缺口；确定性的 Stop hook 门禁也会在连续拦截 8 次后被强制放行。
+  Osmani 的对策是把举证责任放回作者：PR 附可运行的证据，而不是加大 review。
+
+## 五、遗留系统：最需要 harness 的地方最难建 harness
+
+Böckeler 的这句话（[[Harness Engineering]]）是遗留重构的出发点：没有测试、边界模糊、弱类型的代码库，恰恰最难给
+agent 套上约束。调研稿给出的方法框架经回查后，主要出自 Markus Harrer（INNOQ，iSAQB 博客 2026-05-18 的访谈），
+并且调研稿引的 awesome 清单也由他维护——**这一段不是"多来源共识"，而是 Harrer 一人的方法**。独立佐证来自
+Osmani、Google、AWS 与 Thoughtworks。
+
+| 方法 | 做法 | 出处与证据等级 |
+|---|---|---|
+| 先缩小范围 | 能用标准软件替代、外包或删掉的，先不现代化——"The less you do, the more of it you can do" | Harrer（观点）；Thoughtworks 与 AWS 都有识别死代码、未用作业再决定退役的环节 |
+| 先铺 characterization tests | 用代表性输入录下现有系统的输出，改完再比对；"丑陋"的现有行为也要锁住，因为业务可能正依赖它 | Harrer；Osmani（2026-09-14）独立主张同一做法 |
+| 用 seam 给 agent 划沙箱 | 给 agent 一个清晰的接缝，它就不必理解整个系统，跨代码库的意外改动大幅减少 | Harrer（观点） |
+| 人画地图，按区授权 | 绿区（测试好、隔离好）agent 紧循环；黄区先补 characterization tests；红区（鉴权、计费、权限）人逐步结对或不做。**地图由人画**，否则 agent 会从"名字最有意思"的最危险文件开始；区域要"挣"来升级 | Osmani（实践者观点） |
+| 确定性与非确定性混合 | "guided AI"：LLM 只改分析脚本事先确定性圈定的位置；或让 AI 生成代码转换 recipe，再由确定性工具执行。"Agents provide speed, guardrails provide accuracy" | Harrer（观点） |
+| 先理解再重写 | Thoughtworks CodeConcise：AST 知识图谱 + LLM 做逆向工程、提取业务规则，由领域专家校验，重写仍由团队完成 | Thoughtworks 2024-09（提效数字是 PoC 估算） |
+| 警惕"modern legacy" | 只在代码层现代化、业务流程照旧，得到的是被 agent 打磨过的新遗留系统 | Harrer（观点） |
+
+**工业级数据**只有一份：Google 的 LLM 迁移（Ziftci 等，FSE 2025 Companion）。3 名开发者 12 个月完成 39 次同类的
+32→64 位 ID 迁移，提交 595 个变更；74.45% 的变更由 LLM 生成（按字符编辑量计 69.46%），但**无人改动的纯 LLM 变更
+只占约 36%**；每个变更都经开发者目视核查和代码所有者审批；"省约 50% 时间"是这 3 位开发者的主观估计，没有实测
+工时。它支持"人机混合 + 自动校验 + 人审"的流水线在机械迁移上可行，不支持"agent 自主完成现代化"。
+
+**campaign 式批量执行**的两个公开案例（Osmani 转述，厂商口径）：Bun 的 Zig → Rust 移植约 50 个 workflow、11 天、
+53.5 万行，每个生成单元配两个对抗性 reviewer、以全部既有测试为合并门禁，且在任何 agent 开跑前先花数小时写了
+Zig 到 Rust 的惯用法对照指南；Asana 两周清掉多年的 Enzyme 积压，模型与基础设施成本约 1.2 万美元（这是生成的
+账单，不是对照过的节省）。可迁移的共同点：**变更是机械的、既有测试套件完整、人仍审每个变更**。Claude Code 的
+`/batch`（v2.1.63 起）把同一模式产品化：拆成 5–30 个独立单元、人批准计划、每单元在独立 worktree 里实现并开 PR。
+
+> 综合：批量改动有两条路线——让 LLM 直接改（`/batch`、Bun），或让 LLM 产出确定性转换再由工具执行（Harrer 的
+> recipe、Google 的"Kythe 确定性定位 + LLM 改写 + 自动校验"）。变更越机械、越可枚举，越该走后一条，因为确定性
+> 工具的输出可以整体验证，而 LLM 的逐处改写只能逐处验证。
+
+认知债在遗留系统里尤其危险：agent 只掌握外化的知识，快速改码会侵蚀团队对系统的共享理解。该概念出自
+Margaret-Anne Storey（ACM Queue 2026），Harrer 把它用到了现代化场景，治理方式见 [[AI编码技术债的三层治理]]。
+
+## 六、思想光谱（按核验结果校正）
+
+调研稿把 2025–2026 年的思想画成一条轴：一端是"意图 / spec 成为一等公民、代码可再生"，另一端是"代码与工程判断
+仍是责任落点"。回到一手来源后，几个代表的位置都要挪（逐条依据见
+[[2026-09-23-agentic-se-refactoring-methodology-源摘要|源摘要]]）：
+
+| 代表 | 调研稿的站位 | 核验后的站位 |
+|---|---|---|
+| Karpathy（Software 3.0，2025-06） | 激进端 | **范式判断激进、工程实践审慎**："keep the AI on the leash"、人类验证者是瓶颈、"decade of agents"而非"year of agents"。他还举了自己的 MenuGen："the code was actually the easy part"，认证、支付、部署花了一周 |
+| AaaS 论文（arXiv 2606.05608） | 激进重构派 | v1《The End of Software Engineering》激进；**6 天后的 v2 改题并改口为"扩展"软件工程**；人仍是 outcome auditor |
+| Tessl（spec-as-source） | spec 是新源代码 | 2025 年私测时在**探索** spec-as-source；2026-09 首页已转型为 agent enablement 平台 |
+| Every agent-native | 可抛弃派 | 五条原则（不是三条），多处标注为 Claude 贡献、作者尚未背书 |
+| Yegge（CHOP，2024-06） | 可抛弃派 | 不在此光谱内：预测的是代码由 LLM 写，不是代码可抛弃 |
+| Doctorow（Code is a liability，2026-01） | 负债派 | 成立；"10,000 倍"是修辞，乘法衰减针对的是个人助理 agent |
+| Böckeler（Thoughtworks） | 系统性泼冷水 | **按风险校准审查**（影响、概率、可检测性），认可 spec-first，低风险高可检测时接受 vibe coding |
+
+两端共同承认的事实经核验依然成立，而且证据比调研稿给的更硬：生成成本趋零之后，验证成为稀缺资源。Karpathy
+说人类验证者是瓶颈；Osmani 说瓶颈移到了"证明代码能用"；Sonar 2026 调查中 96% 的受访者不完全信任 AI 代码，但坚持
+每次都检查的不到一半；Anthropic 内部调查里超过一半的人能完全委派的工作只占 0–20%；SWE-Milestone 显示 agent
+缺的是系统级维护能力。
+
+> 综合：光谱的激进一端在一年内几乎失去了具体代表——AaaS 六天内改口，Tessl 转型，Karpathy 本人站在审慎一侧。
+> 与其说这是两派之争，不如说是**向"验证是瓶颈"的收敛**；真正悬而未决的不是"代码还重不重要"，而是**在 agent
+> 吞吐下由谁、用什么来验证**。本页与 [[Harness Engineering]] 的答案是：确定性 sensor 管局部、推理型评审管跨文件、
+> 人管选题与高风险区。
+
+## 七、重构的优先级顺序（修订版）
+
+调研稿 §5.3 的顺序是：先铺验证网 → 再建 agent 接口层 → 再做边界重构 → 最后才是批量 campaign，并判断"跳过前两步
+直接放 agent 进遗留系统是最常见的失败模式"。核验后顺序本身站得住，但要补一个起点和一个终点：
+
+| 步骤 | 做什么 | 依据 | 进入下一步的条件 |
+|---|---|---|---|
+| 0. 度量与缩范围 | 选几个代表性变更，记录输入 token 与改动文件数；先砍掉不必现代化的部分 | Thoughtworks 的计价法；Böckeler 的"小改动要改的文件数"信号；Harrer 的缩范围 | 知道热点在哪、基线是多少 |
+| 1. 验证网 | characterization tests、CI 门禁；AI 写测试时配变异测试 | Harrer、Osmani、Böckeler、SWE-Milestone | 热点区域的行为被锁住 |
+| 2. agent 接口层 | 短入口文件做地图（只写推断不出的约定），深层文档按需加载；统一命令入口；依赖与分层规则写成 linter | OpenAI；ETH 评测（仓库概览无益、成本 +20%）；Claude Code 修剪判据 | 规则能机械执行，而不只是写在文档里 |
+| 3. 边界重构 | 人画区域图、划 seam；按 agent 的读取路径拆热点大文件、去重 | Osmani 的区域；Harrer 的 seam；Thoughtworks 的 −83% | 代表性变更的 token 与文件数下降 |
+| 4. 批量 campaign | 小而定向、每单元可独立测试；机械变更优先走确定性转换 | `/batch`、Bun、Google、Harrer 的 recipe | 既有测试全绿、人审每个变更 |
+| 5. 持续偿还 | 定期 GC 任务、周期性推理型评审、阈值上调可见 | OpenAI、Böckeler | ——（不结束） |
+
+> 综合：第 5 步是这个顺序与传统"重构项目"的根本区别。在 agent 吞吐下结构债持续产生，而 agent 不会自发偿还
+> （[[Agent 不会自发偿还结构债]]），所以重构不能是一次性项目，必须是 harness 里一个一直在跑的职能。
+
+## 八、争议与开放问题
+
+| 问题 | 现状（2026-09-23） |
+|---|---|
+| spec 是否是新的源代码 | 正方实际只有 2025 年的 Tessl（已转型）；Spec Kit 声明三种持久化模型都不是默认；Böckeler 担心 spec-as-source 兼有僵化与非确定性。SDD 的收益证据见 [[SDD 收益主张的实证赤字]] |
+| 规则 / 上下文文件写多详尽 | 形态已收敛为"常驻入口极简 + 深层按需加载"；但效果证据相互矛盾——ETH 测得成本 +20% 且不提升成功率，Lulla 等测得 Codex 运行时间 −28.64%（⚠️ 矛盾标注见 [[AI编码技术债的三层治理]]） |
+| 人能否退出验证环 | 没有一手来源支持"现在"退出：AaaS 也只在 2028 年以后的愿景阶段让人退到元治理层；Google 每个变更都人审 |
+| agent 该不该在循环里做 TDD | 目前唯一的评估（Böckeler，小样本）显示无收益甚至略差；需要更大样本 |
+| 重构粒度与执行质量 | OpenAI 的小 PR 顺利、Thoughtworks 的 15 步大重构粗糙；缺同仓库对照 |
+| 结构债的回本点 | 只有一个实验、一种变更；换一种变更类型、换一个模型，−83% 能保持多少，未知 |
+
+调研稿 §4 表中"模块化单体 vs 微服务"一行没有给出处，本次核验未覆盖，暂不采信。Salomon 主张的是"领域顶层 +
+用例切片"两级结构，而不是二选一。
+
+## 证据边界
+
+- **一手实验都是单点**：Thoughtworks（单实验、单开发者、greenfield、每步只测一次）、Böckeler（单人单应用、无对照）、
+  OpenAI（公司自述、无对照，且被指缺少功能与行为验证）。
+- **唯一的大样本基准**是 SWE-Milestone（98 个里程碑、12 个模型），它测的是功能演化而不是专门的重构。
+- **唯一的工业级迁移数据**是 Google（3 名开发者、同一类迁移、时间节省是自估）。
+- 遗留系统的方法框架主要出自 Harrer 一人，Osmani 是较独立的佐证；campaign 案例的数字来自厂商或转述。
+- 本页的回本估算、"两条批量路线"与"光谱向验证收敛"都是本 wiki 的综合推断。
 
 ## 关联
 
