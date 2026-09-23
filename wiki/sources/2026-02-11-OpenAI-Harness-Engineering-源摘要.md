@@ -1,0 +1,84 @@
+---
+tags: [素材, AI, Agent, 软件工程, Harness]
+created: 2026-09-23
+updated: 2026-09-23
+sources:
+  - "raw/sources/articles/2026-02-11-OpenAI-Harness-Engineering.md"
+  - "https://openai.com/index/harness-engineering/ （检索于 2026-09-23；WebFetch 与直连均 403，经内置浏览器读取官方中文版）"
+  - "https://martinfowler.com/articles/exploring-gen-ai/harness-engineering-memo.html （Böckeler 评注，2026-02-17；检索于 2026-09-23）"
+  - "https://web.archive.org/web/2026/https://openai.com/index/harness-engineering/ （英文原文 Wayback 快照；检索于 2026-09-23）"
+---
+
+# 2026-02-11 OpenAI《Harness engineering: leveraging Codex in an agent-first world》源摘要
+
+**原文**：Ryan Lopopolo（OpenAI），2026-02-11。
+**存档**：`raw/sources/articles/2026-02-11-OpenAI-Harness-Engineering.md`（要点式中文摘录）。
+**读取方式**：英文原站对 WebFetch 与直连均返回 403，存档依据官方中文版（标题「工程技术：在智能体优先的世界中
+利用 Codex」）。**"harness engineering" 这一术语在中文译文中丢失**，引用概念名时以英文原题为准。Böckeler 在 2026-02-17 的评注中指出
+正文只出现一次 "harness"，并推测这个名字是受 Mitchell Hashimoto 博文启发的事后命名；本 wiki 2026-09-23 经 Wayback
+快照复核，计数属实（唯一一处是列表项 "Evaluation harnesses"）。综合：把它系统化为 guides / sensors 框架的是
+Böckeler（见 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。
+
+概念展开见 [[Harness Engineering]]；"agent 复制坏模式、清理必须外部驱动"作为证据行收在
+[[Agent 不会自发偿还结构债]]；文档侧的做法并入 [[代码与文档漂移的本质]]。本页只做忠实摘录与口径标注。
+
+## 一句话
+
+OpenAI 内部团队五个月不手写一行代码、用 [[Codex]] 做出约 100 万行的产品，结论是**瓶颈在环境而非模型**：
+工程纪律从写代码转移到设计 agent 工作所处的支撑结构。
+
+## 自报数据（全部为公司内部口径）
+
+| 指标 | 值 | 口径 |
+|---|---|---|
+| 起点与约束 | 2025-08 下旬从空仓库起步，五个月内不人工编写任何代码 | 刻意施加的实验约束 |
+| 产物 | 约 100 万行代码、约 1,500 个 PR | 内部 beta，有内部用户与外部 alpha 测试者 |
+| 团队 | 3 人起步，现为 7 人 | 原文称扩员后 "the throughput" 反而上升；未重复 per engineer，但它回指前句的人均 3.5 PR 并用了 "surprisingly"，按上下文应读作人均 |
+| 人均吞吐 | 每天约 3.5 个 PR | 三人阶段的平均值 |
+| 用时 | 约为手写的 1/10 | **作者自估**，无对照 |
+| 单次运行 | 常在单个任务上持续 6 小时以上 | |
+
+## 七个要点（摘录）
+
+1. **瓶颈在环境而非模型**：早期进展慢，原因是缺工具、抽象与内部结构。卡住时追问"缺什么能力、怎样让它对
+   agent 可读且可强制执行"。人主要通过提示工作，审查大部分转为 agent 对 agent。
+2. **应用对 agent 可读**：吞吐上来后瓶颈变成人工 QA。每个 worktree 起独立应用实例与临时可观测性栈
+   （LogQL / PromQL），并接入 Chrome DevTools 协议，性能与用户旅程约束由 agent 自行验证。
+3. **AGENTS.md 是地图而非手册**：大一统 AGENTS.md 失败，四条原因——挤占上下文；一切都重要等于都不重要；
+   迅速腐烂成陈旧规则；单个 blob 无法机械核查覆盖率、新鲜度、所有权与交叉链接。改为约 100 行的目录，指向
+   结构化 `docs/`（带验证状态的设计文档、产品规格、执行计划与技术债追踪、生成物、面向 LLM 的参考资料），
+   由 linter 与 CI 校验新鲜度与交叉链接，并有定期运行的 doc-gardening agent 发修复 PR。
+   立场：**agent 运行时访问不到的知识，对它等于不存在。**
+4. **依赖取舍**：偏好能在仓库内被完整推理的"枯燥"技术；有时自写功能子集比绕开不透明的上游行为更便宜。
+5. **强制不变量而非管实现**：每个业务域固定分层 Types → Config → Repo → Service → Runtime → UI，横切关注点
+   只能经 Providers 进入，其余依赖边一律禁止，由自定义 linter 与结构测试执行；另有少量"品味不变量"
+   （结构化日志、命名、文件大小上限等），lint 错误信息内嵌修复指令。人类团队常推迟到数百名工程师规模才引入的
+   架构，对 agent 是早期前提。
+6. **合并理念**：高吞吐下纠错便宜、等待昂贵，故减少阻塞式合并门，偶发失败靠重跑；作者承认这在低吞吐环境中
+   不负责任。
+7. **熵与垃圾回收**：agent 会复制仓库中已有的坏模式。起初每周五（一周的 20%）人工清理"AI 残渣"，不可扩展；
+   改为把"黄金原则"编码为机械规则，定期运行后台任务扫描偏差、更新质量等级、发定向重构 PR，多数一分钟内审完
+   并自动合并。技术债是高息贷款，宜持续小额偿还。
+
+## 口径与证据边界
+
+1. **公司自述的内部实验，无外部审计、无对照组**；产品是内部 beta，不是高风险生产系统。
+2. **"约 1/10 用时"是作者自估**，没有同一产品手写版本的对照。
+3. **作者自己的限定**：端到端驱动新功能的能力高度依赖该仓库的结构与工具，不应在没有类似投入时假定可泛化；
+   全 agent 生成系统的架构连贯性如何随时间演化、人的判断在哪里最有价值，尚不清楚。
+4. 第 6 条合并理念，作者给的前提是**高吞吐**（纠错便宜、等待昂贵）。综合：它还隐含爆炸半径小（内部 beta），
+   应与 [[Anthropic-AI原生SDLC治理循环]] 的风险分级门禁对照阅读，见 [[Harness Engineering]]"时机"一节。
+5. **Böckeler：缺功能与行为验证**。她的评注（2026-02-17）指出，文中措施都指向长期内部质量与可维护性，
+   "What I am missing in the write-up is verification of functionality and behaviour"；并提醒 OpenAI 对
+   "AI 可维护的代码"这一结论有利益关联（vested interest）。需要对照：原文确实描述了 agent 驱动 UI 复现 bug、
+   验证修复（见要点 2），缺的是行为层面的系统性验证（例如测试本身的质量）。
+6. 与 Uber、Anthropic 的"PR / 代码行归因"同属自报口径，1,500 PR 与 100 万行不等于净生产力
+   （对照 [[agent-生产级落地的鸿沟]] 证据点表）。
+
+## 本 wiki 的用法
+
+- [[Harness Engineering]] 的一手来源之一（另一来源是 Böckeler，见 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。
+- 第 3 条是 [[代码与文档漂移的本质]]"Agent 时代的漂移经济学"的直接实例；也与本仓库自身的 `AGENTS.md`
+  形态构成对照，见 [[llm-wiki-方法论]]。
+- 第 7 条是 [[Agent 不会自发偿还结构债]] 的证据行。
+- 整体是 [[agent-生产级落地的鸿沟]] 上又一条"靠工程填平鸿沟"的正向证据。

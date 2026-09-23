@@ -1,7 +1,7 @@
 ---
 tags: [综合]
 created: 2026-07-03
-updated: 2026-08-31
+updated: 2026-09-23
 sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index.md 承载（详见 AGENTS.md）
 ---
 
@@ -26,6 +26,8 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
   Gartner、McKinsey、Deloitte 与 Meta 信号共同显示“试验广、规模化价值窄”，同时保留长期方向的乐观面。
 - **Agent 的单位经济学**：[[Uber-软件工厂的成本工程]] 把 agent 花销拆成六项相乘的方程，把"agent 替自己
   多干的活"定义为浪费；机制层见 [[Agent 工具上下文膨胀]]，选型与归因纪律见 [[harness-vs-model]]。
+- **Harness Engineering 与为 agent 重构**：[[Harness Engineering]] 定义 agent 的外层环境（guides/sensors × 计算/推理）；[[Agentic SE 时代的系统重构]]
+  显示结构债可按 token 计价（单实验：同一变更输入 −83%），但 [[Agent 不会自发偿还结构债]]，须由 harness 驱动、验证网兜住。
 - **AI 知识策展与研究方法论**：本 wiki 自身方法论 [[llm-wiki-方法论]]与 Stanford [[STORM-知识策展系统分析]] 互补——**STORM 强在发现、llm-wiki 强在沉淀**；
   可执行移植见 [[STORM-研究提示词组]]（检索驱动视角发现 + Moderator 挖 unknown unknowns + 异源校验替代自评）。二次传播的失真治理见 [[AI方法论的去机制化失真]]。
 - **叙事、论证与知识表达**：[[叙事与故事结构方法论]] 以 Situation、Story、Discourse、Audience Effect 与 Evidence 为总骨架，建立从情境到交付的七层体系，并区分叙事理论、创作方法和表达模板。
@@ -43,15 +45,16 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
 - **AI 方法论二次传播的“去机制化失真”**：已沉淀 [[AI方法论的去机制化失真]]；上游节点 08-11 定案，08-27 确认在
   SDD 主题上复现，载体变为**检索工具的自动摘要**（无署名、无固定 URL，“找上游节点”在此失效）。M5 唯一样本 08-31
   复查证伪、降为待观察；待跟踪自动摘要载体是否再出现可确认样本。
-- Demo→生产的鸿沟：已纳入 Anthropic 治理架构、Claude Code 团队访谈与 08-31 的 Uber 规模化案例（>70% PR 归因，
-  但其依赖项无一来自“模型更强”）；**质量侧仍是空白**——Uber 只公布成本数字，逃逸缺陷率 / 事故率 / 人工介入率仍待跟踪。
+- Demo→生产的鸿沟：已纳入 Anthropic、Uber、OpenAI 三个"靠工程填平"的正向案例（依赖项均非"模型更强"），09-23 增
+  SWE-Milestone 基准（持续演化最高 38%）；**质量侧仍是空白**——逃逸缺陷率 / 事故率 / 人工介入率无一家公布。
+- 为 agent 重构：结构债的 token 收益只有单实验测量；待追踪重构粒度与执行质量的关系、定期 GC 的成本与误报率。
 - A²E 方法已沉淀；待在真实业务上用一个固定模型、两个 harness/policy 变体验证轨迹语义、敏感数据治理与失败分类是否可复用。
 
 ## 悬而未决的问题
 - 哪些"软件股"是 system of record（安全），哪些只是可被 Agent 覆盖的功能层（危险）？
 - per-seat → outcome/consumption 定价迁移的实际节奏与对倍数的影响？
 - "监督式工程"下的体验下滑，是过渡期阵痛还是结构性代价？产品/组织如何对冲？
+- 本仓库 `AGENTS.md` 是 326 行常驻的手册形态，是否该改为"地图 + 按需文件"？（schema 修改，待用户决定；见 [[llm-wiki-方法论]]）
 - AI 加速 coding loop 后，0-to-1 产品的 [[Evals|evals]] 如何覆盖功能正确性、体验质量与真实用户价值？
-- SDD 的规格成本能被什么抵消？（原问法预设了“返工与缺陷会下降”，该前提已被最大样本证据否定）
-  任务粒度的 Standard→Quick 降级阈值仍无量化切换点。
+- SDD 的规格成本能被什么抵消？（“返工与缺陷会下降”的前提已被最大样本证据否定）任务粒度的 Standard→Quick 降级阈值仍无量化切换点。
 - 待写页面：[[per-seat 定价的黄昏]]、[[system-of-record 与专有数据护城河]]。
