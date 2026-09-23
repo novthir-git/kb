@@ -128,7 +128,7 @@ sources:
 | "review is the bottleneck"是共识（引 Osmani《Code Review in the Age of AI》） | **基本成立** | Osmani（2026-01-05）主张瓶颈从"写代码"移到"证明代码能用"；原文无此句，对策是让作者在 PR 里附可运行证据（PR Contract），而不是加大 review。称"共识"偏强 |
 | Osmani《Vibe Coding: Revolution or Reckless Abandon?》支持同一论点 | **部分成立** | 2025-04-03 的这篇论证的是 review 与验证不可省，没有提出"review 是瓶颈" |
 | "多数开发者不信任 AI 代码但也不检查它"（引 The Register 2026-01-09） | **失准** | 底层是 Sonar 2026 State of Code 调查（2025-10 在线问卷，n=1,149，自报，厂商主导）：96% 不"完全"信任 AI 代码功能正确；48% 完全同意"提交前总是检查"，另 27% 部分同意。应表述为"普遍不完全信任，但坚持每次都检查的不到一半"。The Register 放大了两点 |
-| Every / Shipper 的 agent-native 三原则：Parity / Granularity / Improvement over time | **失准** | 指南（Dan Shipper 与 Claude 合著，2026-01-09，规范 URL `every.to/guides/agent-native`）列的是**五条**：Parity、Granularity、Composability、Emergent capability、Improvement over time。多处标注为 Claude 贡献、Dan 尚未背书 |
+| Every / Shipper 的 agent-native 三原则：Parity / Granularity / Improvement over time | **失准** | 指南（Dan Shipper 与 Claude 合著，2026-01-09，规范 URL `every.to/guides/agent-native`）列的是**五条**：Parity、Granularity、Composability、Emergent capability、Improvement over time。更早的 2026-01-06 X 帖列过三条特征，但是 parity、granularity、composability，同样与调研稿不符。指南多处标注为 Claude 贡献、Dan 尚未背书 |
 | 检验标准：agent 能否完成你从未显式构建的功能 | **基本成立** | 对应被漏掉的 Emergent capability；原文限定"在应用领域之内" |
 
 ### §2 架构方法论：代码库成为 agent 的环境
