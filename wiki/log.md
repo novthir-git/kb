@@ -1354,3 +1354,25 @@ sensors 摘录把"唯一"从"agent 频繁上调阈值的类别"挪到了"没配�
 
 index 概览更新为 37 素材 / 69 页。另：远端分支 `claude/blissful-allen-jjhv9d` 有一个未合入 main 的 research 提交
 （09-16，Anthropic CI 25×），同样改动 index / log / overview，与本分支合并时会有文本冲突，计数需重算。
+
+## [2026-09-23] research | 补 Every agent-native 五条原则的含义；重构分析页推断标置信度
+读 Every《Agent-native Architectures》指南原文（https://every.to/guides/agent-native ，检索于 2026-09-23），把五条原则各自的
+含义、"毕业为代码"与自改需安全护栏补进 [[Agentic SE 时代的系统重构]] §六（此前只记了名字）；Tessl 一行补 spec-as-source
+的定义并链到 [[Specification-Driven Development]]；§八 Spec Kit 一句改正为"另列三种变更模型并声明都不是默认"（原写
+"不强制任何保留模型"，与同日对该页的归属更正不一致）；证据边界补各推断的置信度（回本量级低，其余中）。起因：用户要求
+把该页的 HTML 渲染改成可对外分享的结论版，渲染要用到的这些内容先回灌 wiki。
+
+## [2026-09-23] research | 重构分析页补"agent 友好代码库的目标形态"
+按用户认可的新叙述大纲，把调研稿 §2 架构四支柱中经核验成立的部分收窄后写成 [[Agentic SE 时代的系统重构]] §九：上下文经济性、
+显式契约、给 agent 读的文档、ACI、prompt 作为架构制品，逐条注明出处与证据等级；"代码库比 MCP / 子 agent 更根本"不采信，
+只保留"基础先于工具"。综合：五条形态对应 §一的三条新理由。frontmatter 补 6 个一级来源 URL；证据边界补一条；
+`wiki/index.md` 该页描述补"目标形态"。依据全部来自 [[2026-09-23-agentic-se-refactoring-methodology-源摘要]] §2 的核验结果，未新增联网来源。
+
+## [2026-09-23] output | Agentic SE 重构方法论（对外 HTML）
+由 [[Agentic SE 时代的系统重构]]（主页，含 §九目标形态）及 [[Harness Engineering]]、[[Agent 不会自发偿还结构债]]、
+[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]、[[2026-09-23-agentic-se-refactoring-methodology-源摘要]] 生成
+`output/shared/agentic-se-重构方法论-2026-09-23.html` 冻结版（用户确认定稿）。结论先行的决策顺序：为什么 → 目标形态 →
+谁来推动 → 验证网 → 遗留系统 → 六步顺序 → 行业分歧（背景）→ 未决问题与证据强度；推断均标置信度（回本量级低，其余中）。
+脱敏：无内部路径、wiki 双链与会话信息，32 个外链均为 https 一级来源；字体以 woff2 data URI 内嵌，零外部运行时请求；
+控制台无错误，桌面 / 手机 / 暗色均无页面横向溢出。视觉未沿用 editorial 风格（用户要求重新设计；`AGENTS.md` 风格条款是否
+随之修改尚待用户决定）。
