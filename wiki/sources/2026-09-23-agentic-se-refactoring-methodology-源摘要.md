@@ -71,12 +71,12 @@ sources:
 | 调研稿论断 | 核验 | 校正后的口径 |
 |---|---|---|
 | 2025 年 YC AI Startup School 演讲 *Software Is Changing (Again)* | **成立** | 2025-06-17，旧金山。调研稿引的 ikyle.me 是二手摘要，应改引 YC Startup Library 官方页（附全文转录）或 Karpathy 2025-06-19 推文里的章节纲要 |
-| 1.0 代码 / 2.0 权重 / 3.0 prompt 为程序 | **基本成立** | 原话是"LLM 是一种新计算机"，"运行时"是转述；他强调三种范式**并存**、都要熟练，不是代际取代 |
-| "最热门的新编程语言是英语" | **基本成立** | 出自 Karpathy 2023-01-24 的推文，演讲中是回顾，不是首提 |
+| 1.0 代码 / 2.0 权重 / 3.0 prompt 为程序 | **基本成立** | 定义准确（幻灯片把三代画成"程序 → 被编程的机器"：code→computer、weights→neural net、prompts→LLM）。出入在出处与时间：1.0/2.0 出自他 2017-11 的《Software 2.0》，"Software 3.0"标签 2023 年已出现，这场演讲是首次**系统阐述**而非首次提出；他强调三种范式**并存**、3.0 正在"吃掉"软件栈 |
+| "最热门的新编程语言是英语" | **成立**（复查上调） | 出自 Karpathy 2023-01-24 的推文；演讲幻灯片直接展示了这条置顶推文的截图，他口头认可 |
 | LLM 兼具公用事业、晶圆厂、操作系统属性；类似 1960 年代分时主机 | **成立** | 他认为操作系统类比最贴切 |
 | "people spirits"、幻觉与缺乏自知 | **成立** | 原文另列了锯齿状智能、顺行性遗忘、易受 prompt injection |
-| Iron Man 战衣式增强而非全自主；autonomy slider；generate–verify 循环 | **基本成立** | 丢了时间限定：是"现阶段"应做部分自主产品，并在约十年里把滑杆推向自主端；他没有否定全自主方向 |
-| Build for agents：第三类信息消费者，需要 llms.txt 等专属通道 | **基本成立** | 语气偏强：原话是与 LLM"相向而行"，值得做而非必须；llms.txt 由 Jeremy Howard 2024-09 提出，不是 Karpathy 首创 |
+| Iron Man 战衣式增强而非全自主；autonomy slider；generate–verify 循环 | **基本成立** | 幻灯片"Building Autonomous Software"一页几乎逐项对应。丢了时间限定：是"现阶段"应做部分自主产品，并在约十年里把滑杆推向自主端；他没有否定全自主方向 |
+| Build for agents：第三类信息消费者，需要 llms.txt 等专属通道 | **成立**（复查上调） | 原话有"we need to adjust our infrastructure towards it""We actually have to change the docs"。补注：llms.txt 由 Jeremy Howard 2024-09 提出，Karpathy 作为例子引用；他也承认 agent 已能直接操作 GUI，两条路都看好 |
 
 ### §1.2 AaaS 论文与 EvoClaw
 
