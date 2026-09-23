@@ -17,6 +17,7 @@ sources:
   - "https://www.ycombinator.com/library/MW-andrej-karpathy-software-is-changing-again （检索于 2026-09-23）"
   - "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic （检索于 2026-09-23）"
   - "https://aws.amazon.com/blogs/migration-and-modernization/reimagine-your-mainframe-applications-with-agentic-ai-and-aws-transform/ （AWS，2025-12-15；检索于 2026-09-23）"
+  - "https://every.to/guides/agent-native （Dan Shipper 与 Claude，2026-01-09；检索于 2026-09-23）"
 ---
 
 # Agentic SE 时代的系统重构
@@ -175,8 +176,8 @@ Margaret-Anne Storey（ACM Queue 2026），Harrer 把它用到了现代化场景
 |---|---|---|
 | Karpathy（Software 3.0，2025-06） | 激进端 | **范式判断激进、工程实践审慎**："keep the AI on the leash"、人类验证者是瓶颈、"decade of agents"而非"year of agents"。他还举了自己的 MenuGen："the code was actually the easy part"，认证、支付、部署花了一周 |
 | AaaS 论文（arXiv 2606.05608） | 激进重构派 | 单作者预印本、无自有实验。v1 题为《The End of Software Engineering》；**6 天后的 v2 撤回"终结"、改称"扩展"软件工程**，但仍坚持 AaaS 是"逻辑终点"；人仍是 outcome auditor |
-| Tessl（spec-as-source） | spec 是新源代码 | 2025 年私测时在**探索** spec-as-source；2026-09 首页已转型为 agent enablement 平台 |
-| Every agent-native | 可抛弃派 | 五条原则（不是三条），多处标注为 Claude 贡献、作者尚未背书 |
+| Tessl（spec-as-source） | spec 是新源代码 | 2025 年私测时在**探索** spec-as-source——人只编辑规格，代码由规格再生成并标注 "GENERATED FROM SPEC - DO NOT EDIT"（三层级见 [[Specification-Driven Development]]）；2026-09 首页已转型为 agent enablement 平台 |
+| Every agent-native | 可抛弃派 | 讲的是**应用架构**而非代码库：功能不是写死的代码，而是用 prompt 描述的结果，由 agent 用原子工具在循环里完成。五条原则（不是三条）：Parity（用户能在界面上做的，agent 都能用工具做到）、Granularity（工具是原子原语，判断留给 agent；检验标准是"改行为时改 prompt 还是重构代码"）、Composability（新功能只需写新 prompt）、Emergent capability（agent 能完成没专门设计过的任务，高频模式再固化为专用工具）、Improvement over time（靠积累的上下文与 prompt 迭代改进，不必发版）。高频操作可"毕业"为代码以提效；agent 自改 prompt 或代码需审批门、检查点与回滚。多处标注为 Claude 贡献、作者尚未背书 |
 | Yegge（CHOP，2024-06） | 可抛弃派 | 不在此光谱内：预测的是代码由 LLM 写，不是代码可抛弃 |
 | Doctorow（Code is a liability，2026-01） | 负债派 | 成立；"10,000 倍"是修辞，乘法衰减针对的是个人助理 agent |
 | Böckeler（Thoughtworks） | 系统性泼冷水 | **按风险校准审查**（影响、概率、可检测性），认可 spec-first，低风险高可检测时接受 vibe coding |
@@ -216,7 +217,7 @@ tests 先行）、Osmani（其文中有"Parallelize last"一节）等来源方�
 
 | 问题 | 现状（2026-09-23） |
 |---|---|
-| spec 是否是新的源代码 | 旗手是 2025 年的 Tessl（已转型）；GitHub 的 Spec Kit 方法论文档在理念上接近 spec-as-source，但工具实际形态是 spec-first，其持久化文档也不强制任何保留模型；Böckeler 担心 spec-as-source 兼有僵化与非确定性。SDD 的收益证据见 [[SDD 收益主张的实证赤字]] |
+| spec 是否是新的源代码 | 旗手是 2025 年的 Tessl（已转型）；GitHub 的 Spec Kit 方法论文档在理念上接近 spec-as-source，但工具实际形态是 spec-first，其持久化文档另列三种变更模型并声明都不是默认；Böckeler 担心 spec-as-source 兼有僵化与非确定性。SDD 的收益证据见 [[SDD 收益主张的实证赤字]] |
 | 规则 / 上下文文件写多详尽 | 形态已收敛为"常驻入口极简 + 深层按需加载"；但效果证据相互矛盾——ETH 测得成本 +20% 且不提升成功率，Lulla 等测得 Codex 运行时间 −28.64%；McMillan 在 25–500 行内未测到文件大小影响指令遵循，与官方"膨胀导致忽略"的说法相左（两处 ⚠️ 矛盾标注见 [[AI编码技术债的三层治理]]） |
 | 人能否退出验证环 | 没有一手来源支持"现在"退出：AaaS 也只在 2028 年以后的愿景阶段让人退到元治理层；Google 每个变更都人审 |
 | agent 该不该在循环里做 TDD | 目前唯一的评估（Böckeler，小样本）显示无收益甚至略差；需要更大样本 |
@@ -234,6 +235,9 @@ tests 先行）、Osmani（其文中有"Parallelize last"一节）等来源方�
 - 遗留系统的方法框架主要出自 Harrer 一人，Osmani 是较独立的佐证；campaign 案例的数字来自厂商或转述。
 - 本页的回本估算、"三种批量形态"、"实践层向验证收敛"与修订版六步顺序表都是本 wiki 的综合推断；核心判断 1
   的"agent 对上下文经济性远比人敏感"沿用自调研稿，只有机制层面的一手支撑。
+- 置信度（对外引用时标注）：回本量级为**低**（分子分母口径不同，只到"几十次"）；其余综合推断为**中**——核心判断 1 的
+  程度、架构约束时点前移、选题判据、驱动方式分工与"默认小步"、古德哈特形态、验证网是无人值守的条件、"缺的是不破坏
+  旧功能的能力"、三种批量形态、实践层收敛、六步顺序、"重构必须是持续职能"。依据即以上几条证据边界。
 
 ## 关联
 

@@ -1354,3 +1354,10 @@ sensors 摘录把"唯一"从"agent 频繁上调阈值的类别"挪到了"没配�
 
 index 概览更新为 37 素材 / 69 页。另：远端分支 `claude/blissful-allen-jjhv9d` 有一个未合入 main 的 research 提交
 （09-16，Anthropic CI 25×），同样改动 index / log / overview，与本分支合并时会有文本冲突，计数需重算。
+
+## [2026-09-23] research | 补 Every agent-native 五条原则的含义；重构分析页推断标置信度
+读 Every《Agent-native Architectures》指南原文（https://every.to/guides/agent-native ，检索于 2026-09-23），把五条原则各自的
+含义、"毕业为代码"与自改需安全护栏补进 [[Agentic SE 时代的系统重构]] §六（此前只记了名字）；Tessl 一行补 spec-as-source
+的定义并链到 [[Specification-Driven Development]]；§八 Spec Kit 一句改正为"另列三种变更模型并声明都不是默认"（原写
+"不强制任何保留模型"，与同日对该页的归属更正不一致）；证据边界补各推断的置信度（回本量级低，其余中）。起因：用户要求
+把该页的 HTML 渲染改成可对外分享的结论版，渲染要用到的这些内容先回灌 wiki。
