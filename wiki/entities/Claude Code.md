@@ -32,13 +32,15 @@ sources:
   与 [[harness-vs-model]] 的判断一致，也解释了为什么企业倾向在官方 CLI 外再包一层。
   完整语境见 [[Uber-软件工厂的成本工程]]。
 
-- **自发选择重构是它的弱项（单个外部实验，2026-07-30）**：Thoughtworks 在一个约 15 万行、主要由 Claude Code 写成的应用上做
-  重构实验。开发 harness 里原有的显式重构步骤从未促使它处理一个 17,155 行的文件；制定计划时 Claude.ai 看出
-  应抽出整个 client 类，Claude Code 只提出 Extract Function；执行时用 Python 调 grep/sed 做机械改写，常被缩进
-  搞乱，还跳过了价值最大的一步。人工引导下，全程约 8 小时基本无人值守地完成，同一变更的输入 token 降了约 83%
-  （[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]）。综合：这说明它**能执行被选定的重构，但不会自发选择
-  重构**，与 Böckeler 用 Cursor / Claude Code / OpenCode 做的 sensor 实验结论一致
-  （[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]）。论点页见 [[Agent 不会自发偿还结构债]]。
+- **自发发起重构是它的弱项（单个外部实验，2026-07-30）**：Thoughtworks 在一个约 15 万行、主要由 Claude Code 写成的应用上做
+  重构实验。开发 harness 里原有的显式重构步骤从未促使它处理一个 17,155 行的文件；作者称 Claude 需要人主动引导才能
+  选对重构；另据其轶事观察，制定计划时 Claude.ai 看出应抽出整个 client 类，Claude Code 只提出 Extract Function。
+  执行时用 Python 调 grep/sed 做机械改写，常被缩进搞乱；价值最大的一步首轮被漏掉，经唯一一次人工重新引导补做。
+  整个实验约 8 小时，基本无人值守，同一变更的输入 token 降了约 83%
+  （[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]）。综合：它**不会自发发起重构**；被要求制定计划
+  时选题偏浅（单实验）；执行能在人工选定后基本无人值守地完成，但不可靠。与 Böckeler 用 Cursor / Claude Code /
+  OpenCode 做的 sensor 实验一致的只有"不会自发发起"这一层——在选题上，她用推理型模块化评审反而得到了大量有价值的
+  线索（[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]）。论点页见 [[Agent 不会自发偿还结构债]]。
 
 ## 线 2：Anthropic 内部 AI 原生 SDLC 的载体
 

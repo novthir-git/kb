@@ -1296,3 +1296,61 @@ symlink 与 git 历史都不会随文件树过去。
 
 同步更新 [[llm-wiki-方法论]] 在 index 的描述行。未新建页面，页面计数不变（61）；
 overview 不动（版图未变，一页变深）。
+
+## [2026-09-23] ingest | Harness engineering 与 agentic 重构：4 篇一手文章 + 1 份用户调研稿（逐项核验）
+
+用户在本机 worktree 里准备了 5 份素材；云端会话无法访问本机路径，改为上传后原样存入 raw（sha256 与上传件逐一
+一致，文件名沿用用户原名）：
+
+- `raw/sources/articles/2026-02-11-OpenAI-Harness-Engineering.md`
+- `raw/sources/articles/2026-04-02-Boeckeler-Harness-Engineering.md`
+- `raw/sources/articles/2026-05-27-Boeckeler-可维护性传感器.md`
+- `raw/sources/articles/2026-07-30-Thoughtworks-重构的经济收益.md`
+- `raw/sources/notes/2026-09-23-agentic-se-refactoring-methodology.md`（用户多源调研稿，二次综合产物）
+
+**核验**：调研稿按来源分 9 组、另 1 组抽查四篇文章存档，共 10 个核验代理回查一级来源；凡"非成立"的判定再由
+反方代理独立复查（76 条复查，14 条改判）；写进 wiki 的关键数字与引语由维护者本人对照原文抽查。
+调研稿 107 条论断的最终判定：成立 43、基本成立 29、部分成立 20、失准 10、归属错误 3、不成立 2，逐项表见
+[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]。四篇文章存档抽查 23 条：成立 20、基本成立 2、失准 1。
+写完后又跑一轮 5 代理对抗性终审（源摘要忠实度、主分析页、概念与主题页、既有页改动、全库一致性），
+54 条发现逐条回原文确认后全部修正；确定性检查全绿。
+
+**调研稿的三处结构性校正**：§0 思想光谱的站位（Karpathy 实为"范式激进、工程审慎"；Böckeler 是按风险校准审查；
+Yegge 2024 不属此光谱）；§5.1"激进主张被自己的基准证伪"不成立（EvoClaw 是第三方基准，38% 是综合得分而非成功率，
+完全解决率最高约 13%）；§1.5 把"TDD inside the agent loop"当路线终点，与来源相反（Böckeler 2026-08-10 评估后已停用）。
+
+**新增 8 页**：
+- `concepts/Harness Engineering` —— 外层 harness：guides/sensors × computational/inferential（四格以 Böckeler 原表为准）、
+  五个机制、harnessability、人的隐性 harness；与 [[harness-vs-model]]（内层）划界。
+- `topics/Agent 不会自发偿还结构债` —— 新论点页，分三层（不自发发起 / 被分派后的选题质量 / 执行质量），证据点表
+  3 行，写明"什么证据会让本页改口"。
+- `analyses/Agentic SE 时代的系统重构` —— 主体判断页：目标函数扩展、结构债按 token 计价（单实验 −83%）、重构须由
+  harness 驱动、验证网先行（SWE-Milestone 机制证据）、遗留系统方法表、批量改动的三种形态、校正后的思想光谱、
+  修订版六步顺序（综合）、争议表。
+- 5 个源摘要页（四篇文章 + 调研稿逐项核验）。
+
+**横向更新 14 页**：[[harness-vs-model]]、[[AI编码技术债的三层治理]]（门禁的两种 agent 特有失效；Claude Code 自
+2026-09-18 读 AGENTS.md；上下文文件的四项测量与两处 ⚠️ 矛盾）、[[Uber-软件工厂的成本工程]]（代码结构是读取成本
+杠杆）、[[Agent 工具上下文膨胀]]、[[代码与文档漂移的本质]]（地图式 AGENTS.md 与 doc-gardening）、[[llm-wiki-方法论]]
+（schema 是地图还是手册）、[[Codex]]、[[Claude Code]]、[[生产力-体验悖论]]、[[Loop Engineering]]、
+[[Anthropic-AI原生SDLC治理循环]]（steering loop；门禁密度分歧）、[[agent-生产级落地的鸿沟]]（新增 OpenAI、
+SWE-Milestone、Anthropic 内部调查 3 行）、[[Specification-Driven Development]]、[[SDD 收益主张的实证赤字]]
+（Böckeler 行 + 规格长度数据点）。另改 overview（新板块、新线索、新悬而未决问题，60 行）与 purpose 核心论断 1。
+
+**更正本库既有错误**：[[Specification-Driven Development]] 原把 spec-first / spec-anchored / spec-as-source 三层级
+归于 arXiv 2602.00180，实为 Böckeler 2025-10-15 首提（Spec Kit 文档链接的也是她），已用 ⚠️ 块显式标注。
+
+**新标注的矛盾**：ETH 2602.11988（上下文文件不提升成功率、成本 +20%）vs Lulla 等 2601.20404（Codex 运行时间
+−28.64%）；Claude Code 官方"CLAUDE.md 膨胀导致忽略指令" vs McMillan 2605.10039（25–500 行内未测到大小效应）；
+Böckeler 称 OpenAI 缺行为验证 vs OpenAI 原文的 agent 自验证机制；Thoughtworks 原文结论"时间与金钱价值" vs 其表中
+耗时未降，以及导言与结果表的 Rust 行数口径不一。
+
+**raw 存档与原文的出入**（raw 只读不改，在源摘要页用 ⚠️ 标注）：Böckeler sensors 文实为 05-19 起连载、05-27 完结；
+sensors 摘录把"唯一"从"agent 频繁上调阈值的类别"挪到了"没配指引的规则"上，这一过度表述曾扩散到 4 个页面，已全部改正。
+
+**未执行、待用户决定**：本仓库 `AGENTS.md`（326 行、约 1.2 万字符，每次会话常驻）是否改为"地图 + 按需文件"。
+三家来源收敛于"常驻入口极简、深层按需加载"，ETH 评测显示仓库概览类内容无益；但 McMillan 在 25–500 行内没测到
+长度影响指令遵循，所以站得住的理由只剩上下文成本与可机械核查性。属 schema 修改，只记判断未动文件。
+
+index 概览更新为 37 素材 / 69 页。另：远端分支 `claude/blissful-allen-jjhv9d` 有一个未合入 main 的 research 提交
+（09-16，Anthropic CI 25×），同样改动 index / log / overview，与本分支合并时会有文本冲突，计数需重算。

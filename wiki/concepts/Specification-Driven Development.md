@@ -15,6 +15,8 @@ sources:
   - "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html （Böckeler，2025-10-15；检索于 2026-09-23）"
   - "https://martinfowler.com/articles/exploring-gen-ai/tdd-in-the-agent-loop.html （Böckeler，2026-08-10；检索于 2026-09-23）"
   - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
+  - "https://kiro.dev/docs/specs/ （检索于 2026-09-23）"
+  - "https://github.github.com/spec-kit/ （检索于 2026-09-23）"
 ---
 
 # Specification-Driven Development
@@ -57,7 +59,7 @@ Margaret-Anne Storey 将这类缺失进一步命名为 **intent debt**：目标�
 
 这三个层级最早由 Birgitta Böckeler 在 2025-10-15 的 martinfowler.com 文章中提出
 （[Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html)，
-检索于 2026-09-23）。GitHub Spec Kit 的持久化文档引用的正是这篇，并声明三种模型"都不是默认、都不强制"
+检索于 2026-09-23）。GitHub Spec Kit 的持久化文档引用的正是这篇（称其为"one overview of SDD tooling"）
 （[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-09-23）。
 "适用边界"一列参考 [arXiv 2602.00180](https://arxiv.org/abs/2602.00180)（Piskala，2026-01-30 单作者预印本，
 投稿 AIWare 2026）的建议，该文沿用三层级但未注明出处。
@@ -66,16 +68,18 @@ Margaret-Anne Storey 将这类缺失进一步命名为 **intent debt**：目标�
 > 持久化文档采用"。核验后，最早提出者是 Böckeler（早于该预印本约三个半月），Spec Kit 文档链接的也是 Böckeler 的文章。
 > 该预印本的参考文献把这一系列误署为 M. Fowler。（发现于 2026-09-23，见 [[2026-09-23-agentic-se-refactoring-methodology-源摘要]]）
 
-提出者本人对后两个层级有保留。她 2025-09 试用 Kiro、spec-kit 与 Tessl 后认为，spec-first 在很多场景下有价值；
-spec-as-source（以及某种程度上的 spec-anchored）则可能同时继承 Model-Driven Development 的僵化与 LLM 的非确定性，
-她拿 MDD 在业务应用领域从未流行起来的历史作参照。她还观察到 agent 常常不遵循全部指令，偶尔又过度执行某条
-constitution 条款，质疑 SDD 带来的是"虚假的控制感"。这些是基于 2025-09 版本工具的观察，两款工具此后都增加了
-按问题规模区分的流程。
+提出者本人的立场分两层。她 2025-09 试用 Kiro、spec-kit 与 Tessl 后认可 **spec-first 的一般原则**，但对当时的
+spec-first 工具（她把 Kiro 与 spec-kit 都归为 spec-first）有保留：重流程不适配小问题（"用大锤砸坚果"）、宁愿 review
+代码也不愿 review 一堆 markdown；她还观察到 agent 常常不遵循全部指令，偶尔又过度执行某条 constitution 条款，质疑
+SDD 带来的是"虚假的控制感"。对 spec-as-source（以及某种程度上的 spec-anchored），她推测可能同时继承
+Model-Driven Development 的僵化与 LLM 的非确定性，并拿 MDD 在业务应用领域从未流行起来的历史作参照。这些是基于
+2025-09 版本工具的观察；此后 Kiro 增加了不设审批门的 Quick Spec 与 Bugfix Specs，Spec Kit 增加了 bug fixing 与
+idea assessment 两个入口（两者文档均检索于 2026-09-23）。
 
 ### 需求变化时改什么
 
-GitHub Spec Kit 另区分三种 artifact mutation model
-（[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-07-16）：
+GitHub Spec Kit 另区分三种 artifact mutation model，并声明三者"都不是默认、都不强制"
+（[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-07-16，2026-09-23 复核）：
 
 - **Flow-back**：规格、设计、任务、代码都可先发生变化，之后人工重新对齐；快，但易静默漂移。
 - **Flow-forward**：已完成的变更包保持不可变，新需求新建变更包；审计强，但上下文可能碎片化。

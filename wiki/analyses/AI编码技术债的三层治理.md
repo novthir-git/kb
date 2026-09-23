@@ -139,7 +139,8 @@ Bridgeford 等的《Twelve quick tips for AI-assisted coding in science》回答
 **规则文件的效果有了第一批测量（2026-09-23 补）**，结论与上面的"只写项目特定内容"一致，但对"写了就有益"泼了冷水：
 
 - Gloaguen 等（ETH，arXiv 2602.11988v2）在 Claude Code、Codex（两个模型）、Qwen Code 共 4 个 agent–模型配置上测试：LLM 生成的上下文
-  文件让解决率平均下降 0.5%（SWE-bench）和 2%（自建 CTXbench），步数增加、成本平均上升 20% 和 23%（p<0.001）；
+  文件使解决率平均变化 −0.5%（SWE-bench）和 −2%（自建 CTXbench），均不显著（p=87%、37%）；步数增加、成本平均上升
+  20% 和 23%（p<0.001）；
   开发者手写的文件平均提升 2.4%（p=21%，不显著），且对 Claude Code 没有提升。文件里的指令**会被很好地遵循**——
   这正是成本上升的原因（更多探索、测试与推理）；而模型厂商推荐的**仓库概览没有帮助**。作者结论：上下文文件适合
   写非标准的编码约定，任何"提升表现"的尝试都应先评测再部署。
@@ -222,8 +223,9 @@ Böckeler 的可维护性 sensor 实验（[[2026-05-27-Boeckeler-可维护性传
    > 另一种形态。
 
 同一实验还划出了确定性门禁的**适用边界**：它在文件与函数层面可靠，跨文件的模块化与耦合问题则要靠推理型评审，
-而推理型评审非确定、值得多跑。这与本页"确定性门禁 vs 概率型 AI review"的分层是独立得出的同一结论，
-Böckeler 的术语是 computational vs inferential sensors，见 [[Harness Engineering]]。
+而推理型评审非确定、值得多跑（Böckeler 的术语是 computational vs inferential sensors，见 [[Harness Engineering]]）。
+综合：这与本页"确定性门禁 vs 概率型 AI review"的分层同向，但补了一条——在跨文件模块化这类问题上，推理型评审
+不只是"补充"，而是主要手段；它仍非确定，所以结论只能作候选、由人裁决。
 
 ## 第三层：人工控制不是逐行重写，而是保留判断权
 
