@@ -18,6 +18,12 @@ sources:
   - "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic （检索于 2026-09-23）"
   - "https://aws.amazon.com/blogs/migration-and-modernization/reimagine-your-mainframe-applications-with-agentic-ai-and-aws-transform/ （AWS，2025-12-15；检索于 2026-09-23）"
   - "https://every.to/guides/agent-native （Dan Shipper 与 Claude，2026-01-09；检索于 2026-09-23）"
+  - "https://maintainable.software/agentic-engineering-part-2-agentic-codebase-principles/ （Salomon，2026-04-05；检索于 2026-09-23）"
+  - "https://marmelab.com/blog/2026/01/21/agent-experience.html （Marmelab，2026-01-21；检索于 2026-09-23）"
+  - "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents （Anthropic，2025-09-29；检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2405.15793 （SWE-agent，NeurIPS 2024；检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2604.04990 （Architecture Without Architects；检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2602.14690 （Galster 等；检索于 2026-09-23）"
 ---
 
 # Agentic SE 时代的系统重构
@@ -226,6 +232,27 @@ tests 先行）、Osmani（其文中有"Parallelize last"一节）等来源方�
 
 调研稿 §4 表中"模块化单体 vs 微服务"一行没有给出处，本次核验未覆盖，暂不采信。
 
+## 九、改成什么样：agent 友好代码库的目标形态
+
+§一给了重构的新理由，这里是重构要达到的形态。材料来自调研稿 §2，按核验结果收窄（逐条依据见
+[[2026-09-23-agentic-se-refactoring-methodology-源摘要|源摘要]] §2 与 Anthropic 专项）。Salomon 给的判据可以当总目标：
+好的代码库应"让一个不熟悉的 agent 找到正确上下文、做窄变更并验证，而无需把整个系统装入工作记忆"。
+
+| 形态 | 做法 | 出处与证据等级 |
+|---|---|---|
+| 上下文经济性 | 小而内聚的文件；目录浅而可预测、按领域命名（Salomon 主张"领域顶层 + 用例切片"两级，优于纯扁平）；避免缩写与重名（Marmelab 称"代码 SEO"）。Salomon 的五项特征：Locality、Blast radius、Boundary integrity、Navigability、Rebuild/test scope。上下文是有限资源、性能随长度逐渐下降（context rot），Anthropic 推荐**混合**策略：少量内容常驻，其余按需检索；长任务靠 compaction、外置笔记、子 agent 回传摘要 | Salomon、Marmelab（实践者观点）；Anthropic（2025-09-29，厂商工程文章）；收益的测量见 §二 |
+| 显式契约 | 强类型让接口自带文档；显式边界防止 agent 推断出错误契约；消除全局状态、时序耦合、语义耦合（Salomon 列了六类有害耦合）；抵制过早抽象。在 ARCHITECTURE.md 里点名众所周知的模式，agent 就不必读实现 | Salomon（观点）；点名模式一条是 Marmelab 与 Deska 的经验之谈，未见实证，且 ARCHITECTURE.md 这一惯例本身强调简短 |
+| 给 agent 读的文档 | 常驻入口极简、深层按需加载：OpenAI 约 100 行的 AGENTS.md 指向结构化 `docs/`；Anthropic 让 CLAUDE.md 只写删掉就会出错的内容，按场景才需要的知识放进 skills；Marmelab 用短入口加就近嵌入的文档。统一命令入口、自文档化 CLI、ADR 也是 agent 的接口。AGENTS.md 与 CLAUDE.md 并存（2,586 个有上下文文件的仓库里 CLAUDE.md 45.9%、AGENTS.md 39.5%；Claude Code 自 2026-09-18 起在无 CLAUDE.md 时读 AGENTS.md） | 形态上三方同向；**效果**证据相互矛盾（ETH vs Lulla、McMillan vs 官方说法，见 [[AI编码技术债的三层治理]]） |
+| 为 agent 设计接口（ACI） | SWE-agent 把 LM agent 当作一类新的终端用户，四条原则：动作简单、动作紧凑、反馈充分而简洁、护栏阻断错误传播；相对 shell 基线提升 10.7 个百分点（绝对 pass@1 12.5%）。可操作的错误信息、省 token 的输出，另见 Anthropic《Writing effective tools for AI agents》（2025-09） | SWE-agent（NeurIPS 2024，基准测量） |
+| prompt 也是架构制品 | 开发者用自然语言描述需求时，agent 数秒内做出框架选择、基建与集成决策，本质是无人评审的架构决策（vibe architecting）。示意：只改 prompt，代码量 141 → 827 行（5.9 倍），依赖图与故障模式随之改变。主张在代码评审**之外新增**一层架构评审，审 prompt 规范与 agent 做出的架构决策 | arXiv 2604.04990（position paper；三个 prompt 各跑一次、单一工具，作者自称示意） |
+
+"代码库比堆 MCP / 子 agent 更根本"不作为结论采信：只有 Marmelab 接近原话，Anthropic 把表现归因于整个 harness 并推荐子
+agent 架构；它可取的部分是"基础先于工具"——Anthropic 2026-05-14 的大型代码库文章把"基础没做好就先接 MCP"列为常见错误。
+
+> 综合：五条形态对应 §一的三条新理由——降低上下文成本 → 上下文经济性；提高可被机械约束的程度 → 显式契约；让设计意图
+> 对 agent 可执行 → 给 agent 读的文档、ACI 与 prompt 评审。它们大多是老原则，新的是 agent 对上下文成本敏感得多
+> （核心判断 1）。ACI 的"反馈充分而简洁"与 [[Harness Engineering]] 的"sensor 信号要写明怎么改"是同一条原则。
+
 ## 证据边界
 
 - **一手实验都是单点**：Thoughtworks（单实验、单开发者、greenfield、每步只测一次）、Böckeler（单人单应用、无对照）、
@@ -237,7 +264,8 @@ tests 先行）、Osmani（其文中有"Parallelize last"一节）等来源方�
   的"agent 对上下文经济性远比人敏感"沿用自调研稿，只有机制层面的一手支撑。
 - 置信度（对外引用时标注）：回本量级为**低**（分子分母口径不同，只到"几十次"）；其余综合推断为**中**——核心判断 1 的
   程度、架构约束时点前移、选题判据、驱动方式分工与"默认小步"、古德哈特形态、验证网是无人值守的条件、"缺的是不破坏
-  旧功能的能力"、三种批量形态、实践层收敛、六步顺序、"重构必须是持续职能"。依据即以上几条证据边界。
+  旧功能的能力"、三种批量形态、实践层收敛、六步顺序、"重构必须是持续职能"、§九"五条形态对应三条新理由"。依据即以上几条证据边界。
+- §九的做法多为实践者观点；有测量支撑的只有 ACI（SWE-agent 基准）与上下文经济性的收益（§二，单实验）。
 
 ## 关联
 
