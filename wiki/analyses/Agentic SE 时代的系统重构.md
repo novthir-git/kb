@@ -104,7 +104,8 @@ harness 里写着显式重构步骤，却从未促使 agent 处理那个 17,155 
 - **让 sensor 的"绿"可信**：Böckeler 的实验里，一个语句覆盖 100% 的文件没有任何单元测试，变异测试报出 13 个
   存活变异体。测试也由 AI 写时，覆盖率门禁要配变异测试（[[AI编码技术债的三层治理]]）。
 - **让长期演化不崩**：Deng 等的持续演化基准（EvoClaw，现名 SWE-Milestone，arXiv 2603.13428）显示，agent 在
-  "每个里程碑都从标准快照起步"的独立设置下得分可超过 80%，在持续演化设置下最佳组合只有约 38%（综合得分，
+  "每个里程碑都从标准快照起步"的独立设置下得分可超过 80%（这一水平部分是构造基准时反复修订需求规格、直到
+  前沿模型能解出而校准出来的，用来证明单个任务可解），在持续演化设置下最佳组合只有约 38%（综合得分，
   非成功率），按完全解决计最高约 13%；失败集中在**防回归**，错误沿依赖链滚雪球。有纪律的测试验证得分最高，
   "频繁改同一文件却很少跑测试"的盲目试错表现最差。
 
@@ -163,7 +164,7 @@ Margaret-Anne Storey（ACM Queue 2026），Harrer 把它用到了现代化场景
 | 代表 | 调研稿的站位 | 核验后的站位 |
 |---|---|---|
 | Karpathy（Software 3.0，2025-06） | 激进端 | **范式判断激进、工程实践审慎**："keep the AI on the leash"、人类验证者是瓶颈、"decade of agents"而非"year of agents"。他还举了自己的 MenuGen："the code was actually the easy part"，认证、支付、部署花了一周 |
-| AaaS 论文（arXiv 2606.05608） | 激进重构派 | v1《The End of Software Engineering》激进；**6 天后的 v2 改题并改口为"扩展"软件工程**；人仍是 outcome auditor |
+| AaaS 论文（arXiv 2606.05608） | 激进重构派 | 单作者预印本、无自有实验。v1 题为《The End of Software Engineering》；**6 天后的 v2 撤回"终结"、改称"扩展"软件工程**，但仍坚持 AaaS 是"逻辑终点"；人仍是 outcome auditor |
 | Tessl（spec-as-source） | spec 是新源代码 | 2025 年私测时在**探索** spec-as-source；2026-09 首页已转型为 agent enablement 平台 |
 | Every agent-native | 可抛弃派 | 五条原则（不是三条），多处标注为 Claude 贡献、作者尚未背书 |
 | Yegge（CHOP，2024-06） | 可抛弃派 | 不在此光谱内：预测的是代码由 LLM 写，不是代码可抛弃 |
@@ -175,7 +176,8 @@ Margaret-Anne Storey（ACM Queue 2026），Harrer 把它用到了现代化场景
 每次都检查的不到一半；Anthropic 内部调查里超过一半的人能完全委派的工作只占 0–20%；SWE-Milestone 显示 agent
 缺的是系统级维护能力。
 
-> 综合：光谱的激进一端在一年内几乎失去了具体代表——AaaS 六天内改口，Tessl 转型，Karpathy 本人站在审慎一侧。
+> 综合：光谱的激进一端在一年内几乎失去了具体代表——AaaS 六天内撤回"软件工程终结"的标题，Tessl 转型，
+> Karpathy 本人站在审慎一侧。
 > 与其说这是两派之争，不如说是**向"验证是瓶颈"的收敛**；真正悬而未决的不是"代码还重不重要"，而是**在 agent
 > 吞吐下由谁、用什么来验证**。本页与 [[Harness Engineering]] 的答案是：确定性 sensor 管局部、推理型评审管跨文件、
 > 人管选题与高风险区。
