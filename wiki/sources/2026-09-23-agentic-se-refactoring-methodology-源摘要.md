@@ -136,12 +136,12 @@ sources:
 | 调研稿论断 | 核验 | 校正后的口径 |
 |---|---|---|
 | 多个独立来源（Maintainable Software、Marmelab、Deska、Anthropic）2026 年收敛：代码库比堆 MCP / 子 agent 更根本 | **部分成立** | 只有 Marmelab（2026-01-21）接近原话。Salomon 的主要依据就是 OpenAI 与 Anthropic 的两篇，"多来源收敛"大半是**同一两份原文的转述链**；Anthropic 反而推荐子 agent 架构；Deska 是厂商营销文 |
-| Salomon 的判据："让一个不熟悉的 agent 找到正确上下文、做窄变更并验证，而无需把整个系统装入工作记忆" | **基本成立** | 引文逐字对应。出处补正：Jan-Gerke Salomon，《How to Design a Maintainable Codebase for AI Coding Agents》，2026-04-05（"Agentic Codebase Principles"只是 URL slug） |
+| Salomon 的判据："让一个不熟悉的 agent 找到正确上下文、做窄变更并验证，而无需把整个系统装入工作记忆" | **成立**（复查上调） | 引文逐字对应。出处补正：Jan-Gerke Salomon，《How to Design a Maintainable Codebase for AI Coding Agents》，2026-04-05（"Agentic Codebase Principles"只是 URL slug） |
 | Salomon 的七特征 | **失准** | 原文定义**五项**特征：Locality、Blast radius、Boundary integrity、Navigability、Rebuild/test scope；Cohesive modules、Ownership-aligned boundaries 属于另列的设计手段 |
 | 小而内聚的文件；扁平、语义化目录；避免缩写重名（"代码 SEO"） | **基本成立** | "代码 SEO"出自 Marmelab。"扁平"只见于 Deska；Salomon 明确主张"领域顶层 + 用例切片"两级结构，优于纯扁平。应改为"浅而可预测、按领域命名" |
 | Anthropic：context rot、n² 注意力、JIT 检索优于预加载、compaction、NOTES.md、子 agent 压缩回传 | **基本成立** | 该文发表于 **2025-09-29**，不是 2026 年；原文推荐**混合**策略（预载 CLAUDE.md + glob/grep 按需检索），并说明运行时探索更慢 |
 | 强类型让 API 自文档化；消除全局状态、时序与语义耦合；抵制过早抽象 | **成立** | 主要出处是 Salomon（列六类有害耦合），Deska 为单一厂商来源 |
-| ARCHITECTURE.md 点名设计模式可激活预训练知识 | **基本成立** | 只出自 Deska 厂商博客，未见实证；ARCHITECTURE.md 本身是 matklad 2021 年为人类贡献者提出的惯例，同样强调"保持简短" |
+| ARCHITECTURE.md 点名设计模式可激活预训练知识 | **基本成立** | 点名 Hexagonal、MVC 只出自 Deska 厂商博客；Marmelab 有同一机制的近似说法（用众所周知的模式或点名 Martin Fowler，agent 就不必读实现）。两位实践者的经验之谈，未见实证；ARCHITECTURE.md 本身是 matklad 2021 年为人类贡献者提出的惯例，同样强调"保持简短" |
 | Anthropic：CLAUDE.md 只写"删掉会出错"的内容 | **成立** | 限制的是每次会话都载入的文件；按场景需要的知识建议放进按需加载的 skills |
 | 文档粒度之争：Anthropic、Marmelab 主张极简 vs 另一派主张详尽 .ai-context | **部分成立** | Marmelab 实为"短入口文件 + 大量就近嵌入的文档"；".ai-context"只是 Deska 的可选建议，谈不上一派。各方实际收敛于**常驻入口极简 + 深层文档按需加载**（OpenAI、Anthropic、Marmelab 同向），分歧只在哪些内容常驻上下文 |
 
