@@ -17,6 +17,7 @@ sources:
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "https://arxiv.org/abs/2603.13428v4 （Deng 等，EvoClaw / SWE-Milestone；检索于 2026-09-23）"
+  - "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic （检索于 2026-09-23）"
 ---
 
 # Agent 生产级落地的鸿沟（Demo ≠ Production）
@@ -68,6 +69,7 @@ sources:
 | 2026-03-13 | Deng 等，arXiv 2603.13428（首发名 EvoClaw，v3 起更名 SWE-Milestone；arXiv 注明 ICML 2026 录用） | 7 个开源仓库、98 个人工核验的里程碑、5 种语言，评测 12 个前沿模型 × 4 个 agent 框架：综合得分从**独立任务的 80% 以上**跌到**持续演化设置的最高 38.03%**（Claude Opus 4.6），按完全解决计最高仅 **13.37%**（Gemini 3 Pro）。失败集中在防回归（新功能 Recall 近线性增长、Precision 饱和），错误沿依赖链滚雪球 | "Demo ≠ 生产"在基准层的直接对应：每次从干净快照起步 ≈ Demo，在自己累积的历史上持续演化 ≈ 生产。38% 是综合得分（Recall 与 Precision 的调和），**不是成功率**——转述时最常被搞错的口径。它测的是里程碑级功能演化，不是企业落地率；持续演化失败的机制证据见 [[Agentic SE 时代的系统重构]]"验证网先行"节 |
 | 2026-02-11 | OpenAI 工程博客（Ryan Lopopolo） | 内部团队五个月零手写代码，用 Codex 做出约 **100 万行**、约 1,500 个 PR 的内部 beta；3 人起步、现 7 人，人均每天约 3.5 个 PR；单次运行常持续 6 小时以上。作者结论：早期进展慢是因为缺工具、抽象与内部结构，**瓶颈在环境而非模型** | 又一条"靠工程填平鸿沟"的正向证据，与 Uber 同形：成功依赖的是严格分层、机械化不变量、agent 可读的可观测性栈与定期垃圾回收，而不是模型更强。口径边界：公司自述、无对照；"约 1/10 用时"为作者自估；产品为内部 beta，爆炸半径小；作者自己限定不应在没有类似投入时假定可泛化。→ [[2026-02-11-OpenAI-Harness-Engineering-源摘要]]、[[Harness Engineering]] |
 | 2026-01-21 | Deloitte《State of AI in the Enterprise 2026》 | 3,235 名全球高管样本中，仅 **25%** 的受访组织已把至少 40% 的 AI pilots 推入生产 | 支持更广义的 pilot-production gap；并非 agent-only 数据，54% 预计未来 3–6 个月达到该水平。 |
+| 2025-12-02 | Anthropic Societal Impacts《How AI is transforming work at Anthropic》 | 2025-08 对 132 名内部工程师与研究员的调查：自报约 **59%** 的工作使用 Claude、生产力 +50%；但**超过一半**的受访者表示能"完全委派"的工作只占 **0–20%**，高风险工作尤其需要主动监督与验证 | 同一家公司的"高用量"与"低完全委派"并存——正是本页"试验广、规模化窄"在个人工作层的形态。口径：非匿名自报，作者自认有选择与社会期许偏差；"完全委派"的理解因人而异；2025-08 为 Sonnet 4 / Opus 4 时期。**2026 趋势报告转引时把它泛化成 "developers" 并丢了"超过一半"的限定**，引用须回到本文 |
 | 2025-06-25 | Gartner | 预测到 2027 年底超过 **40%** 的 agentic AI 项目会因成本、价值不清或风险控制不足而取消 | 这是预测而非已实现结果；同时 Gartner 仍预测 agentic AI 长期渗透率上升。 |
 
 ## 关键张力：乐观叙事 vs 兑现节奏

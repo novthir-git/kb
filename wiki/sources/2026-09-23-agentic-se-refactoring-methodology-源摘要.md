@@ -16,6 +16,15 @@ sources:
   - "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html （检索于 2026-09-23）"
   - "https://martinfowler.com/articles/exploring-gen-ai/tdd-in-the-agent-loop.html （检索于 2026-09-23）"
   - "https://martinfowler.com/articles/exploring-gen-ai.html （检索于 2026-09-23）"
+  - "https://addyo.substack.com/p/code-review-in-the-age-of-ai （检索于 2026-09-23）"
+  - "https://www.sonarsource.com/state-of-code-developer-survey-report.pdf （检索于 2026-09-23）"
+  - "https://every.to/guides/agent-native （检索于 2026-09-23）"
+  - "https://maintainable.software/agentic-engineering-part-2-agentic-codebase-principles/ （检索于 2026-09-23）"
+  - "https://marmelab.com/blog/2026/01/21/agent-experience.html （检索于 2026-09-23）"
+  - "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents （检索于 2026-09-23）"
+  - "https://code.claude.com/docs/en/best-practices （检索于 2026-09-23）"
+  - "https://code.claude.com/docs/en/changelog （检索于 2026-09-23）"
+  - "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic （检索于 2026-09-23）"
 ---
 
 # AI Agentic SE 时代的系统重构——用户调研稿源摘要
@@ -126,7 +135,26 @@ sources:
 | Anthropic：CLAUDE.md 只写"删掉会出错"的内容 | **成立** | 限制的是每次会话都载入的文件；按场景需要的知识建议放进按需加载的 skills |
 | 文档粒度之争：Anthropic、Marmelab 主张极简 vs 另一派主张详尽 .ai-context | **部分成立** | Marmelab 实为"短入口文件 + 大量就近嵌入的文档"；".ai-context"只是 Deska 的可选建议，谈不上一派。各方实际收敛于**常驻入口极简 + 深层文档按需加载**（OpenAI、Anthropic、Marmelab 同向），分歧只在哪些内容常驻上下文 |
 
-<!-- 待补：§2.3 AGENTS.md / ACI / vibe architecting（G8）、Anthropic 专项（G7）、§3 遗留系统（G9）、四篇文章存档抽查（G10） -->
+### Anthropic 来源专项（§2.1、§2.4、§3.2、§3.3）
+
+| 调研稿论断 | 核验 | 校正后的口径 |
+|---|---|---|
+| Anthropic 属于"代码库比 MCP / 子 agent 更根本"的收敛方 | **部分成立** | 一手材料支持"目录层级、命名影响 agent 检索效率"与"工具集宜精简"，但**推荐**子 agent 架构；相关文章发表于 2025-09，不宜计入"2026 年收敛" |
+| context rot、n² 注意力约束 | **成立** | context rot 一词引自 Chroma 的研究；强调性能逐渐下降，不是到某长度突然失效 |
+| just-in-time 检索优于预加载 | **基本成立** | 原文是 JIT **补充**预检索，承认运行时探索更慢，多数场景推荐混合 |
+| compaction、NOTES.md、子 agent 压缩回传 | **成立** | 各有适用场景；子 agent 回传摘要通常 1,000–2,000 token |
+| 可运行验证是"看守式会话"与"可离开会话"的分水岭 | **成立** | 出自 Claude Code 最佳实践（活文档，无发布日期，检索于 2026-09-23） |
+| 验证可升级为 Stop hook 门禁、对抗性 review subagent、Writer/Reviewer 双会话 | **基本成立** | 官方阶梯是：自检 → `/goal` 独立评估 → Stop hook 确定性门禁（**连续拦截 8 次后强制结束本轮**）→ 第二意见。官方另有告诫："被要求找缺口的 reviewer 通常总能报出一些"，追逐每条发现会导致过度工程，应只标记影响正确性或需求的缺口 |
+| Claude Code 有 `/batch` | **成立** | v2.1.63（2026-02-28）起的 bundled skill：调研 → 拆成 5–30 个独立单元 → 人批准计划 → 每单元在独立 worktree 由后台 subagent 实现、跑测试、各开 PR |
+| 先在 2–3 个文件上调 prompt 再全量 fan-out；ratchet 式渐进收紧 | **基本成立** | 2–3 文件试跑是官方给自写 `claude -p` 循环的步骤，`/batch` 走自己的流程；"ratchet 式收紧"不出自 Anthropic，出处待查 |
+| 2026 趋势报告：工程师 60% 的工作用 AI，能完全委派的仅 0–20% | **失准** | 一手来源是 Anthropic Societal Impacts 2025-12-02《How AI is transforming work at Anthropic》：2025-08 对 **132 名内部**工程师与研究员的非匿名自报调查，约 59% 的工作使用 Claude，其中**超过一半的受访者**表示能完全委派的只占 0–20%。趋势报告转引时泛化成 "developers" 并丢了"超过一半"的限定 |
+| 角色转向 agent 编排者；新技能是系统架构、质量评估、问题分解 | **成立** | 厂商报告对 2026 年的趋势预测，不是实测；原文另列 agent coordination |
+| 0–20% 与 EvoClaw ≤38% "互相印证"：全自动重构目前不成立 | **部分成立** | 方向一致但口径不同（主观可委派比例 vs 基准综合得分），不是直接互证；外推到"重构"属综合推断 |
+| "AI 提供速度，护栏保证正确" | **基本成立** | "验证优先"对 Anthropic 成立，但这句话不出自 Anthropic |
+
+**连带发现**：Claude Code 自 v2.1.277（2026-09-18）起在项目没有 `CLAUDE.md` 时读取 `AGENTS.md`，调研稿"CLAUDE.md 是厂商变体"的说法需要更新（已同步到 [[AI编码技术债的三层治理]]）。
+
+<!-- 待补：§2.3 AGENTS.md / ACI / vibe architecting（G8）、§3 遗留系统（G9）、四篇文章存档抽查（G10） -->
 
 ## 调研稿未引、但会改变结论的一级来源
 

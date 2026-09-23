@@ -19,6 +19,7 @@ sources:
   - "https://docs.anthropic.com/zh-CN/docs/claude-code/memory （检索于 2026-08-07）"
   - "https://docs.sonarsource.com/sonarqube-server/2025.1/instance-administration/analysis-functions/quality-gates （检索于 2026-08-07）"
   - "https://docs.coderabbit.ai/pr-reviews/pre-merge-checks （检索于 2026-08-07）"
+  - "https://code.claude.com/docs/en/changelog （v2.1.277，2026-09-18；检索于 2026-09-23）"
 ---
 
 # AI 编码技术债的三层治理：意图、证据与责任
@@ -106,7 +107,9 @@ Bridgeford 等的《Twelve quick tips for AI-assisted coding in science》回答
 ### 使用当前工具真正读取的文件
 
 - 跨 agent 的项目约定：`AGENTS.md`。
-- Claude Code：`CLAUDE.md`，可导入分拆的领域、测试和工作流文件。
+- Claude Code：`CLAUDE.md`，可导入分拆的领域、测试和工作流文件；自 v2.1.277（2026-09-18）起，项目中没有
+  `CLAUDE.md` 时改读 `AGENTS.md`（Bedrock / Vertex / Foundry 上暂不支持）——`AGENTS.md` 作为跨工具入口的地位
+  因此更强。
 - Cursor：`.cursor/rules/*.mdc`；根目录 `.cursorrules` 已是 legacy。
 - `.claudeprotocol` 不是已核验的 Claude Code 官方约定，不应写进模板。
 
