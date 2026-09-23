@@ -102,7 +102,31 @@ sources:
 | "今晚 on-call 的你，敢部署没读过的 1000 行变更吗" | **失准** | 拼接了两篇：原问是"负责 on-call 时，什么情况下能接受部署 1,000 或 5,000 行变更"；"今晚 on-call"出自 2025-09-23《To vibe or not to vibe》；"没读过"为调研稿所加。不能当直接引语 |
 | Exploring Gen AI 路线：技能不降反升 → 全自主只适合小任务 → context / harness engineering、TDD inside the agent loop | **部分成立** | 系列是 Thoughtworks 多位作者合写。TDD inside the agent loop 在系列中是**被质疑**的做法（见结构性校正第 3 条）；"不降反升""可验证"是调研稿自加 |
 
-<!-- 待补：§1.5 后半、§2、§3 的核验表（G5–G9），以及四篇文章存档的抽查结果（G10） -->
+### §1.5 验证瓶颈与 agent-native（后半）
+
+| 调研稿论断 | 核验 | 校正后的口径 |
+|---|---|---|
+| "review is the bottleneck"是共识（引 Osmani《Code Review in the Age of AI》） | **基本成立** | Osmani（2026-01-05）主张瓶颈从"写代码"移到"证明代码能用"；原文无此句，对策是让作者在 PR 里附可运行证据（PR Contract），而不是加大 review。称"共识"偏强 |
+| Osmani《Vibe Coding: Revolution or Reckless Abandon?》支持同一论点 | **部分成立** | 2025-04-03 的这篇论证的是 review 与验证不可省，没有提出"review 是瓶颈" |
+| "多数开发者不信任 AI 代码但也不检查它"（引 The Register 2026-01-09） | **失准** | 底层是 Sonar 2026 State of Code 调查（2025-10 在线问卷，n=1,149，自报，厂商主导）：96% 不"完全"信任 AI 代码功能正确；48% 完全同意"提交前总是检查"，另 27% 部分同意。应表述为"普遍不完全信任，但坚持每次都检查的不到一半"。The Register 放大了两点 |
+| Every / Shipper 的 agent-native 三原则：Parity / Granularity / Improvement over time | **失准** | 指南（Dan Shipper 与 Claude 合著，2026-01-09，规范 URL `every.to/guides/agent-native`）列的是**五条**：Parity、Granularity、Composability、Emergent capability、Improvement over time。多处标注为 Claude 贡献、Dan 尚未背书 |
+| 检验标准：agent 能否完成你从未显式构建的功能 | **基本成立** | 对应被漏掉的 Emergent capability；原文限定"在应用领域之内" |
+
+### §2 架构方法论：代码库成为 agent 的环境
+
+| 调研稿论断 | 核验 | 校正后的口径 |
+|---|---|---|
+| 多个独立来源（Maintainable Software、Marmelab、Deska、Anthropic）2026 年收敛：代码库比堆 MCP / 子 agent 更根本 | **部分成立** | 只有 Marmelab（2026-01-21）接近原话。Salomon 的主要依据就是 OpenAI 与 Anthropic 的两篇，"多来源收敛"大半是**同一两份原文的转述链**；Anthropic 反而推荐子 agent 架构；Deska 是厂商营销文 |
+| Salomon 的判据："让一个不熟悉的 agent 找到正确上下文、做窄变更并验证，而无需把整个系统装入工作记忆" | **基本成立** | 引文逐字对应。出处补正：Jan-Gerke Salomon，《How to Design a Maintainable Codebase for AI Coding Agents》，2026-04-05（"Agentic Codebase Principles"只是 URL slug） |
+| Salomon 的七特征 | **失准** | 原文定义**五项**特征：Locality、Blast radius、Boundary integrity、Navigability、Rebuild/test scope；Cohesive modules、Ownership-aligned boundaries 属于另列的设计手段 |
+| 小而内聚的文件；扁平、语义化目录；避免缩写重名（"代码 SEO"） | **基本成立** | "代码 SEO"出自 Marmelab。"扁平"只见于 Deska；Salomon 明确主张"领域顶层 + 用例切片"两级结构，优于纯扁平。应改为"浅而可预测、按领域命名" |
+| Anthropic：context rot、n² 注意力、JIT 检索优于预加载、compaction、NOTES.md、子 agent 压缩回传 | **基本成立** | 该文发表于 **2025-09-29**，不是 2026 年；原文推荐**混合**策略（预载 CLAUDE.md + glob/grep 按需检索），并说明运行时探索更慢 |
+| 强类型让 API 自文档化；消除全局状态、时序与语义耦合；抵制过早抽象 | **成立** | 主要出处是 Salomon（列六类有害耦合），Deska 为单一厂商来源 |
+| ARCHITECTURE.md 点名设计模式可激活预训练知识 | **基本成立** | 只出自 Deska 厂商博客，未见实证；ARCHITECTURE.md 本身是 matklad 2021 年为人类贡献者提出的惯例，同样强调"保持简短" |
+| Anthropic：CLAUDE.md 只写"删掉会出错"的内容 | **成立** | 限制的是每次会话都载入的文件；按场景需要的知识建议放进按需加载的 skills |
+| 文档粒度之争：Anthropic、Marmelab 主张极简 vs 另一派主张详尽 .ai-context | **部分成立** | Marmelab 实为"短入口文件 + 大量就近嵌入的文档"；".ai-context"只是 Deska 的可选建议，谈不上一派。各方实际收敛于**常驻入口极简 + 深层文档按需加载**（OpenAI、Anthropic、Marmelab 同向），分歧只在哪些内容常驻上下文 |
+
+<!-- 待补：§2.3 AGENTS.md / ACI / vibe architecting（G8）、Anthropic 专项（G7）、§3 遗留系统（G9）、四篇文章存档抽查（G10） -->
 
 ## 调研稿未引、但会改变结论的一级来源
 

@@ -5,6 +5,8 @@ updated: 2026-09-23
 sources:
   - "[[2026-07-03-Karpathy-LLM-Wiki-模式]]（本地存档）"
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
+  - "https://code.claude.com/docs/en/best-practices （检索于 2026-09-23）"
+  - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
   - "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f （检索于 2026-07-03）"
   - "[[Agent 记忆架构]]"
   - "[[从知识图谱到 Agent 编排]]"
@@ -91,6 +93,12 @@ symlink）。对照那四条：
 | 一切都重要 | 有「铁律」一节做优先级，部分缓解 |
 | 迅速腐烂 | 改动记 `schema` 日志、由用户与维护者共同修订（如 2026-08-31 `output/` 退出 lint 的那次）；没有定期复核 |
 | 无法机械核查 | Lint 只核查 `wiki/` 与 `raw/`，不核查 schema 自身（只查两个 symlink 能否解析） |
+
+这不是 OpenAI 一家的经验。2026-09-23 核验用户调研稿时发现，所谓"文档粒度之争"其实已经收敛：Anthropic 的
+Claude Code 最佳实践只让 `CLAUDE.md` 写"删掉会导致出错"的内容，按场景才需要的知识放进按需加载的 skills；
+Marmelab 主张短入口文件、深层文档就近嵌入代码库；OpenAI 是约 100 行的目录加结构化 `docs/`。三方的共同形态是
+**常驻入口极简、深层文档按需加载**，分歧只在哪些内容值得常驻上下文
+（[[2026-09-23-agentic-se-refactoring-methodology-源摘要]] §2 核验表）。
 
 > 综合：本仓库的规模远小于 OpenAI 那个 100 万行的仓库，手册形态目前没有出现可观测的失效。但前两条原因与
 > 规模无关，只与**每次会话都要付的上下文**有关。一个低风险的试探方向是：保留铁律、启动仪式与三大操作在
