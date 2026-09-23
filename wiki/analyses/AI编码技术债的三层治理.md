@@ -20,6 +20,8 @@ sources:
   - "https://docs.sonarsource.com/sonarqube-server/2025.1/instance-administration/analysis-functions/quality-gates （检索于 2026-08-07）"
   - "https://docs.coderabbit.ai/pr-reviews/pre-merge-checks （检索于 2026-08-07）"
   - "https://code.claude.com/docs/en/changelog （v2.1.277，2026-09-18；检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2602.11988v2 （Gloaguen 等，ETH；检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2601.20404 （Lulla 等；检索于 2026-09-23）"
 ---
 
 # AI 编码技术债的三层治理：意图、证据与责任
@@ -130,6 +132,23 @@ Bridgeford 等的《Twelve quick tips for AI-assisted coding in science》回答
 - 不得删除、弱化或改写失败测试来“证明成功”
 - 输出实际命令、结果、未验证项与风险
 ```
+
+**规则文件的效果有了第一批测量（2026-09-23 补）**，结论与上面的"只写项目特定内容"一致，但对"写了就有益"泼了冷水：
+
+- Gloaguen 等（ETH，arXiv 2602.11988v2）在 Claude Code、Codex（两个模型）、Qwen Code 共 4 个 agent–模型配置上测试：LLM 生成的上下文
+  文件让解决率平均下降 0.5%（SWE-bench）和 2%（自建 CTXbench），步数增加、成本平均上升 20% 和 23%（p<0.001）；
+  开发者手写的文件平均提升 2.4%（p=21%，不显著），且对 Claude Code 没有提升。文件里的指令**会被很好地遵循**——
+  这正是成本上升的原因（更多探索、测试与推理）；而模型厂商推荐的**仓库概览没有帮助**。作者结论：上下文文件适合
+  写非标准的编码约定，任何"提升表现"的尝试都应先评测再部署。
+- Lulla 等（arXiv 2601.20404，5 页短文）在 Codex 上用 10 个仓库、124 个 PR 对比有无根目录 `AGENTS.md`：中位运行时间
+  −28.64%、输出 token −16.58%，任务完成行为相当；未评估正确性。
+
+> ⚠️ 矛盾：Lulla 等 2601.20404 称根目录 `AGENTS.md` 与更短运行时间、更少输出 token 相关，但 Gloaguen 等 2602.11988 称
+> 上下文文件使推理成本平均增加 20% 以上且不提升成功率。可能的差异来源：前者只用 Codex、只挑小 PR、只测效率；
+> 后者跨多个 agent 与模型并测了成功率。（发现于 2026-09-23）
+
+> 综合：两篇都不支持"规则文件越详尽越好"。能从代码推断的内容（目录结构、组件清单）写进常驻文件只增加成本；
+> 推断不出的约定才值得写——这与 Claude Code 官方的修剪判据"删掉这一行会不会出错"一致。
 
 规则只能提高遵循概率，不能保证“不合规代码不被输出”。真正的禁止条件必须落到权限、沙箱和 CI 门禁。
 Matt Pocock 的 `/to-spec` 可把已讨论的决策综合为 spec，并要求结合领域词汇、ADR 与测试 seam；它是意图外化工具，

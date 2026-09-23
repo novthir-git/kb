@@ -25,6 +25,12 @@ sources:
   - "https://code.claude.com/docs/en/best-practices （检索于 2026-09-23）"
   - "https://code.claude.com/docs/en/changelog （检索于 2026-09-23）"
   - "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic （检索于 2026-09-23）"
+  - "https://agents.md （检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2601.20404 （检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2602.11988v2 （检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2602.14690 （检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2405.15793 （检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2604.04990 （检索于 2026-09-23）"
 ---
 
 # AI Agentic SE 时代的系统重构——用户调研稿源摘要
@@ -154,7 +160,29 @@ sources:
 
 **连带发现**：Claude Code 自 v2.1.277（2026-09-18）起在项目没有 `CLAUDE.md` 时读取 `AGENTS.md`，调研稿"CLAUDE.md 是厂商变体"的说法需要更新（已同步到 [[AI编码技术债的三层治理]]）。
 
-<!-- 待补：§2.3 AGENTS.md / ACI / vibe architecting（G8）、§3 遗留系统（G9）、四篇文章存档抽查（G10） -->
+### §2.3–2.5 AGENTS.md、ACI 与 vibe architecting
+
+| 调研稿论断 | 核验 | 校正后的口径 |
+|---|---|---|
+| AGENTS.md 已成跨工具事实标准（OpenAI / Google / Cursor 采用） | **基本成立** | OpenAI 2025-08 推出，2025-12-09 捐给 Linux 基金会旗下 Agentic AI Foundation 托管；Codex、Jules、Cursor、Copilot 等原生支持。但 Galster 等（arXiv 2602.14690）对 2,853 个使用 AI 编码工具的仓库的调查显示，在其中有上下文文件的 2,586 个里，`CLAUDE.md` 仍更普遍（45.9% 对 39.5%） |
+| CLAUDE.md / .cursorrules 是厂商变体 | **部分成立** | 二者早于 AGENTS.md；`.cursorrules` 已弃用。Claude Code 自 2026-09-18 起在无 `CLAUDE.md` 时读取 AGENTS.md |
+| 实践已形成"仓库级 → 目录级 → skills 按需加载"分层 | **部分成立** | 是厂商推荐模式，不是普遍实践：同一样本中上下文文件常是唯一的配置机制，定义了 skills 的仓库仅 158 个 |
+| 分层"已有实证研究（arXiv 2601.20404）" | **不成立** | 该文（Lulla 等，5 页短文）只研究根目录单个 AGENTS.md 对 Codex 效率的影响（10 仓库、124 PR：中位运行时间 −28.64%、输出 token −16.58%，未测正确性），不涉及分层或 skills |
+| asdlc.io 页面是"AGENTS.md 规范" | **归属错误** | 官方规范是 agents.md；asdlc.io 是第三方实践者解读，部分内容已过时 |
+| ACI 源自 SWE-agent（NeurIPS 2024），为 agent 设计工具是 UX 学科 | **基本成立** | 术语出自 SWE-agent；"UX 学科"是后来实践者的概括 |
+| ACI 要求：错误信息可操作、输出省 token、操作幂等 | **部分成立** | SWE-agent 原则是四条：动作简单、动作紧凑、反馈充分而简洁、护栏阻断错误传播。"可操作错误信息 / 省 token"出自 Anthropic《Writing effective tools for AI agents》（2025-09）；"幂等"是更后来的实践者补充 |
+| agentpatterns.ai 作为出处 | **基本成立** | 数字须回原文：ACI 相对 shell 基线提升 10.7 个百分点，绝对 pass@1 为 12.5%，不是"提升 12.5%" |
+| arXiv 2604.04990 提出 vibe architecting | **成立** | position paper，仅 arXiv 预印本、未经同行评审 |
+| 仅改 prompt 使代码量增长 5.9 倍（141→827 行） | **基本成立** | 三个 prompt 各跑一次、单一工具与模型，作者明言是"示意而非实验证明"；增量来自 prompt 新增的功能要求；依赖图与故障模式的改变是定性判断 |
+| prompt 规范本身是架构制品，应纳入架构评审 | **成立** | — |
+| 治理重心从"审代码"转向"审 prompt / 审架构决策" | **部分成立** | 原文主张在代码评审**之外新增**一层治理，不是替代；"重心转移"是调研稿推断 |
+| 文档变为 agent 的 API：ADR、自文档化 CLI、Makefile 统一入口 | **基本成立** | 出自 Marmelab、Deska 等实践者博客；"文档即 agent 的 API"是综合概括 |
+
+**调研稿未引、与本节结论直接相关的对照实证**：Gloaguen 等（ETH，arXiv 2602.11988v2）发现上下文文件总体不提升成功率、
+成本增加 20% 以上，仓库概览无益，指令本身会被遵循——与 2601.20404 的效率结论矛盾，已在
+[[AI编码技术债的三层治理]] 显式标注。
+
+<!-- 待补：§3 遗留系统（G9）、四篇文章存档抽查（G10） -->
 
 ## 调研稿未引、但会改变结论的一级来源
 
