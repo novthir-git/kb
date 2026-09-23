@@ -97,7 +97,7 @@ sources:
 
 | 调研稿论断 | 核验 | 校正后的口径 |
 |---|---|---|
-| Spec Kit：constitution → specify/plan/tasks | **基本成立** | 现版本：constitution 每项目一次；每个 feature 走 specify → plan → tasks → implement（另有 converge 与可选质量门） |
+| Spec Kit：constitution → specify/plan/tasks | **成立**（复查上调） | 与 Böckeler 给出的流程记号一致。补充：现版本每个 feature 走 specify → plan → tasks → implement → converge，SDD 只是 Spec Kit 三个入口之一（另两个是 bug fixing 与 idea assessment） |
 | Kiro：Requirements → Design → Tasks | **成立** | 现另有 Bugfix Specs、Design-First 变体与不设审批门的 Quick Spec |
 | Tessl 追求 spec-as-source，代码标注 "GENERATED FROM SPEC - DO NOT EDIT" | **基本成立** | 是 Böckeler 2025-09 试用 Tessl Framework（私测）时所见；"spec 是新的源代码"是转述。Tessl 2026-09 首页已转型为 agent enablement 平台，须加时间限定 |
 | Böckeler 区分 spec-first / spec-anchored / spec-as-source | **成立** | 2025-10-15 首提。**连带发现**：本 wiki [[Specification-Driven Development]] 原把三层级归于 arXiv 2602.00180，属归属错误，已更正 |
@@ -105,7 +105,7 @@ sources:
 | agent 经常无视或过度解读 spec | **基本成立** | 原文是"常不遵循全部指令"和"过度热切地执行某条 constitution 条款"，并质疑"虚假的控制感" |
 | 与 2000 年代 MDD 失败历史平行 | **基本成立** | 原文没写"2000 年代"；类比主要针对 spec-as-source |
 | SDD 叠加"僵化 + 非确定性"两种缺陷 | **失准** | 原文是**担忧**而非结论，对象是 spec-as-source 乃至 spec-anchored，不含 spec-first |
-| "spec 是新源代码"的正方是 Tessl / Spec Kit / Kiro | **部分成立** | 正方实际只有 2025 年的 Tessl；Kiro 基本是 spec-first；Spec Kit 文档声明三种持久化模型都不是默认 |
+| "spec 是新源代码"的正方是 Tessl / Spec Kit / Kiro | **部分成立** | 旗手是 2025 年的 Tessl。GitHub 在 Spec Kit 自带的方法论文档里**理念上**接近 spec-as-source（代码是"持续再生成的输出"），但 Böckeler 判断工具实际形态只是 spec-first，其持久化文档也声明三种模型都不是默认。Kiro 在 Böckeler 2025-09 的试用中"似乎基本是 spec-first"（厂商自称支持 spec 与代码同步）。反方 Böckeler 的"僵化 + 非确定性"是推测，原文没有"更糟"的断言 |
 
 ### §1.4–1.5 代码的地位与验证瓶颈（前半）
 
