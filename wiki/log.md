@@ -1367,3 +1367,12 @@ index 概览更新为 37 素材 / 69 页。另：远端分支 `claude/blissful-a
 显式契约、给 agent 读的文档、ACI、prompt 作为架构制品，逐条注明出处与证据等级；"代码库比 MCP / 子 agent 更根本"不采信，
 只保留"基础先于工具"。综合：五条形态对应 §一的三条新理由。frontmatter 补 6 个一级来源 URL；证据边界补一条；
 `wiki/index.md` 该页描述补"目标形态"。依据全部来自 [[2026-09-23-agentic-se-refactoring-methodology-源摘要]] §2 的核验结果，未新增联网来源。
+
+## [2026-09-23] output | Agentic SE 重构方法论（对外 HTML）
+由 [[Agentic SE 时代的系统重构]]（主页，含 §九目标形态）及 [[Harness Engineering]]、[[Agent 不会自发偿还结构债]]、
+[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]、[[2026-09-23-agentic-se-refactoring-methodology-源摘要]] 生成
+`output/shared/agentic-se-重构方法论-2026-09-23.html` 冻结版（用户确认定稿）。结论先行的决策顺序：为什么 → 目标形态 →
+谁来推动 → 验证网 → 遗留系统 → 六步顺序 → 行业分歧（背景）→ 未决问题与证据强度；推断均标置信度（回本量级低，其余中）。
+脱敏：无内部路径、wiki 双链与会话信息，32 个外链均为 https 一级来源；字体以 woff2 data URI 内嵌，零外部运行时请求；
+控制台无错误，桌面 / 手机 / 暗色均无页面横向溢出。视觉未沿用 editorial 风格（用户要求重新设计；`AGENTS.md` 风格条款是否
+随之修改尚待用户决定）。
