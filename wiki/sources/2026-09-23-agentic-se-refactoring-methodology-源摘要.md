@@ -118,7 +118,7 @@ sources:
 | CHOP 出自该文；chat 对资深者更安全 | **成立** | 依据是作者个人经历，不是系统数据 |
 | Böckeler：LLM 不是编译器而是推断器 | **成立** | 《I still care about the code》，2025-07-09 |
 | 影响 × 概率 × 可检测性的风险评估 | **基本成立** | 三因素"组合"判断，原文无乘法公式；用来**校准**审查力度 |
-| "今晚 on-call 的你，敢部署没读过的 1000 行变更吗" | **失准** | 拼接了两篇：原问是"负责 on-call 时，什么情况下能接受部署 1,000 或 5,000 行变更"；"今晚 on-call"出自 2025-09-23《To vibe or not to vibe》；"没读过"为调研稿所加。不能当直接引语 |
+| "今晚 on-call 的你，敢部署没读过的 1000 行变更吗" | **基本成立**（复查自"失准"上调） | 主旨存在：该文有"Imagine you're on call!"一节，原问是"负责 on-call 时，什么情况下能接受部署 1,000 或 5,000 行变更"，她的底线是至少掌控测试代码；《To vibe or not to vibe》（2025-09-23）另有"如果今晚你 on-call，你会发布这个吗"。调研稿是对两处的意译，"没读过"为其所加，**不能当直接引语** |
 | Exploring Gen AI 路线：技能不降反升 → 全自主只适合小任务 → context / harness engineering、TDD inside the agent loop | **部分成立** | 系列是 Thoughtworks 多位作者合写。TDD inside the agent loop 在系列中是**被质疑**的做法（见结构性校正第 3 条）；"不降反升""可验证"是调研稿自加 |
 
 ### §1.5 验证瓶颈与 agent-native（后半）
