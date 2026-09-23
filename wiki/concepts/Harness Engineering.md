@@ -9,6 +9,7 @@ sources:
   - "https://openai.com/index/harness-engineering/ （检索于 2026-09-23；直连 403，经官方中文版读取）"
   - "https://martinfowler.com/articles/harness-engineering.html （检索于 2026-09-23）"
   - "https://martinfowler.com/articles/sensors-for-coding-agents.html （检索于 2026-09-23）"
+  - "[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]"
 ---
 
 # Harness Engineering
@@ -44,19 +45,22 @@ Böckeler 明确把范围限定在后者："在 agent 内置 harness 之外"由�
 
 Böckeler 的框架由两根轴组成：
 
-- **Guides（前馈）vs Sensors（反馈）**。只有反馈，agent 会反复犯同一类错；只有前馈，没人知道规则是否奏效。
+- **Guides（前馈）vs Sensors（反馈）**。只有反馈，agent 会反复犯同一类错；只有前馈，agent 不知道规则是否奏效。
 - **Computational vs Inferential**。前者确定、快、可靠（测试、linter、类型检查、结构分析）；后者是语义分析、
   AI review、LLM-as-judge，更贵且非确定，但能给出语义判断。
 
-综合：交叉成四格。例子取自三份源，归格由本 wiki 完成：
+两根轴交叉成四格，Böckeler 原文自带一张示例表；下表以原文例子为主，括号内是本 wiki 从另两份源补入的：
 
 | | Computational（确定性） | Inferential（推理型） |
 |---|---|---|
-| **Guides** | 类型系统、固定分层与依赖规则、框架与项目模板（替 agent 屏蔽细节） | `AGENTS.md` / 规则文件、结构化 `docs/`、设计文档与执行计划、skills |
-| **Sensors** | 测试、类型检查、ESLint、dependency-cruiser、变异测试、结构测试、pre-commit 密钥扫描 | AI 代码评审、模块化评审 skill、周期性安全/数据处理评审、LLM-as-judge |
+| **Guides** | codemods（带 OpenRewrite recipes 的工具）、bootstrap 脚本、LSP / code intelligence | `AGENTS.md`、skills（编码约定、如何搭新项目）；（OpenAI 的结构化 `docs/`、执行计划） |
+| **Sensors** | 测试、linter、类型检查、结构测试（如 pre-commit 钩子跑 ArchUnit 检查模块边界）、变异测试；（OpenAI 的分层依赖规则由自定义 linter 与结构测试执行；Böckeler 实验中的 dependency-cruiser、Stryker） | AI 代码评审、LLM-as-judge、"如何评审"的 skills；（Böckeler 实验中的模块化评审 skill） |
 
-这与 [[AI编码技术债的三层治理]] 证据层的"确定性门禁 vs 概率型 AI review"是**独立得出的同一划分**：
-确定性的一侧可以当硬门禁，推理型的一侧默认只是辅助证据。
+注意类型检查在原文里是 **sensor**（执行后给反馈），不是 guide；"框架能替 agent 屏蔽细节"在原文里属于 harnessability
+（代码库性质），不属于四格中的任何一格。
+
+综合：这与 [[AI编码技术债的三层治理]] 证据层的"确定性门禁 vs 概率型 AI review"是独立得出的同一划分——确定性的
+一侧可以当硬门禁，推理型的一侧默认只是辅助证据。
 
 ## 五个关键机制
 
@@ -64,7 +68,7 @@ Böckeler 的框架由两根轴组成：
 
 Sensor 的输出不是给人看的报错，而是 agent 的下一轮输入。OpenAI 的 lint 错误信息直接内嵌修复指令；
 Böckeler 用自定义 formatter 把规则消息改写成自纠正指引，并称之为"正面的 prompt injection"。
-她的实验里有一条对照性观察：**圈复杂度是 agent 唯一频繁直接上调阈值的规则类别，而它恰好是唯一没配修正指引的规则**
+她的实验里有一条对照性观察：**圈复杂度是 agent 唯一频繁直接上调阈值的规则类别，而作者事后发现这条规则恰好没配修正指引**（她的自定义 formatter 只改写了部分默认消息）
 （[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]）。
 
 > 综合：sensor 信号若只说"错了"不说"怎么改"，agent 找到的最短路径往往是**绕过**而非修正。
@@ -75,7 +79,7 @@ Böckeler 用自定义 formatter 把规则消息改写成自纠正指引，并�
 某类问题重复出现，就改进对应的 guide 或 sensor；AI 也可以参与写结构测试、起草规则、搭自定义 linter
 （Böckeler）。OpenAI 的版本是一个固定问题：**卡住时，追问"缺什么能力，怎样让它对 agent 可读且可强制执行"**。
 
-这与 [[Anthropic-AI原生SDLC治理循环]] 的"把经验编译进控制面"、[[Loop Engineering]] 的"反复出同类错就固化成
+综合：这与 [[Anthropic-AI原生SDLC治理循环]] 的"把经验编译进控制面"、[[Loop Engineering]] 的"反复出同类错就固化成
 evals"是同一个动作在不同层面的名字。
 
 ### 3. 时机：按成本分布检查点
@@ -83,8 +87,9 @@ evals"是同一个动作在不同层面的名字。
 检查点按成本从左到右排开：编码会话内（类型检查、lint、增量测试）→ 提交前（pre-commit）→ 集成后流水线 →
 **变更生命周期之外持续运行**的漂移与健康 sensor（死代码、覆盖质量、依赖新鲜度、模块化评审）→ 运行时反馈。
 
-最后一个"生命周期之外"的层级是 agent 场景新增的重点。OpenAI 用定期后台任务扫描偏差、发定向重构 PR，
-把它做成了**垃圾回收**；详见 [[Agent 不会自发偿还结构债]]。
+Böckeler 把这种分布放在持续集成的传统里讨论，死代码检测、依赖扫描这类持续 sensor 并非 agent 时代才有。综合：
+"生命周期之外"这一层在 agent 吞吐下变得更关键——OpenAI 用定期后台任务扫描偏差、发定向重构 PR，把它做成了
+**垃圾回收**；详见 [[Agent 不会自发偿还结构债]]。
 
 门禁放在哪里也是取舍。OpenAI 在高吞吐下**减少阻塞式合并门**、偶发失败靠重跑，理由是"纠错便宜、等待昂贵"，
 作者也自己说明这在低吞吐环境中不负责任。
@@ -137,17 +142,23 @@ agent 对 agent，但每周人工清理"AI 残渣"的阶段先于自动化出现
 - 缺少把各阶段控制作为**一个系统**来配置与推理的工具。
 - 对 sensor 有信心后能删掉哪些 guides；sensor 能否让较弱模型可用。
 
-综合：第一条与 [[代码与文档漂移的本质]] 同构——guides 本身就是文档，会与 sensors、与代码发生表达漂移。
-OpenAI 用 linter 与 CI 校验 `docs/` 的新鲜度与交叉链接、再由 doc-gardening agent 发修复 PR，
-是本 wiki 收录的来源里唯一一个把 guides 自身纳入 sensor 覆盖的做法（本仓库的 Lint 对 `wiki/` 做的是同一件事）。
+综合：第一条与 [[代码与文档漂移的本质]] 同构——guides 本身就是文档，会与 sensors、与代码发生表达漂移。本 wiki
+收录的来源里有两种把 guides 自身纳入 sensor 覆盖的做法，分别覆盖两个侧面：OpenAI 用 linter 与 CI 校验 `docs/` 的
+新鲜度与交叉链接、再由 doc-gardening agent 发修复 PR（**文档完整性**）；Anthropic 的 playbook 在 `CLAUDE.md` /
+skills / hooks 任何变更时跑 eval 回归，pass rate 下降的配置变更须先 review 才能合并（**行为回归**，见
+[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。本仓库的 Lint 对 `wiki/` 做的是前一种。
 
 ## 证据边界
 
 - OpenAI：公司自述的内部实验，无外部审计、无对照组；作者自己限定"不应在没有类似投入时假定可泛化"。
-  Böckeler 的评注指出它只覆盖可维护性一侧，**缺少功能与行为的验证**，且 OpenAI 对该结论有利益关联
+  Böckeler 的评注认为它只覆盖可维护性一侧、缺少功能与行为的验证，并提醒 OpenAI 对该结论有利益关联
   （[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]）。
+
+> ⚠️ 矛盾：Böckeler 的评注（2026-02-17）称 OpenAI 的文章缺少功能与行为验证，但 OpenAI 原文称接入 Chrome DevTools
+> 协议后 Codex 能复现 bug、验证修复、直接推理 UI 行为，并把"关键用户旅程的 span 不超过两秒"变成可检查的约束。
+> 较准确的读法是：OpenAI 有 agent 自行验证的机制，但没有讲行为层面的系统性验证（如测试本身的质量）。（发现于 2026-09-23）
 - Böckeler harness 文：概念框架；sensor 文：单人、单应用的实践报告，无对照组。
-- 本页的四格归类与"阻塞门密度随爆炸半径调整"是本 wiki 的综合，不是原文结论。
+- 四格框架与示例表出自 Böckeler 原文；本 wiki 只补入了括号内的例子。"阻塞门密度随爆炸半径调整"是本 wiki 的综合。
 
 ## 关联
 

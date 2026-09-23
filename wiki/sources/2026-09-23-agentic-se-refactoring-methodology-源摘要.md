@@ -195,29 +195,30 @@ sources:
 |---|---|---|
 | iSAQB（Harrer）的核心论点 | **基本成立** | 是 iSAQB 博客 2026-05-18 发布的 Markus Harrer（INNOQ）**个人访谈**，观点应记在 Harrer 名下，不是 iSAQB 机构立场 |
 | 企业代码充满 agent 无法获取的隐性领域知识，agent 不会自己完成现代化 | **成立** | — |
-| Harrer 提出"认知债 / 意图债"警告 | **归属错误** | 概念出自 Margaret-Anne Storey（ACM Queue 24(2), 2026）；Harrer 引用 Storey 并把它用到现代化场景 |
+| Harrer 提出"认知债 / 意图债"警告 | **基本成立**（复查自"归属错误"上调） | 警告确实出现在 Harrer 访谈里（"agent 只知外化知识"是他的原话），调研稿并未说他创造了术语。但概念出自 Margaret-Anne Storey（ACM Queue 24(2), 2026）——意图债由她提出，认知债她之前已有人用、她发展成团队层面的概念。应写成"Storey 界定，Harrer 应用于遗留现代化"。Storey 把两者视为被 AI **放大的老问题**，所以调研稿 §5.4 称之为"agentic 重构特有的新型风险"不准确 |
 | "modern legacy"陷阱 | **成立** | Harrer 自创的说法 |
 | characterization tests 先行铺网 | **成立** | 另有独立佐证：Osmani《Brownfield Agentic Engineering》（2026-09-14） |
 | seam 限定干预点、给 agent 沙箱化的爆炸半径；与 strangler fig 结合 | **部分成立** | seam 出自 Harrer；strangler fig 是 AWS 方案的总体框架；"agent 加速新旧并行期封套"是调研稿推断 |
 | Thoughtworks CodeConcise：LLM + 图谱逆向工程、提取业务规则再重写 | **基本成立** | 内部加速器、仅供顾问使用；业务规则由领域专家校验；重写由团队完成；提效数字是 PoC 估算 |
-| Google（FSE 2025）：定位 → LLM 生成 → 验证三阶段 | **基本成立** | 实际流水线：Kythe 定位 → 按置信度分类 → LLM 改码 → 多级自动校验 → 开发者目视核查 → 代码所有者审批。发表于 FSE 2025 Companion |
+| Google（FSE 2025）：定位 → LLM 生成 → 验证三阶段 | **成立**（复查上调） | 论文结论自己的概括就是"定位与分类 → LLM → 自动校验"三段。细节：Kythe 定位、按置信度分类、多级自动校验后还有开发者目视核查与代码所有者审批。发表于 FSE 2025 Companion |
 | 12 个月 39 次迁移、93,574 处编辑 | **失准** | 3 名开发者 12 个月完成 39 次**同类**（32→64 位 ID）迁移，提交 595 个变更；93,574 是字符级 Levenshtein 编辑距离，不是"处" |
 | LLM 生成占约 70–74% | **基本成立** | 按变更计 74.45%，按字符编辑量计 69.46%；无人改动的纯 LLM 变更只占 35.97% |
 | 省约 50% 时间 | **失准** | 是 3 位开发者（也是系统作者）的主观估计，论文明言没有实测工时 |
-| 人工审查从未退出 | **基本成立** | 原文无此说法，但每个变更都要开发者核查与代码所有者审批，是流程的固定环节 |
+| 人工审查从未退出 | **成立**（复查上调） | 原文无此措辞，但作为概括准确：每个变更都经开发者目视核查与代码所有者审批（306 名 reviewer），12 个月内无变更绕过人审 |
 | AWS Transform 主机现代化是 agentic + 人在环 | **成立** | 厂商博客（2025-12-15），只针对 reimagine 一种路径 |
 | §3.2 方法框架是"多来源共识" | **部分成立** | 调研稿引的 awesome-agentic-software-modernization 清单由 Harrer 本人维护（GitHub 用户名 feststelltaste），characterization tests 与 seam 两条实质上出自一人。独立佐证是 Google、AWS、Thoughtworks 与 Osmani |
 | "AI 提供速度，护栏保证正确"（§2.4，调研稿作多来源收敛） | **归属错误** | Harrer 访谈原话："Agents provide speed, guardrails provide accuracy" |
-| AaaS 主张人退出验证环 | **失准** | AaaS 省掉的是"人写的静态软件"这一层，人仍作为 outcome auditor 审结果 |
+| AaaS 主张人退出验证环 | **部分成立**（复查自"失准"上调） | AaaS 省掉的是"人写的静态软件"这一层，当下主张"人在环、agent 驾驶"，人作为 outcome auditor 审结果；只有在其 Stage IV（2028 年以后）远景里，人才从运行层验证退到元层治理 |
 
 调研稿漏掉的 Harrer 方法：**确定性与非确定性混合**——"guided AI"只让 LLM 改分析脚本事先确定性圈定的位置，或由 AI
 生成代码转换 recipe 再由确定性工具执行；以及**先缩小现代化范围**（"The less you do, the more of it you can do"）。
 
 ### 四篇同批文章存档的抽查
 
-对另外四份 raw 摘录抽查 23 个关键事实：19 条成立、4 条基本成立，无失准。已据此在对应源摘要页修正或补注：
-OpenAI 原文只说扩员后"吞吐在上升"，未明说人均；Böckeler sensors 文是 2026-05-19 起连载、05-27 完结；
-"圈复杂度"一条的"唯一"修饰的是 agent 频繁上调阈值的类别；Thoughtworks 原文导言（约 12 万行 Rust）与结果表
+对另外四份 raw 摘录抽查 23 个关键事实，复查后 20 条成立、2 条基本成立、1 条失准（sensors 摘录把"唯一"挪到了
+"没配指引"上）。已据此在对应源摘要页修正或补注，并同步到所有引用页：
+OpenAI 原文扩员后"the throughput"上升一句未重复 per engineer（按上下文仍应读作人均）；Böckeler sensors 文是 2026-05-19 起连载、05-27 完结；
+"圈复杂度"一条的"唯一"修饰的是 agent 频繁上调阈值的类别，原文没说它是唯一没配指引的规则；Thoughtworks 原文导言（约 12 万行 Rust）与结果表
 （约 5 万行）口径不一。OpenAI 原站对直连与 WebFetch 均返回 403，本次经 Wayback 快照核对英文原文。
 
 ### 未核验

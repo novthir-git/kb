@@ -6,6 +6,7 @@ sources:
   - "raw/sources/articles/2026-02-11-OpenAI-Harness-Engineering.md"
   - "https://openai.com/index/harness-engineering/ （检索于 2026-09-23；WebFetch 与直连均 403，经内置浏览器读取官方中文版）"
   - "https://martinfowler.com/articles/exploring-gen-ai/harness-engineering-memo.html （Böckeler 评注，2026-02-17；检索于 2026-09-23）"
+  - "https://web.archive.org/web/2026/https://openai.com/index/harness-engineering/ （英文原文 Wayback 快照；检索于 2026-09-23）"
 ---
 
 # 2026-02-11 OpenAI《Harness engineering: leveraging Codex in an agent-first world》源摘要
@@ -13,9 +14,10 @@ sources:
 **原文**：Ryan Lopopolo（OpenAI），2026-02-11。
 **存档**：`raw/sources/articles/2026-02-11-OpenAI-Harness-Engineering.md`（要点式中文摘录）。
 **读取方式**：英文原站对 WebFetch 与直连均返回 403，存档依据官方中文版（标题「工程技术：在智能体优先的世界中
-利用 Codex」）。**"harness engineering" 这一术语在中文译文中丢失**，引用概念名时以英文原题为准。2026-09-23 另经 Wayback
-快照核对英文原文：正文除标题外只在一个列表项里出现过 "harness" 一词——这个名字更像事后贴上的标签，
-把它系统化为框架的是 Böckeler（见 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。
+利用 Codex」）。**"harness engineering" 这一术语在中文译文中丢失**，引用概念名时以英文原题为准。Böckeler 在 2026-02-17 的评注中指出
+正文只出现一次 "harness"，并推测这个名字是受 Mitchell Hashimoto 博文启发的事后命名；本 wiki 2026-09-23 经 Wayback
+快照复核，计数属实（唯一一处是列表项 "Evaluation harnesses"）。综合：把它系统化为 guides / sensors 框架的是
+Böckeler（见 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。
 
 概念展开见 [[Harness Engineering]]；"agent 复制坏模式、清理必须外部驱动"作为证据行收在
 [[Agent 不会自发偿还结构债]]；文档侧的做法并入 [[代码与文档漂移的本质]]。本页只做忠实摘录与口径标注。
@@ -31,7 +33,7 @@ OpenAI 内部团队五个月不手写一行代码、用 [[Codex]] 做出约 100 
 |---|---|---|
 | 起点与约束 | 2025-08 下旬从空仓库起步，五个月内不人工编写任何代码 | 刻意施加的实验约束 |
 | 产物 | 约 100 万行代码、约 1,500 个 PR | 内部 beta，有内部用户与外部 alpha 测试者 |
-| 团队 | 3 人起步，现为 7 人 | 作者称扩员后吞吐仍在上升（原文未明说是人均） |
+| 团队 | 3 人起步，现为 7 人 | 原文称扩员后 "the throughput" 反而上升；未重复 per engineer，但它回指前句的人均 3.5 PR 并用了 "surprisingly"，按上下文应读作人均 |
 | 人均吞吐 | 每天约 3.5 个 PR | 三人阶段的平均值 |
 | 用时 | 约为手写的 1/10 | **作者自估**，无对照 |
 | 单次运行 | 常在单个任务上持续 6 小时以上 | |
@@ -64,11 +66,12 @@ OpenAI 内部团队五个月不手写一行代码、用 [[Codex]] 做出约 100 
 2. **"约 1/10 用时"是作者自估**，没有同一产品手写版本的对照。
 3. **作者自己的限定**：端到端驱动新功能的能力高度依赖该仓库的结构与工具，不应在没有类似投入时假定可泛化；
    全 agent 生成系统的架构连贯性如何随时间演化、人的判断在哪里最有价值，尚不清楚。
-4. 第 6 条的合并理念成立的前提是**爆炸半径小**；与 [[Anthropic-AI原生SDLC治理循环]] 的风险分级门禁对照阅读，
-   综合判断见 [[Harness Engineering]]"时机"一节。
-5. **缺功能与行为验证**：Böckeler 的评注（2026-02-17）指出，文中所有措施都指向长期内部质量与可维护性，
+4. 第 6 条合并理念，作者给的前提是**高吞吐**（纠错便宜、等待昂贵）。综合：它还隐含爆炸半径小（内部 beta），
+   应与 [[Anthropic-AI原生SDLC治理循环]] 的风险分级门禁对照阅读，见 [[Harness Engineering]]"时机"一节。
+5. **Böckeler：缺功能与行为验证**。她的评注（2026-02-17）指出，文中措施都指向长期内部质量与可维护性，
    "What I am missing in the write-up is verification of functionality and behaviour"；并提醒 OpenAI 对
-   "AI 可维护的代码"这一结论有利益关联（vested interest）。
+   "AI 可维护的代码"这一结论有利益关联（vested interest）。需要对照：原文确实描述了 agent 驱动 UI 复现 bug、
+   验证修复（见要点 2），缺的是行为层面的系统性验证（例如测试本身的质量）。
 6. 与 Uber、Anthropic 的"PR / 代码行归因"同属自报口径，1,500 PR 与 100 万行不等于净生产力
    （对照 [[agent-生产级落地的鸿沟]] 证据点表）。
 
