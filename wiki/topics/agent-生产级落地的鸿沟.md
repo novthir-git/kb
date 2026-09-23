@@ -1,7 +1,7 @@
 ---
 tags: [主题, AI, Agent]
 created: 2026-07-03
-updated: 2026-08-31
+updated: 2026-09-23
 sources:
   - "https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/ （检索于 2026-07-03）"
   - "https://www.reuters.com/business/zuckerberg-says-ai-agent-development-going-slower-than-expected-2026-07-02/ （Reuters 独家原文；检索于 2026-07-03；直连返回 401，事实经 TechCrunch 转载核验）"
@@ -15,6 +15,8 @@ sources:
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "[[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]]"
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
+  - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
+  - "https://arxiv.org/abs/2603.13428v4 （Deng 等，EvoClaw / SWE-Milestone；检索于 2026-09-23）"
 ---
 
 # Agent 生产级落地的鸿沟（Demo ≠ Production）
@@ -63,6 +65,8 @@ sources:
 | 2026-07-02 | Meta 扎克伯格（内部全员会，Reuters 独家 / TechCrunch 转载） | 过去约四个月 AI agent 进展"没有按预期加速"（did not accelerate in the way we expected）；预计还需 **3–6 个月**才见更显著回报 | 罕见的大厂 CEO 亲口降温；同期仍计划 AI 基建投入高达 **1,450 亿美元**，且承认围绕 agent 的重组"不如预想干净"、时机判断失误。→ 见 [[Meta]] |
 | 2026-07-01 | Andrew Ng（X / The Batch） | 将 0-to-1 产品开发拆成 coding、developer feedback、external feedback 三层循环；强调 [[Evals|evals]] 与人类 context advantage | 方法论证据，不是落地率数据：只让 agent 写代码不够，必须把规格、evals、人类判断与真实用户反馈接成闭环。→ 见 [[Loop Engineering]] |
 | 2026-04-02 | McKinsey Technology / QuantumBlack | 全球近三分之二企业已试验 agents，但**不到 10%** 已规模化并产生可量化价值；约八成企业把数据限制列为扩展障碍 | 直接量化“试验广、规模化窄”；需注意咨询机构调查口径与样本选择。 |
+| 2026-03-13 | Deng 等，arXiv 2603.13428（首发名 EvoClaw，v3 起更名 SWE-Milestone；arXiv 注明 ICML 2026 录用） | 7 个开源仓库、98 个人工核验的里程碑、5 种语言，评测 12 个前沿模型 × 4 个 agent 框架：综合得分从**独立任务的 80% 以上**跌到**持续演化设置的最高 38.03%**（Claude Opus 4.6），按完全解决计最高仅 **13.37%**（Gemini 3 Pro）。失败集中在防回归（新功能 Recall 近线性增长、Precision 饱和），错误沿依赖链滚雪球 | "Demo ≠ 生产"在基准层的直接对应：每次从干净快照起步 ≈ Demo，在自己累积的历史上持续演化 ≈ 生产。38% 是综合得分（Recall 与 Precision 的调和），**不是成功率**——转述时最常被搞错的口径。它测的是里程碑级功能演化，不是企业落地率；持续演化失败的机制证据见 [[Agentic SE 时代的系统重构]]"验证网先行"节 |
+| 2026-02-11 | OpenAI 工程博客（Ryan Lopopolo） | 内部团队五个月零手写代码，用 Codex 做出约 **100 万行**、约 1,500 个 PR 的内部 beta；3 人起步、现 7 人，人均每天约 3.5 个 PR；单次运行常持续 6 小时以上。作者结论：早期进展慢是因为缺工具、抽象与内部结构，**瓶颈在环境而非模型** | 又一条"靠工程填平鸿沟"的正向证据，与 Uber 同形：成功依赖的是严格分层、机械化不变量、agent 可读的可观测性栈与定期垃圾回收，而不是模型更强。口径边界：公司自述、无对照；"约 1/10 用时"为作者自估；产品为内部 beta，爆炸半径小；作者自己限定不应在没有类似投入时假定可泛化。→ [[2026-02-11-OpenAI-Harness-Engineering-源摘要]]、[[Harness Engineering]] |
 | 2026-01-21 | Deloitte《State of AI in the Enterprise 2026》 | 3,235 名全球高管样本中，仅 **25%** 的受访组织已把至少 40% 的 AI pilots 推入生产 | 支持更广义的 pilot-production gap；并非 agent-only 数据，54% 预计未来 3–6 个月达到该水平。 |
 | 2025-06-25 | Gartner | 预测到 2027 年底超过 **40%** 的 agentic AI 项目会因成本、价值不清或风险控制不足而取消 | 这是预测而非已实现结果；同时 Gartner 仍预测 agentic AI 长期渗透率上升。 |
 

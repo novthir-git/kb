@@ -1,12 +1,12 @@
 ---
 tags: [概念, AI, Agent, MCP, 成本]
 created: 2026-08-31
-updated: 2026-08-31
+updated: 2026-09-23
 sources:
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
   - "https://www.uber.com/us/en/blog/efficient-software-factory/ （检索于 2026-08-31）"
   - "https://modelcontextprotocol.io/specification/latest （检索于 2026-08-31）"
-renders: []
+  - "[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]"
 ---
 
 # Agent 工具上下文膨胀
@@ -86,6 +86,17 @@ Uber 同 session 内的 5 条 SQL 双路实测显示：**即使结果集只有 1
 综合（可直接观察）：Claude Code 的 **deferred tools + ToolSearch** 机制正是"按需检索"解法的产品化——
 大部分工具只以名称出现在提示里，schema 要显式检索后才加载。本 wiki 的维护会话即运行在该机制上。
 这说明该解法已从"大厂内部工程"下沉为**通用 harness 的默认能力**，小团队无需自建网关即可获得其中一部分。
+
+## 七、姊妹机制：代码文件本身的上下文成本（2026-09-23 补）
+
+工具 schema 不是 agent 上下文的唯一"固定税"。agent 要改一段代码，就得先读它所在的文件；文件越大、重复越多，
+每次变更要读进来的 token 就越多，而且每个后续变更都重复付这笔钱。Thoughtworks 的实验测出了这一面：一个
+17,155 行的文件拆成 19 个文件后，同一变更的输入 token 降了约 83%
+（[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]）。
+
+> 综合：两者的解法同构。工具侧的"按需检索 / progressive disclosure"对应代码侧的"小而内聚的文件 + 可导航的
+> 目录"，都是让 agent **只加载这次需要的那一小块**。区别在于工具膨胀靠配置就能治，代码膨胀要靠重构，而 agent
+> 不会自发去做（[[Agent 不会自发偿还结构债]]）。展开见 [[Agentic SE 时代的系统重构]]。
 
 ## 关联
 

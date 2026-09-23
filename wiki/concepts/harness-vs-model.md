@@ -1,11 +1,12 @@
 ---
 tags: [概念, AI, Agent, Evals, Harness]
 created: 2026-08-10
-updated: 2026-08-31
+updated: 2026-09-23
 sources:
   - "[[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]]"
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
-renders: []
+  - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
+  - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
 ---
 
 # Harness 不是轻量 Wrapper
@@ -25,3 +26,17 @@ Uber 的公开实践把这条判断变成了可执行规程（[[Uber-软件工�
 
 > 综合：两个方向都做，才构成完整的对照设计。只做前者会把 harness 改进误记为模型进步，
 > 只做后者会把模型换代误记为自己的功劳——**agent 系统的任何成本或质量归因，都必须先声明哪一半被钉死了。**
+
+## 本页说的是内层 harness；外层另见 [[Harness Engineering]]
+
+2026 年起 "harness" 还有第二个常用义：**使用者在 agent 之外为它搭的环境**——规则文件、类型与依赖约束、测试、
+linter、CI 与周期性评审（Böckeler 明确把这一层称为 agent 内置 harness 之外的外层 harness，
+见 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。本页的 A²E 与 Uber 证据针对的是**内层**：
+agent 运行时自身的 prompt、工具与执行循环。
+
+OpenAI 的零手写代码实验从外层给出同向证据：早期进展慢的原因是缺工具、抽象与内部结构，**瓶颈在环境而非模型**
+（[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]）。
+
+> 综合：本页的归因纪律对外层同样适用。"换了模型后成功率上升"的结论，若同期还改了规则文件、测试或 lint，
+> 就同样无法归因——**钉死的对象要把内外两层都算进去**。
+

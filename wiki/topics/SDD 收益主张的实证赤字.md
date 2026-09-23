@@ -1,7 +1,7 @@
 ---
 tags: [主题, AI, Agent, 软件工程, 方法论]
 created: 2026-08-27
-updated: 2026-08-31
+updated: 2026-09-23
 sources:
   - "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6515898 （Brenn Hill；检索于 2026-08-27，直连返回 403，正文经检索摘要核验）"
   - "https://blog.scottlogic.com/2025/11/26/putting-spec-kit-through-its-paces-radical-idea-or-reinvented-waterfall.html （检索于 2026-08-27）"
@@ -10,6 +10,9 @@ sources:
   - "https://arxiv.org/abs/2604.21505 （Orchid；检索于 2026-07-16）"
   - "https://arxiv.org/abs/2601.03878 （CURRANTE；检索于 2026-07-16）"
   - "[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]"
+  - "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html （Böckeler，2025-10-15；检索于 2026-09-23）"
+  - "https://arxiv.org/abs/2603.13428v4 （SWE-Milestone；检索于 2026-09-23）"
+  - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
 ---
 
 # SDD 收益主张的实证赤字
@@ -35,6 +38,7 @@ sources:
 | 2026-04-28 | Brenn Hill, SSRN《Does Spec-Driven Development Reduce Defects?》 | 119 个开源仓库、100,247 个 PR，SZZ 缺陷追溯 + within-author 固定效应。**从厂商主张推导的五个假设无一得到支持**；规格与更高缺陷率相关（+1.4pp, p=0.056）、更高返工相关（+5.0pp, p<0.001）；规格质量对返工零效应（p=0.997）；AI 范围约束主张为空（p=0.617）。四项稳健性检查确认方向 | **当前最大样本，结论反向。**限定：观察性研究，相关非因果；+1.4pp 的 p=0.056 严格说不显著；开源规格实践未必等同企业 SDD 工具链。**SSRN 直连返回 403，以上细节经检索摘要核验，未读到原文全文**——引用时须降级证据强度 |
 | 2026-05-01 | arXiv 2605.01160《The Productivity-Reliability Paradox》中的 Specification Governance Model 研究 | **正面结果**：3 个团队 14 名工程师，feature lead time 8–12 天 → 6–9 天；late-stage hotfix 每 sprint 3–5 → 1–2；code churn 12–18% → 6–10%；开发者信心 3.1 → 3.9 | 方法学弱：单组织、**无平行对照组**、回溯性测量、**刻意排除初级开发者**，作者自陈"cannot support statistical generalization claims" |
 | 2026-02-18 | Kent Beck《Earn *And* Learn》 | 概念性批评：SDD 的隐藏假设是在玩 **Finish Line Game**——"Get the spec right. Get the desired software. Done."；而长期演化的系统在玩 **Compounding Game**，要求"对未来的投资和对功能的投资一样多" | 结构性而非效果性批评。**对 loop 形态的 SDD 部分失效**：Anthropic playbook 显式把流程设计为 loop，Maintain 产出写回 intent.md 重新入环 |
+| 2025-10-15 | Birgitta Böckeler《Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl》（martinfowler.com） | 2025-09 试用三款工具的定性观察：单一重流程不适配问题尺度；"宁愿 review 代码也不愿 review 一堆 markdown"；agent 常不遵循全部指令，偶尔又过度执行某条 constitution 条款——作者质疑 SDD 带来的是**"虚假的控制感"**；spec-as-source 可能同时继承 MDD 的僵化与 LLM 的非确定性 | 单人定性试用，无测量；基于 2025-09 版本工具，两款工具此后都加了按规模区分的流程。作者认可 spec-first 的价值，保留意见针对 spec-anchored / spec-as-source。也是三层级分类的**最早提出者**（本库原把分类归于 arXiv 2602.00180，已更正）。与下一行 Scott Logic 的"审查负担"方向一致 |
 | 2025-11-26 | Scott Logic《Putting Spec Kit Through Its Paces》 | 单案例实测。第一增量：agent 33 分 30 秒，产出 **689 行代码 / 2,577 行 markdown**，人工 review **3.5 小时**，且带一个"很明显的"变量赋值 bug。同一工作用迭代提示：agent 8 分钟、约 1,000 行代码、review 15 分钟、测试修复 9 分钟，**总计约 32 分钟且无 bug** | 作者结论："the fastest path is still iterative prompting and review, not industrialised specification pipelines."caveat 给得充分：单个业余项目、不确定该用多大规模的问题测、自陈"I am willing to entertain the possibility that I am simply just using it wrong" |
 | 2026-04 | Orchid 基准（arXiv 2604.21505） | 1,304 个函数级任务：词汇、句法、语义与模糊性歧义都降低 LLM 代码生成表现；模型对同一模糊需求生成行为不同的实现，且不能可靠自行发现或消解歧义 | **支持的是"澄清后再实现"这一成分，不是完整 SDD 流程**。已在 [[SDD 开发规范研究]] 用作 G1 门禁的依据。日期按 arXiv 编号（2604）取发表月；原填 2026-07-16 为本库检索日期 |
 | 2026-01 | CURRANTE（SANER 2026, arXiv 2601.03878） | 完整 SDD 的实证研究仍处 **Stage 1 Registered Report** ——实验方案已评审，结果未出 | 不能用于证明组织级 ROI。日期按 arXiv 编号（2601）取发表月；原填 2026-07-16 为本库检索日期 |
@@ -89,6 +93,9 @@ sources:
   目前无人测量。
 - 任务粒度阈值：多个来源都指向"开销随任务规模反向缩放，小任务最吃亏"，
   但没有量化的切换点。对应 [[SDD 开发规范研究]] Quick / Standard / Full 分级的调参依据。
+  → 09-23 补一个**规格长度**侧的外部数据点：SWE-Milestone（arXiv 2603.13428v4）发现需求规格字数与 agent 得分
+  呈**非单调**关系，约 500–1,500 词最好——过短时 agent 要自己去仓库找上下文，过长时需求量本身加大实现负担。
+  它测的是单个里程碑的规格长度，不是 SDD 流程，但支持"规格越详尽越好"不成立。
 - Anthropic playbook 或后续文档是否会补出前后对比数据？
 
 ## 关联

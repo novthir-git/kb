@@ -1,9 +1,11 @@
 ---
 tags: [分析, AI, Agent, 软件工程, 安全, 治理]
 created: 2026-07-23
-updated: 2026-08-31
+updated: 2026-09-23
 sources:
   - "[[2026-07-21-Anthropic-AI原生SDLC-源摘要]]"
+  - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
+  - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "https://claude.com/blog/how-anthropic-secures-its-ai-native-software-development-lifecycle （检索于 2026-07-22）"
   - "https://www.anthropic.com/institute/recursive-self-improvement （检索于 2026-07-22）"
@@ -88,6 +90,16 @@ reviewer 能稳定捕获团队关心的问题后，才按文件范围取消人�
 反复出现的 bug 不只留在复盘里，而是进入 `CLAUDE.md`、组织 skills、review 规则和 evals。
 这会把一次性的人工判断变成可重复执行的组织能力，但前提是规则有 owner、版本、失效条件和回归测试；
 否则控制面本身也会漂移。
+
+同一机制在其它来源里有两个名字（2026-09-23 补）：Böckeler 称之为 **steering loop**，即同类问题重复出现就改进
+对应的 guide 或 sensor；OpenAI 把团队的"黄金原则"编码成机械规则，用后台任务持续执行
+（[[Harness Engineering]]）。"控制面本身也会漂移"也有了对应做法：OpenAI 用 linter 与 CI 校验规则文档的新鲜度
+与交叉链接，再由 doc-gardening agent 发修复 PR。Böckeler 则把"增长的 harness 如何保持连贯、guides 与 sensors
+如何不互相矛盾"列为未解决问题。
+
+> 综合：门禁密度是这里的分歧点。OpenAI 在高吞吐下**减少**阻塞式合并门，偶发失败靠重跑；本页的 Anthropic
+> 实践按风险**增加**门禁。两者并不矛盾——OpenAI 的实验对象是内部 beta，作者也自承这种做法在低吞吐环境中
+> 不负责任。门禁密度应随**爆炸半径**而不是随吞吐调整。
 
 ### 2. 权限是委托图，不只是账号权限
 

@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 软件工程, 方法论]
 created: 2026-07-16
-updated: 2026-08-31
+updated: 2026-09-23
 sources:
   - "[[Evals]]"
   - "https://github.github.com/spec-kit/concepts/sdd.html （检索于 2026-07-16）"
@@ -12,6 +12,9 @@ sources:
   - "https://arxiv.org/abs/2604.21505 （检索于 2026-07-16）"
   - "https://doi.org/10.1145/3807966 （检索于 2026-08-07）"
   - "[[SDD 收益主张的实证赤字]]"
+  - "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html （Böckeler，2025-10-15；检索于 2026-09-23）"
+  - "https://martinfowler.com/articles/exploring-gen-ai/tdd-in-the-agent-loop.html （Böckeler，2026-08-10；检索于 2026-09-23）"
+  - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
 ---
 
 # Specification-Driven Development
@@ -52,8 +55,22 @@ Margaret-Anne Storey 将这类缺失进一步命名为 **intent debt**：目标�
 | Spec-anchored | 实现后继续维护规格，后续变更以它为锚 | 大多数长期维护的软件 |
 | Spec-as-source | 只人工编辑规格，代码等产物由它再生成 | 生成链和验证链足够确定的特定领域 |
 
-这三个层级来自 2026 年 SDD 实践综述，并被 GitHub Spec Kit 的持久化文档采用
-（[arXiv 2602.00180](https://arxiv.org/abs/2602.00180)，检索于 2026-07-16）。
+这三个层级最早由 Birgitta Böckeler 在 2025-10-15 的 martinfowler.com 文章中提出
+（[Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html)，
+检索于 2026-09-23）。GitHub Spec Kit 的持久化文档引用的正是这篇，并声明三种模型"都不是默认、都不强制"
+（[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-09-23）。
+"适用边界"一列参考 [arXiv 2602.00180](https://arxiv.org/abs/2602.00180)（Piskala，2026-01-30 单作者预印本，
+投稿 AIWare 2026）的建议，该文沿用三层级但未注明出处。
+
+> ⚠️ 归属更正：本页 2026-07-16 版写的是"三个层级来自 2026 年 SDD 实践综述（arXiv 2602.00180），并被 Spec Kit
+> 持久化文档采用"。核验后，最早提出者是 Böckeler（早于该预印本约三个半月），Spec Kit 文档链接的也是 Böckeler 的文章。
+> 该预印本的参考文献把这一系列误署为 M. Fowler。（发现于 2026-09-23，见 [[2026-09-23-agentic-se-refactoring-methodology-源摘要]]）
+
+提出者本人对后两个层级有保留。她 2025-09 试用 Kiro、spec-kit 与 Tessl 后认为，spec-first 在很多场景下有价值；
+spec-as-source（以及某种程度上的 spec-anchored）则可能同时继承 Model-Driven Development 的僵化与 LLM 的非确定性，
+她拿 MDD 在业务应用领域从未流行起来的历史作参照。她还观察到 agent 常常不遵循全部指令，偶尔又过度执行某条
+constitution 条款，质疑 SDD 带来的是"虚假的控制感"。这些是基于 2025-09 版本工具的观察，两款工具此后都增加了
+按问题规模区分的流程。
 
 ### 需求变化时改什么
 
@@ -78,7 +95,11 @@ GitHub Spec Kit 另区分三种 artifact mutation model
 
 - **SDD**管理“意图、约束与跨产物追溯”。
 - **BDD**用 Given/When/Then 表达可观察行为，可作为 SDD 的需求表达层。
-- **TDD**用失败测试驱动局部实现，可作为 SDD 的执行与验证层。
+- **TDD**用失败测试驱动局部实现，可作为 SDD 的执行与验证层。但"让 agent 在自己的循环里做 TDD"是另一回事：
+  Böckeler 2026-08-10 的小样本评估（5 批方案，Sonnet 4.6 生成、Opus 4.8 盲评）没看到 TDD 带来可辨别的收益，
+  TDD 组整体略差，变异得分也无差异；她据此停止要求 agent 先写测试，改用变异测试监控回归测试质量
+  （[TDD inside the agent loop](https://martinfowler.com/articles/exploring-gen-ai/tdd-in-the-agent-loop.html)，
+  检索于 2026-09-23）。综合：对 agent 而言，验证应约束**结果**（测试能否杀死变异体），而不是规定**过程**。
 - [[Loop Engineering]] 管理规格、[[Evals|evals]]、coding agent 与人类反馈的运行循环；SDD 把其中的规格接口和
   checkpoint 固化成版本化工程资产。
 - [[Claude Tag 驱动的团队研发流程]] 补出团队协作边界：Slack 等频道可以作为事件入口和多人协调面，

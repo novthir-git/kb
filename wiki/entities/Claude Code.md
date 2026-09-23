@@ -1,13 +1,14 @@
 ---
 tags: [实体, 产品, AI, Agent, 软件工程]
 created: 2026-08-11
-updated: 2026-08-31
+updated: 2026-09-23
 sources:
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "https://simonwillison.net/2026/Jul/21/cat-and-thariq/ （检索于 2026-08-03）"
   - "https://docs.anthropic.com/zh-CN/docs/claude-code/memory （检索于 2026-08-07）"
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
-renders: []
+  - "[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]"
+  - "[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]"
 ---
 
 # Claude Code
@@ -30,6 +31,14 @@ renders: []
   综合：这是一份来自外部大型企业的一手证据，说明 **harness 的可配置面同时是成本控制面**——
   与 [[harness-vs-model]] 的判断一致，也解释了为什么企业倾向在官方 CLI 外再包一层。
   完整语境见 [[Uber-软件工厂的成本工程]]。
+
+- **自发选择重构是它的弱项（单个外部实验，2026-07-30）**：Thoughtworks 在一个约 15 万行、主要由 Claude Code 写成的应用上做
+  重构实验。开发 harness 里原有的显式重构步骤从未促使它处理一个 17,155 行的文件；制定计划时 Claude.ai 看出
+  应抽出整个 client 类，Claude Code 只提出 Extract Function；执行时用 Python 调 grep/sed 做机械改写，常被缩进
+  搞乱，还跳过了价值最大的一步。人工引导下，全程约 8 小时基本无人值守地完成，同一变更的输入 token 降了约 83%
+  （[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]）。综合：这说明它**能执行被选定的重构，但不会自发选择
+  重构**，与 Böckeler 用 Cursor / Claude Code / OpenCode 做的 sensor 实验结论一致
+  （[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]）。论点页见 [[Agent 不会自发偿还结构债]]。
 
 ## 线 2：Anthropic 内部 AI 原生 SDLC 的载体
 
@@ -62,5 +71,6 @@ renders: []
 - [[Anthropic]] / [[Claude Cowork]] / [[Codex]]
 - [[Claude Tag 驱动的团队研发流程]] / [[Anthropic-AI原生SDLC治理循环]]
 - [[Loop Engineering]] / [[Evals]] / [[AI编码技术债的三层治理]]
+- [[Harness Engineering]] / [[Agent 不会自发偿还结构债]] / [[Agentic SE 时代的系统重构]]
 - [[llm-wiki-方法论]] / [[STORM-研究提示词组]]
 - [[生产力-体验悖论]] / [[agent-生产级落地的鸿沟]]

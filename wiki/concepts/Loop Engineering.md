@@ -1,10 +1,11 @@
 ---
 tags: [概念, AI, Agent, 方法论, 产品]
 created: 2026-07-03
-updated: 2026-08-11
+updated: 2026-09-23
 sources:
   - "[[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]"
   - "[[Evals]]"
+  - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
   - "https://x.com/AndrewYNg/status/2071988145667928442 （检索于 2026-07-03；X 正文动态渲染，全文以用户粘贴原文入库）"
 ---
 
@@ -36,6 +37,9 @@ sources:
   requirements、design、tasks 与 verification 链；团队级门禁见 [[SDD 开发规范研究]]。
 - [[Claude Tag 驱动的团队研发流程]] 把三层循环落到团队工作面：协作频道承接信号，Claude Tag 负责常驻协调与
   常规执行，Claude Code 处理复杂交互，风险门禁、内部试用和事故回灌把团队反馈与生产反馈接回 coding loop。
+- [[Harness Engineering]] 是分钟级 coding loop 的**工程化内容**：loop 里每一轮的前馈（规则、类型、结构约束）与
+  反馈（测试、lint、推理型评审）由谁设计、放在哪个时机、信号怎么写成 agent 能直接用的修正指引。它的
+  steering loop（同类错误重复出现就改进 guide 或 sensor）与本页"把问题固化成 evals"是同一个动作。
 - [[Codex]]、[[Claude Code]] 这类工具让 agentic coding loop 变快，进而把开发者推向更高层的产品循环。
 - [[生产力-体验悖论]] 提醒：从"写"到"监督/验证"会带来认知负荷。Loop Engineering 的正面版本，是把人从低层 QA 解放出来，让其上下文优势进入产品愿景与外部反馈循环。
 - [[agent-生产级落地的鸿沟]] 的核心问题之一，是 Demo 常只有局部闭环；生产落地需要把 [[Evals|evals]]、权限、真实用户反馈和人工判断都纳入循环。
