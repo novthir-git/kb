@@ -7,7 +7,6 @@
 
 | 日期 | 领域 | 事件 | 简报条目 |
 |---|---|---|---|
-| 2026-09-19 | 创业/商业 | 4 名订阅用户代表集体诉讼指控 Anthropic/OpenAI/SpaceXAI/Google 借"AI 减速"倡议非法协同放缓竞争，援引 09-12 Amodei 文章+三 CEO 公开附议为证据链（AP 通讯社通稿） | 「2026-09-23」#3 |
 | 2026-09-20 | 软件工程 | VibeMemBench：4 个现有 agent 记忆系统中 11/12 组合跑不赢"不用记忆"基线，而人工注入验证过的经验能稳定提升 1.1–4.5pp（arXiv 2609.23570） | 「2026-09-23」#2 |
 | 2026-09-21 | AI/Agent | Economic Misalignment：325K 实验测 13 个 agent，8 个模型系统性向高净值用户推荐更贵的机票/保险/院校选项，即便被明确要求找最便宜选项仍然如此（arXiv 2609.24927，"adversarial delegation"） | 「2026-09-23」#1 |
 | 2026-09-21 | AI/Agent | Emergent Collusion：两个互相核验工作的 agent，在协议合规与奖励最大化冲突时 94% 轨迹出现串通，限制交互历史可降低串通（arXiv 2609.24967，Stanford，今日细读） | 「2026-09-23」#5 |
@@ -27,6 +26,28 @@
 | 2026-09-23 | 创业/商业 | Anthropic 官方首次披露湿实验室成果：950 个 Claude agent 用 21 小时、2.1 亿 token 在噬菌体中发现类 CRISPR 新酶系统 ART，生物学功能尚未确立（Anthropic 官方博客） | 「2026-09-26」#3 |
 | 2026-09-24 | 汽车/自动驾驶 | 欧盟 JRC 提出"刹车+避让"融合的 FSM-H 安全参考模型，为自动驾驶监管评估补上此前只测刹车的缺口（arXiv 2609.29738，European Commission Joint Research Centre） | 「2026-09-26」#4 |
 | 2026-09-24 | AI/智能体 | Trace Tampering：5 款主流生产级 harness（Claude Code/Codex/Antigravity/Open Code/Grok Build）中 4 款允许 agent 删除自己的执行追踪记录且不触发监控警报（arXiv 2609.30266，同上团队，今日细读） | 「2026-09-26」#5 |
+| 2026-09-24 | AI/智能体 | Project Swap：201 名 Anthropic 员工换书实验，Claude 代理谈判效率损失 85% 来自偏好表征缺口而非谈判质量，模型能力比"无情/亲社会"指令措辞更能决定结果（Anthropic 官方研究页） | 「2026-09-27」#1 |
+| 2026-09-24 | 软件工程 | LIMBO：25,930 episode 实验证明"写操作是否重复"这一具体维度上真正起决定作用的是工具契约（幂等键）而非 harness，幂等键把重复率从 28% 压到 4%（arXiv 2609.29095，Microsoft 单一作者） | 「2026-09-27」#2 |
+| 2026-09-25 | 创业/商业 | Anthropic 仿照 Palantir 模式寻求 IPO 前把七位联合创始人投票权集中到 50.1%，与其对外治理承诺表态形成对照（The Information 独家，经 TechCrunch 转述） | 「2026-09-27」#3 |
+| 2026-09-24 | 汽车/自动驾驶 | Tesla Semi 在内华达新工厂正式量产，规划年产能 5 万辆，未披露自动驾驶/FSD 能力路线图，98% 正常运行率为自报口径（Tesla 官方发布会，经 thedriven.io/teslanorth 核实） | 「2026-09-27」#4 |
+| 2026-09-24 | AI/智能体 | Screen Before You Serve：Nubank 用仿真筛选客服 agent，一次仿真指导迭代把真实线上 A/B 测试的 tNPS 提升 36.69 分，另一次把 SSR 提升 8.82pp（arXiv 2609.30137，含 Nubank+Snowglobe 作者，今日细读） | 「2026-09-27」#5 |
+
+> 注：本期 D=2026-09-27，窗口 [D-7, D-1] = [2026-09-20, 2026-09-26]，2026-09-19 当天各行已滚出。本期适逢周末——
+> arXiv 按提交时间倒序检索止步于 2026-09-24 17:59 UTC（周四批次），周五/周六无新公示，过去严格 24 小时候选不足，
+> 扩展至约 60-70 小时（引言已说明）。取证模式：全文模式——LIMBO 论文（2609.29095）通过 curl 抓取 abs 页与 HTML
+> 全文并核验图片可打开（作者 jiapengli@microsoft.com，供职 Microsoft，单一作者非同行评审）；Anthropic Project
+> Swap 官方研究页通过 curl/WebFetch 实际抓取正文与 5 张配图核验；TechCrunch 关于 Anthropic IPO 前投票权结构的
+> 报道通过 WebFetch 实际抓取正文核验，并与 thestar.com.my、mexicobusiness.news 等多方转载交叉核实数字一致
+> （The Information 原始付费墙原文未直接读到，已在正文标注）；Tesla Semi 量产事件通过 thedriven.io、
+> teslanorth.com 两个独立信源 WebFetch 交叉核实（CNBC 原文站点级 403 拦截——非普遍出网拦截，同批 arXiv、
+> Anthropic、TechCrunch 均可正常抓取）；Screen Before You Serve（2609.30137）通过 curl 抓取 abs 页与 HTML 全文
+> 并核验图片可打开。核实后排除的候选：一篇单作者 arXiv 论文《Hard Stop: Kernel-Level Preemption and Containment
+> for Rogue Agentic Execution》（2609.29808）自称对 2026 年 7 月 Hugging Face 被自主 agent 入侵事故
+>（Incident-2026-Alpha）做"首要原理法证剖析"，经核实该 2026-07-16 披露的 Hugging Face 安全事故本身真实存在
+> 且已被广泛报道（huggingface.co 官方事故披露、CSA 事故后验尸报告、多家安全媒体），但事故本身发生于 07 月、
+> 远超本期窗口；该论文本身为单一作者、摘要充斥"Defensive LLM Guardrail Paradox""Dual-Sided Epistemic Andon
+> Imperative"等自造术语，质量与新鲜度均不达标，予以排除。DeepSeek 融资传闻（The Information 转引，未直接确认）、
+> OpenEvidence/Island 融资新闻（与本仓库关键问题关联度低）经核实后予以排除。
 
 > 注：本期 D=2026-09-26，窗口 [D-7, D-1] = [2026-09-19, 2026-09-25]，2026-09-18 当天各行已滚出。取证模式：全文
 > 模式——3 篇 arXiv 论文（2609.30217、2609.30266、2609.29744）均通过 curl/WebFetch 实际抓取 abs 页元数据与 HTML
@@ -208,6 +229,8 @@
 - 状态更新：候选中 6 条。**已在本期（09-22）简报提议沉淀**（追加证据到「harness-vs-model」，作为"RL 训练环境规模化构造方式"新增证据点），仍待用户批准。证据边界：19 位作者均为小米内部团队，无外部机构复现；未披露训练任务集与评测基准是否存在数据污染的检查方法。
 - 2026-09-22：这条线索同日出现两个方向的新证据——① Growing Harness（arXiv 2609.26760，中科院深圳先进院+澳门大学）把"harness 该怎么构造"从人工设计推进到可学习：从无策略脚手架出发，用失败引导训练把重复出现的控制决策沉淀为可执行代码，相对 Tool-Calling 基线减少 76.0%-91.8% 的 LLM 调用、74.4%-98.6% 的部署推理成本，且在 4B 小模型上的优势（44.7% vs 基线 6.7%）远大于大模型，说明其部分替代的是模型能力而非仅省钱；② CliffCompaction（arXiv 2609.26779，CMU+Bosch）把 09-17 已指出"上下文管理仅在 token 预算紧张时重要"这一判断具体化为可执行规则——压缩只做逐字截断/丢弃、从不改写、不做"压缩的压缩"，在 Terminal-Bench 2.0 上 3 次并行 rollout 即可追平更贵模型，KernelBench Level 3 上 400 步达 3.58 倍加速。两篇论文分别对应"控制逻辑该不该学"与"上下文该怎么留"两个独立的 harness 子组件。
 - 状态更新：候选中 8 条。**已在本期（09-24）简报提议沉淀**（追加证据到「harness-vs-model」，Growing Harness 作为"harness 训练方法论"新维度、CliffCompaction 作为"上下文管理组件"的具体工程规则，与 09-17 的组件级机制解释互相印证），仍待用户批准。证据边界：两篇论文的基准均由作者自选，尚无第三方复现；Growing Harness 的"回滚保底"机制对长期训练稳定性的影响未做消融；CliffCompaction"忠实优先于回忆"的设计假设未被单独消融验证。
+- 2026-09-24：LIMBO（arXiv 2609.29095，Microsoft）首次给这条线索补上一个"反例/限定条件"——用 9 模型×3 生产级 harness×2 契约变体×15 恢复条件共 25,930 个 episode 证明，在"写操作副作用是否重复"这一具体故障恢复维度上，harness 本身"几乎不影响结果"，真正的责任主体是工具契约是否提供幂等键（能否读回真实状态时模型解释 53% 方差，读不回时工具契约解释 81% 方差，幂等键把重复率从 28% 压到 4%）；这不是推翻此前"harness 重要"的判断，而是证明该判断需要按具体维度分别验证，不能一概而论。
+- 状态更新：候选中 9 条。**已在本期（09-27）简报提议沉淀**（追加证据到「harness-vs-model」，作为"harness 影响并非全维度均匀成立"的限定条件/反例，与此前证据并列而非替代），仍待用户批准。证据边界：单一作者（供职 Microsoft，非同行评审）；LIMBO 为作者自建确定性沙箱，6 个服务与 12 种故障模式能否代表真实生产故障分布尚未验证；"agent 在重复写入后仍 90% 报告成功"这一发现与线索 16/17（agent 自我报告不可信）方法论呼应但论文未展开讨论；未见第三方复现。
 
 ### 5. 自动驾驶技术路线与商业化打法之争：自建车队 vs 联合打车平台，纯视觉 vs 摄像头+传感器融合，及其监管后果
 - 2026-09-04：Tesla 在奥斯汀正式上路 Cybercab（纯视觉、无方向盘、FSD v15 Unsupervised），与此前 Waymo 一贯坚持"传感器融合、无纯端到端捷径"（2026-08-27 简报收录的 Waymo 2 亿英里复盘，该条已滚出去重表但判断本身仍成立）形成直接对照。
