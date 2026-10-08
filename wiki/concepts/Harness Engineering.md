@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 软件工程, Harness, 方法论]
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-10-08
 sources:
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
@@ -148,6 +148,11 @@ agent 对 agent，但每周人工清理"AI 残渣"的阶段先于自动化出现
 skills / hooks 任何变更时跑 eval 回归，pass rate 下降的配置变更须先 review 才能合并（**行为回归**，见
 [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。本仓库的 Lint 对 `wiki/` 做的是前一种。
 
+综合：最后一条可以用 [[AI工程方法论的耐久度]] 的尺子读——guides 里有不少是在补模型现在的短板（点名模式、
+可推断的约定），模型变强后会冗余；sensors 做的是验证，存在理由是"正确性无法由生成者自证"，不随能力消失。
+所以"有了 sensor 后能删哪些 guides"大致等于"哪些 guides 只是在补短板"；只写代码里不存在的知识的 guides 删不掉。
+context engineering 的机制层（compaction、外置记忆、子 agent 回传摘要）已在被 harness 与 API 内建，是同一趋势。
+
 ## 证据边界
 
 - OpenAI：公司自述的内部实验，无外部审计、无对照组；作者自己限定"不应在没有类似投入时假定可泛化"。
@@ -166,4 +171,5 @@ skills / hooks 任何变更时跑 eval 回归，pass rate 下降的配置变更�
 - 应用与论点：[[Agentic SE 时代的系统重构]]、[[Agent 不会自发偿还结构债]]
 - 同构治理：[[AI编码技术债的三层治理]]、[[Anthropic-AI原生SDLC治理循环]]、[[Loop Engineering]]、[[控制带]]
 - 文档作为 guide：[[代码与文档漂移的本质]]、[[llm-wiki-方法论]]
-- 成本侧：[[Uber-软件工厂的成本工程]]、[[Agent 工具上下文膨胀]]
+- 成本侧：[[Uber-软件工厂的成本工程]]、[[Agent 工具上下文膨胀]]、[[上下文经济性]]
+- 耐久度：[[AI工程方法论的耐久度]]
