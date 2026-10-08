@@ -1,9 +1,9 @@
 # Wiki 内容索引
 
 ## 概览
-- 素材（raw）：37（含 2 个 asset）
-- 页面（wiki）：69
-- 最后更新：2026-09-23
+- 素材（raw）：39（含 3 个 asset）
+- 页面（wiki）：70
+- 最后更新：2026-10-08
 
 ## 分析（analyses）
 - [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
@@ -64,6 +64,7 @@
 - [[AI方法论的去机制化失真]] — 论点：权威锚点保留、核心机制被抽掉的二次传播；9 样本证据表（含已确证上游）显示四特征可分离，固定五角色传播最广、"杜撰缺陷+自评补丁"唯一零反例；08-27 增第二观测对象（SDD 主题，载体为检索自动摘要）；同批提出的 M5 引文归属漂移唯一样本 08-31 复查证伪，降为待观察形态。
 - [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式、不自发发起重构，偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化；证据点覆盖 OpenAI、Böckeler、Thoughtworks。
 - [[SDD 收益主张的实证赤字]] — 论点：SDD 的缺陷/返工下降主张与实证支持存在系统性赤字；8 条证据显示最大样本结论反向，主张最强处证据最弱。
+- [[LLM 输出的人类理解瓶颈]] — 论点：agent 接手跑腿后，人侧瓶颈转向理解与监督带宽；Karpathy 输出格式阶梯（受控英语 → 图示 → HTML → 讲解视频）为扩容手段，但简化丢事实（随领域术语密度上升）、富格式更难核对；6 条证据。
 
 ## 综合（synthesis）
 - [[overview]] — 全局知识版图与活跃线索。
@@ -104,6 +105,7 @@
 - sources/articles/2026-06-17-heynavtoor-Stanford-STORM四提示词长文 — [[AI方法论的去机制化失真]] 传播链已确证上游节点的一级存档（fxtwitter 抓取，2026-08-11）。
 - sources/articles/2026-08-21-Anthropic-AI原生SDLC-playbook — Anthropic《The AI-Native SDLC Playbook》结构化存档，保留六阶段全部 play、配置示例与度量指标（源摘要 [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。
 - sources/articles/2026-08-27-Uber-软件工厂成本效率 — Uber 工程博客《Running a Software Factory Efficiently at Uber Scale》正文结构化存档；Figure 1–12 为图片未存档（源摘要 [[2026-08-27-Uber-软件工厂成本效率-源摘要]]）。
+- sources/articles/2026-10-02-Karpathy-理解LLM输出的格式阶梯 — Karpathy「理解 LLM 输出」X 长帖 verbatim 存档（fxtwitter 抓取，2026-10-08；承载页 [[LLM 输出的人类理解瓶颈]]）。
 - sources/notes/2026-07-28-从知识图谱到Agent编排-结构化内容草稿 — 用户确认冻结的 AI 结构化派生稿；基于飞书视频逐字稿，非一级来源，正式沉淀前须回查原始资料。
 - sources/notes/2026-09-23-agentic-se-refactoring-methodology — 用户提供的多源调研稿（范式思想 + 架构与重构方法论）；二次综合产物，逐项核验见 [[2026-09-23-agentic-se-refactoring-methodology-源摘要]]。
 - sources/articles/2026-02-11-OpenAI-Harness-Engineering — OpenAI《Harness engineering》要点式中文摘录（原站 403，经官方中文版读取；源摘要 [[2026-02-11-OpenAI-Harness-Engineering-源摘要]]）。
@@ -123,5 +125,6 @@
 - sources/pdfs/2025-DORA-Impact-of-Generative-AI-in-Software-Development-v2025.2.pdf — DORA 基于 2024 调查的统计分析；局部 flow / 代码质量收益与交付吞吐 / 稳定性下降并存，非因果试验。
 - sources/pdfs/2022-NIST-SP-800-218-SSDF-v1.1.pdf — NIST Secure Software Development Framework 1.1；与代码来源无关的安全 SDLC 权威基线。
 - sources/pdfs/2026-A2E-Agent-Auditing-Engine-arXiv-2608.07346.pdf — A²E 原始预印本；以 ATP、OpenTelemetry trace 和生命周期分层评估 harness 执行。
+- assets/2026-10-02-Karpathy-ASD-STE100-速查图.png — Karpathy 10-02「理解 LLM 输出」帖附图原图；第三方核查指出词典表有误，勘误见 [[LLM 输出的人类理解瓶颈]]。
 - assets/2026-07-01-Andrew-Ng-3-key-product-development-loops.png — Andrew Ng 三层产品开发循环原图截图（承载页 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
 - assets/cowork-plugins-mcp-architecture.svg — 旧版 Cowork 插件架构图，因“plugin = MCP Server”错误已废弃；只读保留供追溯（见 [[cowork-plugins-架构]]）。

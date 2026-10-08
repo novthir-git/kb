@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 软件工程, 研发流程, 治理]
 created: 2026-08-04
-updated: 2026-08-11
+updated: 2026-10-08
 sources:
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "[[Anthropic-AI原生SDLC治理循环]]"
@@ -10,7 +10,7 @@ sources:
   - "[[Evals]]"
   - "[[Agent 记忆架构]]"
   - "https://simonwillison.net/2026/Jul/21/cat-and-thariq/ （检索于 2026-08-03）"
-renders: []
+  - "https://x.com/karpathy/status/2069547676849557725 （Karpathy，2026-06-23；检索于 2026-10-08，经 fxtwitter API）"
 ---
 
 # Claude Tag 驱动的团队研发流程
@@ -29,6 +29,14 @@ renders: []
 [[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要|Claude Code 团队访谈]]、
 [[Anthropic-AI原生SDLC治理循环]]、[[Loop Engineering]] 与 [[Specification-Driven Development]]
 推导出的可复用流程模型。
+
+> 外部观点（2026-06-23，观点非数据）：Karpathy 在 Claude Tag 发布时评论，这是 LLM 交互形态的
+> "第三次重大重设计"——第一种是你去访问的网站，第二种是下载到电脑上的 app，第三种是"自包含、持久、异步、
+> 拥有全组织工具与上下文、与人类团队并肩工作的实体"；前提是把工具、集成、计算环境、记忆、安全等底层工程做到
+> "just work"（https://x.com/karpathy/status/2069547676849557725 ，检索于 2026-10-08）。
+> 这与本页"团队级常驻协作与执行层"的定位一致，他点名的底层工程正是本页权限放权与
+> [[#共享记忆的写回门禁]] 处理的部分。注意：Karpathy 自 2026-05-19 任职 Anthropic，属利益相关方观点，
+> 只作定位佐证，不作效果证据。同一作者对"人如何读懂 agent 产出"的判断见 [[LLM 输出的人类理解瓶颈]]。
 
 ## 角色分工
 
@@ -202,3 +210,4 @@ Claude Tag 当前以“每频道一个 Markdown 文件”保存共享记忆，�
 - [[Agent 记忆架构]]
 - [[生产力-体验悖论]]
 - [[agent-生产级落地的鸿沟]]
+- [[LLM 输出的人类理解瓶颈]] —— 人侧瓶颈转向理解与监督带宽；Karpathy 的输出格式阶梯及其保真 / 可核对代价

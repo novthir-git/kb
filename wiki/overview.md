@@ -1,7 +1,7 @@
 ---
 tags: [综合]
 created: 2026-07-03
-updated: 2026-09-23
+updated: 2026-10-08
 sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index.md 承载（详见 AGENTS.md）
 ---
 
@@ -12,7 +12,7 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
   构成"能替代人+传统软件界面"的栈；其资本市场冲击见 [[cowork-saas-资本市场冲击]]；[[cowork-plugins-架构]] 已校正为 Plugin → Connector → MCP Server 的分层。
 - **Agent 采用与人的体验**：[[Codex]] 的采用爆发（[[codex-agent-采用曲线]]）与其体验成本
   （[[生产力-体验悖论]]、"从创造到验证"的监督式工程）——新增企业 / 成熟仓库 RCT、生产遥测与维护负担证据，
-  显示局部活动量、实际任务速度、感知速度和 release 价值可能背离。
+  显示局部活动量、实际任务速度、感知速度和 release 价值可能背离；验证带宽本身成为人侧瓶颈，格式扩容手段及其保真 / 可核对代价见 [[LLM 输出的人类理解瓶颈]]。
 - **Agent 知识—记忆—行动架构**：[[从知识图谱到 Agent 编排]] 以权威事实、派生表示、检索、
   [[Agent 记忆架构|记忆]]、编排、[[MCP]]/[[RPA]] 行动与验证调和构成七层闭环；检索选型见 [[GraphRAG 与 Vector RAG]]；
   [[Open Knowledge Format|OKF]] 是可携带知识制品，和本仓库的边界见 [[OKF 与 llm-wiki 的关系]]。
