@@ -1376,3 +1376,18 @@ index 概览更新为 37 素材 / 69 页。另：远端分支 `claude/blissful-a
 脱敏：无内部路径、wiki 双链与会话信息，32 个外链均为 https 一级来源；字体以 woff2 data URI 内嵌，零外部运行时请求；
 控制台无错误，桌面 / 手机 / 暗色均无页面横向溢出。视觉未沿用 editorial 风格（用户要求重新设计；`AGENTS.md` 风格条款是否
 随之修改尚待用户决定）。
+
+## [2026-10-08] research | Karpathy「理解 LLM 输出」：人侧瓶颈转向理解带宽
+用户问 Karpathy 最新发文。x.com 直连 402，经 fxtwitter API 取时间线与原文，发布时间用 snowflake ID 解码复核。
+最新原创为 10-02 长帖（四级输出格式阶梯：ASD-STE100 → 图示 → HTML → 讲解视频；"工作上移到监督与理解"）。
+按铁律 4 沉淀论点而非事件：新建主题页 [[LLM 输出的人类理解瓶颈]]，证据点 6 行（Karpathy 05-11 / 08-02 / 10-02，
+Ghinda 08-14 代码讲解保真测试，StashBase 10-04 散文测试，max.nardit 10-04 速查图核查）；五条判断各标置信度。
+校正对话中的初版说法：STE 丢近半事实（46.8%）只出现在**代码讲解 + 正式标准**，散文上各条件均无丢失，
+差别在领域术语密度。速查图原图已亲自核对（approximately 标不批准、TEST 标批准动词），与标准原文的比对仍依赖核查文。
+存档 `raw/sources/articles/2026-10-02-Karpathy-理解LLM输出的格式阶梯.md`（verbatim，粗体按 facets 还原）与附图
+`raw/assets/2026-10-02-Karpathy-ASD-STE100-速查图.png`；仅一页引用，未建源摘要页。
+横向：[[Claude Tag 驱动的团队研发流程]] 加 Karpathy 06-23"第三次 LLM 交互形态重设计"外部观点（标注其 2026-05 起任职
+Anthropic、属利益相关方，只作定位佐证），顺手删除存量 `renders: []`；[[生产力-体验悖论]] 关联节补"验证带宽本身成瓶颈"；
+overview「Agent 采用与人的体验」板块补一句（仍 60 行）。用户决定 `purpose.md` 核心论断 1 暂不改。
+跳过（事件，非论点）：10-04"99% 入门不到 1 年"回复、10-02 Land or Water eval、05-19 加入 Anthropic。
+index 概览更新为 39 素材（含 3 个 asset）/ 70 页。
