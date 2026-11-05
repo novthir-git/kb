@@ -1,9 +1,9 @@
 # Wiki 内容索引
 
 ## 概览
-- 素材（raw）：39（含 3 个 asset）
-- 页面（wiki）：70
-- 最后更新：2026-10-08
+- 素材（raw）：41（含 3 个 asset）
+- 页面（wiki）：73
+- 最后更新：2026-11-05
 
 ## 分析（analyses）
 - [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
@@ -22,8 +22,9 @@
 - [[书与AI的优势边界及家庭组合]] — 区分书、AI、手机与阅读，以“书搭骨架、AI 做反馈、实践做验证”组织儿童学习，并附工程手工书选购与家庭规则。
 - [[STORM-知识策展系统分析]] — Stanford STORM/Co-STORM 的四个可复用机制、workflow 而非 agent 的架构定位、2025-09 后停滞并被商业 deep research 吞没的判断；含二次失真局限与"去机制化失真"样本。
 - [[Agent 全轨迹评测与审计]] — 将 Agent 评测从最终答案扩展为任务、Trace、指标与历史重评四类契约；区分 outcome 主证据与 process 归因证据。
-- [[Agentic SE 时代的系统重构]] — 代码库成为 agent 的运行环境：结构债可按 token 计价（单实验：同一变更输入 −83%），但须由 harness 驱动偿还、由验证网兜住；含 agent 友好代码库的目标形态、遗留系统方法与经核验的思想光谱。
+- [[Agentic SE 时代的系统重构]] — 代码库成为 agent 的运行环境：结构债可按 token 计价（单实验：同一变更输入 −83%），但须由 harness 驱动偿还、由验证网兜住；含 agent 友好代码库的目标形态、遗留系统方法与经核验的思想光谱；11-05 补 Sonar 受控对照（整体 −7%、集中在跨模块），−83% 标注矛盾与第三方复核。
 - [[Uber-软件工厂的成本工程]] — Uber 公开的 agent 成本工程：六项成本方程、"agent 替自己多干的活"作为浪费定义、五层度量与四类杠杆；含"可计价者被优化"的张力与自报口径边界。
+- [[全AI代码库的治理决策]] — 100% AI 生成代码库要不要治：乱代码几乎不影响前沿模型单次成败，但"功能未受影响"多半未被观测；代价是随迭代递增的 token 税，治理本身也是回归源；按验证网、团队、寿命分叉的决策树，六步路线与重放法收益度量。
 
 ## 实体（entities）
 - [[Anthropic]] — Claude 系列与 MCP 的开发者；既是技术实体也是商业研究标的。
@@ -52,7 +53,7 @@
 - [[agent-task-protocol|Agent Task Protocol（ATP）]] — A²E 用于分离 benchmark 适配与 harness 执行的内部软件接口协议。
 - [[lifecycle-aligned-evaluation|Lifecycle-Aligned Evaluation]] — 按 Reasoning、Action、Final Answer 与 Runtime Quality 组织 Agent 评测指标。
 - [[harness-vs-model|Harness 不是轻量 Wrapper]] — 同模型在不同 harness 上可产生不同的成功率、轨迹、成本和终止行为；指内层（agent 运行时），外层见 [[Harness Engineering]]。
-- [[Harness Engineering]] — 为 coding agent 设计外层环境：guides/sensors × computational/inferential、steering loop、按成本分布检查点、harnessability；OpenAI 与 Böckeler 两个来源。
+- [[Harness Engineering]] — 为 coding agent 设计外层环境：guides/sensors × computational/inferential、steering loop、按成本分布检查点、harnessability；OpenAI 与 Böckeler 两个来源；11-05 增 2026 年三个定期维护 agent 样本与 Jain"强模型只需最终验证门"的数据点。
 - [[Agent 工具上下文膨胀]] — 工具接入方式决定 agent 开场即背的固定上下文，且每轮重发；按需检索、CLI 投影、code-mode 三条解法及其代价。
 
 ## 对比（comparisons）
@@ -62,7 +63,7 @@
 ## 主题（topics）
 - [[agent-生产级落地的鸿沟]] — 论点：Agent 试验渗透显著高于规模化价值；证据点覆盖 Gartner、Deloitte、McKinsey、Meta 与方法论边界；08-31 增 Uber 规模化正向案例（其依赖项无一来自"模型更强"）；09-23 增 OpenAI 零手写代码实验、SWE-Milestone（独立任务 >80% → 持续演化最高 38%）与 Anthropic 内部调查（超过一半受访者可完全委派仅 0–20%）。
 - [[AI方法论的去机制化失真]] — 论点：权威锚点保留、核心机制被抽掉的二次传播；9 样本证据表（含已确证上游）显示四特征可分离，固定五角色传播最广、"杜撰缺陷+自评补丁"唯一零反例；08-27 增第二观测对象（SDD 主题，载体为检索自动摘要）；同批提出的 M5 引文归属漂移唯一样本 08-31 复查证伪，降为待观察形态。
-- [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式、不自发发起重构，偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化；证据点覆盖 OpenAI、Böckeler、Thoughtworks。
+- [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式、不自发发起重构，偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化；证据点覆盖 OpenAI、Böckeler、Thoughtworks；11-05 增 SlopCodeBench（提示不改退化斜率）、被驱动后不会停（Over-Compliant、tangled refactoring）与定期偿还的解法样本（Anthropic routines、Uber AutoClean）。
 - [[SDD 收益主张的实证赤字]] — 论点：SDD 的缺陷/返工下降主张与实证支持存在系统性赤字；8 条证据显示最大样本结论反向，主张最强处证据最弱。
 - [[LLM 输出的人类理解瓶颈]] — 论点：agent 接手跑腿后，人侧瓶颈转向理解与监督带宽；Karpathy 输出格式阶梯（受控英语 → 图示 → HTML → 讲解视频）为扩容手段，但简化丢事实（随领域术语密度上升）、富格式更难核对；6 条证据。
 
@@ -88,6 +89,8 @@
 - [[2026-05-27-Boeckeler-可维护性传感器-源摘要]] — 单人单应用的 sensor 实验：计算型管文件/函数、推理型管跨文件；阈值被 agent 上调；覆盖率 100% 仍有 13 个存活变异体。
 - [[2026-07-30-Thoughtworks-重构的经济收益-源摘要]] — 一次按 token 计价的重构实验（作者称是"第一步"）：17,155 行文件经 15 步重构，同一变更输入 token −83%；agent 不擅长选择与执行重构；含单次测量等六条口径。
 - [[2026-09-23-agentic-se-refactoring-methodology-源摘要]] — 对用户调研稿逐项回查一级来源：校正思想光谱站位、EvoClaw 归属与口径、TDD 路线；连带更正本库 SDD 三层级出处。
+- [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]] — SonarSource 的最小对受控实验：6 对仓库、33 任务、660 次 Claude Code 运行；整洁度不改通过率（−0.9 pp），输入 token −7.1%、重读 −33.8%，收益集中在跨模块任务；只用隐藏测试评分、单模型、作者利益相关。
+- [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]] — 15 个 agent 在自己的代码上迭代 196 个 checkpoint：77% 轨迹侵蚀上升、增速约为人类仓库 5–7 倍；质量提示压初值不改斜率；LOC 是下一轮成本的最强预测因子；含两处原文内部矛盾。
 
 ## 素材（raw）
 - sources/articles/2026-07-01-Andrew-Ng-三层产品开发循环 — Andrew Ng 关于 Loop Engineering 与三层产品开发循环的 X/The Batch post（源摘要 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
@@ -112,6 +115,8 @@
 - sources/articles/2026-04-02-Boeckeler-Harness-Engineering — Böckeler《Harness engineering for coding agent users》要点式中文摘录（源摘要 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。
 - sources/articles/2026-05-27-Boeckeler-可维护性传感器 — Böckeler《Maintainability sensors for coding agents》要点式中文摘录（源摘要 [[2026-05-27-Boeckeler-可维护性传感器-源摘要]]）。
 - sources/articles/2026-07-30-Thoughtworks-重构的经济收益 — Giles Edwards-Alexander《The Economic Benefit of Refactoring》中文摘录，结果表照录（源摘要 [[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]）。
+- sources/articles/2026-05-19-Sonar-代码整洁度最小对实验 — arXiv 2605.20049《Does Code Cleanliness Affect Coding Agents?》中文结构化摘录，Table 1–4 照录（源摘要 [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]]）。
+- sources/articles/2026-03-25-SlopCodeBench-长程迭代退化 — arXiv 2603.24755 v2《SlopCodeBench》中文结构化摘录，Table 1、3、6 照录（源摘要 [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]]）。
 - sources/notes/2026-08-07-AI编码技术债三层治理-用户研究草稿 — 用户提供的多源综合草稿；含未经核验的来源分级、工具配置与指标阈值，校正版见 [[AI编码技术债的三层治理]]。
 - sources/pdfs/2026-From-Technical-Debt-to-Cognitive-and-Intent-Debt-arXiv-2603.22106.pdf — Storey 提出的 technical / cognitive / intent debt 概念论文；ACM Queue 实践者文章的作者版本，属概念框架而非实证研究。
 - sources/pdfs/2026-Twelve-Quick-Tips-for-AI-Assisted-Coding-in-Science-PLOS.pdf — PLOS Computational Biology 同行评审实践指南；覆盖科研场景的 AI 辅助编码、测试、验证与人类责任。
