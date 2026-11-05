@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 软件工程, Harness, 方法论]
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-11-05
 sources:
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
@@ -10,6 +10,10 @@ sources:
   - "https://martinfowler.com/articles/harness-engineering.html （检索于 2026-09-23）"
   - "https://martinfowler.com/articles/sensors-for-coding-agents.html （检索于 2026-09-23）"
   - "[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]"
+  - "https://x.com/bcherny/status/2088014489438621990 （Boris Cherny，Anthropic 每日 routines；检索于 2026-11-04）"
+  - "https://www.uber.com/us/en/blog/ai-code-cleanup/ （Uber AutoClean，2026-10-20；检索于 2026-11-04）"
+  - "https://github.github.com/gh-aw/blog/2026-09-07-agent-of-the-day/ （GitHub gh-aw 死代码 agent；检索于 2026-11-04）"
+  - "https://martinfowler.com/articles/are-harnesses-worth-the-cost.html （Naresh Jain，2026-10-13；检索于 2026-11-04）"
 ---
 
 # Harness Engineering
@@ -91,6 +95,17 @@ Böckeler 把这种分布放在持续集成的传统里讨论，死代码检测�
 "生命周期之外"这一层在 agent 吞吐下变得更关键——OpenAI 用定期后台任务扫描偏差、发定向重构 PR，把它做成了
 **垃圾回收**；详见 [[Agent 不会自发偿还结构债]]。
 
+2026 年又出现三个公开样本（均为自报、无对照）：
+
+| 样本 | 做法 | 公开数据 |
+|---|---|---|
+| Anthropic 每日 routines（Boris Cherny 2026-08-13 自述） | 十余类定时维护任务：死代码删除、重复统一、无用测试修剪、抽象审查等；每个 PR 过 Claude Code Review 加人工复审 | 数周 388 个 PR、合并 180 个（约 46%） |
+| Uber AutoClean（2026-10-20） | 确定性改写交给工具（PolyglotPiranha）而非 agent；修复 agent 权限极窄；并行审查 agent 分别核"无新增、语义保持、无意图漂移、无 agent 残留"，任一失败即废弃 | 累计 16,000+ flag、100 万+ 行（含早期确定性工具时代） |
+| GitHub gh-aw 死代码 agent | 每日 Go deadcode 静态分析定位 → agent 开 PR 删不可达函数及其专属测试 | 单次约 19 分钟、19,398 token；近 5 次运行 2 次成功 |
+
+综合：三者与 OpenAI 是同一形态——**计算型 sensor 定位、agent 做机械编辑、独立审查、人只判"删不删"**。Uber 的版本多了一条值得
+单独记下的原则：agent 的权限按任务收窄，因为它会走"改生产代码让测试通过"这类捷径。单人项目怎么借用这套形态见 [[全AI代码库的治理决策]]。
+
 门禁放在哪里也是取舍。OpenAI 在高吞吐下**减少阻塞式合并门**、偶发失败靠重跑，理由是"纠错便宜、等待昂贵"，
 作者也自己说明这在低吞吐环境中不负责任。
 > 综合：这与 [[Anthropic-AI原生SDLC治理循环]] 的风险分级门禁并不矛盾——OpenAI 的实验对象是内部 beta，
@@ -141,6 +156,10 @@ agent 对 agent，但每周人工清理"AI 残渣"的阶段先于自动化出现
 - Sensor 从不触发，是质量高还是检测不足；需要评估 harness 覆盖与质量的方法。
 - 缺少把各阶段控制作为**一个系统**来配置与推理的工具。
 - 对 sensor 有信心后能删掉哪些 guides；sensor 能否让较弱模型可用。
+  （2026-11-05 补）最后一问有了第一个数据点：Naresh Jain（martinfowler.com，2026-10-13）的绿地单服务实验中，前沿模型有无行为
+  harness 都 10/10 通过 178 条独立验收测试，harness 把单次成本从约 0.41 美元推到约 2.68 美元、耗时近三倍；只有便宜模型从 3/10
+  提到 10/10。作者的修正是："What changes with model capability is not whether independent sensors are needed, but when they run"
+  ——对强模型，独立 sensor 仍要有，但可以只留一道最终验证门。小样本、未计 harness 搭建成本。
 
 综合：第一条与 [[代码与文档漂移的本质]] 同构——guides 本身就是文档，会与 sensors、与代码发生表达漂移。本 wiki
 收录的来源里有两种把 guides 自身纳入 sensor 覆盖的做法，分别覆盖两个侧面：OpenAI 用 linter 与 CI 校验 `docs/` 的
@@ -163,7 +182,7 @@ skills / hooks 任何变更时跑 eval 回归，pass rate 下降的配置变更�
 ## 关联
 
 - 内层 harness：[[harness-vs-model]]、[[Agent 全轨迹评测与审计]]
-- 应用与论点：[[Agentic SE 时代的系统重构]]、[[Agent 不会自发偿还结构债]]
+- 应用与论点：[[Agentic SE 时代的系统重构]]、[[Agent 不会自发偿还结构债]]、[[全AI代码库的治理决策]]
 - 同构治理：[[AI编码技术债的三层治理]]、[[Anthropic-AI原生SDLC治理循环]]、[[Loop Engineering]]、[[控制带]]
 - 文档作为 guide：[[代码与文档漂移的本质]]、[[llm-wiki-方法论]]
 - 成本侧：[[Uber-软件工厂的成本工程]]、[[Agent 工具上下文膨胀]]
