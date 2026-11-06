@@ -1,9 +1,9 @@
 # Wiki 内容索引
 
 ## 概览
-- 素材（raw）：41（含 3 个 asset）
-- 页面（wiki）：73
-- 最后更新：2026-11-05
+- 素材（raw）：46（含 3 个 asset）
+- 页面（wiki）：77
+- 最后更新：2026-11-06
 
 ## 分析（analyses）
 - [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
@@ -25,6 +25,7 @@
 - [[Agentic SE 时代的系统重构]] — 代码库成为 agent 的运行环境：结构债可按 token 计价（单实验：同一变更输入 −83%），但须由 harness 驱动偿还、由验证网兜住；含 agent 友好代码库的目标形态、遗留系统方法与经核验的思想光谱；11-05 补 Sonar 受控对照（整体 −7%、集中在跨模块），−83% 标注矛盾与第三方复核。
 - [[Uber-软件工厂的成本工程]] — Uber 公开的 agent 成本工程：六项成本方程、"agent 替自己多干的活"作为浪费定义、五层度量与四类杠杆；含"可计价者被优化"的张力与自报口径边界。
 - [[全AI代码库的治理决策]] — 100% AI 生成代码库要不要治：乱代码几乎不影响前沿模型单次成败，但"功能未受影响"多半未被观测；代价是随迭代递增的 token 税，治理本身也是回归源；按验证网、团队、寿命分叉的决策树，六步路线与重放法收益度量。
+- [[常驻 AI 同事的竞争格局]] — Grok Bot / Muse / Dots / Claude Cowork（含 Tag、Duet）/ Copilot Cowork / DeepSeek Super-agent：蓝图已普及，竞争退到入口、常驻单位经济学与授权；定位是商业模式的投影，现阶段是高级助理而非员工。
 
 ## 实体（entities）
 - [[Anthropic]] — Claude 系列与 MCP 的开发者；既是技术实体也是商业研究标的。
@@ -55,6 +56,7 @@
 - [[harness-vs-model|Harness 不是轻量 Wrapper]] — 同模型在不同 harness 上可产生不同的成功率、轨迹、成本和终止行为；指内层（agent 运行时），外层见 [[Harness Engineering]]。
 - [[Harness Engineering]] — 为 coding agent 设计外层环境：guides/sensors × computational/inferential、steering loop、按成本分布检查点、harnessability；OpenAI 与 Böckeler 两个来源；11-05 增 2026 年三个定期维护 agent 样本与 Jain"强模型只需最终验证门"的数据点。
 - [[Agent 工具上下文膨胀]] — 工具接入方式决定 agent 开场即背的固定上下文，且每轮重发；按需检索、CLI 投影、code-mode 三条解法及其代价。
+- [[Agent 授权三层]] — 准入 / 授权语义 / 执行隔离三层；通道级授权是共同缺陷；确定性外壳必须对 agent 自身不可写（DeepSeek 反例）；模型预审只是软补充。
 
 ## 对比（comparisons）
 - [[GraphRAG 与 Vector RAG]] — 区分 Vector RAG、Text2Cypher、Microsoft GraphRAG Global 与混合检索，按局部、关系、全局和实时事实路由。
@@ -66,6 +68,7 @@
 - [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式、不自发发起重构，偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化；证据点覆盖 OpenAI、Böckeler、Thoughtworks；11-05 增 SlopCodeBench（提示不改退化斜率）、被驱动后不会停（Over-Compliant、tangled refactoring）与定期偿还的解法样本（Anthropic routines、Uber AutoClean）。
 - [[SDD 收益主张的实证赤字]] — 论点：SDD 的缺陷/返工下降主张与实证支持存在系统性赤字；8 条证据显示最大样本结论反向，主张最强处证据最弱。
 - [[LLM 输出的人类理解瓶颈]] — 论点：agent 接手跑腿后，人侧瓶颈转向理解与监督带宽；Karpathy 输出格式阶梯（受控英语 → 图示 → HTML → 讲解视频）为扩容手段，但简化丢事实（随领域术语密度上升）、富格式更难核对；6 条证据。
+- [[常驻 Agent 的算力经济学]] — 论点：常驻程度是预算参数（唤醒频率 × 模型档位），由谁付算力决定；定价收敛到"席位 / 订阅 + 用量"，按结果计价缺席；证据点覆盖 Grok Bot 额度风波、Muse 算力约束、Dots、Duet 与 DeepSeek。
 
 ## 综合（synthesis）
 - [[overview]] — 全局知识版图与活跃线索。
@@ -91,6 +94,7 @@
 - [[2026-09-23-agentic-se-refactoring-methodology-源摘要]] — 对用户调研稿逐项回查一级来源：校正思想光谱站位、EvoClaw 归属与口径、TDD 路线；连带更正本库 SDD 三层级出处。
 - [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]] — SonarSource 的最小对受控实验：6 对仓库、33 任务、660 次 Claude Code 运行；整洁度不改通过率（−0.9 pp），输入 token −7.1%、重读 −33.8%，收益集中在跨模块任务；只用隐藏测试评分、单模型、作者利益相关。
 - [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]] — 15 个 agent 在自己的代码上迭代 196 个 checkpoint：77% 轨迹侵蚀上升、增速约为人类仓库 5–7 倍；质量提示压初值不改斜率；LOC 是下一轮成本的最强预测因子；含两处原文内部矛盾。
+- [[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]] — 用户提供的 DeepSeek Super-agent 报告逐项核验：事实层大体成立；"宿主强制授权"被可改写的 Policy 与无 token 的本机 API 削弱，"差异点"并非独有，成本推算偏最便宜口径。
 
 ## 素材（raw）
 - sources/articles/2026-07-01-Andrew-Ng-三层产品开发循环 — Andrew Ng 关于 Loop Engineering 与三层产品开发循环的 X/The Batch post（源摘要 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
@@ -118,6 +122,11 @@
 - sources/articles/2026-05-19-Sonar-代码整洁度最小对实验 — arXiv 2605.20049《Does Code Cleanliness Affect Coding Agents?》中文结构化摘录，Table 1–4 照录（源摘要 [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]]）。
 - sources/articles/2026-03-25-SlopCodeBench-长程迭代退化 — arXiv 2603.24755 v2《SlopCodeBench》中文结构化摘录，Table 1、3、6 照录（源摘要 [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]]）。
 - sources/notes/2026-08-07-AI编码技术债三层治理-用户研究草稿 — 用户提供的多源综合草稿；含未经核验的来源分级、工具配置与指标阈值，校正版见 [[AI编码技术债的三层治理]]。
+- sources/notes/2026-11-05-DeepSeek-Super-agent-洞察报告 — 用户提供的 DeepSeek Super-agent 洞察报告（署名 @Tom）；二次综合产物，逐项核验见 [[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]。
+- sources/articles/2026-10-29-xAI-Grok-Bot-安全与审批文档 — docs.x.ai Security FAQ + Approvals, security and privacy 两页 verbatim 存档（"Do not use separate Bots as a security boundary"；承载页 [[Agent 授权三层]]）。
+- sources/articles/2026-09-08-Meta-Muse-安全架构 — Meta《How We Built Safety Into Muse》verbatim 存档（Sentinel 唯一放行者、替身 token；承载页 [[Agent 授权三层]]）。
+- sources/articles/2026-11-02-Anthropic-Claude-Cowork-架构概览 — Claude 帮助中心 Cowork architecture overview verbatim 存档（每会话临时沙箱、强制出站代理、connector token 不进沙箱）。
+- sources/articles/2026-11-06-OpenAI-dots-安全文档 — ChatGPT Learn《Safety and security in dots》中文结构化摘录（原文约 8.2 万字符超阈；Auto-review、Custom Rules、审计与保留期）。
 - sources/pdfs/2026-From-Technical-Debt-to-Cognitive-and-Intent-Debt-arXiv-2603.22106.pdf — Storey 提出的 technical / cognitive / intent debt 概念论文；ACM Queue 实践者文章的作者版本，属概念框架而非实证研究。
 - sources/pdfs/2026-Twelve-Quick-Tips-for-AI-Assisted-Coding-in-Science-PLOS.pdf — PLOS Computational Biology 同行评审实践指南；覆盖科研场景的 AI 辅助编码、测试、验证与人类责任。
 - sources/pdfs/2026-Cui-Generative-AI-Three-Field-Experiments-Software-Developers.pdf — Microsoft、Accenture 与 Fortune 100 企业、合计 4,867 名开发者的随机现场试验；短期任务 / PR 活动量提高 26.08%。

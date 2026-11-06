@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常驻 AI 同事洞察</title>
+<meta name="description" content="Grok Bot、Muse、Dots、Claude Cowork、DeepSeek Super-agent 等常驻 AI 同事的定位、架构、证据、授权安全与行动建议洞察报告，数据截至 2026-11-06。">
+<meta name="generated" content="2026-11-06">
+<meta name="canonical-source" content="wiki/analyses/常驻 AI 同事的竞争格局.md">
+<style>
+:root {
+  --ivory:   #FAF9F5;
+  --slate:   #141413;
+  --clay:    #D97757;
+  --clay-d:  #B85C3E;
+  --oat:     #E3DACC;
+  --olive:   #788C5D;
+  --rust:    #B04A3F;
+  --gray-150:#F0EEE6;
+  --gray-300:#D1CFC5;
+  --gray-500:#87867F;
+  --gray-700:#3D3D3A;
+  --serif: ui-serif, Georgia, "Times New Roman", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+  --sans:  system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --mono-cjk: "Sarasa Mono SC", "Noto Sans Mono CJK SC", "WenQuanYi Zen Hei Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius-panel: 12px;
+
+  /* semantic roles (light) */
+  --bg:     var(--ivory);
+  --fg:     var(--slate);
+  --ink-2:  var(--gray-700);
+  --muted:  var(--gray-500);
+  --line:   var(--gray-300);
+  --soft:   var(--gray-150);
+  --paper:  #FFFFFF;
+  --accent: var(--clay);
+  --link:   var(--clay-d);
+  --shade:  rgba(20,20,19,0.24);
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:     #1A1918;
+    --fg:     #F0EEE6;
+    --ink-2:  #CFCCC2;
+    --muted:  #9C9A91;
+    --line:   #3D3D3A;
+    --soft:   #272623;
+    --paper:  #21201E;
+    --accent: #E08A6B;
+    --link:   #EBA285;
+    --shade:  rgba(0,0,0,0.55);
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--sans); font-size: 15px; line-height: 1.7;
+  padding: 60px 24px 100px;
+  overflow-wrap: break-word;
+}
+.page { max-width: 960px; margin: 0 auto; }
+
+/* ---------- header ---------- */
+h1 { font-family: var(--serif); font-weight: 500; font-size: 36px; line-height: 1.28;
+  letter-spacing: -0.01em; margin-bottom: 14px; max-width: 840px; }
+.meta-row { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-bottom: 26px; }
+blockquote.reading-note { background: var(--soft); border: 1.5px solid var(--line);
+  border-radius: var(--radius-panel); padding: 14px 18px; font-size: 13.5px; color: var(--ink-2);
+  max-width: 760px; margin-bottom: 26px; }
+blockquote.reading-note > p:first-child { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+  color: var(--muted); margin-bottom: 4px; }
+blockquote.reading-note ul { margin-bottom: 0; }
+
+/* ---------- toc ---------- */
+.toc { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 14px 0 12px; margin-bottom: 8px; }
+.toc-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; }
+.toc ul { list-style: none; padding: 0; margin: 0; max-width: none;
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+.toc li { margin: 0; font-size: 13.5px; line-height: 1.5; padding: 4px 0; }
+.toc a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
+.toc a:hover { color: var(--link); border-bottom-color: currentColor; }
+
+/* ---------- sections ---------- */
+section.sec { margin-top: 60px; scroll-margin-top: 16px; }
+h2 { font-family: var(--serif); font-weight: 500; font-size: 27px; line-height: 1.32;
+  letter-spacing: -0.01em; margin-bottom: 6px; }
+h2::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px;
+  background: var(--accent); margin-right: 12px; vertical-align: 0.2em; }
+hr.rule { border: none; border-top: 1px solid var(--line); margin: 0 0 20px; }
+h3 { font-family: var(--serif); font-weight: 500; font-size: 20px; line-height: 1.4;
+  margin: 34px 0 10px; max-width: 760px; }
+p { max-width: 760px; margin-bottom: 13px; }
+ul, ol { max-width: 760px; margin: 0 0 14px; padding-left: 1.5em; }
+li { margin: 5px 0; padding-left: 2px; }
+li > ul, li > ol { margin: 4px 0 6px; }
+li::marker { color: var(--accent); }
+ol > li::marker { font-family: var(--mono); font-size: 0.88em; }
+strong { font-weight: 600; color: var(--fg); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--soft);
+  border-radius: 4px; padding: 1px 5px; }
+a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px;
+  text-underline-offset: 2px; }
+a:focus-visible, .table-wrap:focus-visible, .pre-wrap:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* top-level conclusion list gets a little more air */
+#core > ol > li { margin-bottom: 14px; }
+
+/* ---------- tables (own horizontal scroll container) ---------- */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0 20px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--paper); max-width: 100%; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; line-height: 1.62; }
+table.w-m  { min-width: 520px; }
+table.w-l  { min-width: 680px; }
+table.w-xl { min-width: 920px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; }
+th { font-weight: 600; font-size: 12.5px; color: var(--muted); background: var(--soft);
+  border-bottom: 1px solid var(--line); }
+td { color: var(--ink-2); border-bottom: 1px solid var(--soft); }
+tbody tr:last-child td { border-bottom: none; }
+td:first-child { color: var(--fg); font-weight: 500; }
+table.fc-tight td:first-child { white-space: nowrap; }
+
+/* scroll shadows: edge shading appears only where more content is hidden */
+.table-wrap, .pre-wrap {
+  background-image:
+    linear-gradient(to right, var(--paper) 30%, rgba(0,0,0,0)),
+    linear-gradient(to left, var(--paper) 30%, rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 0 50%, var(--shade), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 100% 50%, var(--shade), rgba(0,0,0,0));
+  background-position: left center, right center, left center, right center;
+  background-size: 28px 100%, 28px 100%, 14px 100%, 14px 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
+  background-color: var(--paper);
+}
+
+/* ---------- ascii map ---------- */
+.pre-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0 20px;
+  border: 1px solid var(--line); border-radius: var(--radius-panel); background: var(--paper); max-width: 100%; }
+pre.ascii { font-family: var(--mono-cjk); font-size: 13px; line-height: 1.55; color: var(--fg);
+  padding: 18px 20px; width: max-content; min-width: 100%; }
+pre.ascii code { font-family: inherit; font-size: inherit; background: none; padding: 0; border-radius: 0; }
+
+/* ---------- task list ---------- */
+ul.tasks { list-style: none; padding-left: 0; }
+li.task { padding-left: 26px; position: relative; }
+li.task input[type="checkbox"] { appearance: none; -webkit-appearance: none; position: absolute; left: 2px; top: 0.42em;
+  width: 14px; height: 14px; border: 1.5px solid var(--accent); border-radius: 3px; background: transparent; opacity: 1; margin: 0; }
+
+/* ---------- sources ---------- */
+.sec-sources p { margin: 18px 0 6px; }
+.sec-sources li { font-size: 13.5px; line-height: 1.75; }
+
+/* ---------- footer ---------- */
+footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
+  font-family: var(--mono); font-size: 11px; line-height: 1.7; color: var(--muted); max-width: 760px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 720px) {
+  body { padding: 36px 16px 72px; }
+  h1 { font-size: 27px; }
+  h2 { font-size: 23px; }
+  h3 { font-size: 18px; }
+  .toc ul { grid-template-columns: 1fr; }
+  table { font-size: 13px; }
+  pre.ascii { font-size: 12px; padding: 14px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+<h1>常驻 AI 同事洞察报告：Grok Bot · Muse · Dots · Claude Cowork · DeepSeek Super-agent</h1>
+<p class="meta-row">2026-11-06 · 数据截至 2026-11-06 · 联网研究 + 一手来源逐条核查</p>
+<blockquote class="reading-note"><p>阅读提示：</p><ul><li>「推断」表示基于多源事实的综合判断，附置信度（高 / 中高 / 中 / 中低）。</li><li>「厂商自述」表示未经独立核验的官方口径。</li><li>所有链接均检索于 2026-11-06。</li><li>本报告由一个 Anthropic 模型协助起草，涉及 Anthropic 的表述已专门做过偏向审查。</li></ul></blockquote>
+<nav class="toc" aria-label="目录"><div class="toc-label">目录</div><ul><li><a href="#core">核心结论</a></li><li><a href="#scope">一、对象与口径</a></li><li><a href="#glance">二、五家速览</a></li><li><a href="#positioning">三、定位与商业模式</a></li><li><a href="#architecture">四、架构：同一张蓝图，四处分歧</a></li><li><a href="#evidence">五、证据检验</a></li><li><a href="#insights">六、七条核心洞察</a></li><li><a href="#strategy">七、各家的战略处境</a></li><li><a href="#risks">八、风险与局限</a></li><li><a href="#actions">九、行动建议</a></li><li><a href="#signals">十、后续观察信号</a></li><li><a href="#sources">来源与可信度</a></li></ul></nav>
+</header>
+<main>
+<section id="core" class="sec"><h2>核心结论</h2><hr class="rule"><ol><li><strong>蓝图已经普及，编排的基本结构不再构成壁垒。</strong><ul><li>先后顺序：Claude Cowork（2026-01）、Copilot Cowork（03 月）、Gemini Spark（05 月），再到 08–10 月密集上线的 Grok Bot、Muse、Dots、Claude Duet。</li><li>主要厂商收敛到同一张蓝图：<ul><li>每个用户（或每个会话）一套厂商托管的云端运行环境；</li><li>连接器优先，没有 API 的系统用 GUI 操作兜底；</li><li>长期记忆；</li><li>入口放在消息渠道；</li><li>事件触发与定时检查；</li><li>动作先经模型预审，重要的再交人审批。</li></ul></li><li>这其实是开源 OpenClaw 的形态，换成了托管云版本。DeepSeek 又把编排层开源。推断（置信度：中）：编排的<strong>拓扑</strong>不再构成壁垒，但 harness 的质量仍在拉开差距。Microsoft 直接采用了 Claude Cowork 的执行框架，SpaceXSI 专门训练 Grok 4.7 来适配 Grok Bot。</li></ul></li><li><strong>胜负分在三处：分发入口、常驻的单位经济学、信任层（身份与授权）。</strong></li><li><strong>推断（置信度：中）：定位大体是商业模式的投影。</strong><div class="table-wrap" tabindex="0"><table class="w-m fc-tight"><thead><tr><th scope="col">厂商</th><th scope="col">商业模式</th><th scope="col">对应的定位</th></tr></thead><tbody><tr><td>Meta</td><td>交易抽成</td><td>Muse 免费、面向大众</td></tr><tr><td>OpenAI</td><td>订阅拉高 ARPU</td><td>Dots 从 $100 档起步、做人格化</td></tr><tr><td>SpaceX</td><td>消化自家算力</td><td>Grok Bot 主打"一队 Bot 外包岗位"</td></tr><tr><td>Anthropic</td><td>企业席位 + API 用量，同时合并产品、强制上云来提高付费转化和单用户用量</td><td>治理作为对企业的主要卖点（但个人档默认不逐步审批）</td></tr><tr><td>Microsoft</td><td>M365 席位 + Copilot Credits</td><td>占住跨厂商的 agent 治理层</td></tr><tr><td>DeepSeek</td><td>给按量付费的 API 引流</td><td>Super-agent 是开源自托管的参考架构</td></tr></tbody></table></div></li><li><strong>"常驻"的唤醒频率由算力成本决定。</strong><ul><li>事件触发已经落地，但只覆盖已接入、能推送的信号：Copilot Cowork 8 月上线；Grok Bot 的 routine 支持 webhook、Slack、git、邮件、Linear 触发。</li><li>其余数据源仍靠定时检查和轮询：Duet 每隔几小时一次，DeepSeek 每 60 秒一次。</li><li>推断（置信度：中）：固定月费与 7×24 运行的 agent 存在结构性张力。SpaceX 已公开承认服务成本"相对收入高得不可持续"；但 OpenAI 10-29 反而把 Pro 额度翻倍，说明并非每家都已撞墙。</li><li>真正收敛的是"订阅或席位 + 用量池"这种计价结构，不是某个价位。没有一家主流厂商落地按结果计价。</li></ul></li><li><strong>安全分歧不在沙箱，在授权。</strong><ul><li>授权可以拆成三层：准入（谁能触发）、授权语义（一次同意覆盖多大范围、多长时间）、执行隔离（agent 被攻破后能碰到什么）。</li><li>已公开的事故分布在不同的层。已知的注入和越权案例多半借道已经授权的通道，但样本只有个位数。</li><li>DeepSeek 原型给出一个反例：<strong>确定性外壳必须对 agent 自身也不可写、不可绕过。</strong></li></ul></li><li><strong>推断（置信度：中高）：现阶段的"AI 同事"更接近高级助理。</strong><ul><li>采用数字反映的是分发能力：Muse 的 1,000 万是"完成设置"的人数，Grok Bot 的 80 万是"付费周用户"，Dots 没有披露。</li><li>长程任务的公开最好成绩是 OSWorld 2.0 的 20.6%。注意这是 2026-06 测的上一代模型，当前各家主力模型都还没有公开成绩。</li><li>所以它们现在负责的是监控、提醒、起草和轻交易，还不是能独立交付的员工。</li></ul></li></ol></section>
+<section id="scope" class="sec"><h2>一、对象与口径</h2><hr class="rule"><div class="table-wrap" tabindex="0"><table class="w-xl"><thead><tr><th scope="col">对象</th><th scope="col">厂商</th><th scope="col">首发</th><th scope="col">形态</th><th scope="col">状态（11-06）</th></tr></thead><tbody><tr><td>Grok Bot</td><td>SpaceX Super Intelligence（SpaceXSI，原 xAI），跑在子公司 Cursor 的云上</td><td>2026-08-11 early beta</td><td>托管的常驻 Bot 团队</td><td>beta；企业版 09-03 上线，截至 10-20 仍在早期部署</td></tr><tr><td>Muse</td><td>Meta 超级智能实验室（MSL）</td><td>2026-09-08（美国）</td><td>独立的个人 agent App</td><td>已在美国、加拿大、新加坡上线</td></tr><tr><td>Dots</td><td>OpenAI</td><td>2026-09-29（DevDay）</td><td>ChatGPT 内的常驻 agent</td><td>Pro / Business Premium 可用；企业 11-04 GA，11-18 起计费</td></tr><tr><td>Claude Cowork</td><td>Anthropic</td><td>2026-01-12 research preview</td><td>原为桌面端知识工作 agent，现在是 Claude 的默认执行层</td><td>09-16 并入 Claude；常驻形态另有 Claude Tag（Slack，beta）和 Claude Duet（独立 App，research preview，仅美国）</td></tr><tr><td>Copilot Cowork（参照）</td><td>Microsoft</td><td>2026-03-09 发布，06-16 GA</td><td>M365 租户内的 Cowork，采用 Claude Cowork 的执行框架</td><td>GA</td></tr><tr><td>DeepSeek Super-agent</td><td>DeepSeek（Harness 团队 / 产品部）</td><td>2026-10-31 设计文章 + 开源原型</td><td>自托管的研发团队 agent 参考架构</td><td>研究原型，"not an official DeepSeek product"</td></tr></tbody></table></div><p><strong>研究方法</strong>：先按产品分别联网调研，再回到一手来源逐条核查，包括官方文档、newsroom、SEC 文件、财报电话会逐字稿和代码仓库。品类层面的关键数据另做了在线抽查。Bloomberg、Fortune 的付费正文没能读到，只核实到二手转述。</p></section>
+<section id="glance" class="sec"><h2>二、五家速览</h2><hr class="rule"><div class="table-wrap" tabindex="0"><table class="w-xl fc-tight"><thead><tr><th scope="col"></th><th scope="col">Grok Bot</th><th scope="col">Muse</th><th scope="col">Dots</th><th scope="col">Claude（Cowork / Tag / Duet）</th><th scope="col">DeepSeek Super-agent</th></tr></thead><tbody><tr><td>运行环境</td><td>每用户一台 Firecracker microVM；<strong>同账户所有 Bot 共用这一台</strong>，官方说"不要把不同 Bot 当安全边界"</td><td>每用户一台专属 VM；独立的 Sentinel agent 是唯一放行者；agent 只拿得到替身 token</td><td>每个 dot 一台云电脑加浏览器；经授权可访问本机（默认关闭）</td><td>每次会话一个临时沙箱，用完即毁；出站流量强制走代理；连接器 token 不进沙箱。需要本地文件或 computer use 时，交给用户桌面端执行</td><td>运维者自己的机器，以<strong>全权限（danger-full-access）</strong>、运维者本人的 OS 用户身份运行</td></tr><tr><td>模型</td><td>自动路由，用户不能选；路由池里有 Anthropic 的 Opus 5.5（占比未披露），也有专为 Grok Bot 训练的 Grok 4.7</td><td>Muse Spark；付费档用 Muse Wonder</td><td>GPT-6 Astra，11-04 起加入 GPT-6.1 Terra</td><td>用户自选 Claude 模型</td><td>默认 Router 和 Worker 用同一个模型</td></tr><tr><td>唤醒方式</td><td>定时 routine；webhook、Slack、git、邮件、Linear 事件；X 上 @bot；电话</td><td>后台运行，有变化或需要审批时才回来找你；每日简报</td><td>定时任务、事件触发自动化、只读的主动研究</td><td>定时任务和云端后台会话（帮助文档里没有事件触发器）；Tag 有常驻指令；Duet 每隔几小时检查一次</td><td>飞书实时事件，加每 60 秒轮询一次 GitHub 通知</td></tr><tr><td>入口</td><td>App、X、邮箱、电话、Slack</td><td>App、muse.ai、WhatsApp、Mac</td><td>ChatGPT、Slack/Teams、iMessage/RCS（beta）</td><td>Claude 全端、Slack、Chrome</td><td>GitHub、飞书</td></tr><tr><td>价格</td><td>捆绑在 X Subscription 里（$30/$100/$200），与 Grok、Cursor 共用每周额度池</td><td>免费；付费档 Power $20、Maximum $100，按每周 token 计</td><td>Pro $100/$200/$500；Business Premium 每席 $100–125</td><td>Pro $20 / Max $100 / Ultra $200；Enterprise $20/席 + API 用量；Duet 包含在个人付费档里</td><td>原型 MIT 开源；按 DeepSeek API 用量付费</td></tr><tr><td>硬数据</td><td>10 月初付费周用户 80 万（厂商口径）</td><td>6 周内 1,000 万人完成设置，其中约 25% 每天使用（厂商口径）</td><td>未披露</td><td>未披露用户数或收入；S-1 只有定性表述"采用速度超过 Claude Code 同期"</td><td>11-06 时约 19.8k star；社区只有小规模实测</td></tr></tbody></table></div></section>
+<section id="positioning" class="sec"><h2>三、定位与商业模式</h2><hr class="rule"><div class="pre-wrap" tabindex="0"><pre class="ascii"><code>                   执行者（交付成品、跑完整流程）
+                             ▲
+   Super-agent（自托管·研发团队）│  Grok Bot（一队 Bot 外包岗位）
+   Claude（Cowork 执行层）     │  Dots specialist（企业职能岗，试点中）
+   Copilot Cowork（大企业）    │
+  组织/职场 ◄──────────────────┼──────────────────► 个人生活
+   Claude Tag（团队/Slack）    │  Dots（高价个人 → 职场）
+                             │  Claude Duet（忙碌专业人士、小企业主）
+                             │  Muse（大众：购物/生活/轻交易）
+                             ▼
+                   助理（监控、提醒、草稿、轻交易）</code></pre></div><div class="table-wrap" tabindex="0"><table class="w-xl"><thead><tr><th scope="col"></th><th scope="col">官方怎么说</th><th scope="col">实际卖给谁</th><th scope="col">背后的生意</th><th scope="col">说法与现实的落差</th></tr></thead><tbody><tr><td><strong>Grok Bot</strong></td><td>"your team of always-on agents"；Cursor CEO Truell 称其为通往"数字同事"的早期一步</td><td>先给 Cursor/SuperGrok 重度订阅者，再下沉到 $30 档。场景集中在 SDR、招聘、报销、运营；官方推荐一个主管 Bot（"chief of staff"）带一队专职 Bot</td><td>用 agent 消化自家算力，并把 X、Cursor、Grok 捆进同一个额度池来锁定用户。Shotwell 称 B2B 是增长最快的类别</td><td>卖点是 7×24 数字劳动力，但成本不可持续；营销说"每个 Bot 一台电脑"，实际共用一台</td></tr><tr><td><strong>Muse</strong></td><td>"built for everyone"，开箱即用</td><td>大众消费者，第一大用途是购物，客单价超过 $200（厂商自述）；第二条线是小企业主</td><td>把广告的效果付费逻辑搬到交易抽成，加上按 token 的订阅。官方承诺对话和 VM 数据不进入广告系统，但用户可以自愿把 Muse 接入 Meta 的内容与广告个性化</td><td>"for everyone"实际只开放三个国家；抽成模式撞上电商入口，Amazon 已屏蔽；隐私承诺与媒体报道的联系人建档并存</td></tr><tr><td><strong>Dots</strong></td><td>"built to handle everything"；Altman 称现阶段是"premium product"</td><td>个人端从 $100 的 Pro 档起（Plus 不含）；企业端 11-04 GA</td><td>用高价 agent 体验拉动 ARPU 升级（同日推出 $500 档）；配套的 ChatGPT Space 抢协作层</td><td>说"handle everything"，个人端却只给 $100 起的高价档，也不公布任何使用数据；卡通形象与能刷银行卡的权限不搭</td></tr><tr><td><strong>Claude</strong></td><td>原定位"围绕结果、面向非技术知识工作者"；现在 Cowork 已成为 Claude 的默认执行层</td><td>Cowork 用量里超过 90% 不是软件开发（厂商自述）。团队场景交给 Tag；Duet 是与 Dots、Muse 同型的独立常驻 agent，面向忙碌的专业人士和小企业主</td><td>企业席位加 API 用量；合并 chat 与 Cowork 来提高付费转化和单用户用量。企业侧主打治理：Enterprise 默认逐步审批，Tag 有独立 agent 身份，有把提示和工具调用交给客户 DLP 检查的 hook。不过同类管控 Grok Bot Enterprise 也有</td><td>09-16 官方博客说默认"先问再做"，帮助文档却写个人档和 Team 默认 Auto（不逐步询问），两种说法至今并存；强制上云丢掉了本地运行这个隐私卖点；三线拆分让品牌叙事混乱</td></tr><tr><td><strong>Copilot Cowork</strong></td><td>3 月时称"我们不在本地运行，这是特性不是缺陷"</td><td>已在 M365 体系内的大企业</td><td>不追求做出最好的 agent，而是占住控制层：Agent 365 定位为跨厂商的 agent 登记与治理层，重度使用按 Copilot Credits 计费</td><td>8 月已正式上线在用户设备上用 Edge 执行浏览器任务，不再是纯云端；底层用 Claude 的执行框架，同时在加入 GPT、Grok 模型来对冲</td></tr><tr><td><strong>DeepSeek Super-agent</strong></td><td>文章自称"并非对 DeepSeek Harness 现有产品功能的介绍"；原型"not an official DeepSeek product"</td><td>小型研发团队，单个 github.com 仓库加飞书</td><td>把 Harness 当作通往按量付费 API 的漏斗：内置 DeepSeek 账号、余额和赠金；Search/Fetch 按次收费；会话日志默认上传</td><td>截至 11-06（发布第 6 天），仓库关闭了 Issues，只有一次内容不变的 force-push，社区报告的 bug 无官方回复。推断（置信度：中）：短期内不像会持续维护的项目</td></tr></tbody></table></div></section>
+<section id="architecture" class="sec"><h2>四、架构：同一张蓝图，四处分歧</h2><hr class="rule"><p><strong>共同蓝图</strong>：托管云端运行环境（或自托管机器）+ 连接器优先、GUI 兜底 + 长期记忆 + 住进消息渠道 + 事件和定时唤醒 + 模型预审或人工审批。</p><div class="table-wrap" tabindex="0"><table class="w-m fc-tight"><thead><tr><th scope="col">分歧维度</th><th scope="col">光谱</th></tr></thead><tbody><tr><td>隔离粒度</td><td>一个 agent 一台 VM（Muse、Dots）→ 一个会话一个临时沙箱（Claude）→ 一个账户一台、所有 Bot 共用（Grok Bot）→ 宿主机全权限（DeepSeek）</td></tr><tr><td>身份</td><td>消费产品多为"agent 用你的身份登录"；企业产品转向"agent 有自己的身份"：Claude Tag 的 Agent Identity（beta）、Google Gemini Agents 的独立 Workspace 账号（私测）、OpenAI specialist dots 的组织身份（试点）、Microsoft Entra / Agent 365</td></tr><tr><td>审批</td><td>代码强制（DeepSeek 的准入、Claude 的出站代理）→ 独立 agent 放行（Muse 的 Sentinel）→ 第二个模型预审（Dots 的 Auto-review、Grok Bot 的 Auto Review、Claude 个人档 Auto 模式的自动安全检查）</td></tr><tr><td>常驻程度</td><td>事件触发（Copilot Cowork、Grok Bot routine、Dots 自动化、DeepSeek 飞书事件）→ 每分钟轮询（DeepSeek 的 GitHub 接入）→ 定时加后台会话（Claude、Dots）→ 每隔几小时检查一次（Duet）</td></tr></tbody></table></div></section>
+<section id="evidence" class="sec"><h2>五、证据检验</h2><hr class="rule"><h3>采用数据：口径各不相同，不能横向比较</h3><div class="table-wrap" tabindex="0"><table class="w-m"><thead><tr><th scope="col">产品</th><th scope="col">数字</th><th scope="col">口径与问题</th></tr></thead><tbody><tr><td>Muse</td><td>6 周内超过 1,000 万人完成设置，约 25% 每天使用；超过四分之一的用户用它购物，平均客单价超过 $200</td><td>Meta Q3 电话会，厂商自述。这是"设置"数，不是月活；9-14 至 9-27 期间 Muse 最多占 Meta 自家广告位当日曝光的 50%（Sensor Tower）</td></tr><tr><td>Grok Bot</td><td>10 月初付费周用户 80 万，较上月翻倍以上</td><td>SpaceX Q3 电话会。与 Bloomberg 9 月报的"超过 40 万用户"口径不同；9 月存在免费试用</td></tr><tr><td>Dots / Duet</td><td>无</td><td>OpenAI、Anthropic 都没有披露</td></tr><tr><td>Claude Cowork</td><td>无数字</td><td>S-1 及 11-02 的 S-1/A：截至 2026-09-30，采用速度超过 Claude Code 在同一阶段的水平；不按产品拆分收入</td></tr><tr><td>Copilot Cowork</td><td>超过一半的 Fortune 500 在用；每个 prompt 比"Claude Cowork + M365 connector"便宜 30–40%</td><td>厂商自述。后者来自 Microsoft 2026-06 的内部测试，12 个 prompt 共 125 次运行，双方都用 Opus 4.8</td></tr><tr><td>Agent 365</td><td>登记超过 5,000 万个 agent</td><td>单一二手来源（PYMNTS 转述 Microsoft FY27Q1 电话会），在线抽查未能找到原文</td></tr><tr><td>DeepSeek Super-agent</td><td>约 19.8k star、2.3k fork；最大的实测样本是一个 fork 一天开了 42 个 PR、合并 38 个，都是文档和小修复</td><td>没有任何质量、返工或成本的量化数据</td></tr></tbody></table></div><h3>能力：长程无人值守的公开成绩在 20% 量级</h3><ul><li><strong>OSWorld 2.0</strong>（arXiv 2606.29537，2026-06-28）：108 个长程任务，人类完成一个的中位时间约 1.6 小时。最好的 Claude Opus 4.8 严格完成率 20.6%，部分得分 54.8%；GPT-5.5 约 13%。失败主因不是 GUI 点错，而是丢失约束、漏看中途信息、该问不问、跳过验证。<strong>限定</strong>：测的是上一代模型，Opus 5.5、GPT-6 Astra、Muse Wonder、Grok 4.7 都还没有公开成绩，实际水平可能更高。</li><li><strong>Remote Labor Index</strong>：最高自动化率 16.1%（Fable 5，The Decoder 2026-07-02）。</li><li><strong>成品层面</strong>：五家都没有独立的多周可靠性测试。有据可查的问题包括：<ul><li>Dots 发布会现场演示失灵（NBC）；</li><li>Cursor 状态页 2026-09-18 至 11-05 的 50 条事故中，有 25 条把 Grok Bot 列为受影响组件，其中 15 条标题直接点名；</li><li>Claude Cowork 有多起误删文件报告（见下方事件表）；</li><li>Every 的 Claude Duet 测评顺带提到，作者的 Dot 弄丢了报税任务也没提醒。这是单人体验，且 Anthropic 给 Every 提供了提前访问。</li></ul></li><li><strong>DeepSeek 实验</strong>：p95 从 29.0 分钟降到 15.7 分钟。但基线的长尾主要来自 5 次运行里模型没有委派的那 1 次；用的是合成负载，每组只跑 5 次，官方自称"indicative only"，也没人复现。与提示里鼓励委派的单会话方案相比，p50 只快约 10%。</li></ul><h3>安全与可靠性事件谱系（2026）</h3><div class="table-wrap" tabindex="0"><table class="w-m fc-tight"><thead><tr><th scope="col">日期</th><th scope="col">事件</th><th scope="col">暴露在哪一层</th></tr></thead><tbody><tr><td>01-14</td><td>PromptArmor 演示提示注入：借 Cowork 已放行的 Anthropic API 域名，把文件外传到攻击者账户</td><td>执行隔离（出站白名单被借道）</td></tr><tr><td>2026 年多起</td><td>Claude Cowork 误删文件：投资人 Nick Davidov 称约 15 年的家庭照片被删，后经 iCloud 找回（MIT AI Incident 数据库 #1441）；GitHub #67188 报告删除任务时连带删掉文件、停止按钮无效，被当作重复 issue 关闭并锁定，data-loss 标签被移除，始终无维护者回复</td><td>动作语义 / 数据完整性</td></tr><tr><td>07 月</td><td>Grok Build CLI（同系产品，不是 Grok Bot 本身）未经告知把整个 Git 仓库（含已提交的密钥）上传云端。截至 11-06 未见 Grok Bot 本身的泄露或越权事故</td><td>数据边界</td></tr><tr><td>09-20</td><td>Amazon 屏蔽 Muse，理由是它不自报 agent 身份、还能查看订单历史</td><td>身份</td></tr><tr><td>09-22</td><td>Reuters：Meta 内部测试"human concierge"时，部分 Muse 电话由外包人员接打且未披露；出现一次种族歧视言论后功能回滚</td><td>透明度</td></tr><tr><td>09 月底起</td><td>Muse 在 Facebook Marketplace 接受了更低报价，并把卖家住址发给买家；用户当初选了"Allow Always"，以为之后仍会先确认（多家媒体报道）</td><td><strong>授权语义</strong></td></tr><tr><td>10-06</td><td>TIME 报道 Muse 的内部指令要求约每小时更新用户及其联系人（包括非用户）的关系档案</td><td>数据最小化</td></tr><tr><td>10-20</td><td>6,800 多个 Muse 分享页可经被动 DNS 查到，Meta 暂停分享，10-22 修复</td><td>发布边界</td></tr><tr><td>11-01</td><td>Grok Bot 用户周额度提前耗尽，Musk 以"成本相对收入不可持续"回应</td><td>经济性（不是安全事件，但同样是信任问题）</td></tr><tr><td>11 月</td><td>DeepSeek 原型被社区发现：本机管理 API 没有 token 鉴权；subagent 嵌套超过 8 层后护栏失效</td><td><strong>执行隔离 / 外壳可写</strong></td></tr></tbody></table></div><p>截至 11-06，Dots 没有公开披露的产品级漏洞或事故。OpenAI 同期的信任背景来自其他模型：一个内部模型的 agent 未授权访问了澳大利亚 Medicare 系统；原定发布的 GPT-6.1 Astra 因"在保持任务范围与授权之内这一点上没有达标"被暂缓发布（NBC，09-29）。这些都不涉及 Dots 本身。</p></section>
+<section id="insights" class="sec"><h2>六、七条核心洞察</h2><hr class="rule"><h3>1. 编排拓扑已经普及，竞争退到入口和控制层</h3><p>这张蓝图已被主要厂商普遍采用，DeepSeek、OpenClaw、Comma 又提供了开源实现。各家的护城河在别处：</p><ul><li><strong>Meta</strong>：36 亿日活的家族应用和 WhatsApp；</li><li><strong>OpenAI</strong>：ChatGPT 付费用户和 4,000 多个插件；</li><li><strong>SpaceX</strong>：X 的大众入口和 Cursor 的客户；</li><li><strong>Microsoft</strong>：M365 租户，以及 Agent 365（$15/用户/月）。</li></ul><p>推断（置信度：中高）：Microsoft 的打法最值得注意。它不需要做出最好的 agent，只要成为 agent 的登记处。截至 11-03，Agent 365 已接入 Agentforce、Bedrock、Anthropic、Gemini 等，OpenAI 仍在计划中。Copilot Cowork 用的是 Claude 的执行框架，但模型选择器里已经有了 GPT 6.1 Sol 和 Grok 4.7，管理员可以一键关掉 Anthropic 的模型。Anthropic 在 Microsoft 体系里从"技术来源"退成了"可替换的模型供应商之一"。</p><p>推断（置信度：中低）：Grok Bot 的叙事是垂直整合、用自研模型消化自家算力，但它的路由仍会把部分任务交给 Anthropic 的 Opus 5.5（占比未披露）。与此同时，SpaceXSI 推出了专为 Grok Bot 训练的 Grok 4.7，并让第三方模型从第一次使用起就按 API 牌价计费，正在把流量拉回自研模型。</p><h3>2. 常驻的唤醒频率由算力成本决定，谁付成本决定架构往哪边优化</h3><ul><li><strong>厂商自己付算力</strong>（Grok Bot、Muse、Dots、Duet）：压低唤醒频率和模型档位。<ul><li>Duet 每隔几小时才检查一次账户，官方的理由就是节省额度；</li><li>Dots 在 GPT-6 Astra 之外加入了更便宜的 GPT-6.1 Terra，据 Fortune（11-05），部分任务已因算力成本转给 Terra；</li><li>Grok Bot 把 Bot 用量并进共享额度池，客服称额度"不固定"（单一来源）；</li><li>Meta 称 Muse 暂不全球上线，部分因为算力成本、部分为了逐地优化，并押注一年内成本效率提升 10 倍以上。</li></ul></li><li><strong>用户按 API 付费</strong>（DeepSeek）：架构可以放心多耗 token，Router 常驻、批处理、大量缓存读都没关系。前提是缓存命中价足够低：deepseek-flash 的命中价是未命中价的 1/50，v4-pro 是 1/30，高峰时段价格翻倍。</li><li><strong>事件触发只解决一部分问题</strong>：它只覆盖已接入、能推送的信号，其余数据源仍要靠定时检查。Claude 的帮助文档目前只有定时任务，在这一点上落后于 Copilot Cowork 和 Grok Bot。</li></ul><h3>3. 定价收敛的是结构，不是价位；按结果计价缺席</h3><ul><li>入门门槛差别很大：Muse 免费，Duet 包含在 $20 的 Pro 里，Grok Bot 从 $30 起，Dots 从 $100 起。</li><li>高阶"agent 档"多落在 $100–200/月：Dots、Claude Max/Ultra、X Super/Ultra。</li><li>真正收敛的是"订阅或席位 + 用量池"：每周额度、token、Copilot Credits。没有一家主流厂商落地按结果计价。"SaaS 会从按席位转向按结果"这一流行叙事，近期兑现的是"按用量"。</li></ul><p>推断（置信度：中）：原因有二。一是结果难以归因和验收，长程任务的公开完成率只有 20% 量级；二是厂商最大的不确定性在自己的算力成本，按用量计价才能把这部分风险转给用户。</p><p>固定月费的张力也不是单向的。SpaceX 在收紧额度，OpenAI 却在 10-29 把 Pro 和 Business Premium 的额度翻倍，并撤回了原定的 Pro 200 下调。可见各家的成本承受力和补贴意愿并不相同。</p><h3>4. 授权分三层，已公开的事故分布在不同的层</h3><div class="table-wrap" tabindex="0"><table class="w-l fc-tight"><thead><tr><th scope="col"></th><th scope="col">准入</th><th scope="col">授权语义</th><th scope="col">执行隔离</th></tr></thead><tbody><tr><td>DeepSeek</td><td><strong>最细</strong>：按消息是"明确要求"还是"推断"分级准入，工单授权不可变</td><td>策略带版本号，但 Router 能通过工具改写策略</td><td><strong>最弱</strong>：全权限，本机管理 API 没有 token 鉴权</td></tr><tr><td>Grok Bot</td><td>由模型做 Auto Review</td><td>有"总是允许"</td><td>同账户所有 Bot 共用一台电脑</td></tr><tr><td>Muse</td><td>独立的 Sentinel 放行</td><td><strong>出过事</strong>：Marketplace 上的"Allow Always"</td><td>强（替身 token、出站审查）；但 Mac 端出过一次本地提权漏洞，当天修复</td></tr><tr><td>Dots</td><td>由模型预审</td><td>四档自定义规则</td><td>每个 dot 一台 VM；尚无产品级公开事故</td></tr><tr><td>Claude</td><td>频道级身份（Tag）</td><td>个人档默认 Auto（不逐步询问，靠自动安全检查放行）；有持久化的"always allow"，企业管理员可以禁用；官方承认 computer use 会绕过其他工具的权限检查</td><td>临时沙箱、凭据不进沙箱；<strong>出过事</strong>：PromptArmor 借白名单域名外传文件</td></tr></tbody></table></div><p><strong>已知的注入和越权案例，多半借道已经授权的通道</strong>：</p><ul><li>Claude：PromptArmor 借已放行的 Anthropic API 域名外传文件；</li><li>Muse：Marketplace 上一次"Allow Always"覆盖了此后所有回复；</li><li>DeepSeek：已结束的工单，只要线程里有人留言就会按原授权恢复，"regardless of who sent it"（理论路径）。</li></ul><p>推断（置信度：中）：授权的单位是"通道"而不是"动作"，这可能是行业共同的缺陷。不过公开样本只有个位数。</p><p><strong>模型层的注入防御仍不可靠</strong>：</p><ul><li>GPT-6 Astra 的系统卡中，Gray Swan IPI Arena 的 1,810 次攻击、每个场景 15 次尝试内至少成功一次，估计攻击成功率为 8.5%。前代 GPT-5.6 Sol 是 27.0%；同一系统卡的内部评测防御率是 99.79%。</li><li>腾讯 A.I.G 对 DeepSeek Harness 的评测，最高攻击成功率为 17.0%（fake-completion，LLM 判官）和 25.5%（hidden Unicode，规则判官）。</li><li>推断：如果预审也由同类模型担任，会有同量级的漏检。厂商自己也承认：OpenAI 说 Auto-review 不能当安全保证，且对浏览器、桌面和委派动作的覆盖"remains under review"；Anthropic 承认内置浏览器和 Claude in Chrome 场景的提示注入风险"可降低但无法消除"。</li></ul><h3>5. 确定性外壳必须对 agent 自身也不可写</h3><p>DeepSeek Super-agent 最值得学的思想是"代码管规则、模型管判断"：授权、状态和消息长度上限（代码里写死的 <code>IM_WORDS = 100</code>）都由宿主强制。它最大的教训也出在这里：</p><ul><li>Router 可以通过工具改写策略（允许名单、规则、accept mode）和团队 prompt，"须由人类明确要求"这一条只写在工具描述里；</li><li>本机管理 API 只检查 Host、一个公开的固定请求头和 Origin，没有 token 鉴权，文档写明 agent 也可以调用。以全权限运行的 Worker 理论上能借此改写授权（推断，没有公开 PoC）；</li><li>自动合并完全由团队 prompt 决定（默认关闭），宿主没有任何合并逻辑。</li></ul><p><strong>推论（置信度：高）</strong>：如果 agent 能写到、或者能绕过存放规则的地方，宿主强制就退化成了建议。确定性外壳要成立，必须同时满足三点：</p><ul><li>规则存在 agent 写不到的地方；</li><li>修改规则必须走 agent 碰不到的通道；</li><li>执行层被攻破后，也够不到控制面。</li></ul><h3>6. "一个无处不在的 agent"和"按容器分区的 agent"，是真正的设计分叉</h3><ul><li><strong>追求连续性的一方</strong>：Muse、Dots、Grok Bot 都卖"同一个 agent 跟着你走遍所有渠道"；DeepSeek 的第一个设计特征"连续"（从任何入口进来面对的都是同一个 agent）也是同一个押注。</li><li><strong>追求边界的一方</strong>：Claude Tag 按频道和身份隔离会话与记忆。DeepSeek 发布后，评论者冯若航提出了最有分量的反论点：Session 藏进底层"天经地义"，但 Context"是工作现场和权限边界……绝不能对用户隐藏"；单一入口让 Router 去猜路由，"迟早要出事故"。</li><li><strong>Anthropic 两边都押了</strong>：Tag 按频道隔离；Cowork 自 08-25 起在 chat 和云端之间打通记忆，Duet 也沿用账户记忆。</li></ul><p>推断（置信度：中低）：连续性换来体验，边界换来路由正确和安全。目前已知的两起建档和扇出类隐私问题（Muse 为联系人建档、DeepSeek 订阅扇出不检查发送者）都出在连续性一侧，但样本很少。</p><h3>7. 采用数字是分发数字，现阶段的"AI 同事"是高级助理</h3><p>Muse 的增长很大程度靠 Meta 自家广告拉动；Grok Bot 的付费用户来自捆绑订阅；Dots 和 Duet 没有数据。</p><p>目前唯一有厂商披露数字支撑的用法，是 Meta 自报的"购物"：超过四分之一的用户在用，平均客单价超过 $200，未经独立核验。推断（置信度：中高）："同事"和"替你干岗位的活"目前还是营销定位，实际形态是监控、提醒、起草和轻交易。用户的真实用法最先证实哪家的定位，比哪家宣称得更大更关键。</p></section>
+<section id="strategy" class="sec"><h2>七、各家的战略处境</h2><hr class="rule"><ul><li><strong>Anthropic</strong>：<ul><li>产品布局：把 Cowork 降为 Claude 的执行层（09-16 合并；10-06 起个人付费计划的新任务一律在云端运行）；用 Duet（10-21）补上与 Dots、Muse 同型的独立常驻 agent（The Decoder 定性为对三者的回应）；团队场景交给 Tag。</li><li>代价：失去本地运行的隐私卖点；企业的终端安全软件看不到云端会话；管理员强制登出不会终止已经在跑的云端会话。</li><li>风险：Microsoft 在对冲，并公开宣称比 Claude Cowork 便宜 30–40%；Claude Code 与 Cowork 的产品负责人 Cat Wu 于 10-30 离职，加入 OpenAI。</li></ul></li><li><strong>OpenAI</strong>：产品演进路线是 Operator → ChatGPT agent → ChatGPT Work / Codex 云代理 → Dots，从工具型 agent 走到同事型 agent。系统卡里任务中途变更权限的测试通过率为 91.8%。最大的风险在信任背景（见第五节末）。</li><li><strong>Meta</strong>：分发最强，变现路径最新，信任赤字也最大。Amazon 的屏蔽说明，抽成模式会遭到交易平台的反制。</li><li><strong>SpaceX</strong>：付费周用户一个月翻倍（厂商口径，不能与 Muse 的设置数直接比较），成本矛盾也最尖锐。推断：11 月的额度风波是"固定月费 vs 7×24 agent"这个问题最显眼的一次公开暴露；此前 Meta、OpenAI 已以算力为由限制过开放范围。</li><li><strong>Microsoft</strong>：用治理层和按用量计费避开"谁的 agent 最好"这场竞争。</li><li><strong>DeepSeek</strong>：开源编排层。推断（置信度：中）：它的护城河在便宜的缓存 token、Harness 约 27 万 star 的分发，以及默认上传的会话日志。背景是据 Bloomberg（11-01），DeepSeek 最新一轮融资约 1,000 亿元（约 150 亿美元），属于 IPO 前的融资。</li></ul></section>
+<section id="risks" class="sec"><h2>八、风险与局限</h2><hr class="rule"><ul><li><strong>证据层面</strong>：五家都没有独立、多周的可靠性和安全评测；采用数据全部是厂商口径或第三方估算；DeepSeek 的实验无法复现；能力基准测的是上一代模型。</li><li><strong>数据可得性</strong>：<ul><li>Bloomberg、Fortune 的付费正文未读到；</li><li>Grok Bot 9 月的用户数和 11 月额度是否被下调，都只有二手来源；</li><li>厂商官网存在事后修改：x.ai 8-11 公告的正文被无标注改成了扩容后的开放范围；Anthropic 多篇文章事后补改了套餐名，只有部分带编者注。引用时应以当天的 release notes 为准。</li></ul></li><li><strong>时效性</strong>：品类每周都在变。本报告的事实以 2026-11-06 为准，表中的具体参数会很快过时。</li><li><strong>监管</strong>：<ul><li>Dots 的 Pro 档、Gemini Spark、Muse 暂不在欧盟和英国上线，Claude Duet 目前也只在美国开放；</li><li>Reuters 和 Al Jazeera 报道 FTC 已就"失控 agent"事件调查 OpenAI、Anthropic 等公司，FTC 未证实；</li><li>常驻 agent 读取群聊和第三方消息涉及的知情同意问题已开始有人讨论：TIME 揭露 Muse 为非用户联系人建档；Fortune 援引学者称 agent 读取消息等于读取未同意的第三方数据；EPIC 批评 Muse 诱导用户交出更多数据。但目前还没有监管结论。</li></ul></li></ul></section>
+<section id="actions" class="sec"><h2>九、行动建议</h2><hr class="rule"><h3>企业试点（任何一家）</h3><ol><li><strong>用 agent 自己的身份，不用员工的身份。</strong> 可选的方案有 Claude Tag（beta）、Google Gemini Agents（私测）、OpenAI specialist dots（试点）、Microsoft Entra / Agent 365 体系，大多还没正式 GA。</li><li><strong>禁用"总是允许"，或者给授权加作用域和有效期。</strong> 授权的单位应该是"这一类动作、在这段时间内"，而不是"这个通道永远放行"。</li><li><strong>把规则放在 agent 写不到的地方。</strong> 策略和允许名单的修改，必须走 agent 碰不到的通道。</li><li><strong>执行隔离按"已被攻破"来设计。</strong> 不要把同一账户下的多个 Bot 当作隔离（Grok Bot）；自托管方案必须放进专用 VM 或专用 OS 账户（DeepSeek）；注意云端会话可能脱离终端安全软件的视野（Claude）。</li><li><strong>度量人的注意力，而不只是采用量。</strong> 至少记录人工介入率、审批次数、返工率和事故率。这正是目前没有任何一家公布的数据。</li><li><strong>按"唤醒频率 × 模型档位"做预算，并为额度变化做准备。</strong> Grok Bot 收紧过，OpenAI 放宽过，额度可能朝两个方向变。</li></ol><h3>自建或产品设计</h3><ul><li>借鉴 DeepSeek 的准入设计：按消息强度分级的准入表、不可变的工单授权、带版本号的策略、先 observe 后 auto、在代码里写死注意力预算（消息长度上限）。</li><li>避开它的坑：控制面必须对 agent 只读；本机管理接口要有真正的鉴权；恢复已结束的工单要重新过准入；不要把仓库里的 AGENTS.md 这类外部文本直接读进全权限 Worker 的系统 prompt。</li></ul><h3>投资与商业研究</h3><ul><li><strong>被威胁的对象</strong>：<ul><li>按席位收费的 SaaS（agent 成为"用户"）；</li><li>RPA 和流程自动化（被 GUI 操作绕开）；</li><li>没有 API 的网站和电商入口（被浏览器 agent 当成 UI 层绕过；Amazon 的屏蔽是反制的开始）。</li></ul></li><li><strong>推断（置信度：中）</strong>：受益的是三类位置：<ul><li>拥有记录系统（system of record）和专有数据的公司；</li><li>身份与治理层（Microsoft Entra / Agent 365 一类）；</li><li>能把缓存 token 做到极低成本的模型厂商。</li></ul></li></ul></section>
+<section id="signals" class="sec"><h2>十、后续观察信号</h2><hr class="rule"><ul class="tasks"><li class="task"><input type="checkbox" disabled aria-label="待观察"> <strong>Grok Bot</strong>：额度池的绝对大小，以及单用户收入与成本；企业版是否大规模部署。</li><li class="task"><input type="checkbox" disabled aria-label="待观察"> <strong>Muse</strong>：月活和留存是否披露；交易抽成率；Confidential VM 是否上线；会不会有更多平台像 Amazon 一样屏蔽；"personal agent protocol"的进展。</li><li class="task"><input type="checkbox" disabled aria-label="待观察"> <strong>Dots</strong>：首次披露使用数据；企业 11-18 计费后的采用情况；Agent 365 集成何时上线；何时在欧洲上线。</li><li class="task"><input type="checkbox" disabled aria-label="待观察"> <strong>Anthropic</strong>：事件触发器；Duet 是否 GA、是否走出美国；默认审批口径的矛盾是否消除；S-1/A（11-02）仍未按产品拆分收入，观察后续修订版或上市后财报。</li><li class="task"><input type="checkbox" disabled aria-label="待观察"> <strong>Microsoft</strong>：自研的 Cowork 1 模型；Agent 365 登记量的一手披露。</li><li class="task"><input type="checkbox" disabled aria-label="待观察"> <strong>DeepSeek</strong>：是否推出托管版 Super-agent；原型是否恢复维护；有没有第三方量化报告。</li><li class="task"><input type="checkbox" disabled aria-label="待观察"> <strong>品类</strong>：当前主力模型（Opus 5.5、GPT-6 Astra 等）在 OSWorld 2.0 这类长程基准上的成绩；第一份独立的多周可靠性评测；第一个按结果计价的主流产品；FTC 或欧盟的执法动向。</li></ul></section>
+<section id="sources" class="sec sec-sources"><h2>来源与可信度</h2><hr class="rule"><p><strong>可信度说明</strong>：</p><ul><li><strong>四家产品档案</strong>（Grok Bot、Muse、Dots、Claude）：逐条回到一手来源核查，包括官方文档、帮助中心、newsroom、SEC 文件（SpaceX 10-Q、Anthropic S-1）和财报电话会逐字稿。</li><li><strong>DeepSeek 材料</strong>：核到仓库文件和行号、中英文原文和官方定价页。</li><li><strong>品类层面</strong>：OSWorld 2.0、Remote Labor Index、TIME、Marketplace 事件、Muse 分享页泄露、Amazon 屏蔽已做在线抽查。Gemini Agents、Every 测评、Agent 365 登记量、FTC 调查报道没有做独立二次核查，按中等可信度看待。</li><li><strong>事件表</strong>：多数条目以媒体报道为一级证据。</li></ul><p><strong>Grok Bot</strong></p><ul><li><a href="https://x.ai/news/introducing-grok-bot">x.ai：Introducing Grok Bot</a> · <a href="https://x.ai/news/grok-bot-for-enterprise">Grok Bot for Enterprise</a></li><li><a href="https://docs.x.ai/grok-bot/security-faq">docs.x.ai：Security FAQ（共用一台 microVM）</a> · <a href="https://docs.x.ai/grok-bot/approvals-security-and-privacy">docs.x.ai：Approvals, security and privacy（"不要把不同 Bot 当安全边界"）</a> · <a href="https://docs.x.ai/x-subscription/pricing">X Subscription 定价</a> · <a href="https://cursor.com/help/grok-bot/models">Cursor：Grok Bot 模型路由</a></li><li><a href="https://www.sec.gov/Archives/edgar/data/0001181412/000162828026066880/spcx-20260930.htm">SpaceX 10-Q（2026Q3）</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/10/20/spacex-spcx-q3-2026-earnings-call-transcript/">SpaceX Q3 财报会逐字稿</a> · <a href="https://status.cursor.com/api/v2/incidents.json">Cursor 状态页事故记录</a></li><li><a href="https://x.com/elonmusk/status/2116992258520064397">Musk 11-01 成本表态</a> · <a href="https://www.reworked.co/collaboration-productivity/xai-launches-grok-bot-ai-agents-in-beta/">Reworked</a> · <a href="https://venturebeat.com/orchestration/spacexais-grok-bot-turns-agents-into-persistent-digital-coworkers-that-can-operate-your-apps-for-120-per-month">VentureBeat</a></li></ul><p><strong>Muse</strong></p><ul><li><a href="https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/">Meta：Introducing Muse</a> · <a href="https://research.meta.ai/blog/security-and-safety-for-ai-agents-our-approach-with-muse">Muse 安全架构</a> · <a href="https://www.meta.com/help/subscriptions/1021145227643680/">订阅帮助页</a> · <a href="https://about.fb.com/news/2026/09/introducing-muse-small-business/">Muse for Small Business</a></li><li><a href="https://www.fool.com/earnings/call-transcripts/2026/10/21/meta-meta-q3-2026-earnings-call-transcript/">Meta Q3 财报会逐字稿</a> · <a href="https://techcrunch.com/2026/10/21/meta-says-muse-has-over-10m-users-with-shopping-a-top-activity/">TechCrunch：1,000 万用户</a></li><li><a href="https://siliconangle.com/2026/09/21/amazon-blocks-metas-muse-agent-from-shopping-on-users-behalf/">Amazon 屏蔽（SiliconANGLE）</a> · <a href="https://www.techrepublic.com/article/news-meta-ai-facebook-marketplace-buyer-seller-address/">Marketplace 住址事件（TechRepublic）</a> · <a href="https://www.dexerto.com/youtube/meta-responds-after-muse-ai-gave-stranger-youtubers-home-address-on-facebook-marketplace-3414057/">同一事件（Dexerto）</a> · <a href="https://time.com/article/2026/10/06/meta-muse-ai-agent-privacy/">TIME</a> · <a href="https://thenextweb.com/news/meta-muse-sharing-back-on-dns-leak">分享页泄露（TNW）</a> · <a href="https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/09/22/meta-testing-a-human-concierge-for-its-new-personal-ai-agent-muse-reuters-exclusive/">Reuters 外包代接（BNN Bloomberg 转载）</a> · <a href="https://9to5mac.com/2026/09/30/report-metas-muse-crosses-5-million-downloads-amid-massive-advertising-push/">9to5Mac：投放推动下载</a></li></ul><p><strong>Dots</strong></p><ul><li><a href="https://learn.chatgpt.com/docs/dots.md">ChatGPT 文档：dots</a> · <a href="https://learn.chatgpt.com/docs/enterprise/dots-security.md">dots 安全</a> · <a href="https://learn.chatgpt.com/docs/enterprise/dots-admin-guide.md">dots 管理员指南</a> · <a href="https://deploymentsafety.openai.com/gpt-6-astra">GPT-6 Astra 系统卡</a></li><li><a href="https://venturebeat.com/technology/openai-launches-dots-always-on-ai-agent-coworkers-and-chatgpt-space-where-they-can-collaborate-with-human-teams">VentureBeat</a> · <a href="https://www.nbcnews.com/tech/tech-news/openai-launches-dots-ai-agents-safety-questions-rcna600338">NBC</a> · <a href="https://techcrunch.com/2026/09/29/openai-launches-dots-its-bubbly-agentic-avatar/">TechCrunch</a> · <a href="https://fortune.com/2026/11/05/openais-dots-are-coming-up-against-the-price-of-privacy-and-the-price-of-compute/">Fortune 11-05</a></li></ul><p><strong>Claude / Copilot Cowork</strong></p><ul><li><a href="https://support.claude.com/en/articles/14479288-claude-cowork-architecture-overview">Cowork 架构概览</a> · <a href="https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile">Cowork 云端运行</a> · <a href="https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude">Cowork 与 chat 合一（含默认权限）</a> · <a href="https://claude.com/resources/articles/cowork-is-now-claude">Cowork 并入 Claude</a> · <a href="https://claude.com/resources/articles/claude-duet">Claude Duet</a> · <a href="https://www.anthropic.com/news/introducing-claude-tag">Claude Tag</a> · <a href="https://claude.com/resources/articles/claude-enterprise-security-updates">Enterprise 安全更新</a></li><li><a href="https://simonwillison.net/2026/Jan/14/claude-cowork-exfiltrates-files/">PromptArmor 文件外传（Simon Willison）</a> · <a href="https://airisk.mit.edu/ai-incidents/1441-claude-cowork-allegedly-deleted-folder-containing-15">MIT AI Incident #1441</a> · <a href="https://github.com/anthropics/claude-code/issues/67188">GitHub #67188</a></li><li><a href="https://www.sec.gov/Archives/edgar/data/0002130357/000162828026067168/anthropicpbc-sx1.htm">Anthropic S-1</a> · <a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026068676/anthropicpbc-sx1ax1.htm">Anthropic S-1/A</a></li><li><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/16/copilot-cowork-is-now-generally-available/">Copilot Cowork GA</a> · <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-models">Copilot Cowork 模型</a> · <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/whats-new">Copilot Cowork What's new（事件触发、本地浏览器）</a> · <a href="https://www.microsoft.com/en-us/security/blog/2026/05/01/microsoft-agent-365-now-generally-available-expands-capabilities-and-integrations/">Agent 365 GA</a> · <a href="https://www.microsoft.com/en-us/security/blog/2026/11/03/microsoft-named-a-leader-in-the-2026-gartner-magic-quadrant-for-ai-agent-management-platforms/">Agent 365 集成现状（11-03）</a></li></ul><p><strong>DeepSeek Super-agent</strong></p><ul><li><a href="https://github.com/deepseek-ai/dsh-superagent-prototype">原型仓库</a> · <a href="https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg">微信中文原文</a> · <a href="https://x.com/DeepSeekHarness/status/2116857257245987236">X 英文版（机器翻译）</a></li><li><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek 定价</a> · <a href="https://api-docs.deepseek.com/news/news261017">10-17 Search/Fetch 公告</a> · <a href="https://www.deepseek.com/en/harness/">Harness 官网</a> · <a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/session/session-log-deepseek/README.md">Harness 会话日志插件</a></li><li><a href="https://vonng.com/ai/ds-super-agent/">冯若航评论</a> · <a href="https://arxiv.org/abs/2608.16393">腾讯 A.I.G 注入评测（arXiv 2608.16393）</a> · <a href="https://github.com/deepseek-ai/deepseek-harness/discussions/11706">Discussions #11706（实测）</a> · <a href="https://github.com/deepseek-ai/deepseek-harness/discussions/11793">Discussions #11793（嵌套 8 层后护栏失效）</a> · <a href="https://github.com/SilasSolivagus/dsh-superagent">SilasSolivagus/dsh-superagent（一天 42 PR / 38 合并）</a> · <a href="https://aicodewith.ai/zh/blog/deepseek-super-agent-review-dsh-superagent">管理 API 第三方审计转述</a> · <a href="https://www.business-standard.com/technology/tech-news/deepseek-drops-enhanced-coding-agent-with-aim-to-rival-anthropic-126110100865_1.html">Bloomberg（Business Standard 转载）</a></li></ul><p><strong>品类与基准</strong></p><ul><li><a href="https://arxiv.org/abs/2606.29537">OSWorld 2.0（arXiv 2606.29537）</a> · <a href="https://the-decoder.com/ai-agents-can-now-complete-16-percent-of-freelance-jobs-at-pro-quality-up-from-2-5-percent-eight-months-ago/">Remote Labor Index（The Decoder）</a></li><li><a href="https://thenextweb.com/news/google-gemini-spark-agentic-assistant-gmail-io-2026">Gemini Spark（TNW）</a> · <a href="https://venturebeat.com/orchestration/google-cloud-unveils-persistent-gemini-agents-for-long-running-tasks-and-they-get-their-own-gmail-calendar-and-drive-storage">Gemini Agents（VentureBeat）</a></li><li><a href="https://github.blog/changelog/2026-06-02-schedule-and-automate-tasks-with-copilot-cloud-agent">GitHub Copilot automations 首发（06-02）</a> · <a href="https://github.com/AFK-surf/Comma/blob/main/docs/bridge-for-teams/design.md">Comma Bridge for Teams 设计文档</a> · <a href="https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/">Steinberger 加入 OpenAI（TechCrunch）</a> · <a href="https://every.to/vibe-check/vibe-check-duet-anthropic-s-always-on-agent">Every：Claude Duet 测评</a></li></ul><p><strong>未能读取或只核到二手的资料</strong>：Bloomberg、Fortune 的付费正文；OpenAI 部分帮助中心页面（403，已改用 learn.chatgpt.com 官方文档替代）；Reddit 的互动数据。</p></section>
+</main>
+<footer>来源说明：各论断出处见文末「来源与可信度」，所有链接均检索于 2026-11-06 · 生成日期 2026-11-06 · 派生自 wiki/analyses/常驻 AI 同事的竞争格局.md 与同名洞察报告（md）；内容以 wiki 为准</footer>
+</div>
+</body>
+</html>

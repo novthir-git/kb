@@ -1415,3 +1415,38 @@ index 概览更新为 39 素材（含 3 个 asset）/ 70 页。
 结果指标补重放法。overview 两行原地改写（仍 60 行）。`output/shared/agentic-se-重构方法论-2026-09-23.html` 已冻结，
 其中的 −83% 未带本次矛盾标注；按约定不改写。
 index 概览更新为 41 素材（含 3 个 asset）/ 73 页。
+
+## [2026-11-06] research | 常驻 AI 同事：Grok Bot、Muse、Dots、Claude Cowork 与 DeepSeek Super-agent
+用户先要求"洞察 Grok Bot、Muse、Dots 以及 CoWork 产品"，随后追问各家定位，并上传一份 DeepSeek Super-agent 报告要求一并综合（摄入见下一条）。
+做法：先查 wiki（[[Claude Cowork]]、[[cowork-saas-资本市场冲击]]、[[agent-生产级落地的鸿沟]]、[[控制带]]、[[Claude Tag 驱动的团队研发流程]] 等）；再分 5 路联网调研（四家产品加品类格局）；四份产品档案各由一个 agent 回到一手来源逐条对抗核查（官方文档、newsroom、SpaceX 10-Q、Anthropic S-1、财报电话会逐字稿），可靠度均为 high；品类数据中被引用的条目做了在线抽查（OSWorld 2.0、RLI、TIME、Marketplace 事件等）。
+成稿的洞察报告另经三路交叉审查（数字一致性、推断标注与厂商偏向、在线抽查），修正了 2 处事实错误：一是"还没有一家做到事件驱动"，实际 Copilot Cowork 与 Grok Bot 已有事件触发；二是把"暂缓发布"写成了 GPT-6.1 Astra"被撤回"。同时修正了一批偏向 Anthropic 的遗漏：漏列 Cowork 误删文件事故、Claude 在授权表里没标弱点、Microsoft"便宜 30–40%"未写明比较对象。
+核心判断：
+- 蓝图已普及，编排拓扑不构成壁垒，但 harness 质量仍有差距；
+- 竞争退到入口、常驻单位经济学与授权三处；
+- 定位是商业模式的投影；
+- "常驻"由算力配给，定价收敛到"席位 / 订阅 + 用量"，按结果计价缺席；
+- 授权的单位是通道而不是动作，确定性外壳必须对 agent 自身不可写；
+- 现阶段是高级助理，而不是员工。
+新建：[[常驻 AI 同事的竞争格局]]（分析）、[[常驻 Agent 的算力经济学]]（主题，证据点 10 行）、[[Agent 授权三层]]（概念）。
+存档一手安全架构文档（前三份 verbatim）：`raw/sources/articles/2026-10-29-xAI-Grok-Bot-安全与审批文档.md`、`raw/sources/articles/2026-09-08-Meta-Muse-安全架构.md`、`raw/sources/articles/2026-11-02-Anthropic-Claude-Cowork-架构概览.md`，以及 `raw/sources/articles/2026-11-06-OpenAI-dots-安全文档.md`（原文约 8.2 万字符，超过阈值，改为中文结构化摘录）。不另建源摘要页，由 [[Agent 授权三层]] 与分析页直接引用。
+横向：
+- [[Claude Cowork]] 改写现状：09-16 并入 Claude、10-06 新任务强制上云、Tag/Duet、默认审批口径 ⚠️ 矛盾、事故与 S-1；旧状态移入"历史"；
+- [[Meta]] 增加 Muse 一节；[[Codex]] 增加"Dots 的执行层"；[[Anthropic]] 补 S-1 与 Copilot 渠道竞合；
+- [[cowork-saas-资本市场冲击]] 对"seat → outcome"加 ⚠️ 矛盾（近端兑现的是 consumption），§7 补"租金流向控制层"；
+- [[agent-生产级落地的鸿沟]] 增 4 条证据（OSWorld 2.0、Muse、Cursor 状态页、DeepSeek 实验，后者低权重）；
+- [[控制带]] 增 DeepSeek 反例与"外壳对 agent 不可写"推论；[[harness-vs-model]] 补三条信号；[[Claude Tag 驱动的团队研发流程]] 证据边界补同构参照；
+- overview 改写两行（仍 60 行）。
+跳过（事件，非论点）：Cat Wu 离职、Muse 新加坡上线、Grok Bot 打电话功能等，只作为页内事实。
+index 概览更新为 46 素材（含 3 个 asset）/ 77 页。
+
+## [2026-11-06] ingest | DeepSeek Super-agent 洞察报告（用户提供稿）
+用户上传署名"@Tom"的报告（2026-11-05），按原样存为 `raw/sources/notes/2026-11-05-DeepSeek-Super-agent-洞察报告.md`，头部记录核验结论，正文逐字保留。
+做了 5 组逐项回查：原型仓库（commit 8c32a9d，核到文件和行号）、中英文原文与实验、平台与定价、竞品表、第三方反响。建 [[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]。
+结论：事实层大体成立，实验表的全部数字与原文吻合。需降级的主线有四条：
+- "宿主强制授权"被以下几点削弱：Router 可经工具改写 Policy；本机管理 API 没有 token；任何人留言都能恢复已结束的工单；subagent 嵌套超过 8 层后 fail-open；
+- 合并权限由团队 prompt 决定，不属于宿主强制层；
+- "开源自托管 / 宿主授权 / 默认安静"都不是独有差异点（Copilot、Claude Code Action、Claude Tag、Comma 均有）；
+- 成本推算只取 flash 谷时价格，v4-pro 的命中/未命中比是 1/30。
+
+另有日期与范围校正：Copilot automations 应为 06-02，11-01 起按次计费只限 Search/Fetch，桌面版应为 09-29，微信原文其实可以读取。报告漏掉的也已补上：冯若航的反论点、腾讯 A.I.G 注入评测、会话日志默认上传。
+判断去向：[[常驻 AI 同事的竞争格局]]、[[Agent 授权三层]]、[[常驻 Agent 的算力经济学]]、[[控制带]]。
