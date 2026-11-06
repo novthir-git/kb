@@ -1415,3 +1415,55 @@ index 概览更新为 39 素材（含 3 个 asset）/ 70 页。
 结果指标补重放法。overview 两行原地改写（仍 60 行）。`output/shared/agentic-se-重构方法论-2026-09-23.html` 已冻结，
 其中的 −83% 未带本次矛盾标注；按约定不改写。
 index 概览更新为 41 素材（含 3 个 asset）/ 73 页。
+
+## [2026-11-06] lint | 全库体检（11-05 沉淀后）：确定性 1 项红，远端 3 个未合并分支，约 55 项判断类发现
+
+**方法**：确定性检查用脚本完成。判断类检查由 8 个审查 agent 分工：6 个按主题簇，1 个查全局结构与日志落地，1 个联网查外链与时效。每组发现交给 1 个独立复核 agent 逐条反驳，最后由 1 个完整性审查 agent 补查。原始发现 92 条，复核后 CONFIRMED 58、PLAUSIBLE 33、REFUTED 5、ALREADY_HANDLED 1，去重后约 55 项。
+
+**确定性检查**
+1. 重名：0。`raw/sources/articles/` 与 `raw/sources/pdfs/` 下各有一份 `2026-05-25-arXiv-2605.23135-…`，只差扩展名（.md / .pdf），双链能正确解析，不算真重名。
+2. index 计数：41 素材（含 3 asset）/ 73 页，与实际一致。**红**：「素材（raw）」清单只列 40 条，漏了 `pdfs/2026-05-25-arXiv-2605.23135-AI编码助手对软件工程的影响.pdf`。未修，待确认。
+3. 路径引用全部有效。2 处告警是误报：STORM 页已标注的 git 恢复命令，以及 SHA-256 括号粘连。3 个 symlink 都能解析。
+4. 其余：孤儿页 0；frontmatter 齐全；悬空链接仍只有两条待写页；overview 60 行（已到上限）；topics 表头统一；残留 `renders:` 的页面共 10 个。
+
+**结构性问题（high）**：远端有 3 个已完成、未合入 main 的分支。`claude/blissful-allen-jjhv9d`（09-16，Anthropic CI 25×）、`claude/admiring-dijkstra-74z2t2`（10-08，「上下文经济性」topic、「AI工程方法论的耐久度」synthesis，并改了 purpose.md）、`claude/blissful-allen-enp98m`（10-27，运行时授权治理 topic）。另有在途的 PR #5（`claude/kind-pasteur-lyj9re`）。main 的 index、log、overview 都没有反映这些分支；本 log 只在 09-23 提过 jjhv9d，之后没有跟进。建议先逐个裁定合入还是放弃，再做下面的修复，否则会和这些分支在同一批页面上冲突。
+
+**论断与一手来源不符（medium，应修）**
+- Sonar 与 −83% 的矛盾块里，调和句「拆成多文件 vs 文件内抽 helper」与 Sonar 原文 §4.2 相反：热点轨正是拆到更多更小的文件，token 却不省。涉及 [[全AI代码库的治理决策]]、[[Agentic SE 时代的系统重构]]。⚠️ 标注保留，只改调和句。
+- [[生产力-体验悖论]]：心流与认知负荷的下降在已存档 PDF 中不显著（p=0.195），页面写成了结论。
+- [[Agent 不会自发偿还结构债]]：Tangled refactoring 研究的是没人要求的重构，主结论是频率低于人类，却被归入第 3 层；SlopCodeBench 的「相邻代际不变」是未标注的选择性推断。
+- [[GraphRAG 与 Vector RAG]]：遗漏了 BenchmarkQED 的主结论（LazyGraphRAG 96 组全胜）。
+- [[codex-agent-采用曲线]] 等：「99 分位 60+ 小时」原文指 OpenAI 员工（约 71 小时），页面丢了人群口径。
+- [[全AI代码库的治理决策]]：CodeScene 预注册研究的主结论（CH 每升 1 点，token 少 3.5–6.1%）未写入。
+- [[代码与文档漂移的本质]]:218-226：同节「对称反馈」与「迅速腐烂」两段未调和。
+- [[Evals]]:147-148：仍是 08-11 修正前的口径。
+- A²E：本库数字均来自 v1，现行版已是 v4（实验已替换），URL 未固定版本。
+- 低严重度另有：SWE-Maintain 漏报主结果（−5.6 pp）；playbook 实为 16 个 play（13 个有度量）；「Consider using a hook」被写成「已配置」；0.568–0.663 是 8 个 harness 的口径；FORGE 的「零效应」与同页自相矛盾；[[Claude Cowork]]:27 与 [[agent-生产级落地的鸿沟]]:42-43 有校正前残留；[[llm-wiki-方法论]]:66-74 事实与推断标注颠倒。
+
+**外部已变化（需 research）**
+- BMAD 自 6.11.0 起 stable 改用 AGENTS.md 受管块加 `bmad-build`，kernel + bundle 从未进入 stable，latest 为 6.12.4（high）。
+- Tessl 已转型（[[SDD 开发规范研究]] 未跟进）。
+- SAP、Dassault 的 Q3 财报已发布，overview 与 [[cowork-saas-资本市场冲击]] 停在 Q2。补录时注意三个口径：追补收入、许可收入 −9%、并表。
+- STORM「停止演进」复核成立，但「Deep Research 用户全程缺席」已有反证。
+- A²E 仓库持续开发到 10-09；OKF 迁仓与时间戳修订未传到源摘要与 IT4IT 页；Skills over MCP 未进 [[Agent Skills]]。
+- 待核：METR 2026-02 后续、Anthropic 2026-01 技能形成 RCT。
+
+**横向整合遗漏**：11-05 对 −83% 的修正没有传到 [[Agentic SE 时代的系统重构]] 本页 6 处旧说法、[[Agent 工具上下文膨胀]] §七、[[Claude Code]]、[[Uber-软件工厂的成本工程]]。Anthropic 10-15 code review 数据与 SWE-Maintain 未进 [[Anthropic-AI原生SDLC治理循环]] 与 [[agent-生产级落地的鸿沟]]（只能作为自报、无对照的证据行追加，不改写「质量侧空白」）。
+
+**出处与交叉引用（low）**
+- 缺 URL 的论断 5 组：CodeScene/InfoQ、Betterer、两篇 Anthropic 文章、Cowork 可用性口径、证据包 PLOS 段。
+- 书与AI 页书单缺检索日期。
+- 单向或缺失的链接 6 组：漂移本质 ↔ Harness / 结构债；Evals ↔ 重放法；ACI；理解瓶颈 ↔ 认知债；Claude Tag ↔ playbook；Codex / Cowork ↔ Claude Code。
+
+**外链**：共 275 条，216 条 200，49 条反爬或代理拦截。Spec Kit 文档 3 页迁至 `how-to/`，旧地址 404，涉及 8 处引用。thevillagehacker gist 已删且无快照，失真页已有兜底规则。OpenAI Harness 源摘要的 `/web/2026/` 快照会漂移，应固定时间戳。
+
+**待用户裁定**
+- 建页候选：变异测试、Böckeler、Spec Kit、OpenAI、Claude Tag、Karpathy、agent 上下文文件；08-31 批次四遗留的 System of Record 等。维护者建议优先建 Spec Kit、Böckeler、变异测试。
+- 两个待写页自 07 月悬置。
+- purpose 论断 4「结构性」、当前重心停在 08 月、论断 1 的 guides 一项。
+- pin tag/commit 引用纪律：08-31 起未决，本次新增 3 个实例。
+- 方法论页「五问按序」未入 schema；`schema.md` 摘要有漏项。
+- overview 满 60 行，需压缩后才能更新。
+- 根目录 `EXCLUDED.md` 已过时。
+
+本次只追加本条记录，未改动任何知识内容。
