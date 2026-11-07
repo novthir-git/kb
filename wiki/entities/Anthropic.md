@@ -12,6 +12,8 @@ sources:
   - "[[2026-07-21-Anthropic-AI原生SDLC-源摘要]]"
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "[[2026-09-14-Anthropic-CI规模化压力-源摘要]]"
+  - "https://techcrunch.com/2026/10/26/anthropics-ipo-filing-reveals-its-strategy-for-keeping-enterprise-customers-hooked/ （检索于 2026-10-27）"
+  - "https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/ （检索于 2026-10-27）"
 ---
 
 # Anthropic
@@ -31,8 +33,31 @@ AI 公司，Claude 系列大模型的开发者。既是**技术实体**（模型
   同期年化支出超过 $1m 的企业客户从 2 月的 500+ 增至 1,000+。
   （https://www.anthropic.com/news/google-broadcom-partnership-compute ，检索于 2026-07-16）
 - 口径边界：run-rate revenue 是按当前收入速度年化，不等同于经审计年度收入，也不宜无说明地写成 ARR。
-- 2026-10-26 提交 S-1，11-02 提交 S-1/A。S-1 称 Cowork 的采用速度超过 Claude Code 同期；年支出 $100K 以上的客户中，超过一半同时使用 Claude Platform 和至少一个第一方应用（2025 年第四季度约为 30%）。S-1 不按产品拆分收入。
 - 渠道竞合：Microsoft Copilot Cowork 采用 Claude Cowork 的执行框架，但 Microsoft 同时加入 GPT 和 Grok 模型对冲，管理员可以关闭 Anthropic 模型族。在 Microsoft 体系里，Anthropic 正从"技术来源"退为"可替换的模型供应商之一"（推断，见 [[常驻 AI 同事的竞争格局]]）。
+
+### 2026-10 IPO S-1 披露
+
+2026-10-26 向 SEC 提交 S-1（EDGAR CIK 2130357，accession 0001628280-26-067168）。以下数字出自 TechCrunch 对 S-1 的
+解读；S-1 正文篇幅过大，本次未逐字复核，仅核实了申报文件确实存在。
+（https://techcrunch.com/2026/10/26/anthropics-ipo-filing-reveals-its-strategy-for-keeping-enterprise-customers-hooked/ ，
+https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/ ，均检索于 2026-10-27）
+
+- **收入**：2026 上半年 $16.3bn，上年同期 $1.2bn。这是确认收入，和 04 月的 run-rate（>$30bn 年化）口径不同，不能直接对比。
+- **客户规模**（截至 09-30）：年消费 ≥$100k 的客户 11,900+，≥$1M 的 1,900+，≥$10M 的约 250。
+  对比 04 月"年化 >$1m 客户 1,000+"，半年内大约翻了一倍（两者口径接近但不完全相同）。
+- **净收入留存率**：Q3 末约 900%，公司归因于客户在组织内扩大部署带来的用量扩张。
+- **交叉销售漏斗**：$100k+ 客户中，同时使用 Claude Platform 和一方应用（[[Claude Code]] 或 [[Claude Cowork]]）的
+  超过一半，上年末约 30%。Q3 使用 Claude Code 的前 5% Enterprise 客户，人均月消费约为不用 Claude Code 的普通
+  企业用户的 20 倍。
+- **结构性风险（公司自陈）**：通过 AWS、Google Cloud、Azure 联合销售（Anthropic 持有客户合同、向云厂商付费），
+  但这三家云厂商越来越把 Anthropic 视为竞争对手，可能优先满足自身或其投资的竞品，进而让 Anthropic 更难拿到所需算力；
+  另披露大客户需求变化的集中度风险。
+- **补充（2026-11-06 研究）**：11-02 另提交 S-1/A；S-1 称 Cowork 的采用速度超过 Claude Code 同期，且不按产品拆分收入
+  （见 [[常驻 AI 同事的竞争格局]]）。
+
+综合：这组数字是 [[cowork-saas-资本市场冲击]] 价值捕获问题的量化锚点：一方应用（Claude Code / Cowork）在拉动
+平台消费，收入扩张来自**用量**而非席位。但另一面，算力供给依赖的正是三家潜在竞争者，"模型厂商 vs 云厂商"的
+渠道冲突第一次以监管披露的形式出现。900% NRR 和 20 倍都是公司自选口径，定义细节以 S-1 原文为准。
 
 > ⚠️ 溯源修正：旧版把 $9bn → $30bn 归入 2026-02-03 Reuters/UBS 来源；该时间线不成立，
 > 已改引 Anthropic 2026-04-06 官方公告。原 raw 重建稿只读保留，矛盾见
