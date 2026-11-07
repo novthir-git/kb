@@ -22,7 +22,7 @@
 - [[书与AI的优势边界及家庭组合]] — 区分书、AI、手机与阅读，以“书搭骨架、AI 做反馈、实践做验证”组织儿童学习，并附工程手工书选购与家庭规则。
 - [[STORM-知识策展系统分析]] — Stanford STORM/Co-STORM 的四个可复用机制、workflow 而非 agent 的架构定位、2025-09 后停滞并被商业 deep research 吞没的判断；含二次失真局限与"去机制化失真"样本。
 - [[Agent 全轨迹评测与审计]] — 将 Agent 评测从最终答案扩展为任务、Trace、指标与历史重评四类契约；区分 outcome 主证据与 process 归因证据。
-- [[Agentic SE 时代的系统重构]] — 代码库成为 agent 的运行环境：结构债可按 token 计价（单实验：同一变更输入 −83%），但须由 harness 驱动偿还、由验证网兜住；含 agent 友好代码库的目标形态、遗留系统方法与经核验的思想光谱；11-05 补 Sonar 受控对照（整体 −7%、集中在跨模块），−83% 标注矛盾与第三方复核。
+- [[Agentic SE 时代的系统重构]] — 代码库成为 agent 的运行环境：结构债可按 token 计价（单实验：同一变更输入 −83%），但须由 harness 驱动偿还、由验证网兜住；含 agent 友好代码库的目标形态、遗留系统方法、经核验的思想光谱与按存在理由的耐久度分档（§十）；11-05 补 Sonar 受控对照（整体 −7%、集中在跨模块），−83% 标注矛盾与第三方复核。
 - [[Uber-软件工厂的成本工程]] — Uber 公开的 agent 成本工程：六项成本方程、"agent 替自己多干的活"作为浪费定义、五层度量与四类杠杆；含"可计价者被优化"的张力与自报口径边界。
 - [[全AI代码库的治理决策]] — 100% AI 生成代码库要不要治：乱代码几乎不影响前沿模型单次成败，但"功能未受影响"多半未被观测；代价是随迭代递增的 token 税，治理本身也是回归源；按验证网、团队、寿命分叉的决策树，六步路线与重放法收益度量。
 - [[常驻 AI 同事的竞争格局]] — Grok Bot / Muse / Dots / Claude Cowork（含 Tag、Duet）/ Copilot Cowork / DeepSeek Super-agent：蓝图已普及，竞争退到入口、常驻单位经济学与授权；定位是商业模式的投影，现阶段是高级助理而非员工。
@@ -69,9 +69,11 @@
 - [[SDD 收益主张的实证赤字]] — 论点：SDD 的缺陷/返工下降主张与实证支持存在系统性赤字；8 条证据显示最大样本结论反向，主张最强处证据最弱。
 - [[LLM 输出的人类理解瓶颈]] — 论点：agent 接手跑腿后，人侧瓶颈转向理解与监督带宽；Karpathy 输出格式阶梯（受控英语 → 图示 → HTML → 讲解视频）为扩容手段，但简化丢事实（随领域术语密度上升）、富格式更难核对；6 条证据。
 - [[常驻 Agent 的算力经济学]] — 论点：常驻程度是预算参数（唤醒频率 × 模型档位），由谁付算力决定；定价收敛到"席位 / 订阅 + 用量"，按结果计价缺席；证据点覆盖 Grok Bot 额度风波、Muse 算力约束、Dots、Duet 与 DeepSeek。
+- [[上下文经济性]] — 论点：agent 读多少上下文分质量与经济两维——质量维度随模型代际收窄、经济维度长存；受控研究显示前沿模型上代码整洁度不改成功率、只省 token 与返工；11 行证据点表。
 
 ## 综合（synthesis）
 - [[overview]] — 全局知识版图与活跃线索。
+- [[AI工程方法论的耐久度]] — 用户的判断尺子：补模型短板的抹平、省钱的部分贬值、信任·协调·责任类保值、随委派规模升值；盘点重构方法论全部条目；投资规则为"依赖关系定先后，折旧速度定投入上限"。
 
 ## 素材摘要（sources）
 - [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]] — Andrew Ng 将 0-to-1 产品开发拆成三层 loop：agentic coding、developer feedback、external feedback；强调 evals 与人类 context advantage。
@@ -96,6 +98,7 @@
 - [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]] — 15 个 agent 在自己的代码上迭代 196 个 checkpoint：77% 轨迹侵蚀上升、增速约为人类仓库 5–7 倍；质量提示压初值不改斜率；LOC 是下一轮成本的最强预测因子；含两处原文内部矛盾。
 - [[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]] — 用户提供的 DeepSeek Super-agent 报告逐项核验：事实层大体成立；"宿主强制授权"被可改写的 Policy 与无 token 的本机 API 削弱，"差异点"并非独有，成本推算偏最便宜口径。
 - [[2026-09-14-Anthropic-CI规模化压力-源摘要]] — Anthropic 自曝 6 个月 CI job 涨 25×、测试影响分析服务被压垮与架构重写；含四条容量规划判断与"8×"口径冲突提示。
+- [[2026-10-08-agentic-se-refactoring-methodology-补充研究-源摘要]] — 续篇 §6/§7 核验：第三层"受控实验缺失"失准（已有且结果对上两维判断）、"窄读取永远便宜一个数量级"失准、500K+ 无第三方验证失准。
 
 ## 素材（raw）
 - sources/articles/2026-07-01-Andrew-Ng-三层产品开发循环 — Andrew Ng 关于 Loop Engineering 与三层产品开发循环的 X/The Batch post（源摘要 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
@@ -117,6 +120,7 @@
 - sources/articles/2026-09-14-Anthropic-CI规模化压力 — Anthropic 工程博客《Agentic coding is straining CI》结构化摘录；关键论断保留英文原句，非逐句原文镜像（源摘要 [[2026-09-14-Anthropic-CI规模化压力-源摘要]]）。
 - sources/notes/2026-07-28-从知识图谱到Agent编排-结构化内容草稿 — 用户确认冻结的 AI 结构化派生稿；基于飞书视频逐字稿，非一级来源，正式沉淀前须回查原始资料。
 - sources/notes/2026-09-23-agentic-se-refactoring-methodology — 用户提供的多源调研稿（范式思想 + 架构与重构方法论）；二次综合产物，逐项核验见 [[2026-09-23-agentic-se-refactoring-methodology-源摘要]]。
+- sources/notes/2026-10-08-agentic-se-refactoring-methodology-补充研究 — 上稿续篇 §6（上下文经济性的证据分层）与 §7（方法论耐久度盘点）；逐项核验见 [[2026-10-08-agentic-se-refactoring-methodology-补充研究-源摘要]]。
 - sources/articles/2026-02-11-OpenAI-Harness-Engineering — OpenAI《Harness engineering》要点式中文摘录（原站 403，经官方中文版读取；源摘要 [[2026-02-11-OpenAI-Harness-Engineering-源摘要]]）。
 - sources/articles/2026-04-02-Boeckeler-Harness-Engineering — Böckeler《Harness engineering for coding agent users》要点式中文摘录（源摘要 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。
 - sources/articles/2026-05-27-Boeckeler-可维护性传感器 — Böckeler《Maintainability sensors for coding agents》要点式中文摘录（源摘要 [[2026-05-27-Boeckeler-可维护性传感器-源摘要]]）。
