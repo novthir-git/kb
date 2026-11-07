@@ -1,8 +1,12 @@
 ---
 tags: [分析, 投资, AI]
 created: 2026-07-03
-updated: 2026-08-31
+updated: 2026-11-06
 sources:
+  - "[[常驻 Agent 的算力经济学]]"
+  - "https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/16/copilot-cowork-is-now-generally-available/ （检索于 2026-11-06）"
+  - "https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-models （检索于 2026-11-06）"
+  - "https://www.microsoft.com/en-us/security/blog/2026/05/01/microsoft-agent-365-now-generally-available-expands-capabilities-and-integrations/ （检索于 2026-11-06）"
   - "[[2026-02-04-Reuters-全球软件股遭Anthropic警钟冲击-源摘要]]"
   - "[[2026-02-03-Reuters-AI担忧重挫欧洲软件股-源摘要]]"
   - "[[2026-04-14-Reuters-欧洲软件股Q1跌幅-源摘要]]"
@@ -37,6 +41,13 @@ sources:
 
 > 一句话：Cowork 让资本市场开始怀疑——**未来企业到底要买多个 SaaS，
 > 还是只要少数 seat + 更多 Agent 执行能力？**
+
+> ⚠️ 矛盾：本页把方向写作"seat-based 转向 outcome-based"，但 2026-06 至 11 月常驻 agent 的实际定价显示另一回事：
+> - Copilot Cowork 是席位许可加 Copilot Credits；
+> - Grok Bot、Muse 用每周额度或 token；
+> - Dots、Claude 是高阶订阅加用量池。
+>
+> 收敛的是"**席位 / 订阅 + 用量**"，没有一家主流厂商落地按结果计价。近期兑现的是 consumption，不是 outcome。"outcome-based"应视为待验证的长期方向，而不是已发生的迁移（证据见 [[常驻 Agent 的算力经济学]]）。（发现于 2026-11-06）
 
 ---
 
@@ -196,6 +207,12 @@ Cowork 本身或许还很早期，但它传递了一个信号：
 > 软件价值链里“界面 + 工作流 + 席位”这一层的经济租金要被重估。** Cowork 只是让这件事
 > 第一次"看得见"。
 
+**2026-11 补：租金不只从 SaaS 流向 agent，也在 agent 厂商之间流向控制层。**
+- Microsoft 的 Agent 365（2026-05-01 GA，$15/用户/月）定位为跨厂商的 agent 登记与治理层。截至 11-03 已接入 Agentforce、Bedrock、Anthropic、Gemini 等，OpenAI 仍在计划中。
+- Copilot Cowork 采用 Claude Cowork 的执行框架，但模型选择器已加入 GPT 6.1 Sol 和 Grok 4.7，管理员可以一键关闭 Anthropic 模型族。
+
+推断（置信度：中高）：在大企业的采购路径里，"谁的 agent 最好"会让位给"谁拥有身份、审计与计费的控制层"。agent 能力本身也在被商品化，所以本页 §6"相对安全的 SaaS"清单里，应当加上身份与治理层这一类。详见 [[常驻 AI 同事的竞争格局]]。
+
 ## 反方与边界（避免单一叙事）
 
 > ⚠️ 争议：这套"AI 替代 SaaS"叙事并非共识。
@@ -210,6 +227,7 @@ Cowork 本身或许还很早期，但它传递了一个信号：
 ## 相关
 
 - 实体：[[Anthropic]]、[[Claude Cowork]]
+- 常驻 agent 格局与定价证据：[[常驻 AI 同事的竞争格局]]、[[常驻 Agent 的算力经济学]]
 - 概念：[[MCP]]、[[building-effective-agents]]
 - 必要对照：[[agent-生产级落地的鸿沟]] —— 本页按"能力天花板"重定价的叙事，需与该页"短期落地节奏
   显著滞后于试验渗透"的证据对照读，两条线一条定方向、一条定时机。

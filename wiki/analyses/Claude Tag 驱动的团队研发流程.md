@@ -1,8 +1,10 @@
 ---
 tags: [分析, AI, Agent, 软件工程, 研发流程, 治理]
 created: 2026-08-04
-updated: 2026-10-08
+updated: 2026-11-06
 sources:
+  - "[[常驻 AI 同事的竞争格局]]"
+  - "[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]"
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "[[Anthropic-AI原生SDLC治理循环]]"
   - "[[Loop Engineering]]"
@@ -198,6 +200,12 @@ Claude Tag 当前以“每频道一个 Markdown 文件”保存共享记忆，�
 - 六个多月的审查放权周期、内部留存门槛及安全效果均为公司员工自述，缺少外部审计和结果对照；
 - 本页流程包含跨页综合推断，适合作为试点假设，不应被包装成 Anthropic 已公开验证的标准方法；
 - 流程是否改善净交付价值，必须用质量、事故、体验和用户结果共同验证。
+- **同构参照（2026-11 补）**：团队频道里的常驻 agent 已不只 Claude Tag 一家。
+  - GitHub Copilot automations 2026-06-02 就已上线，比 Tag 早约三周；
+  - DeepSeek Super-agent（2026-10-31，开源研究原型）采用 Router + 每工单一个 Worker 的结构，与 Tag 的"频道级 session + 每线程工作 session"最接近；
+  - 两者在默认行为上相反：Tag 默认主动回复，Super-agent 默认只记录、不出声。
+
+  综合：Tag 按频道和身份隔离会话与记忆，站在"按容器分区"一侧；Super-agent 以及 Muse、Dots 这类消费产品押注"同一个 agent 无处不在"。这条设计分叉见 [[常驻 AI 同事的竞争格局]]，授权层面的比较见 [[Agent 授权三层]]。
 
 ## 关联页面
 
@@ -210,4 +218,5 @@ Claude Tag 当前以“每频道一个 Markdown 文件”保存共享记忆，�
 - [[Agent 记忆架构]]
 - [[生产力-体验悖论]]
 - [[agent-生产级落地的鸿沟]]
+- [[常驻 AI 同事的竞争格局]] —— Grok Bot、Muse、Dots、Claude Cowork 与 DeepSeek Super-agent 的定位、架构分歧与授权对比
 - [[LLM 输出的人类理解瓶颈]] —— 人侧瓶颈转向理解与监督带宽；Karpathy 的输出格式阶梯及其保真 / 可核对代价

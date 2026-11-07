@@ -1,9 +1,12 @@
 ---
 tags: [概念, AI, Agent, Evals, Harness]
 created: 2026-08-10
-updated: 2026-09-23
+updated: 2026-11-06
 sources:
   - "[[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]]"
+  - "[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]"
+  - "https://docs.x.ai/developers/release-notes.md （检索于 2026-11-06）"
+  - "https://fortune.com/2026/03/09/microsoft-copilot-cowork-ai-agents-anthropic-e7-m365-saas/ （检索于 2026-11-06）"
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
@@ -40,3 +43,8 @@ OpenAI 的零手写代码实验从外层给出同向证据：早期进展慢的�
 > 综合：本页的归因纪律对外层同样适用。"换了模型后成功率上升"的结论，若同期还改了规则文件、测试或 lint，
 > 就同样无法归因——**钉死的对象要把内外两层都算进去**。
 
+## 2026-11 补：harness 差异的三条新信号
+
+- **结构稳住长尾（低权重）**：DeepSeek Super-agent 的消融实验里，同一条消息流同时驱动四种方案。两级架构把"要不要委派"从模型的临场判断变成结构上的保证：p95 从 29.0 降到 15.7 分钟，p50 只快约 10%。代价是缓存读变成单会话方案的 2.1–3.8 倍。但用的是合成负载，每组 5 次，没人复现，只能算方向性证据（[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]）。
+- **厂商把模型训练到自家 harness 上**：SpaceXSI 称 Grok 4.7（2026-09-21）经过训练，能"natively understand the Grok Bot harness"。综合：harness 不只是模型的外壳，它也成了模型训练的目标环境。这让"固定模型、换 harness"的对照更难做干净：模型与 harness 的组合本身就是被优化过的整体。
+- **harness 作为可授权的资产**：Microsoft Copilot Cowork 采用了与 Claude Cowork 相同的 agentic harness，跑在自己的 M365 租户里，同时把模型换成多家可选。综合：这说明 harness 可以与模型解耦、单独授权给别人用。也说明常驻 agent 赛道里，编排**拓扑**虽已普及，harness 的**质量**仍在拉开差距，见 [[常驻 AI 同事的竞争格局]]。

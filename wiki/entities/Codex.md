@@ -1,9 +1,11 @@
 ---
 tags: [实体, 产品, AI, Agent]
 created: 2026-07-03
-updated: 2026-09-23
+updated: 2026-11-06
 sources:
   - "[[2026-06-25-Axios-Codex-agent-用量增长-源摘要]]"
+  - "https://learn.chatgpt.com/docs/dots.md （检索于 2026-11-06）"
+  - "https://venturebeat.com/technology/openai-launches-dots-always-on-ai-agent-coworkers-and-chatgpt-space-where-they-can-collaborate-with-human-teams （检索于 2026-11-06）"
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]"
   - "https://arxiv.org/html/2606.26959v1 （检索于 2026-07-03）"
@@ -27,6 +29,8 @@ OpenAI 的 **agentic 编码 / 工作平台**。最初面向开发者做"自主�
   并据此提出 [[Harness Engineering]]（[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]；全部为公司自报，无对照）。
 - **SDD 执行器**：在 [[Specification-Driven Development]] 中，Codex 可依据 requirements / design / tasks
   实现并验证变更；但 current spec、风险接受与验收责任仍需由团队治理，参见 [[SDD 开发规范研究]]。
+
+- **常驻 agent 的执行层**（2026-09 起）：OpenAI 2026-09-29 发布的常驻 agent **Dots** 可以把长任务派给 Codex 云任务和 ChatGPT Work。Dots 发起的任务计入 Codex/Work 的常规额度，与 dot 自身的对话额度分开计算。综合：dot 是人格化的前台和编排层，Codex 是执行层。产品演进路线是 Operator → ChatGPT agent → ChatGPT Work / Codex 云代理 → Dots，见 [[常驻 AI 同事的竞争格局]]。
 
 ## 与本 wiki 的关联
 - **采用数据**见分析页 [[codex-agent-采用曲线]]。

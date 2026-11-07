@@ -1,8 +1,13 @@
 ---
 tags: [主题, AI, Agent]
 created: 2026-07-03
-updated: 2026-09-23
+updated: 2026-11-06
 sources:
+  - "https://arxiv.org/abs/2606.29537 （OSWorld 2.0；检索于 2026-11-06）"
+  - "https://www.fool.com/earnings/call-transcripts/2026/10/21/meta-meta-q3-2026-earnings-call-transcript/ （检索于 2026-11-06）"
+  - "https://status.cursor.com/api/v2/incidents.json （检索于 2026-11-06）"
+  - "[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]"
+  - "[[常驻 AI 同事的竞争格局]]"
   - "https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/ （检索于 2026-07-03）"
   - "https://www.reuters.com/business/zuckerberg-says-ai-agent-development-going-slower-than-expected-2026-07-02/ （Reuters 独家原文；检索于 2026-07-03；直连返回 401，事实经 TechCrunch 转载核验）"
   - "https://www.mckinsey.com/capabilities/mckinsey-technology/our-insights/building-the-foundations-for-agentic-ai-at-scale （检索于 2026-07-16；直连超时，正文经网页索引核验）"
@@ -58,6 +63,9 @@ sources:
 
 | 日期 | 来源 | 信号 | 备注 |
 |---|---|---|---|
+| 2026-11-05 | Cursor 状态页事故记录 | 常驻 agent 的**运行**可靠性：2026-09-18 至 11-05 的 50 条事故里，有 25 条把 Grok Bot 列为受影响组件，其中 15 条标题直接点名；10-13 那次，大量由 webhook、Slack、git、邮件、Linear 触发的 routine 没有运行，事后也不补处理 | 厂商状态页，属一手运行数据；不含任务质量 |
+| 2026-10-31 | DeepSeek Super-agent 设计文章（[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要\|源摘要]]） | 两级架构把"要不要委派"从模型的临场判断变成结构上的保证，p95 从 29.0 降到 15.7 分钟，p50 只快约 10%；基线的长尾主要来自 5 次运行里没有委派的那 1 次 | **低权重**：合成负载，每组 5 次，官方自称 "indicative only"，没人复现；方向与 [[harness-vs-model]] 一致 |
+| 2026-10-21 | Meta Q3 电话会、Reuters（09-22）与多家媒体 | 采用端：Muse 6 周内美加超过 1,000 万人完成设置，约 25% 每天使用。可靠与治理端：内部测试由外包人员代接电话且未披露；"Allow Always" 之后在 Marketplace 泄露住址；分享页可经 DNS 查到。见 [[Meta]] | 采用口径是"设置"数，不是月活。综合：大众级分发可以瞬间拉满试用，事故却都出在授权语义上（[[Agent 授权三层]]） |
 | 2026-08-27 | [[SDD 收益主张的实证赤字]]（Hill SSRN 10 万 PR 观察研究、Scott Logic 实测等） | "主张 vs 兑现的落差"在开发方法论层复现：SDD 推广话语主张缺陷与返工下降，但当前最大样本实证指向相反方向（规格与更高返工相关，p<0.001），最响亮的主张来自零对照数据的厂商文档 | 方法论层反例信号，不是企业落地率证据；该页是本论题在方法论层的实例，限定与证据强度详见该页证据点表 |
 | 2026-08-27 | Uber 工程博客 | 非 AI 实验室的大型工程组织公开规模化数据：**>70% PR 归因于本地或云端 agent**、3,600 个 agent skills、30K 次/日 skill 执行；周活 7×、周请求 9.4×（2–8 月），总 AI 支出自 4 月起持平，固定模型下每千请求成本 −34%、每 session 成本 −52% | 目前最强的正向规模化案例，但**印证而非推翻本页论点**：其依赖的统一 harness、MCP 网关、CLI 投影、上下文图谱、真实工作 benchmark、五层度量与额度分层，**没有一项依赖模型更强**。口径边界：全部自报无第三方审计；"归因"未定义规则，≠ 自主完成 ≠ 净生产力；降的是单位成本不是总支出。→ 见 [[Uber-软件工厂的成本工程]] |
 | 2026-08-07 | A²E 预印本 | 23 benchmarks×9 harnesses 的受控运行表明，同模型的多轮成功率、工具路径和 token 成本依 harness 变化；轨迹子集中平均 token 差 3.5 倍 | 方法证据：支持“生产评测需要结果+全轨迹”，不是企业规模化落地率证据；每格仅 5 任务，不能作 framework 总排名。→ 见 [[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]] |
@@ -65,6 +73,7 @@ sources:
 | 2026-07-21 | Anthropic AI 原生 SDLC | 截至 5 月约 **80%** 已合并生产代码行归因于 Claude；生产控制包括设计安全评审、风险分级、多层审查、隔离环境、独立身份、人工门禁、SIEM 与事故反馈闭环 | 重要正向案例：高采用率依赖完整治理栈，而非“模型足够强”单点跨越；80% 与 8× LOC 均为公司自报代理指标，缺少独立审计和事故率对照。→ 见 [[Anthropic-AI原生SDLC治理循环]] |
 | 2026-07-02 | Meta 扎克伯格（内部全员会，Reuters 独家 / TechCrunch 转载） | 过去约四个月 AI agent 进展"没有按预期加速"（did not accelerate in the way we expected）；预计还需 **3–6 个月**才见更显著回报 | 罕见的大厂 CEO 亲口降温；同期仍计划 AI 基建投入高达 **1,450 亿美元**，且承认围绕 agent 的重组"不如预想干净"、时机判断失误。→ 见 [[Meta]] |
 | 2026-07-01 | Andrew Ng（X / The Batch） | 将 0-to-1 产品开发拆成 coding、developer feedback、external feedback 三层循环；强调 [[Evals|evals]] 与人类 context advantage | 方法论证据，不是落地率数据：只让 agent 写代码不够，必须把规格、evals、人类判断与真实用户反馈接成闭环。→ 见 [[Loop Engineering]] |
+| 2026-06-28 | OSWorld 2.0（arXiv 2606.29537） | 108 个长程电脑操作任务（人类中位约 1.6 小时）：最好的 Claude Opus 4.8 严格完成率 **20.6%**，部分得分 54.8%；GPT-5.5 约 13%。失败主因不是 GUI 点错，而是丢失约束、漏看中途信息、该问不问、跳过验证 | 测的是上一代模型，当前主力模型还没有公开成绩。失败模式指向 harness 与验证层，而不是感知层 |
 | 2026-04-02 | McKinsey Technology / QuantumBlack | 全球近三分之二企业已试验 agents，但**不到 10%** 已规模化并产生可量化价值；约八成企业把数据限制列为扩展障碍 | 直接量化“试验广、规模化窄”；需注意咨询机构调查口径与样本选择。 |
 | 2026-03-13 | Deng 等，arXiv 2603.13428（首发名 EvoClaw，v3 起更名 SWE-Milestone；arXiv 注明 ICML 2026 录用） | 7 个开源仓库、98 个人工核验的里程碑、5 种语言，评测 12 个前沿模型 × 4 个 agent 框架：综合得分从**独立任务的 80% 以上**跌到**持续演化设置的最高 38.03%**（Claude Opus 4.6），按完全解决计最高仅 **13.37%**（Gemini 3 Pro）。失败集中在防回归（新功能 Recall 近线性增长、Precision 饱和），错误沿依赖链滚雪球 | "Demo ≠ 生产"在基准层的直接对应：每次从干净快照起步 ≈ Demo，在自己累积的历史上持续演化 ≈ 生产。38% 是综合得分（Recall 与 Precision 的调和），**不是成功率**——转述时最常被搞错的口径。独立任务的 80% 以上部分是构造时校准出来的（标注者修订需求规格直到前沿模型独立运行达 80–90%），所以两个数字的差距衡量的是"持续演化"本身的代价。它测的是里程碑级功能演化，不是企业落地率；持续演化失败的机制证据见 [[Agentic SE 时代的系统重构]]"验证网先行"节 |
 | 2026-02-11 | OpenAI 工程博客（Ryan Lopopolo） | 内部团队五个月零手写代码，用 Codex 做出约 **100 万行**、约 1,500 个 PR 的内部 beta；3 人起步、现 7 人，人均每天约 3.5 个 PR；单次运行常持续 6 小时以上。作者结论：早期进展慢是因为缺工具、抽象与内部结构，**瓶颈在环境而非模型** | 又一条"靠工程填平鸿沟"的正向证据，与 Uber 同形：成功依赖的是严格分层、机械化不变量、agent 可读的可观测性栈与定期垃圾回收，而不是模型更强。口径边界：公司自述、无对照；"约 1/10 用时"为作者自估；产品为内部 beta，爆炸半径小；作者自己限定不应在没有类似投入时假定可泛化。→ [[2026-02-11-OpenAI-Harness-Engineering-源摘要]]、[[Harness Engineering]] |
@@ -93,3 +102,5 @@ wiki 里另有一条**乐观**主线——[[cowork-saas-资本市场冲击]] 论
   （分层放权、shadow mode、事故回灌 eval）描述的是同一治理循环。
 - 哪些垂直场景率先跨过鸿沟（客服、编码、数据处理），为什么？→ 可对照 [[codex-agent-采用曲线]]。
 - 这道鸿沟对"per-seat → outcome 定价迁移"的**节奏**意味着什么？→ 关联 [[cowork-saas-资本市场冲击]] 的定价迁移问题。
+  → 11-06 部分回答：常驻 agent 的定价收敛到"席位 / 订阅 + 用量"，没有一家主流厂商落地按结果计价；结果难以验收，本身就是原因之一（推断），见 [[常驻 Agent 的算力经济学]]。
+- 常驻 agent 成品（Muse、Dots、Grok Bot、Claude Duet）还没有任何一份独立的多周可靠性评测。当前主力模型在 OSWorld 2.0 这类长程基准上的成绩，是下一个可量化的观察点。

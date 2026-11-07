@@ -1,15 +1,15 @@
 ---
 tags: [综合]
 created: 2026-07-03
-updated: 2026-11-05
+updated: 2026-11-06
 sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index.md 承载（详见 AGENTS.md）
 ---
 
 # Overview — 当前知识版图
 
 ## 主要板块
-- **AI Agent 与软件行业颠覆**：[[Anthropic]] 的 [[Claude Cowork]] + [[MCP]] + [[building-effective-agents]]
-  构成"能替代人+传统软件界面"的栈；其资本市场冲击见 [[cowork-saas-资本市场冲击]]；[[cowork-plugins-架构]] 已校正为 Plugin → Connector → MCP Server 的分层。
+- **AI Agent 与软件行业颠覆**：[[Claude Cowork]] + [[MCP]] + [[building-effective-agents]] 构成"替代人 + 软件界面"的栈，资本市场冲击见 [[cowork-saas-资本市场冲击]]，分层见 [[cowork-plugins-架构]]；
+  常驻 agent（Grok Bot、Muse、Dots、Cowork/Duet、DeepSeek Super-agent）已收敛到同一蓝图，竞争退到入口、[[常驻 Agent 的算力经济学|算力经济学]]与 [[Agent 授权三层|授权]]——见 [[常驻 AI 同事的竞争格局]]。
 - **Agent 采用与人的体验**：[[Codex]] 的采用爆发（[[codex-agent-采用曲线]]）与其体验成本
   （[[生产力-体验悖论]]、"从创造到验证"的监督式工程）——新增企业 / 成熟仓库 RCT、生产遥测与维护负担证据，
   显示局部活动量、实际任务速度、感知速度和 release 价值可能背离；验证带宽本身成为人侧瓶颈，格式扩容手段及其保真 / 可核对代价见 [[LLM 输出的人类理解瓶颈]]。
@@ -34,9 +34,9 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
 - **AI 与儿童学习媒介**：[[书与AI的优势边界及家庭组合]] 区分书、AI、手机与阅读，主张书建知识骨架、AI 做个性化反馈、实践负责验证。
 
 ## 活跃线索
-- Agent 对 SaaS 估值逻辑的再定价——已沉淀 [[cowork-saas-资本市场冲击]]；08-31 补 Q1/Q2 财报校验：UBS 提示的订单与许可
-  风险**未在报表兑现**（SAP backlog 连续两季 +25%/+26% cc）但估值端未修复，叙事转为“在位者交付太慢”；下一跟踪点 Q3。
-- Agent 化工作跨越技术人群边界：Codex 非开发者用户百倍增长——待跟踪企业侧渗透率（现约 17%）爬坡。
+- Agent 对 SaaS 估值逻辑的再定价（[[cowork-saas-资本市场冲击]]）：UBS 提示的订单风险**未在 Q1/Q2 报表兑现**但估值未修复，下一跟踪点 Q3；
+  11-06 补：定价收敛到"席位 / 订阅 + 用量"、按结果计价无一落地，租金在 agent 厂商间流向控制层（Agent 365）。
+- 常驻 AI 同事（[[常驻 AI 同事的竞争格局]]）：待首个单用户成本披露、首份独立多周可靠性评测、当前主力模型的长程基准成绩；Codex 非开发者外溢待跟踪企业渗透率。
 - Loop Engineering：待补 Boris Cherny / Peter Steinberger / Addy Osmani 原始论述，区分"工程闭环"与"产品反馈闭环"。
 - Agent 知识架构：已完成概念边界校正；待用真实查询集验证 Vector、Text2Cypher、GraphRAG Global 与混合路由的质量/成本。
 - OKF v0.2：只作为知识交换候选，不改内部 schema；待真实外部消费者出现后验证单向导出、来源/链接无损和 Knowledge Catalog 全字段往返。
@@ -52,7 +52,7 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
 
 ## 悬而未决的问题
 - 哪些"软件股"是 system of record（安全），哪些只是可被 Agent 覆盖的功能层（危险）？
-- per-seat → outcome/consumption 定价迁移的实际节奏与对倍数的影响？
+- per-seat → outcome/consumption 定价迁移的实际节奏与对倍数的影响？（11-06：近端兑现的是 consumption，outcome 未见，见 [[常驻 Agent 的算力经济学]]）
 - "监督式工程"下的体验下滑，是过渡期阵痛还是结构性代价？产品/组织如何对冲？
 - 本仓库 `AGENTS.md` 是 326 行常驻的手册形态，是否该改为"地图 + 按需文件"？（schema 修改，待用户决定；见 [[llm-wiki-方法论]]）
 - AI 加速 coding loop 后，0-to-1 产品的 [[Evals|evals]] 如何覆盖功能正确性、体验质量与真实用户价值？
