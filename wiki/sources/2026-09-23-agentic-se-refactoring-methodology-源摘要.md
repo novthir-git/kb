@@ -1,7 +1,7 @@
 ---
 tags: [素材, AI, Agent, 软件工程, 重构, 方法论]
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-11-07
 sources:
   - "raw/sources/notes/2026-09-23-agentic-se-refactoring-methodology.md"
   - "https://www.ycombinator.com/library/MW-andrej-karpathy-software-is-changing-again （检索于 2026-09-23）"
@@ -37,6 +37,8 @@ sources:
   - "https://arxiv.org/abs/2504.09691 （检索于 2026-09-23）"
   - "https://addyo.substack.com/p/brownfield-agentic-engineering （检索于 2026-09-23）"
   - "https://github.com/feststelltaste/awesome-agentic-software-modernization （检索于 2026-09-23）"
+  - "https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start （Anthropic，2026-05-14；检索于 2026-11-07）"
+  - "https://www.anthropic.com/engineering/writing-tools-for-agents （Anthropic，2025-09-11；检索于 2026-11-07）"
 ---
 
 # AI Agentic SE 时代的系统重构——用户调研稿源摘要
@@ -57,14 +59,14 @@ sources:
      审慎工程："keep the AI on the leash"，人类验证者是瓶颈，要小步增量，"this is the decade of agents"而不是
      "the year of agents"。更准确的定位是**范式判断激进、工程实践审慎**：他的 generate–verify 论述是 §1.5
      "验证是瓶颈"的证据，不是对立面。
-   - Böckeler 被写成"系统性泼冷水"的一方。原文立场更窄：spec-first "在很多场景下有价值"，保留意见针对的是
+   - [[Birgitta Böckeler|Böckeler]] 被写成"系统性泼冷水"的一方。原文立场更窄：spec-first "在很多场景下有价值"，保留意见针对的是
      重流程工具与 spec-anchored / spec-as-source；她的审查主张是**按风险校准**（影响、概率、可检测性），低风险、
      高可检测性时她接受 vibe coding。
    - Yegge 那篇是 2024-06 的 Sourcegraph 公司博客，不属于"2025–2026 年思想光谱"，也没有主张代码可抛弃。
 2. **§5.1"激进主张被自己的基准证伪"不成立。** EvoClaw 不是 AaaS 论文自建的，AaaS 论文援引了它并主动承认局限；
    准确说法是"激进主张在长期演化场景缺乏数据支撑"。
 3. **§1.5 把"TDD inside the agent loop"列为路线终点，与来源相反。** Böckeler 2026-08-10 的小样本评估没看到 TDD
-   带来收益，她已停止要求 agent 做 TDD，改用变异测试监控回归测试质量。"验证优先"应理解为约束结果，不是规定过程。
+   带来收益，她已停止让 agent 先写测试，更谈不上 TDD（原话 "which I never did, to be honest"），改用[[变异测试]]监控回归测试质量。"验证优先"应理解为约束结果，不是规定过程。
 
 ## 逐项核验
 
@@ -99,7 +101,7 @@ sources:
 
 | 调研稿论断 | 核验 | 校正后的口径 |
 |---|---|---|
-| Spec Kit：constitution → specify/plan/tasks | **成立**（复查上调） | 与 Böckeler 给出的流程记号一致。补充：现版本每个 feature 走 specify → plan → tasks → implement → converge，SDD 只是 Spec Kit 三个入口之一（另两个是 bug fixing 与 idea assessment） |
+| [[GitHub Spec Kit\|Spec Kit]]：constitution → specify/plan/tasks | **成立**（复查上调） | 与 Böckeler 给出的流程记号一致。补充：现版本每个 feature 走 specify → plan → tasks → implement → converge，SDD 只是 Spec Kit 三个入口之一（另两个是 bug fixing 与 idea assessment） |
 | Kiro：Requirements → Design → Tasks | **成立** | 现另有 Bugfix Specs、Design-First 变体与不设审批门的 Quick Spec |
 | Tessl 追求 spec-as-source，代码标注 "GENERATED FROM SPEC - DO NOT EDIT" | **基本成立** | 是 Böckeler 2025-09 试用 Tessl Framework（私测）时所见；"spec 是新的源代码"是转述。Tessl 2026-09 首页已转型为 agent enablement 平台，须加时间限定 |
 | Böckeler 区分 spec-first / spec-anchored / spec-as-source | **成立** | 2025-10-15 首提。**连带发现**：本 wiki [[Specification-Driven Development]] 原把三层级归于 arXiv 2602.00180，属归属错误，已更正 |
@@ -107,7 +109,7 @@ sources:
 | agent 经常无视或过度解读 spec | **基本成立** | 原文是"常不遵循全部指令"和"过度热切地执行某条 constitution 条款"，并质疑"虚假的控制感" |
 | 与 2000 年代 MDD 失败历史平行 | **基本成立** | 原文没写"2000 年代"；类比主要针对 spec-as-source |
 | SDD 叠加"僵化 + 非确定性"两种缺陷 | **失准** | 原文是**担忧**而非结论，对象是 spec-as-source 乃至 spec-anchored，不含 spec-first |
-| "spec 是新源代码"的正方是 Tessl / Spec Kit / Kiro | **部分成立** | 旗手是 2025 年的 Tessl。GitHub 在 Spec Kit 自带的方法论文档里**理念上**接近 spec-as-source（代码是"持续再生成的输出"），但 Böckeler 判断工具实际形态只是 spec-first；其持久化文档引用了 Böckeler 的三层级，另列三种变更模型并声明都不是默认。Kiro 在 Böckeler 2025-09 的试用中"似乎基本是 spec-first"（厂商自称支持 spec 与代码同步）。反方 Böckeler 的"僵化 + 非确定性"是推测，原文没有"更糟"的断言 |
+| "spec 是新源代码"的正方是 Tessl / Spec Kit / Kiro | **部分成立** | 旗手是 2025 年的 Tessl。GitHub 在 Spec Kit 自带的方法论文档里**理念上**接近 spec-as-source（代码是"持续再生成的输出"），但 Böckeler 判断工具实际形态只是 spec-first；其持久化文档引用了 Böckeler 的三层级，另列三种变更模型并声明都不是默认（2026-11-06 起增至四种，见 [[GitHub Spec Kit]]）。Kiro 在 Böckeler 2025-09 的试用中"似乎基本是 spec-first"（厂商自称支持 spec 与代码同步）。反方 Böckeler 的"僵化 + 非确定性"是推测，原文没有"更糟"的断言 |
 
 ### §1.4–1.5 代码的地位与验证瓶颈（前半）
 
@@ -151,7 +153,7 @@ sources:
 
 | 调研稿论断 | 核验 | 校正后的口径 |
 |---|---|---|
-| Anthropic 属于"代码库比 MCP / 子 agent 更根本"的收敛方 | **部分成立** | 一手材料支持"让代码库对 agent 可读（目录与命名、精简分层的 CLAUDE.md、代码地图）影响表现"，2026-05-14 的大型代码库文章也把"基础没做好就先接 MCP"列为常见错误；但 Anthropic 把表现归因于模型外的整个 harness，并**推荐**子 agent 架构，没有"代码库比 MCP / 子 agent 更根本"的主张 |
+| Anthropic 属于"代码库比 MCP / 子 agent 更根本"的收敛方 | **部分成立** | 一手材料支持"让代码库对 agent 可读（目录与命名、精简分层的 CLAUDE.md、代码地图）影响表现"，2026-05-14 的大型代码库文章（https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start ，检索于 2026-11-07）也把"基础没做好就先接 MCP"列为常见错误；但 Anthropic 把表现归因于模型外的整个 harness，并**推荐**子 agent 架构，没有"代码库比 MCP / 子 agent 更根本"的主张 |
 | context rot、n² 注意力约束 | **成立** | context rot 一词引自 Chroma 的研究；强调性能逐渐下降，不是到某长度突然失效 |
 | just-in-time 检索优于预加载 | **基本成立** | 原文是 JIT **补充**预检索，承认运行时探索更慢，多数场景推荐混合 |
 | compaction、NOTES.md、子 agent 压缩回传 | **成立** | 各有适用场景；子 agent 回传摘要通常 1,000–2,000 token |
@@ -176,7 +178,7 @@ sources:
 | 分层"已有实证研究（arXiv 2601.20404）" | **不成立** | 该文（Lulla 等，5 页短文）只研究根目录单个 AGENTS.md 对 Codex 效率的影响（10 仓库、124 PR：中位运行时间 −28.64%、输出 token −16.58%，未测正确性），不涉及分层或 skills |
 | asdlc.io 页面是"AGENTS.md 规范" | **归属错误** | 官方规范是 agents.md；asdlc.io 是第三方实践者解读，部分内容已过时 |
 | ACI 源自 SWE-agent（NeurIPS 2024），为 agent 设计工具是 UX 学科 | **成立**（复查上调） | 术语出自 SWE-agent（把 LM agent 视为"一类新的终端用户"）；调研稿把"UX 学科"一语另归 agentpatterns.ai，归属正确 |
-| ACI 要求：错误信息可操作、输出省 token、操作幂等 | **部分成立** | SWE-agent 原则是四条：动作简单、动作紧凑、反馈充分而简洁、护栏阻断错误传播；"可操作错误信息 / 省 token"可溯源到后两条，并由 Anthropic《Writing effective tools for AI agents》（2025-09）明确表述；"幂等"不属于 SWE-agent，是更后来的实践者补充 |
+| ACI 要求：错误信息可操作、输出省 token、操作幂等 | **部分成立** | SWE-agent 原则是四条：动作简单、动作紧凑、反馈充分而简洁、护栏阻断错误传播；"可操作错误信息 / 省 token"可溯源到后两条，并由 Anthropic《Writing effective tools for AI agents》（2025-09-11，https://www.anthropic.com/engineering/writing-tools-for-agents ，检索于 2026-11-07）明确表述；"幂等"不属于 SWE-agent，是更后来的实践者补充 |
 | agentpatterns.ai 作为出处 | **基本成立** | 数字须回原文：ACI 相对 shell 基线提升 10.7 个百分点，绝对 pass@1 为 12.5%，不是"提升 12.5%" |
 | arXiv 2604.04990 提出 vibe architecting | **成立** | position paper，仅 arXiv 预印本、未经同行评审 |
 | 仅改 prompt 使代码量增长 5.9 倍（141→827 行） | **成立**（复查上调） | 5.9× 与"prompt 是唯一变量"均为论文原文。证据强度须注明：三个 prompt 各跑一次、单一工具（Claude Code），作者自称"示意而非实验证明"；增量部分来自 prompt 新增的功能要求（结构化 JSON、工具访问） |
@@ -228,7 +230,7 @@ OpenAI 原文扩员后"the throughput"上升一句未重复 per engineer（按�
 ## 调研稿未引、但会改变结论的一级来源
 
 - Böckeler，《TDD inside the agent loop - theater or actual value?》，2026-08-10：5 批方案、Sonnet 4.6 生成、Opus 4.8
-  盲评，TDD 组整体略差、变异得分无差异；作者停止要求 agent 做 TDD，改用变异测试与 Approved Scenarios。
+  盲评，TDD 组整体略差、变异得分无差异；作者已停止让 agent 先写测试（TDD 她本就没要求过），改用变异测试与 Approved Scenarios（2026-11-07 回原文校正措辞）。
 - Deng 等，SWE-Milestone（arXiv 2603.13428v4）：失败集中在防回归而非新功能；有纪律的测试验证得分最高，
   "高频改同一文件却很少跑测试"最差——这是"验证优先"最直接的一级证据。
 - Karpathy 演讲中的 MenuGen 一段："the code was actually the easy part"——demo 几小时跑通，认证、支付、部署

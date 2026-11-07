@@ -1,7 +1,7 @@
 ---
 tags: [素材, AI, 知识管理, 数据治理, Agent]
 created: 2026-07-28
-updated: 2026-07-28
+updated: 2026-11-07
 sources:
   - "raw/sources/articles/2026-07-28-GoogleCloudPlatform-Knowledge-Catalog-README.md"
   - "raw/sources/articles/2026-07-28-Open-Knowledge-Format-README.md"
@@ -26,6 +26,8 @@ sources:
 因此，OKF 位于 GoogleCloudPlatform GitHub 组织下，不等于它已经成为 Google Cloud 产品的原生数据模型，
 也不等于已经获得跨厂商标准组织或广泛生产采用的背书。
 
+> 后续变化（2026-11-07 复核）：OKF 迁入独立仓库后，新仓库未声明官方属性，详见 [[Open Knowledge Format]]。
+
 ## Knowledge Catalog 的产品能力
 
 Google Cloud 官方文档把数据资产建模为 `Entry`，用 `Aspect` 承载技术和业务元数据，并支持业务术语、
@@ -48,6 +50,10 @@ System of Record。
 `type`、`resource`、`generated`、`sources` 以及通用标题、描述、标签和正文；未展示对 `verified`、
 `status`、`stale_after` 和完整 Attested Computation 合约的全量往返。
 
+> 后续变化（2026-11-07 复核）：2026-08-14 PR #292 已把 v0.2 全部信号层建模进该 Aspect，
+> 2026-08-21 PR #323 把时间戳字段改为原生 datetime；往返无损为作者自报，详见
+> [[Open Knowledge Format]]「已知边界」第 6 条。
+
 ## OKF v0.2 的核心事实
 
 - Bundle 是 Markdown 文件组成的目录树；除保留的 `index.md`、`log.md` 外，一个 `.md` 文件代表一个 Concept。
@@ -60,6 +66,10 @@ System of Record。
 - `status` 可为 `draft | stable | deprecated`，缺失时默认为 `stable`；`stale_after` 用绝对日期表达过期。
 - Concept 通过标准 Markdown 链接形成有向图，但**边没有类型**，关系语义由周围正文说明；断链被允许。
 - `index.md` 支持逐层浏览，`log.md` 可记录按日期倒序的更新历史。
+
+> 后续变化（2026-08-31 复核，2026-11-07 补正）：规范已迁至 `open-knowledge-format` 仓库，上列旧路径成为冻结快照；
+> v0.2 被原地修订，所有时间戳须为带显式 UTC 偏移的 ISO 8601 datetime，裸日期的 `stale_after`
+> 不再合规（规范未规定消费者如何处置，参考实现忽略此类值）。详见 [[Open Knowledge Format]]「已知边界」。
 
 ## Reference Agent
 

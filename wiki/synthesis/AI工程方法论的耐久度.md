@@ -1,11 +1,12 @@
 ---
 tags: [综合, AI, Agent, 软件工程, 方法论, 重构]
 created: 2026-10-08
-updated: 2026-10-08
+updated: 2026-11-07
 sources:
   - "[[2026-10-08-agentic-se-refactoring-methodology-补充研究-源摘要]]"
   - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
   - "[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]"
+  - "[[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]]"
   - "http://www.incompleteideas.net/IncIdeas/BitterLesson.html （Sutton，2019-03-13；检索于 2026-10-08）"
   - "https://claude.com/blog/context-management （Anthropic，2025-09-29；检索于 2026-10-08）"
   - "https://platform.claude.com/docs/en/build-with-claude/compaction （检索于 2026-10-08）"
@@ -85,7 +86,7 @@ CLAUDE.md 只写删掉就会出错的内容（[[AI编码技术债的三层治理
 1. **认知债管理**：委派比例从"超过一半的人只能完全委派 0–20%"（Anthropic 内部调查）往上走的过程，就是团队
    理解流失加速的过程。它与本档其他条目的区别是**不可见**：验证不足会表现为 review 排队，理解流失不会排队，
    只在事故和交接时暴露。概念与治理见 [[AI编码技术债的三层治理]]。
-2. **意图规格化（SDD 的内核）**：生成成本趋零后，瓶颈收敛为"把人想要什么说清楚"。Spec Kit / Kiro 的三步
+2. **意图规格化（SDD 的内核）**：生成成本趋零后，瓶颈收敛为"把人想要什么说清楚"。[[GitHub Spec Kit|Spec Kit]] / Kiro 的三步
    markdown 流程是仪式，会贬值；"意图是不可约减的人类输入"会随生成能力增强而更突出——这是 AaaS 论文
    "intent architect"判断里站得住的一半（原文给人的是三重角色：intent architect、agent coordinator、
    outcome auditor）。与 [[Specification-Driven Development]] 的关系：本库已有证据显示"写规格 ⇒ 返工下降"不成立
@@ -105,6 +106,10 @@ CLAUDE.md 只写删掉就会出错的内容（[[AI编码技术债的三层治理
 就不能安全委派后面的步骤；折旧着色是附加理由，它决定的是每一步投多少。折旧快的件不是不该投，而是只做回本期短于
 折旧期的那部分：Thoughtworks 单实验的回本量级是几十次同类变更（[[Agentic SE 时代的系统重构]] §二，置信度低），一个
 每周被改动十次以上的热点一个季度内就能回本，一两年的折旧期不构成反对理由。
+
+> 综合（维护者注，2026-11-07）：§二 已把"几十次"降为乐观下界——按 Sonar 受控实验的约 −7%，回本要多约一个数量级的变更，
+> 同样每周十次约需三个季度，已接近一两年折旧期的下沿。"季度回本"只对 Thoughtworks 式超大单文件热点成立；上面这条推论
+> 是否修订，待用户裁定。
 
 综合：套到 [[Agentic SE 时代的系统重构]] §七的六步修订版上（第 0、5 步是本库补的，用户未分档，下表这两行是维护者
 的推断，置信度低）：

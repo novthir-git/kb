@@ -2,7 +2,7 @@
 tags: [分析, AI, Agent, 软件工程, 文档治理, BMAD]
 status: draft
 created: 2026-08-07
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "[[代码与文档漂移的本质]]"
   - "[[论代码与文档漂移解决方案]]"
@@ -12,11 +12,16 @@ sources:
   - "https://www.npmjs.com/package/bmad-method （检索于 2026-08-07）"
   - "https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.10.0/docs/how-to/project-context.md （检索于 2026-08-07）"
   - "https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.10.0/docs/reference/workflow-map.md （检索于 2026-08-07）"
-  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/main/docs/how-to/project-context.md （检索于 2026-08-07；**2026-08-31 复核已 404**——upstream 重构 docs，`docs/how-to/` 目录整体消失，`docs/reference/` 下亦无此文件。URL 保留以标明当时引用的正是 main 分支状态；不改指 v6.10.0，因为那会把"当时 main 的做法"悄悄换成"某个 tag 的做法"）"
-  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/main/docs/reference/workflow-map.md （检索于 2026-08-07；**2026-08-31 复核已 404**——upstream 重构 docs，`docs/how-to/` 目录整体消失，`docs/reference/` 下亦无此文件。URL 保留以标明当时引用的正是 main 分支状态；不改指 v6.10.0，因为那会把"当时 main 的做法"悄悄换成"某个 tag 的做法"）"
+  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/main/docs/how-to/project-context.md （检索于 2026-08-07；**2026-08-31 复核已 404**——upstream 重构 docs，`docs/how-to/` 目录整体消失，`docs/reference/` 下亦无此文件。URL 保留以标明当时引用的正是 main 分支状态；不改指 v6.10.0，因为那会把“当时 main 的做法”悄悄换成“某个 tag 的做法”）"
+  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/main/docs/reference/workflow-map.md （检索于 2026-08-07；**2026-08-31 复核已 404**——upstream 重构 docs，`docs/how-to/` 目录整体消失，`docs/reference/` 下亦无此文件。URL 保留以标明当时引用的正是 main 分支状态；不改指 v6.10.0，因为那会把“当时 main 的做法”悄悄换成“某个 tag 的做法”）"
   - "https://github.com/bmad-code-org/BMAD-METHOD/blob/main/docs/start/install-bmad.md （检索于 2026-08-31；原路径 docs/how-to/install-bmad.md 已迁移）"
   - "https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.10.0/docs/how-to/established-projects.md （检索于 2026-08-07）"
-renders: []
+  - "https://registry.npmjs.org/bmad-method （dist-tags 与发布时间；检索于 2026-11-07）"
+  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/docs/existing-codebases/set-and-maintain-project-context.md （检索于 2026-11-07，经 git clone 该 tag 核验）"
+  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/src/bmm-skills/plan/bmad-generate-project-context/SKILL.md （检索于 2026-11-07，同上）"
+  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/src/bmm-skills/v6-shims/bmad-create-story/SKILL.md （检索于 2026-11-07，同上）"
+  - "https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/docs/build/build-a-change.md （检索于 2026-11-07，同上）"
+  - "https://github.com/bmad-code-org/BMAD-METHOD/pull/2674 与 https://github.com/bmad-code-org/BMAD-METHOD/pull/2698 （kernel + bundle 的引入与替换；检索于 2026-11-07，经提交历史核验）"
 ---
 
 # BMAD 项目文档治理实施方案
@@ -82,10 +87,10 @@ BMAD 会持续产生 PRD、SPEC、Architecture、Epic、Story、Plan、Sprint �
 
 ```text
 project/
-├── AGENTS.md                         # Agent 的仓库级入口和少量强制规则
+├── AGENTS.md                         # Agent 的仓库级入口和少量强制规则；BMAD 6.11+ 的 project context 是其中的受管块
 ├── _bmad/                            # BMAD 安装内容；不手工改造其结构
 ├── _bmad-output/
-│   ├── project-context.md            # stable 6.10 使用；保持精简
+│   ├── project-context.md            # 仅 6.10 及更早使用；6.11+ 不再新建（见下方说明）
 │   ├── planning-artifacts/           # 当前仍在进行的规划产物
 │   └── implementation-artifacts/     # 当前仍在进行的实现产物
 ├── docs/
@@ -100,8 +105,9 @@ project/
 
 说明：
 
-- 如果项目使用 BMAD main/next，应沿用 `bmad-project-context` 生成的 kernel + bundle，不再新建
-  `project-context.md`；详见附录。
+- BMAD 6.11 及以后（含 2026-11-07 时的 stable 6.12.4）：project context 由 `bmad-project-context` 以经核验的
+  受管块写进 `AGENTS.md`，不再新建 `project-context.md`；已有的 `project-context.md` 由该 skill 提议吸收。
+  只有 6.10 及更早版本才用单文件，并保持精简。详见附录 A。
 - 已有目录若能回答同样的问题，不必为了符合本图而搬迁。
 - `docs/index.md` 只列当前有效文档和一句用途，不复制正文摘要。
 - 没有实际读者的 `product.md`、ADR 或 Runbook 不必创建。
@@ -325,7 +331,29 @@ Retirement candidates:
 
 ## 附录 A：BMAD 版本差异
 
-截至 2026-08-07：
+### 2026-11-07 复核（现行）
+
+- npm `latest` 为 6.12.4（2026-10-14 发布），`next` 为 6.12.3-next.1；6.11.0 发布于 2026-08-10。
+- 自 6.11.0 起，stable 收编了 08-07 时只在 main 上的方向：`bmad-project-context` 在仓库 `AGENTS.md` 内写一个经核验的
+  受管块（"The output is a small verified block in your `AGENTS.md`"）；`bmad-generate-project-context` 降为转发到它的
+  deprecated shim，已有的 `project-context.md` 由它提议吸收。
+- 实现入口统一为 `bmad-build`（接受一句话、issue、spec 或已规划的 story）；`bmad-create-story`、`bmad-quick-dev`
+  降为 deprecated shim。
+- 下方快照里的“kernel + bundle”只在 main 上存在于 2026-08-02（#2674）到 2026-08-08（#2698，改为 AGENTS.md 块）之间，
+  从未进入任何 stable；08-07 的记录在当时准确。
+- 对本方案的影响：§四目录与说明已按此改写。“stable 与 main/next 分叉”这一前提对 6.11+ 不再成立，版本差异退化为
+  “6.10 及更早用单文件，6.11+ 用 AGENTS.md 受管块”。综合：对已装 6.10 的项目，升级本身就是一次 project context
+  迁移，应按 §十一“BMAD 升级破坏流程”单独评估。
+
+来源（GitHub 文件均 pin 到 tag v6.12.4，并经 git clone 该 tag 核验；均检索于 2026-11-07）：
+[npm registry](https://registry.npmjs.org/bmad-method)、
+[Set and Maintain Project Context](https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/docs/existing-codebases/set-and-maintain-project-context.md)、
+[generate-project-context shim](https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/src/bmm-skills/plan/bmad-generate-project-context/SKILL.md)、
+[create-story shim](https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/src/bmm-skills/v6-shims/bmad-create-story/SKILL.md)、
+[Build a Change](https://github.com/bmad-code-org/BMAD-METHOD/blob/v6.12.4/docs/build/build-a-change.md)；
+历史提交 [#2674](https://github.com/bmad-code-org/BMAD-METHOD/pull/2674)、[#2698](https://github.com/bmad-code-org/BMAD-METHOD/pull/2698)。
+
+### 截至 2026-08-07（历史快照）
 
 - npm `latest` 6.10.0 使用单个 `_bmad-output/project-context.md`，实现流程包含 Story 与 Quick Flow；
 - main/next 已转向 `bmad-project-context` 管理 kernel + bundle，并让各类输入收敛到 `bmad-build`；
@@ -341,7 +369,7 @@ Retirement candidates:
 
 > ⚠️ 链接状态：上面两条 **main 分支链接自 2026-08-31 复核起已 404**——upstream 重构了 `docs/`，
 > `docs/how-to/` 目录整体消失。**本节关于 main/next 的论断因此不再可直接溯源**，
-> 应视为 2026-08-07 的快照观察，重新采信前须回查 upstream 当前文档。
+> 应视为 2026-08-07 的快照观察，重新采信前须回查 upstream 当前文档（2026-11-07 已回查，见上方复核）。
 > 保留原 URL 而不改指 v6.10.0：两者引用的是不同对象（"当时 main 的做法" vs "某个 tag 的做法"），
 > 改指会悄悄替换论断的时间语义。同页 v6.10.0 固定版链接全部仍然有效。
 > 综合：**引用 upstream 文档应优先 pin tag/commit**——本页 24 天内 main 链接失效、tag 链接存活，

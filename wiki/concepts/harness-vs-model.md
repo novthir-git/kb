@@ -1,9 +1,10 @@
 ---
 tags: [概念, AI, Agent, Evals, Harness]
 created: 2026-08-10
-updated: 2026-11-06
+updated: 2026-11-07
 sources:
   - "[[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]]"
+  - "https://arxiv.org/html/2608.07346v4 （A²E v4，2026-09-07；检索于 2026-11-07）"
   - "[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]"
   - "https://docs.x.ai/developers/release-notes.md （检索于 2026-11-06）"
   - "https://fortune.com/2026/03/09/microsoft-copilot-cowork-ai-agents-anthropic-e7-m365-saas/ （检索于 2026-11-06）"
@@ -16,7 +17,9 @@ sources:
 
 Agent 系统的实际表现由模型与 harness 共同决定。Harness 的 prompt 构造、工具表示、上下文管理、执行循环、错误处理和终止政策，会在模型不变时改变任务成功率、token 成本和失败路径。
 
-[[a2e-agent-auditing-engine|A²E]] 提供了这一判断的受控实验证据：单轮任务的最终分常看不出 harness 差异，多轮与工具型任务则显著分化；同时轨迹可显示即使 correctness 接近，计划、工具选择和成本仍可差很多。但由于每格仅 5 个任务，证据支持“必须评整个系统”，不支持稳定的全局 harness 排名。评测契约的完整展开见 [[Agent 全轨迹评测与审计]]。
+[[a2e-agent-auditing-engine|A²E]] 提供了这一判断的受控实验证据：单轮任务的最终分常看不出 harness 差异，多轮与工具型任务则显著分化；同时轨迹可显示即使 correctness 接近，计划、工具选择和成本仍可差很多。但由于每格仅 5 个任务，证据支持“必须评整个系统”，不支持稳定的全局 harness 排名。（以上是 v1 结果；v3 起作者已替换实验设计，单轮无差异、3.5 倍等结论未见于现行版，见 [[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]]「版本变化」。）评测契约的完整展开见 [[Agent 全轨迹评测与审计]]。
+
+现行 v4（2026-09-07）换成 gpt-5.6-sol 与 glm-5.3 两个底座 × 4 个前沿 benchmark 族的官方指标，给出另一条信号：**harness 效应随底座强弱而变**——DeepSearchQA 与 GDPval 上强底座下 harness 差距小，换 glm-5.3 后变大；τ 系列跨 harness 分化最大。作者的结论是 harness、benchmark 与模型强交互，"rather than a universal winner"（https://arxiv.org/html/2608.07346v4 ，检索于 2026-11-07）。综合：这加强了“必须评整个系统”，也细化了下节的规程：钉死模型比出的 harness 优劣只对那个模型成立，换底座要重比。
 
 ## 工程推论：想比较谁，就把另一个钉死
 
@@ -33,7 +36,7 @@ Uber 的公开实践把这条判断变成了可执行规程（[[Uber-软件工�
 ## 本页说的是内层 harness；外层另见 [[Harness Engineering]]
 
 2026 年起 "harness" 还有第二个常用义：**使用者在 agent 之外为它搭的环境**——规则文件、类型与依赖约束、测试、
-linter、CI 与周期性评审（Böckeler 明确把这一层称为 agent 内置 harness 之外的外层 harness，
+linter、CI 与周期性评审（[[Birgitta Böckeler|Böckeler]] 明确把这一层称为 agent 内置 harness 之外的外层 harness，
 见 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。本页的 A²E 与 Uber 证据针对的是**内层**：
 agent 运行时自身的 prompt、工具与执行循环。
 

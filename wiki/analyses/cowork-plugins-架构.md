@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 架构]
 created: 2026-07-03
-updated: 2026-08-27
+updated: 2026-11-07
 sources:
   - "[[Claude Cowork]]"
   - "[[MCP]]"
@@ -51,6 +51,7 @@ flowchart TB
 4. **MCP Server**：真正暴露 Tools / Resources / Prompts 的协议端点。远程 connector 由 Anthropic
    云端发起连接，而不是从 Cowork 所在电脑的内网直接访问。
 5. **System of record**：CRM、合同库、邮箱、数据仓库等仍保存权威业务事实；agent 通过 connector 调用它们。
+   这一层为什么在 agent 时代反而更难绕开、又会以什么方式失守，见 [[system-of-record 与专有数据护城河]]。
 6. **权限与信任边界**：connector 可能读取或修改外部数据，local MCP server 具有本机程序级权限；
    具体确认行为取决于工具、权限和组织策略，不能概括为“所有重要写操作必经人工确认”。
 
@@ -69,3 +70,4 @@ flowchart TB
 ## 相关
 - 母题：[[cowork-saas-资本市场冲击]]（第 3 节·护城河穿透用到同一套"跨工具编排"逻辑）
 - 实体/概念：[[Claude Cowork]]、[[MCP]]、[[building-effective-agents]]
+- 第 5 层的投资论点：[[system-of-record 与专有数据护城河]]

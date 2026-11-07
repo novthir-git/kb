@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 方法论, 产品]
 created: 2026-07-03
-updated: 2026-09-23
+updated: 2026-11-07
 sources:
   - "[[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]"
   - "[[Evals]]"
@@ -19,8 +19,8 @@ sources:
 
 | 循环 | 核心接口 | 时间尺度 | 人/agent 分工 |
 |---|---|---|---|
-| Agentic coding loop | 产品规格 / [[Evals|evals]] ↔ coding agent | 分钟级 | agent 写代码、测试、用浏览器检查并迭代 |
-| Developer feedback loop | 开发者愿景 ↔ 产品规格 / [[Evals|evals]] | 小时级 | 人检查产品、调整愿景、澄清规格、决定功能/UI/用户流 |
+| Agentic coding loop | 产品规格 / [[Evals\|evals]] ↔ coding agent | 分钟级 | agent 写代码、测试、用浏览器检查并迭代 |
+| Developer feedback loop | 开发者愿景 ↔ 产品规格 / [[Evals\|evals]] | 小时级 | 人检查产品、调整愿景、澄清规格、决定功能/UI/用户流 |
 | External feedback loop | 外部反馈 ↔ 开发者愿景 | 天到周级 | 用户、朋友、alpha、A/B 测试等真实反馈修正产品方向 |
 
 ## 关键判断
@@ -47,5 +47,5 @@ sources:
 ## 待追踪
 
 - Boris Cherny、Peter Steinberger、Addy Osmani 对 Loop Engineering 的原始论述与 Andrew Ng 框架之间的差异。
-- 不同 agent 产品（[[Codex]]、Claude Code、OpenClaw）如何把 loop 变成内建能力，而不是用户手写脚本。
+- 不同 agent 产品（[[Codex]]、[[Claude Code]]、OpenClaw）如何把 loop 变成内建能力，而不是用户手写脚本。
 - 适合 0-to-1 产品的 [[Evals|evals]] 应该如何设计：功能正确性、用户体验、学习效果、留存/转化等指标是否应分层。

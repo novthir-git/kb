@@ -1,7 +1,7 @@
 ---
 tags: [素材, Reuters, 投资, AI]
 created: 2026-07-03
-updated: 2026-07-03
+updated: 2026-11-07
 sources:
   - "raw/sources/articles/2026-02-04-Reuters-全球软件股遭Anthropic警钟冲击.md"
   - "https://www.reuters.com/business/media-telecom/global-software-stocks-hit-by-anthropic-wake-up-call-ai-disruption-2026-02-04/ （Reuters 原文；检索于 2026-07-03，直连受限，正文据 The Globe and Mail 镜像及 Yahoo Finance / CNBC 报道交叉核对）"
@@ -26,6 +26,7 @@ sources:
 - [[cowork-saas-资本市场冲击]] 用它建立"估值锚变化而非短期业绩变化"的主判断。
 - [[Claude Cowork]] 用它记录该产品对资本市场的直接影响。
 - [[Anthropic]] 是事件源头；[[MCP]] 与 [[building-effective-agents]] 是支撑该冲击叙事的技术背景。
+- [[system-of-record 与专有数据护城河]] 用 Thomson Reuters、RELX 的跌幅作为"有专有数据也不等于安全"的反例证据。
 
 ## 关键概念
 - [[Anthropic]]

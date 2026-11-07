@@ -1,14 +1,16 @@
 ---
 tags: [分析, AI, Agent, 软件工程, 开发规范]
 created: 2026-07-16
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "[[Specification-Driven Development]]"
   - "[[论代码与文档漂移解决方案]]"
   - "[[Evals]]"
   - "https://github.com/github/spec-kit （检索于 2026-07-16）"
-  - "https://github.github.com/spec-kit/concepts/spec-persistence.html （检索于 2026-07-16）"
-  - "https://github.github.com/spec-kit/guides/evolving-specs.html （检索于 2026-07-16）"
+  - "https://github.github.com/spec-kit/concepts/spec-persistence.html （检索于 2026-07-16；2026-11-06 复核 404：docs 重构迁至 how-to/）"
+  - "https://github.github.com/spec-kit/how-to/persisting-specs.html （检索于 2026-11-07；上条现址——11-06 lint 时见于 how-to/spec-persistence.html，同日 upstream #5299 改名并新增第四种模型）"
+  - "https://github.github.com/spec-kit/guides/evolving-specs.html （检索于 2026-07-16；2026-11-06 复核 404：docs 重构迁至 how-to/）"
+  - "https://github.github.com/spec-kit/how-to/evolving-specs.html （检索于 2026-11-07）"
   - "https://kiro.dev/docs/specs/feature-specs/ （检索于 2026-07-16）"
   - "https://kiro.dev/docs/specs/bugfix-specs/ （检索于 2026-07-16）"
   - "https://openspec.dev/ （检索于 2026-07-16）"
@@ -20,14 +22,23 @@ sources:
   - "https://arxiv.org/abs/2601.03878 （检索于 2026-07-16）"
   - "[[SDD 收益主张的实证赤字]]"
   - "[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]"
+  - "[[代码与文档漂移的本质]]"
+  - "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6515898 （Brenn Hill；检索于 2026-08-27，直连 403，经检索摘要核验）"
+  - "https://blog.scottlogic.com/2025/11/26/putting-spec-kit-through-its-paces-radical-idea-or-reinvented-waterfall.html （检索于 2026-08-27；2026-11-07 重读）"
+  - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
+  - "https://github.github.com/spec-kit/ （检索于 2026-11-07）"
+  - "https://kiro.dev/docs/specs/ （检索于 2026-11-07）"
+  - "https://tessl.io/ （检索于 2026-11-07）"
 ---
 
 # SDD 开发规范研究
 
 ## 核心结论
 
-目前没有统一的 SDD 行业标准。GitHub Spec Kit、Kiro、OpenSpec、Tessl 已在“先规格、再设计与任务、
-最后实现和验证”上收敛，但对规格持久化、变更管理、工具绑定和自动生成程度仍有不同选择。
+目前没有统一的 SDD 行业标准。截至本页 2026-07-16 调研，[[GitHub Spec Kit]]、Kiro、OpenSpec、Tessl 已在“先规格、
+再设计与任务、最后实现和验证”上收敛，但对规格持久化、变更管理、工具绑定和自动生成程度仍有不同选择。
+此后 Tessl 已转型（2026-09 首页改称 agent enablement 平台，2026-11-07 复核仍如此，https://tessl.io/ ），
+不再是现行的 SDD 框架选项；Spec Kit 与 Kiro 则各自扩出了非 SDD 入口或免审批的轻量模式（见下方工具表）。
 
 > 综合：团队不应先选工具再接受它的默认流程。应先定义自己的 artifact model、阶段门禁、追溯规则和
 > 轻重分级，再选择工具承载。对多数长期维护项目，推荐 **Spec-anchored + Living current spec +
@@ -152,7 +163,10 @@ NASA 的要求检查表同样强调一个 statement 只表达一个 thought、�
 
 GitHub 的 brownfield 指南也要求 living spec 在修改 `spec.md` 后重新对齐 plan/tasks，并在继续实现前运行
 跨产物分析
-（[Evolving Specs](https://github.github.com/spec-kit/guides/evolving-specs.html)，检索于 2026-07-16）。
+（[Evolving Specs](https://github.github.com/spec-kit/guides/evolving-specs.html)，检索于 2026-07-16；2026-11-06 复核 404：
+docs 重构迁至 how-to/，现址 [how-to/evolving-specs](https://github.github.com/spec-kit/how-to/evolving-specs.html)，检索于 2026-11-07）。
+现版本把这一步写成所有持久化约定通用的流程，并写明 core 没有自动调和 spec / plan / tasks 差异的命令——
+`/speckit.analyze` 只报告、不修改，调和仍靠人或扩展。
 
 ## 轻重分级
 
@@ -169,10 +183,10 @@ GitHub 的 brownfield 指南也要求 living spec 在修改 `spec.md` 后重新�
 
 | 工具 | 更适合 | 主要权衡 |
 |---|---|---|
-| GitHub Spec Kit | 绿地、复杂功能、需要 constitution 与阶段审计的团队 | 流程完整，产物和仪式也相对重 |
+| GitHub Spec Kit | 绿地、复杂功能、需要 constitution 与阶段审计的团队 | 流程完整，产物和仪式也相对重；现另有 bug fixing 与 idea assessment 两个独立入口（SDD 在 core，另两个是随附的可选扩展），见 [[GitHub Spec Kit]] |
 | OpenSpec | 存量系统、跨会话协作、强调 current spec + change delta | 轻量、agent 无关；组织治理需团队自行补充 |
-| Kiro Specs | 希望在同一产品内完成 EARS、Feature/Bug、Requirements/Design-first 流程 | 体验集成度高，但工作流依赖 Kiro 生态 |
-| Tessl | 试验组件规格、usage spec 与更强的 spec-to-code | 更接近 Spec-as-source，适用边界和成熟度需单独验证 |
+| Kiro Specs | 希望在同一产品内完成 EARS、Feature/Bug、Requirements/Design-first 流程 | 体验集成度高，但工作流依赖 Kiro 生态；另有不设审批门、一次生成三份产物的 Quick Spec（[Specs](https://kiro.dev/docs/specs/)，检索于 2026-11-07）。综合：它省的是人工审批，产物照出，更接近本页 Standard 档的轻量变体，而非 Quick 档 |
+| Tessl（2025 年形态） | 试验组件规格、usage spec 与更强的 spec-to-code | 更接近 Spec-as-source；**2026-09 首页已转型为 agent enablement 平台**（[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]，2026-11-07 首页复核），本行仅作历史参照 |
 
 > 综合：以上是各产品官方文档所呈现的定位，不是独立基准测试。团队应先用相同任务做小规模对照，
 > 再决定工具，不应把 stars、市场宣传或文档完整度等同于工程效果。
@@ -193,12 +207,13 @@ SZZ 缺陷追溯 + within-author 固定效应分析，从厂商主张推导的�
 规格质量对返工零效应（p=0.997）
 （[SSRN 6515898](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6515898)，检索于 2026-08-27；
 直连返回 403，细节经检索摘要核验，证据强度相应降级）。Scott Logic 的单案例实测则给出成本侧的量级：
-Spec Kit 第一增量产出 689 行代码却生成 2,577 行 markdown，人工 review 3.5 小时，而同一工作用迭代提示
-总计约 32 分钟且无 bug
+Spec Kit 第一增量产出 689 行代码却生成 2,577 行 markdown，人工 review 3.5 小时（第二增量另需约 2 小时），
+而用迭代提示做完整功能（约 1,000 行，≈两个增量之和）总计约 32 分钟且无 bug
 （[Scott Logic](https://blog.scottlogic.com/2025/11/26/putting-spec-kit-through-its-paces-radical-idea-or-reinvented-waterfall.html)，
-检索于 2026-08-27）。
+检索于 2026-08-27，2026-11-07 重读校正对比基准）。
 
-> 综合：这不推翻本规范的门禁与追溯链设计（Hill 研究并未测试这些具体成分），但推翻了默认收益假设。
+> 综合：这不推翻本规范的门禁与追溯链设计（Hill 研究并未测试这些具体成分），但让默认收益假设失去支撑：
+> 现有最大样本的观察证据指向反向（相关非因果、原文未读全，证据强度已降级；2026-11-07 措辞校准，原写“推翻了”）。
 > 结构性解释见 [[代码与文档漂移的本质]]“SDD 与漂移的转化关系”：规格把难治的符合性漂移换成了
 > 好治的表达漂移与生命周期漂移，**成本立刻发生，收益取决于是否真的建了调和机制**。
 > 因此下面这组试点指标的用途也随之改变——它们不再是“验证收益有多大”，
@@ -223,4 +238,6 @@ Spec Kit 第一增量产出 689 行代码却生成 2,577 行 markdown，人工 r
 - [[论代码与文档漂移解决方案]] — 文档侧的调和治理架构（关系契约、一致性分级、生命周期 GC），与本规范的门禁和追溯链互补。
 - [[SDD 收益主张的实证赤字]] — 本规范收益主张的实证状态：现有最大样本结论反向，主张与证据的赤字。
 - [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]] — Anthropic 的同类六阶段手册；其 intent.md →
-  spec.md → plan.md 产物链与本规范同构，且用 hook 强制 plan 与实现同步，但未提供任何效果数据。
+  spec.md → plan.md 产物链与本规范同构，要求实现偏离计划时同一 commit 更新 plan.md、并建议用 hook 强制同步，
+  但未提供任何效果数据。
+- [[GitHub Spec Kit]] — 本规范参照的工具之一：当前形态（三入口、持久化模型）与 2026-07-16 调研时的状态。

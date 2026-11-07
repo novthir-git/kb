@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 软件工程, 技术债, 治理, 度量]
 created: 2026-11-05
-updated: 2026-11-05
+updated: 2026-11-07
 sources:
   - "[[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]]"
   - "[[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]]"
@@ -9,21 +9,26 @@ sources:
   - "[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]"
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
-  - "https://arxiv.org/abs/2601.02200 （FORGE 2026，Code for Machines；检索于 2026-11-04）"
+  - "https://arxiv.org/abs/2601.02200 （FORGE 2026，Code for Machines；检索于 2026-11-04，复核于 2026-11-07）"
   - "https://arxiv.org/abs/2606.21804 （CodeThread v2；检索于 2026-11-04）"
-  - "https://arxiv.org/abs/2610.14768 （SWE-Maintain；检索于 2026-11-04）"
+  - "https://arxiv.org/abs/2610.14768 （SWE-Maintain；检索于 2026-11-04，复核于 2026-11-07）"
   - "https://arxiv.org/abs/2511.04427 （CMU Cursor DiD，MSR 2026；检索于 2026-11-04）"
   - "https://www.gitclear.com/write_only_mode_ai_research （GitClear 2026；检索于 2026-11-04）"
   - "https://arxiv.org/abs/2603.28592 （Debt Behind the AI Boom v3；检索于 2026-11-04）"
   - "https://arxiv.org/abs/2605.02741 （AI-Generated Smells；检索于 2026-11-04）"
   - "https://sourcery.ai/blog/does-bad-code-make-agents-worse （Sourcery，2025-07-25；检索于 2026-11-04）"
-  - "https://codescene.com/blog/does-code-quality-affect-ai-token-costs （CodeScene 预注册研究；检索于 2026-11-04）"
+  - "https://codescene.com/blog/does-code-quality-affect-ai-token-costs （CodeScene 预注册研究，Markus Borg，2026-10-26；检索于 2026-11-04，复核于 2026-11-07）"
+  - "https://codescene.com/blog/case-study-refactoring-at-scale-with-agents （CodeScene 案例，Adam Tornhill，2026-09-24；检索于 2026-11-07）"
+  - "https://infoq.com/news/2026/09/agentic-refactoring-case-study （InfoQ 转述，2026-09-30；检索于 2026-11-07）"
+  - "https://registry.npmjs.org/@betterer/betterer （Betterer npm 发布记录；检索于 2026-11-07）"
+  - "https://metr.org/blog/2026-02-24-uplift-update/ （METR 后续，2026-02-24；检索于 2026-11-07）"
   - "https://wwwbroy.in.tum.de/publ/papers/ICSE12Hauptmann.pdf （Eder 等，ICSE 2012；检索于 2026-11-04）"
   - "https://teamscale.com/hubfs/26978363/Publications/2020-unnecessary-code-tosem.pdf （Haas 等，TOSEM 2020；检索于 2026-11-04）"
   - "https://arxiv.org/abs/2610.36346 （Over-Compliant Refactoring；检索于 2026-11-04）"
-  - "https://arxiv.org/abs/2605.22526 （tangled refactoring；检索于 2026-11-04）"
+  - "https://arxiv.org/abs/2605.22526 （tangled refactoring；检索于 2026-11-04，复核于 2026-11-07）"
   - "https://arxiv.org/abs/2610.33343 （指标引导重构；检索于 2026-11-04）"
-  - "https://arxiv.org/abs/2605.21453 （agent 重构 PR 挖掘；检索于 2026-11-04）"
+  - "https://arxiv.org/abs/2605.21453 （agent 重构 PR 挖掘；检索于 2026-11-04，复核于 2026-11-07）"
+  - "https://arxiv.org/html/2605.21453 （agent 重构 PR 挖掘全文，RQ3 合并分析；检索于 2026-11-07）"
   - "https://arxiv.org/abs/2607.28887 （CanItDelete；检索于 2026-11-04）"
   - "https://arxiv.org/abs/2602.11988 （ETH AGENTS.md 评测；检索于 2026-11-04）"
   - "https://martinfowler.com/articles/are-harnesses-worth-the-cost.html （Naresh Jain，2026-10-13；检索于 2026-11-04）"
@@ -36,7 +41,7 @@ sources:
   - "https://testing.googleblog.com/2023/04/sensenmann-code-deletion-at-scale.html （Google Sensenmann；检索于 2026-11-04）"
   - "https://tech.meituan.com/2026/05/07/Agent-AI-Coding.html （美团；检索于 2026-11-04）"
   - "https://kayhan.dev/posts/014-letting-agents-write-code-without-ratcheting-up-risk/ （riskratchet；检索于 2026-11-04）"
-  - "https://github.com/hslee16/Archy/issues/386 （Thoughtworks 实验的第三方复核；检索于 2026-11-04）"
+  - "https://github.com/hslee16/Archy/issues/386 （Thoughtworks 实验的第三方复核；检索于 2026-11-04，复核于 2026-11-07）"
   - "https://www.thoughtworks.com/radar/techniques （Technology Radar Vol.35；检索于 2026-11-04）"
 ---
 
@@ -49,9 +54,10 @@ sources:
 ## 核心判断
 
 1. **"模型强，照样能迭代"有证据支撑**：受控实验里，代码整洁度对前沿模型单次任务成败几乎没有影响。
+   但在 agent 自己的历史上持续维护时，后续解决率十个组合全部下降（平均 −5.6 pp，§二）；惩罚集中在继承的测试失败，继承代码通过早先测试时测不出惩罚。
 2. **"功能未受影响"多半只是没被观测到**：所有"乱不影响成败"的结论都以隐藏测试为裁判；没有自动验证时，这句话的真实含义是"没人发现"。
 3. **代价是"税"不是"墙"**：每轮多烧 token、多重读，并随迭代递增；agent 不会自愈，提示里写规则也压不住斜率。
-4. **治理本身是实测的回归源**：agent 被要求重构时不会自己停，删 3 行可以改出 1.7 万行。
+4. **治理本身是实测的回归源**：被要求持续重构时 agent 不会自己停；没人要求的顺手重构也会失控——一个删 3 行死代码的任务改出 1.7 万行。
 5. **收益只能在自己仓库里测**：用全新会话重放代表性变更，结构指标是 sensor 不是收益。
 
 综合：由此得出的路线是"先验证网、再止跌、再小步清理、热点重构按条件触发、最后周期化"，不做一次性大扫除。
@@ -63,15 +69,16 @@ sources:
 
 | 研究 | 设计 | 结果 |
 |---|---|---|
-| Sonar 最小对实验（[[2026-05-19-Sonar-代码整洁度最小对实验-源摘要|源摘要]]） | 6 对行为等价仓库 × 33 任务 × 660 次；Claude Code + Sonnet 4.6 | 通过率差 −0.9 pp；整洁侧输入 token −7.1%、对已编辑文件的重读 −33.8% |
-| FORGE 2026（同行评审） | 5,000 个 Python 程序、7 个模型配置，测 AI 重构的破坏率 | 中等模型在不健康代码上破坏率显著更高；Sonnet 4.5 与 Claude agent 在健康/不健康代码间无显著差异 |
+| Sonar 最小对实验（[[2026-05-19-Sonar-代码整洁度最小对实验-源摘要\|源摘要]]） | 6 对行为等价仓库 × 33 任务 × 660 次；Claude Code + Sonnet 4.6 | 通过率差 −0.9 pp；整洁侧输入 token −7.1%、对已编辑文件的重读 −33.8% |
+| FORGE 2026（同行评审） | 5,000 个 Python 竞赛题解（CodeContests 单文件）、7 个模型配置，测 AI 重构的破坏率 | 中等模型在不健康代码上破坏率显著更高；Sonnet 4.5 与 Claude agent 在健康/不健康代码间无显著差异 |
 | CodeThread（v2 2026-09，预印本） | 1,377 实例 × 4 模型；在 agent 写的代码上继续开发 | 16 个组合中 12 个低于在人写代码上继续，多为 −3 到 −8 pp；补丁级 CC、认知复杂度等静态指标解释不了差距（p 0.27–0.98），能解释的是输入校验、错误处理等行为契约漂移 |
 
 限定：
 
 - 三者都以隐藏测试为裁判、单次短程任务。Sonar 只看隐藏测试，**不检查是否破坏了仓库原有测试**。
 - 利益相关：Sonar 作者是 SonarSource 员工；FORGE 4 位作者中 2 位来自 CodeScene。
-- FORGE 中 Sonnet 的点估计（RR 0.83）与中等模型同向，作者自称可能功效不足；"不显著"不等于"无效应"。
+- FORGE 中 Sonnet 的点估计（RR 0.83）与中等模型同向，作者自称可能功效不足；"不显著"不等于"无效应"。RQ3 里连 Sonnet 的破坏率也随 Code Health 升高而下降。
+- FORGE 的 Claude agent 无差异，伴随的是 61–69% 的样本 Code Health 不变、约 5% 破坏率（作者称其 most conservative）——只能说明它**少动时不坏**，不是"能大改而不坏"。
 - **换中等或本地模型就不成立**：FORGE 中中等模型在不健康代码上破坏率升幅 +17% 至 +44%。
 
 ## 二、"不影响功能"：多半没有观测手段
@@ -79,11 +86,16 @@ sources:
 SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1,996 个成对事件、5 个编码系统 × 2 个模型）测的是
 "agent 在自己的历史改动上继续维护"：
 
+- 主结果：在自己的历史上继续，后续任务解决率**十个组合全部下降**，平均 −5.6 pp（95% CI [−7.2, −4.1]）；
+  要求早先测试也全部通过时，差距扩大到 −14.0 pp，且集中在继承下来的测试失败。
 - agent 看不见测试时，**68% 的继承起点已经悄悄破坏了早先行为**，只有 1.9% 全程测试通过。
 - 当继承代码能通过早先测试时，测不出维护惩罚（+2.7 pp，95% CI [−0.5, +6.1]）；作者建议守住测试，而不是为风格或结构漂移去审 agent 代码。
 - 局限：只测三事件短链，不测死代码、重复等静态指标。
 
-综合：这把 [[Agentic SE 时代的系统重构]] §四"agent 缺的是不破坏旧功能的能力"从一个基准（SWE-Milestone）扩展到第二个独立来源。
+综合：这把 [[Agentic SE 时代的系统重构]] §四"agent 缺的是不破坏旧功能的能力"从一个基准（SWE-Milestone）扩展到第二个独立来源；
+SWE-Milestone 作为"Demo ≠ 生产"在基准层的对应物收在 [[agent-生产级落地的鸿沟]]，SWE-Maintain 是同类的持续维护版本。
+惩罚集中在继承下来的测试失败、继承代码通过早先测试时就消失，所以"守住测试"的理由有了量化：继承起点已破坏早先测试的事件（68%）上，
+后续任务解决率比从开发者历史继续低 7.6 pp（要求早先测试也全过的口径下 −21.9 pp，其中一部分是该口径直接把继承失败计入；原文 Table 3）。
 
 ## 三、代价的形态：税，不是墙
 
@@ -93,10 +105,17 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 - 方差很大：27 个真实任务中 16 个整洁侧更省、11 个更费，中位数 −4.5%。
 
 > ⚠️ 矛盾：[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]] 称把 17,155 行文件拆成 19 个文件后同一变更输入 token −83%；
-> 但 [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]] 的认知热点轨（把上帝结构抽成 helper）输入 token +1.8%、基本不变。
-> 第三方复核 Archy issue #386（个人分析、非发表）另称 −83% 为单次运行、无方差，其 Flask 复现 token 反而 +4,213。
-> 综合：两者的干预不同（拆成多文件 vs 文件内抽 helper）。可调和的读法是收益取决于 agent 能否用 grep 定位并只读最小文件子集——
-> Sonar 的 commons-bcel 案例（switch 换成具名 helper，−35%）与 genie 案例（核心逻辑未动，+8%）都符合这个读法。（发现于 2026-11-05）
+> 但 [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]] 的认知热点轨（把上帝结构抽成 helper）输入 token +1.8%、基本不变。（发现于 2026-11-05）
+> 第三方复核 Archy issue #386（个人分析、非发表）另称 −83% 为单次运行、无方差；其 Flask 复现（N=10 对）为零效应，token +4,213、方向相反。
+> 但该 issue 2026-10-15 的收尾评论自己做了调和：Flask 的起始文件（1,013 行）比 Thoughtworks 的终态最大文件（3,695 行）还小 3.6 倍，
+> "若有拐点，在约 3.7k 行以上"，headroom（文件够大才有可省的空间）是两组数据共同允许的唯一读法（作者的案头推断，未实测）；issue 以 NO-GO 关闭。
+> 综合：两边都有"拆分"。Sonar 认知热点轨同样把逻辑拆到更多、更小的文件（读文件数 +11.2%），输入 token 却基本不变；
+> 文件没变小、只在文件内抽出具名 helper 的 commons-bcel 反而 −35%（genie 在核心逻辑周围加结构、未改核心，+8%）。所以决定收益的不是拆不拆文件，更可能是规模与
+> 可定位性：单个 17,155 行文件 vs 数百行的上帝方法，以及 agent 能否用 grep 只读到最小子集。（修订于 2026-11-07）
+
+综合：第三个量级点是 CodeScene 2026-10-26 的预注册观察性研究（见下文"死代码"小节）：Code Health 两端（2.8 vs 9.7）的 token 相差 22–35%，
+与 diff 大小无关。但它的任务是 agentic review + fix、不是功能变更，且只是关联，不能与 Sonar 的 −7.1% 或 Thoughtworks 的 −83% 直接换算；
+三者只共同支持"更整洁 → 更省"的方向，量级随任务口径与文件规模变化。
 
 **随迭代递增的退化**
 
@@ -120,19 +139,27 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 
 **"等模型更强再治"是赌注**
 
-- 支持方几乎只有个人博客与厂商口径：Jesse Duffield 的"技术债负利率"论（他自称 gamble）；CodeScene 三周约 4,000 美元把 30 万行 C 代码
-  Code Health 从 5.6 拉到 10.0（InfoQ 2026-09-30 转述，原文未核）。
-- 反对方：AI-Generated Smells（单实验）称更强的模型生成更臃肿耦合的代码；SlopCodeBench 中 Opus 4.7 vs 4.6、GPT 5.5 vs 5.4 的侵蚀度几乎不变。
+- 支持方几乎只有个人博客与厂商口径：Jesse Duffield 的"技术债负利率"论（他自称 gamble）；CodeScene 三周（兼职）约 4,000 美元 token 把 30 万行 C 代码
+  （Street Fighter III 反编译代码库）的平均 Code Health 从 5.6 拉到 10.0——这是 CodeScene 创始人 Adam Tornhill 2026-09-24 的厂商自述案例，
+  InfoQ 2026-09-30 转述（https://codescene.com/blog/case-study-refactoring-at-scale-with-agents 、https://infoq.com/news/2026/09/agentic-refactoring-case-study ，检索于 2026-11-07）。
+- 反对方：AI-Generated Smells（单实验）称更强的模型生成更臃肿耦合的代码。
+- 综合（本 wiki 从 Table 1 读出）：SlopCodeBench 不站任何一边——Opus 4.5→4.6→4.7 的侵蚀未降（0.70→0.75→0.76），GPT 5.2 Codex→5.5 降约三分之一（0.73→0.49）；
+  但这是各模型最佳 just-solve 运行的水平值，既不是退化斜率，也不等于会自发偿还。
 
 **死代码本身可能是最便宜的症状**
 
 - 没有研究把死代码单独作为变量测过。Sonar 的降质是把死代码、重复、内联、合并模块捆在一起注入的。
-- CodeScene 2026-10 预注册研究：重复作为 token 成本驱动因子的预测失败，diff 大小才是最强驱动。
+- CodeScene 2026-10-26 预注册研究（Markus Borg 在 CodeScene 博客撰文；Lund 大学博士生牵头、CodeScene 参与；465 个 agent 写的 PR、246 个仓库、3 个 LLM；
+  观察性，用的是 CodeScene 自家的 Code Health 指标）：
+  任务是 agentic code review + fix（4 个 review agent 后接 1 个 fix agent），不是功能变更。主结论：Code Health 每高 1 点 token 少 3.5–6.1%，
+  2.8 与 9.7 两端相差 22–35%（claude-sonnet-5 为 21.8%），与 diff 大小无关；diff 大小是每个 LLM 最强的成本驱动。
+  分因子：重复的预测失败（claude-sonnet-5 上符号反转），Complex Method 与 Complex Conditional 对三个 LLM 都预测修复阶段 token。
 - Sourcery 小实验（n=9 任务，无显著性检验）：smell 总数与成功率不相关，但单函数认知复杂度 >9 时成功率 81.9% → 56.2%，14% 的运行陷入循环。
 - Eder 等 ICSE 2012：专家团队只有 3.6% 的维护浪费在未使用代码上（人类时代、Java 工业系统）。
 - Haas 等 TOSEM 2020：开发者确认"不必要"的代码中只有 32% 能被死代码检测器发现，29% 仍然可达。
 
-综合：真正拖累 agent 的更可能是**超大文件、跨模块重复、被频繁改动的热点**；死代码通过增加体量起作用（SlopCodeBench 中 LOC 是最强成本预测因子），
+综合：真正拖累 agent 的更可能是**超大文件、高复杂度的方法与条件、被频繁改动的热点**；重复是否在此列证据不一
+（CodeScene 中重复不预测成本；Sonar 的降质把重复与其他变换捆绑注入）。死代码通过增加体量起作用（SlopCodeBench 中 LOC 是最强成本预测因子），
 但这一点没有被单独测过。
 
 ## 四、值不值：治理本身也是回归源
@@ -140,9 +167,9 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 | 研究 | 发现 | 限定 |
 |---|---|---|
 | Over-Compliant Refactoring（2026-10） | 让 Codex 与 Claude Code 对已干净的代码持续重构，5 个模型无一自行停止，最多重写到原来的 31 倍 | 预印本 |
-| Tangled refactoring（2026-05） | 删 3 行死代码的任务，agent 改了 16,881 行、89 个文件；加必要性与安全性检查后可编译率 19.34% → 38.33% | 后半句说明**轻量门禁有正收益**，不能推出"一切治理有害" |
+| Tangled refactoring（2026-05） | 修 issue 时没人要求的顺手重构降低可编译性（3,691 个补丁；agent 的频率与强度低于人类，21.43% vs 36.72%）；论文 Figure 1 引用的真实 PR 里，删 3 行死代码的任务 agent 改了 16,881 行、89 个文件；对顺手重构做必要性与安全性评估后再改写，可编译率 19.34% → 38.33% | 后半句说明**轻量门禁有正收益**，不能推出"一切治理有害"；16,881 行一例不在数据集内 |
 | 指标引导重构（2026-10） | 把坏味道报告与健康分喂给 agent，结构性重构率 +21–26 pp，但测试通过率三种语言全降、token 3–5 倍；代码越烂回归风险越高 | 单文件竞赛题、30B 开源模型；作者含 CodeScene 员工 |
-| Agent 重构 PR 挖掘 | 73.5% 的 agent 重构 PR 被合并，24.17% 的改动文件引入新 Pylint 问题，人类审查没拦住 | 观察性 |
+| Agent 重构 PR 挖掘 | 73.5% 的 agent 重构 PR 被合并，其中包括引入新 lint 或安全问题的（这类 PR 常同时移除了既有问题：129 个带新 Pylint 问题的已合并 PR 中 73 个）；24.17% 的改动文件引入新 Pylint 问题（以行长等约定级为主），4.7% 引入新 Bandit 问题；另有 22.5% 的改动改善了某项质量属性 | 观察性；论文只抽查了 PR 时间线，见到部分引入新问题的 PR 在没有可见检查或审查讨论时被合并，未系统研究审查流程，"被合并"不等于审查后放行 |
 | CanItDelete（2026-07） | 给了精确行号，模型仍会删出范围或反而加代码 | 预印本 |
 | ETH AGENTS.md 评测（ICLR 2026 workshop） | 上下文文件平均不提升成功率，推理成本 +20% 以上 | 附录显示无文档仓库上反而 +2.7%，恰与文档稀薄的纯 AI 项目相关 |
 | Naresh Jain（martinfowler.com，2026-10-13） | 前沿模型有无行为 harness 都 10/10 通过，harness 把单次成本从约 0.41 美元推到约 2.68 美元；只对便宜模型有正收益。作者的修正："What changes with model capability is not whether independent sensors are needed, but when they run" | 绿地单服务、小样本 |
@@ -153,7 +180,7 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 |---|---|---|---|
 | OpenAI | 每周五人工清理"AI 残渣"不可扩展，改为机械规则 + 后台任务定期发定向重构 PR | 人工清理曾占一周 20% | 约 100 万行零手写，见 [[Harness Engineering]] |
 | Anthropic（Boris Cherny 自述） | 每日 routines：死代码删除、重复统一、无用测试修剪、抽象审查等十余类 | 数周 388 个 PR、合并 180 个（约 46%），未合并原因未披露 | 每个 PR 过 Claude Code Review 加人工复审，要求附验证结果 |
-| Anthropic Claude Code 团队 | 大部分"阅读"交给机器：独立子代理审 diff、CI 红即阻断、按风险分级人工审批 | 自报合并 PR 翻倍、回退占比降超 40% | 约 90% 代码由 Claude 编写；中高风险仍需 1–2 人 |
+| Anthropic Claude Code 团队 | 大部分"阅读"交给机器：独立子代理审 diff、CI 红即阻断、按风险分级人工审批 | 自报 Claude Code 代码库 6–9 月合并 PR 翻倍以上、回退占比降超 40%（相对值、无对照） | 约 90% 代码由 Claude 编写（博客转述此前说法）；中高风险仍需 1–2 人；治理循环全貌见 [[Anthropic-AI原生SDLC治理循环]] |
 | Uber AutoClean | 能确定性完成的改写交给工具；修复 agent 权限极窄；并行审查 agent 分别核"无新增、语义保持、无意图漂移、无 agent 残留"，任一失败即废弃 | 累计 16,000+ flag、100 万+ 行（含早期确定性工具时代） | 明确"CI 绿 ≠ 清理正确" |
 | GitHub gh-aw | 每日 Go deadcode 静态分析 → agent 开 PR 删不可达函数及其专属测试 | 单次约 19 分钟、19,398 token；近 5 次 2 次成功 | 遇可疑结果主动放弃 |
 | Meta SCARF / Google Sensenmann | 按可达子图整块删 / 以运行日志判活性 | Meta 五年删逾 1 亿行、承认误删进入生产；Google 删近 5% C++ 代码、自估回报几十倍 | 生产运行数据；Google 限定"代码库达到一定规模后" |
@@ -168,10 +195,10 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 
 | 处境 | 建议 | 关键依据 |
 |---|---|---|
-| **没有每次改动后自动跑的验证**（或测试全由 AI 写且未经变异测试检验） | 不论其他条件，第一步且唯一一步是建最小回归信号：类型检查 + 冒烟脚本或行为快照 + git 可回滚。此前不启动任何清理或重构，也不让 agent "顺手清" | SWE-Maintain 68%；Böckeler 实验中语句覆盖 100% 的文件有 13 个存活变异体 |
-| 有验证网 + 单人 + 短命或低频改动 + 规模小 + 前沿模型 + 无失控信号 | **保持现状成立**。可加一两个 grep 型 ratchet 封顶测试 skip 与 lint 压制，其余不投入 | Sonar、FORGE 的零效应；Eder 3.6%；低频项目到不了回本次数 |
+| **没有每次改动后自动跑的验证**（或测试全由 AI 写且未经[[变异测试]]检验） | 不论其他条件，第一步且唯一一步是建最小回归信号：类型检查 + 冒烟脚本或行为快照 + git 可回滚。此前不启动任何清理或重构，也不让 agent "顺手清" | SWE-Maintain 68% 与 −5.6 pp；[[Birgitta Böckeler\|Böckeler]] 实验中语句覆盖 100% 的文件有 13 个存活变异体 |
+| 有验证网 + 单人 + 短命或低频改动 + 规模小 + 前沿模型 + 无失控信号 | **保持现状成立**。可加一两个 grep 型 ratchet 封顶测试 skip 与 lint 压制，其余不投入 | Sonar 通过率零效应；FORGE 的无差异只对最保守的 Claude agent 成立；Eder 3.6%；低频项目到不了回本次数 |
 | 有验证网 + 单人 + 长寿、还要迭代几十轮以上，或按量计费、多 agent 并行 | **最小治理**：确定性 sensor 以 ratchet 形态只对新代码失败；agent 周期性发小而定向的清理 PR；不做人工大重构 | SlopCodeBench 的递增税；OpenAI、Anthropic 的后台清理形态 |
-| 有团队、有人要读懂代码、有外部调用方或合规追溯 | 最小治理为底，加风险分级与人类 owner；删"看似死代码"前做引用分析，宁漏删不误删；跨文件结构问题由推理型评审多跑出候选、人定范围 | [[AI编码技术债的三层治理]] 的三债模型与 owner 五问；[[Harness Engineering]]：计算型 sensor 只在文件和函数层可靠 |
+| 有团队、有人要读懂代码、有外部调用方或合规追溯 | 最小治理为底，加风险分级与人类 owner；删"看似死代码"前做引用分析，宁漏删不误删；跨文件结构问题由推理型评审多跑出候选、人定范围 | [[AI编码技术债的三层治理]] 的三债模型与 owner 五问；[[Harness Engineering]]：计算型 sensor 只在文件和函数层可靠；人读懂代码的带宽约束见 [[LLM 输出的人类理解瓶颈]] |
 | 已出现失控信号：反复重读同一文件、陷入循环、小改动牵出大面积文件、单函数认知复杂度 >9、超大单文件被频繁改动；或准备换中等/本地模型 | 在最小治理之上启动**热点边界重构**：一次一个热点，人定范围、agent 执行、测试兜底 | Sourcery 阈值效应；Sonar 跨模块轨；FORGE 中等模型 |
 
 ## 六、怎么治：六步路线
@@ -182,7 +209,7 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 |---|---|---|
 | **0 量基线，不改代码** | 按语言扫一次死代码；统计重复率、文件长度、单函数认知复杂度分布；按 §七协议记录代表性变更的成本；标出"最差点" | 小时级。只记录，不要把分数设为 agent 的目标：Böckeler 观察到阈值会被 agent 上调绕过 |
 | **1 验证网先行** | 类型检查与 lint 每次改动后自动跑；无测试则先补冒烟脚本与关键路径快照，高风险场景由人挑出并复核；AI 写的测试按增量跑变异测试；用 hook 禁止修复任务中的 agent 改测试文件；确认 git 可回滚 | **唯一不可省**的成本，现有证据无法估算投入。快照会把现有 bug 一起锁成"规格"；美团的教训是全自动生成测试会漏掉隐性高危场景 |
-| **2 止跌闸门（ratchet）** | 存量作基线、只对新增违规失败：死代码与未用导出、新代码重复率（Sonar way 默认 ≤3% 可作起点）、改动函数的认知复杂度；有模块边界就写成依赖规则；grep 型 ratchet 封顶测试 skip、lint 压制、类型逃逸；规则消息写成"如何修"；基线更新必须是带理由的显式提交 | 安装小时级。riskratchet 作者警告：失败时若只是更新基线，工具就成了仪式。ratchet 并非 2026 年新模式（Betterer 2019–2020 已有），采用度很低 |
+| **2 止跌闸门（ratchet）** | 存量作基线、只对新增违规失败：死代码与未用导出、新代码重复率（Sonar way 默认 ≤3% 可作起点）、改动函数的认知复杂度；有模块边界就写成依赖规则；grep 型 ratchet 封顶测试 skip、lint 压制、类型逃逸；规则消息写成"如何修"；基线更新必须是带理由的显式提交 | 安装小时级。riskratchet 作者警告：失败时若只是更新基线，工具就成了仪式。ratchet 并非 2026 年新模式：Betterer 2019-09 首发、2020-05 发布 1.0（npm 发布记录，检索于 2026-11-07）。综合：未找到它被普遍采用的证据，采用度没有可比的公开统计 |
 | **3 小而定向的清理 PR** | 每个 PR 只管一类问题；静态不可达的直接删，疑似的先加日志观察再删；按可达子图整块删；删除交给 git，不注释、不移 legacy；清理 agent 只许删和化简；独立上下文的审查 agent 核"无新增、语义保持、无范围漂移"，任一失败即废弃 | 单次万级 token、分钟级。隐藏成本是人工复审（Anthropic 约 54% 未合并）。动态语言下静态死代码工具误报多 |
 | **4 热点边界重构（条件触发）** | 仅当第 0 步发现跨模块重复、超大且频繁改动的文件、复杂度越线，或项目确认长寿高频时启动。按"改动频率 × 文件大小 × 跨模块"排序，一次一个；推理型评审多跑几轮出候选，人定边界，agent 执行；完成后把新边界写进依赖规则 | **回归风险最高**，在最烂的代码上最危险；token 可能是平时的 3–5 倍 |
 | **5 周期化** | 用 scheduled tasks 或 CI 定时任务按节奏重跑第 0 步与第 3 步；反复出现的残留编译成规则；规则文件每 3–6 个月复审删旧条目；用 §七的指标决定是否继续投入 | 周期性小额。需要 owner，否则退化为仪式；规则文件膨胀本身会抬高推理成本 |
@@ -200,7 +227,8 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 
 收益只能在自己的仓库里测。能直接测的只有重放法，其余指标是它的辅助。
 
-**重放法**（沿用 [[2026-07-30-Thoughtworks-重构的经济收益-源摘要|Thoughtworks]] 的协议，按其复核批评与 Sonar 的方差数据修正）：
+**重放法**（沿用 [[2026-07-30-Thoughtworks-重构的经济收益-源摘要|Thoughtworks]] 的协议，按其复核批评与 Sonar 的方差数据修正；
+它本质上是一种 eval 设计，"多次运行、报告分布"与 agent 配置回归的通用做法见 [[Evals]]）：
 
 1. 挑 3 到 5 个代表性变更，至少一个跨模块。
 2. 治理前每个变更在**全新会话**里跑 n≥5 次，记录输入 token、读文件数与重读次数、改动文件数、验证是否通过；跑完丢弃。
@@ -227,7 +255,9 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 - 代码行数减少：Thoughtworks 拆分后总行数几乎没变（17,155 → 16,608），收益来自读取路径。
 - 覆盖率：AI 写的测试可以 100% 覆盖而不约束行为；Thoughtworks Technology Radar Vol.35 把 Mutation testing 列为 Adopt，理由正是 AI 生成测试的覆盖率虚高。
 - 健康分或 smell 数，尤其不能设为 agent 的目标：会被上调绕过；指标引导重构论文里健康分既是引导信号又是评价尺度。
-- 感觉更快：METR 的 RCT 里资深开发者感觉快 20%、实测慢 19%（[[生产力-体验悖论]]）。
+- 感觉更快：METR 的 RCT（2025 年 2–6 月，2025 年初工具）里资深开发者感觉快 20%、实测慢 19%（[[生产力-体验悖论]]）。
+  METR 2026-02-24 的后续认为 2026 年初开发者"likely more sped up"，但新实验有选择效应（30–50% 的开发者因不想脱离 AI 做某些任务而不提交它们），
+  作者自认只是 "very weak evidence"（https://metr.org/blog/2026-02-24-uplift-update/ ，检索于 2026-11-07）。自报的加速不能当收益，这一点不变。
 
 **单人最小版本**（一天内）：挑 3 个变更各重放 5 次作基线；做完止跌闸门与一轮清理 PR 后再重放。
 数字没动 → 停在这里；只有跨模块变更动了 → 热点重构才有理由；验证通过率下降 → 治理在制造回归，回到第 1 步。
@@ -256,6 +286,8 @@ SWE-Maintain（arXiv 2610.14768，2026-10，预印本；50 个 Python 仓库、1
 
 - 论点：[[Agent 不会自发偿还结构债]]
 - 方法与顺序：[[Agentic SE 时代的系统重构]]、[[Harness Engineering]]
+- 测量方法：[[Evals]]（重放法即 eval 设计）
+- 组织样本与落地：[[Anthropic-AI原生SDLC治理循环]]、[[agent-生产级落地的鸿沟]]
 - 债务模型与门禁：[[AI编码技术债的三层治理]]
 - 成本：[[Uber-软件工厂的成本工程]]、[[Agent 工具上下文膨胀]]
 - 体验与度量陷阱：[[生产力-体验悖论]]

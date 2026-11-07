@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 协议]
 created: 2026-07-03
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "https://www.anthropic.com/news/model-context-protocol （检索于 2026-07-03）"
   - "https://modelcontextprotocol.io/specification/2025-11-25/basic/transports （检索于 2026-07-16）"
@@ -123,7 +123,7 @@ plugin 也可能携带 local MCP server。
   **它把'连接层'商品化**——过去 SaaS 厂商赖以设租的"集成难、切换贵"被大幅削弱。
 - 因此连接层恰恰是资本市场论题的关键：它移除了"AI 到底能不能插进我们所有系统"这个现实障碍，
   让"替代"从空谈变得**可信**。详见 [[cowork-saas-资本市场冲击]]（第 3 节·护城河穿透 / 第 7 节·范式切换）。
-- 同时，被 agent"必须调用"的 system of record（[[cowork-saas-资本市场冲击]] 第 6.1 节）
+- 同时，被 agent"必须调用"的 system of record（[[cowork-saas-资本市场冲击]] 第 6.1 节；论点与证据见 [[system-of-record 与专有数据护城河]]）
   反而因 MCP 而更被需要——这是同一枚硬币的两面。
 
 ## 6. 协议边界

@@ -1,11 +1,11 @@
 ---
 tags: [素材, Axios, AI, Agent]
 created: 2026-07-03
-updated: 2026-07-03
+updated: 2026-11-07
 sources:
   - "raw/sources/articles/2026-06-25-Axios-Codex-agent-用量增长.md"
   - "https://www.axios.com/2026/06/25/codex-agents-growth-openai （Axios 原文；检索于 2026-07-03，返回 403，正文经底层报告与转述报道交叉核对）"
-  - "https://arxiv.org/html/2606.26959v1 （检索于 2026-07-03）"
+  - "https://arxiv.org/html/2606.26959v1 （检索于 2026-07-03；2026-11-07 全文复核）"
 ---
 
 # Axios：Codex agent 用量增长（源摘要）
@@ -21,8 +21,15 @@ sources:
 - 2026-01-01 至 2026-06-01，Codex 周活跃用户增长 5 倍以上。
 - 输出 token 中经 Codex 产生的占比：OpenAI 员工 99.8%、组织用户 63%、个人用户 16.5%。
 - 组织内 Codex 渗透率从 2025-08 略高于 0% 爬升到约 17%。
-- 自 2025-08 起，非开发者用户增长：个人 137 倍、组织 189 倍、OpenAI 内部 12 倍。
-- 99 分位用户单日可产生 60+ 小时 Codex agent turns，说明使用范式已转向一人调度多个并行 agent。
+- 自 2025-08 起，非开发者用户增长：个人 137 倍、组织 189 倍、OpenAI 内部 12 倍（论文正文未见，待核）。
+- 重建稿写"99 分位用户单日可产生 60+ 小时 Codex agent turns"；论文原文的人群是 **OpenAI 员工** 99 分位，
+  约 71 小时/日，外部用户显著更低。一人调度多个并行 agent 目前是内部前沿用法。
+
+> ⚠️ 矛盾：Axios 重建稿称 99 分位用户单日 60+ 小时，但底层论文 v1（https://arxiv.org/html/2606.26959v1 ，检索于 2026-11-07）
+> 写的是"OpenAI employees at the 99th percentile of the distribution have recently run about 71 hours of agent turns
+> within the average day"，并说外部用户"remains substantially lower"。数值不冲突，出入在人群口径。
+> 137× / 189× / 12× 未见于论文正文与图注，仅见于转述，待核。5×、99.8%、63.3%、16.5%、17.3% 均与论文一致。
+> raw 存档按规则不改。（发现于 2026-11-07）
 
 ## 与 wiki 的关联
 - [[codex-agent-采用曲线]] 用它沉淀 Codex 的采用爆发与非开发者外溢。

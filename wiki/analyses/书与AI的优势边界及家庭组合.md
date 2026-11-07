@@ -1,16 +1,15 @@
 ---
 tags: [分析, 教育, AI]
 created: 2026-07-27
-updated: 2026-08-11
+updated: 2026-11-07
 sources:
   - "https://www.oecd.org/en/publications/oecd-digital-education-outlook-2026_062a7394-en.html （检索于 2026-07-27）"
   - "https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research?hub=67098 （检索于 2026-07-27）"
   - "https://eric.ed.gov/?id=EJ1301549 （检索于 2026-07-27）"
   - "https://pubmed.ncbi.nlm.nih.gov/37042116/ （检索于 2026-07-27）"
-  - "https://pmc.ncbi.nlm.nih.gov/articles/PMC7225047/ （检索于 2026-07-27）"
+  - "https://pmc.ncbi.nlm.nih.gov/articles/PMC7225047/ （Erbeli 等 2020，Child Development；检索于 2026-07-27，2026-11-07 经 NCBI 摘要复核并补正文引用）"
   - "https://www.healthychildren.org/English/family-life/Media/Pages/helping-kids-thrive-in-a-digital-world-AAP-policy-explained.aspx （检索于 2026-07-27）"
   - "https://pubmed.ncbi.nlm.nih.gov/10589297/ （检索于 2026-07-27）"
-renders: ["output/shared/工程手工书推荐与书vsAI对比-2026-07-27.html"]
 ---
 
 # 书与 AI 的优势边界及家庭组合
@@ -40,7 +39,7 @@ renders: ["output/shared/工程手工书推荐与书vsAI对比-2026-07-27.html"]
 
 综合：
 
-- **书最强**：连贯、稳定、经过组织，适合建立知识骨架、语言能力、想象力与持续注意。
+- **书最强**：连贯、稳定、经过组织，适合建立知识骨架、语言能力、想象力与持续注意（"多读→读得好"的因果方向见下方证据节的限定）。
 - **AI 最强**：快速、互动、个性化，适合答疑、反馈、换角度解释和辅助实践。
 - **书的短板**：不能根据孩子的反应即时调整，部分内容会过时，查找和理解成本较高。
 - **AI 的短板**：可能自信地说错，回答容易碎片化，也可能替孩子跳过查证、坚持和独立推理。
@@ -51,6 +50,7 @@ renders: ["output/shared/工程手工书推荐与书vsAI对比-2026-07-27.html"]
 - UNESCO 的生成式 AI 教育指南强调 human agency、责任与高阶思维，支持“AI 辅助而非替代学习者”的使用边界。[UNESCO](https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research?hub=67098)
 - 一项汇总 39 项研究、1,812 名 1–8 岁儿童的元分析发现：相同故事只是从纸面迁移到数字设备时，纸质阅读理解总体更好；但与故事一致、设计得当的数字增强也可能产生帮助。[ERIC](https://eric.ed.gov/?id=EJ1301549)
 - 屏幕不是天然无益：儿童词汇学习元分析显示，教育性屏幕内容在适当条件下可支持词汇发展。[PubMed](https://pubmed.ncbi.nlm.nih.gov/37042116/)
+- 阅读量与阅读理解的因果方向不能想当然：一项 910 名 4–9 年级双胞胎的研究用 direction-of-causation 模型检验，结果支持影响方向是**阅读理解 → 阅读量**（读得好的孩子读得更多），并由遗传与环境因素共同支撑。[PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC7225047/) 综合：所以“书建立语言能力”不宜写成“多读必然读得更好”；对读不进去的孩子，先帮他读懂，可能比单纯加量更对症。
 - 综合：这些研究不能推出“任何书都优于任何 AI”。证据更支持按任务、内容质量、交互设计与生活情境选择媒介，并检查是否挤占睡眠、运动和面对面交流。
 
 ## 工程手工书：把兴趣变成读书入口
@@ -67,6 +67,10 @@ renders: ["output/shared/工程手工书推荐与书vsAI对比-2026-07-27.html"]
 | ★★★★☆ | [《无所不能的纸箱游戏》](https://www.megbook.com.hk/mall/detail.jsp?proID=3271012) | 7–12 岁 | 海盗船等大型纸箱结构 | 训练测量、连接和结构稳定 |
 | ★★★☆☆ | [《让孩子痴迷的趣味科学游戏》](https://book.douban.com/subject/6885908/) | 4–10 岁为主 | 气体火箭、滑翔机、纸直升机 | 项目丰富，但主题结构较散 |
 | ★★★☆☆ | [《教学生做可爱小书》](https://www.pep.com.cn/products/zhytu/rjtsh/202012/t20201224_1962945.shtml) | 6 岁以上 | 自制小书、观察册、设计日志 | 把制作过程转成阅读与表达 |
+
+书单链接均检索于 2026-07-27，随本页 research 一并取得（见 `wiki/log.md` 同日条目，原表未逐条记日期）。2026-11-07 复核：
+6 条直连 200（pep.com.cn 偶发连接重置，复试 200）；books.com.tw 与 Simon & Schuster 返回 403（反爬，不判失效）。
+适用年龄与代表项目以检索时的商品页或书目页为准。
 
 选购原则：
 

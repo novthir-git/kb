@@ -1,14 +1,14 @@
 ---
 tags: [概念, AI, Agent]
 created: 2026-08-11
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "https://agentskills.io/specification （检索于 2026-07-28）"
   - "https://support.claude.com/en/articles/13837440-use-plugins-in-claude （检索于 2026-07-16）"
   - "[[2026-07-21-Anthropic-AI原生SDLC-源摘要]]"
   - "[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]"
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
-renders: []
+  - "https://modelcontextprotocol.io/specification/latest （2026-07-28 版，Extensions 节，检索于 2026-11-07）"
 ---
 
 # Agent Skills
@@ -50,6 +50,13 @@ Anthropic 官方定义：**Plugin = skills + connectors + sub-agents 的组合�
 
 Skills 在此语境中是**分发单元**：随 plugin 安装进组织环境，与 [[MCP]] 是并列组件，
 不在同一层竞争。
+
+plugin 之外还有第二条分发通道：2026-07-28 版 MCP 规范把 **Skills over MCP** 列为可选 Extension
+（"Rich, structured instructions for agent workflows, discovered and consumed through MCP"；
+Extensions 一律 opt-in，须 client 与 server 双方显式支持），见 [[MCP]] §2。规范该条目目前链向
+工作组页面，成熟度与各 host 的支持情况以规范为准（https://modelcontextprotocol.io/specification/latest ，
+检索于 2026-11-07）。综合：Skills 因此可经 MCP 跨 host 分发，但 MCP 在这里仍只是发现与传输的管道，
+不改变 Skill 作为流程知识的性质。
 
 ## 语境三：SDLC 组织学习的写入目标
 

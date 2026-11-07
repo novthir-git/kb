@@ -9,7 +9,7 @@ sources:
 
 # 2026-04-02 Böckeler《Harness engineering for coding agent users》源摘要
 
-**原文**：Birgitta Böckeler（Thoughtworks），martinfowler.com，2026-04-02。它取代了 2026-02-17 的初步备忘
+**原文**：[[Birgitta Böckeler]]（Thoughtworks），martinfowler.com，2026-04-02。它取代了 2026-02-17 的初步备忘
 《Harness Engineering - first thoughts》，原备忘 URL 已重定向至此。
 **存档**：`raw/sources/articles/2026-04-02-Boeckeler-Harness-Engineering.md`（要点式中文摘录，保留概念名与作者的开放问题）。
 **实证跟进**：同作者 2026-05-27 的 sensor 实验，见 [[2026-05-27-Boeckeler-可维护性传感器-源摘要]]。
@@ -56,7 +56,7 @@ inferential 两根正交轴组织控制手段，目标是提高首次做对的�
   sensor 从不触发是质量高还是检测不足；需要评估 harness 覆盖与质量的方法；缺少把各阶段控制作为一个系统来
   配置与推理的工具。
 - 实践信号：OpenAI 的分层约束与定期"垃圾回收"（见 [[2026-02-11-OpenAI-Harness-Engineering-源摘要]]）、
-  Stripe minions 的反馈左移与 blueprints、变异测试与结构测试复兴、LSP 接入 coding agent、Thoughtworks 团队的
+  Stripe minions 的反馈左移与 blueprints、[[变异测试]]与结构测试复兴、LSP 接入 coding agent、Thoughtworks 团队的
   "janitor army"。
 
 ## 口径与证据边界

@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 软件工程, 研发流程, 治理]
 created: 2026-08-04
-updated: 2026-11-06
+updated: 2026-11-07
 sources:
   - "[[常驻 AI 同事的竞争格局]]"
   - "[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]"
@@ -11,6 +11,7 @@ sources:
   - "[[Specification-Driven Development]]"
   - "[[Evals]]"
   - "[[Agent 记忆架构]]"
+  - "[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]"
   - "https://simonwillison.net/2026/Jul/21/cat-and-thariq/ （检索于 2026-08-03）"
   - "https://x.com/karpathy/status/2069547676849557725 （Karpathy，2026-06-23；检索于 2026-10-08，经 fxtwitter API）"
 ---
@@ -30,7 +31,9 @@ sources:
 这不是 Anthropic 发布的正式端到端 SOP，而是综合
 [[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要|Claude Code 团队访谈]]、
 [[Anthropic-AI原生SDLC治理循环]]、[[Loop Engineering]] 与 [[Specification-Driven Development]]
-推导出的可复用流程模型。
+推导出的可复用流程模型。最接近的官方材料是 Anthropic 08-21 的六阶段 SDLC playbook
+（[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]），但其中 Claude Tag（public beta）只承担 Maintain 阶段的
+一个 on-call play，不是端到端流程。
 
 > 外部观点（2026-06-23，观点非数据）：Karpathy 在 Claude Tag 发布时评论，这是 LLM 交互形态的
 > "第三次重大重设计"——第一种是你去访问的网站，第二种是下载到电脑上的 app，第三种是"自包含、持久、异步、
@@ -86,6 +89,12 @@ flowchart TD
 
 综合：**频道应是事件总线，不应成为规格真相源。** 对话中的结论必须蒸馏成版本化产物，否则上下文虽丰富，
 意图却会随聊天流和记忆更新静默漂移。
+
+官方佐证：playbook 的 on-call play 让 Claude Tag 以自己的身份进事故频道，"The channel is the audit trail:
+request, diagnosis, human authorization and fix all stay where the incident was handled"；但复盘写进版本控制的
+lessons 文件，小而有界的修复以 PR 走 review gate，更大的修复写成 `intent.md` 回到 Stage 1
+（`raw/sources/articles/2026-08-21-Anthropic-AI原生SDLC-playbook.md`）。综合：频道留的是**审计记录**，
+规格与经验落在版本化产物里——与上面的分工一致。
 
 ### 2. 意图固化：先定义“为什么和值不值得”
 
@@ -169,6 +178,9 @@ Claude Tag 当前以“每频道一个 Markdown 文件”保存共享记忆，�
 
 综合：从会话写回频道主记忆应是一道显式门禁，不能把“会话可以贡献记忆”实现成无条件自动追加。
 
+对照：官方 playbook 的 on-call play 把事故复盘写进**版本控制里的 lessons 文件**，而不是频道记忆。
+综合：要长期复用、需要 review 的经验可以绕开频道记忆，直接走 commit；写回门禁主要管的是偏好与日常决策。
+
 ## 最小采用顺序
 
 其它团队不应直接复制“65% PR”结果，而应按依赖顺序建设：
@@ -209,7 +221,7 @@ Claude Tag 当前以“每频道一个 Markdown 文件”保存共享记忆，�
 
 ## 关联页面
 
-- [[Anthropic]] —— 本页实践的主体公司；65% 与 80% 两组口径的边界在该实体页并列
+- [[Anthropic]] —— 本页实践的主体公司；65%、80% 与 90% 三组口径的边界在该实体页并列
 - [[Loop Engineering]]
 - [[Specification-Driven Development]]
 - [[SDD 开发规范研究]]

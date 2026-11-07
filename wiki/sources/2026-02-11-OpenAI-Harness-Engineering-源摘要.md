@@ -6,7 +6,7 @@ sources:
   - "raw/sources/articles/2026-02-11-OpenAI-Harness-Engineering.md"
   - "https://openai.com/index/harness-engineering/ （检索于 2026-09-23；WebFetch 与直连均 403，经内置浏览器读取官方中文版）"
   - "https://martinfowler.com/articles/exploring-gen-ai/harness-engineering-memo.html （Böckeler 评注，2026-02-17；检索于 2026-09-23）"
-  - "https://web.archive.org/web/2026/https://openai.com/index/harness-engineering/ （英文原文 Wayback 快照；检索于 2026-09-23）"
+  - "https://web.archive.org/web/20260921190524/https://openai.com/index/harness-engineering/ （英文原文 Wayback 快照；检索于 2026-09-23。原写 `/web/2026/` 前缀，会随新抓取漂移，2026-11-07 已解析到 20261026152238；按 archive.org availability API，20260921190524 与 20260924171239 之间没有其他快照，推定 09-23 当天该前缀解析到的是 20260921190524，据此固定。本沙箱不能直连 Wayback，快照内容未重新核对）"
 ---
 
 # 2026-02-11 OpenAI《Harness engineering: leveraging Codex in an agent-first world》源摘要
@@ -14,7 +14,7 @@ sources:
 **原文**：Ryan Lopopolo（OpenAI），2026-02-11。
 **存档**：`raw/sources/articles/2026-02-11-OpenAI-Harness-Engineering.md`（要点式中文摘录）。
 **读取方式**：英文原站对 WebFetch 与直连均返回 403，存档依据官方中文版（标题「工程技术：在智能体优先的世界中
-利用 Codex」）。**"harness engineering" 这一术语在中文译文中丢失**，引用概念名时以英文原题为准。Böckeler 在 2026-02-17 的评注中指出
+利用 Codex」）。**"harness engineering" 这一术语在中文译文中丢失**，引用概念名时以英文原题为准。[[Birgitta Böckeler|Böckeler]] 在 2026-02-17 的评注中指出
 正文只出现一次 "harness"，并推测这个名字是受 Mitchell Hashimoto 博文启发的事后命名；本 wiki 2026-09-23 经 Wayback
 快照复核，计数属实（唯一一处是列表项 "Evaluation harnesses"）。综合：把它系统化为 guides / sensors 框架的是
 Böckeler（见 [[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]）。

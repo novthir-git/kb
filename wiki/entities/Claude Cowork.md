@@ -1,7 +1,7 @@
 ---
 tags: [实体, 产品, AI, Agent]
 created: 2026-07-03
-updated: 2026-11-06
+updated: 2026-11-07
 sources:
   - "https://www.anthropic.com/product/claude-cowork （检索于 2026-07-03）"
   - "https://support.claude.com/en/articles/13837440-use-plugins-in-claude （检索于 2026-07-16）"
@@ -9,10 +9,10 @@ sources:
   - "[[2026-02-04-Reuters-全球软件股遭Anthropic警钟冲击-源摘要]]"
   - "https://claude.com/resources/articles/cowork-is-now-claude （检索于 2026-11-06）"
   - "https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude （检索于 2026-11-06）"
-  - "https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile （检索于 2026-11-06）"
+  - "https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile （检索于 2026-11-06；2026-11-07 复核）"
   - "https://support.claude.com/en/articles/14479288-claude-cowork-architecture-overview （检索于 2026-11-06）"
   - "https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork （检索于 2026-11-06）"
-  - "https://support.claude.com/en/articles/12138966-release-notes （检索于 2026-11-06）"
+  - "https://support.claude.com/en/articles/12138966-release-notes （检索于 2026-11-06；2026-11-07 复核 07-07 条目）"
   - "https://claude.com/resources/articles/claude-enterprise-security-updates （检索于 2026-11-06）"
   - "https://claude.com/resources/articles/claude-duet （检索于 2026-11-06）"
   - "https://www.anthropic.com/news/introducing-claude-tag （检索于 2026-11-06）"
@@ -76,6 +76,7 @@ sources:
 
 ## 同类产品与竞争
 - 2026-08 至 10 月，Grok Bot、Meta Muse、OpenAI Dots 相继上线，都是"每人一台托管云电脑的常驻 agent"。Anthropic 的回应是"降为执行层 + Tag + Duet"三线拆分，不再推出单一的对应产品。格局与定位见 [[常驻 AI 同事的竞争格局]]。
+- 与 [[Claude Code]] 的分界：Cowork 面向非技术知识工作者，Claude Code 面向开发者与工程流程；综合：两者共享同一 agent 能力栈（互见该页"与 Claude Cowork 的分界"）。
 - [[Codex]] 与 Cowork 是"agent 替代/放大知识工作"的两极：Cowork 从非技术知识工作者切入，Codex 从开发者起步、再向非开发者外溢。采用数据见 [[codex-agent-采用曲线]]，体验成本见 [[生产力-体验悖论]]。
 
 ## 安全边界（产品原则，未变）
@@ -83,13 +84,13 @@ sources:
 
 ## 命名与对外话术
 - 对外和内部一律使用官方名 **Cowork**（Claude Cowork），不使用自定义别名。2026-09 合并后，官方叙事是 "Cowork is now Claude"。
-- 底层机制始终是"Agent 编排 + [[MCP]] 连接"；对外提到 MCP 时应说"采用开放标准 MCP"。
+- 底层机制是"Agent 编排 + 能力包（skills / sub-agents）+ connector（可基于 [[MCP]]）"；本地文件与桌面能力经 Claude Desktop 执行，不能一律说成 MCP 连接。对外提到 MCP 时应说"connector 可基于开放标准 MCP"。
 - 演示素材：架构图 `raw/assets/cowork-plugins-mcp-architecture.svg` 已因"plugin = MCP Server"的错误废弃，仅供追溯；现行承载页是 [[cowork-plugins-架构]]。
 
 ## 历史
 - **2026-01-12**：research preview，仅限 macOS 桌面端的 Max 用户；agent loop 原生运行在设备上，代码在专用的本地 Linux VM 里执行。
 - **2026-07-03 检索口径**：只在所有付费计划的 Claude 桌面应用中提供，定位强调"运行在桌面端，知识工作真正发生的地方"。
-- **2026-07-07 至 2026-10-05**：web/mobile 可以发起并运行云端会话，本地文件与应用依赖 desktop bridge（经 2026-08-04 lint 核验）。用户可以在设置里选 "Only on your computer"。
+- **2026-07-07 至 2026-10-05**：web/mobile 可以发起并运行云端会话（beta，从 Max 档开始分批开放），本地文件与应用依赖 desktop bridge。用户可以在设置里选 "Only on your computer"。（Anthropic release notes 2026-07-07 条目 "Claude Cowork on web and mobile"：https://support.claude.com/en/articles/12138966-release-notes ；帮助文 https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile ；均检索于 2026-11-07）
 - **2026-09-16**：与 chat 合并为一个 Claude，Pro/Max 先行；Enterprise 于 10-23 GA。
 - **2026-10-06**：Pro/Max/Ultra 的新任务一律在云端运行，"Only on your computer" 选项被移除且不可切回；已在本地启动的任务和定时任务可以继续在本地跑完。
 - **2026-10-30**：套餐改名，原 Max 5x 改称 Max（$100），原 Max 20x 改称 Ultra（$200）。

@@ -1,11 +1,13 @@
 ---
 tags: [概念, AI, Agent, 软件工程, 方法论]
 created: 2026-07-16
-updated: 2026-10-08
+updated: 2026-11-07
 sources:
   - "[[Evals]]"
-  - "https://github.github.com/spec-kit/concepts/sdd.html （检索于 2026-07-16）"
-  - "https://github.github.com/spec-kit/concepts/spec-persistence.html （检索于 2026-07-16）"
+  - "https://github.github.com/spec-kit/concepts/sdd.html （检索于 2026-07-16；2026-11-06 复核 404：docs 重构迁至 how-to/）"
+  - "https://github.github.com/spec-kit/how-to/sdd.html （检索于 2026-11-07）"
+  - "https://github.github.com/spec-kit/concepts/spec-persistence.html （检索于 2026-07-16；2026-11-06 复核 404：docs 重构迁至 how-to/）"
+  - "https://github.github.com/spec-kit/how-to/persisting-specs.html （检索于 2026-11-07；上条现址，2026-11-06 由 how-to/spec-persistence.html 改名并新增第四种模型）"
   - "https://kiro.dev/docs/specs/feature-specs/ （检索于 2026-07-16）"
   - "https://openspec.dev/ （检索于 2026-07-16）"
   - "https://arxiv.org/abs/2602.00180 （检索于 2026-07-16）"
@@ -23,9 +25,10 @@ sources:
 
 **Specification-Driven Development（SDD，规格驱动开发）**是一种把规格从一次性说明文档提升为
 开发契约的工程范式：先明确系统要满足的行为与约束，再派生设计、任务、代码和验证证据；需求变化时，
-规格与实现一起演化。GitHub Spec Kit 将其概括为“规格定义 what，再逐步细化 how”，并强调多轮澄清，
+规格与实现一起演化。[[GitHub Spec Kit]] 将其概括为“规格定义 what，再逐步细化 how”，并强调多轮澄清，
 而不是从一条 prompt 一次生成完整代码
-（[GitHub Spec Kit](https://github.github.com/spec-kit/concepts/sdd.html)，检索于 2026-07-16）。
+（[GitHub Spec Kit](https://github.github.com/spec-kit/concepts/sdd.html)，检索于 2026-07-16；2026-11-06 复核 404：docs 重构迁至 how-to/，
+现址 [how-to/sdd](https://github.github.com/spec-kit/how-to/sdd.html)，检索于 2026-11-07，原句仍在）。
 
 ## 核心闭环
 
@@ -62,10 +65,11 @@ Margaret-Anne Storey 将这类缺失进一步命名为 **intent debt**：目标�
 | Spec-anchored | 实现后继续维护规格，后续变更以它为锚 | 大多数长期维护的软件 |
 | Spec-as-source | 只人工编辑规格，代码等产物由它再生成 | 生成链和验证链足够确定的特定领域 |
 
-这三个层级最早由 Birgitta Böckeler 在 2025-10-15 的 martinfowler.com 文章中提出
+这三个层级最早由 [[Birgitta Böckeler]] 在 2025-10-15 的 martinfowler.com 文章中提出
 （[Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html)，
 检索于 2026-09-23）。GitHub Spec Kit 的持久化文档引用的正是这篇（称其为"one overview of SDD tooling"）
-（[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-09-23）。
+（[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-09-23；2026-11-06 复核 404，
+现址 [how-to/persisting-specs](https://github.github.com/spec-kit/how-to/persisting-specs.html)，检索于 2026-11-07，仍引用该文）。
 "适用边界"一列参考 [arXiv 2602.00180](https://arxiv.org/abs/2602.00180)（Piskala，2026-01-30 单作者预印本，
 投稿 AIWare 2026）的建议，该文沿用三层级但未注明出处。
 
@@ -83,12 +87,17 @@ idea assessment 两个入口（两者文档均检索于 2026-09-23）。
 
 ### 需求变化时改什么
 
-GitHub Spec Kit 另区分三种 artifact mutation model，并声明三者"都不是默认、都不强制"
-（[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-07-16，2026-09-23 复核）：
+GitHub Spec Kit 另区分几种 artifact mutation model，并声明"都不是默认、都不强制"（"None is the default, and none
+is required by Spec Kit"）
+（[Spec Persistence Models](https://github.github.com/spec-kit/concepts/spec-persistence.html)，检索于 2026-07-16，2026-09-23 复核；2026-11-06 复核 404，
+现址 [how-to/persisting-specs](https://github.github.com/spec-kit/how-to/persisting-specs.html)，检索于 2026-11-07）。07-16 与 09-23 时为前三种，
+2026-11-06 新增第四种；现版本把它们定位为**交付后**保留什么、怎么维护，交付流程本身对四者相同：
 
 - **Flow-back**：规格、设计、任务、代码都可先发生变化，之后人工重新对齐；快，但易静默漂移。
 - **Flow-forward**：已完成的变更包保持不可变，新需求新建变更包；审计强，但上下文可能碎片化。
 - **Living spec**：先更新规格，再重新派生设计和任务；契约清晰，但必须保留重要的技术理由。
+- **Constitution-only**（2026-11-06 新增）：交付后只有 constitution 长期留在版本库，feature 产物退出（外部归档或
+  按保留策略丢弃）；退出前须先把持久的需求与决策迁到约定的家。Spec Kit 自己的仓库就用这一种。
 
 > 综合：多数存量项目适合“Spec-anchored + Living current spec + Flow-forward change history”：
 > 当前规格描述系统应有行为，每次变更以 delta 提案，验证后合并回当前规格。Flow-forward 要求已完成记录
@@ -96,6 +105,9 @@ GitHub Spec Kit 另区分三种 artifact mutation model，并声明三者"都不
 > 有审计或复现义务的包归档，其余按保留策略退出并由 Git 历史恢复。
 > OpenSpec 的 `specs/`（当前真相）与 `changes/`（提议差异）就是该组合的实现
 > （[OpenSpec](https://openspec.dev/)，检索于 2026-07-16）。
+>
+> 综合：新增的 Constitution-only 与这条退出规则同向——"先迁走持久知识、再让过程产物退出"，
+> 是 [[代码与文档漂移的本质]] 原则三"临时产物蒸馏后删除"在工具内的版本。（补于 2026-11-07）
 
 该生命周期规则与 [[论代码与文档漂移解决方案]] 的 Reconcile & Retire 状态机一致；可执行门禁见
 [[SDD 开发规范研究]] 的 G5。
@@ -106,7 +118,7 @@ GitHub Spec Kit 另区分三种 artifact mutation model，并声明三者"都不
 - **BDD**用 Given/When/Then 表达可观察行为，可作为 SDD 的需求表达层。
 - **TDD**用失败测试驱动局部实现，可作为 SDD 的执行与验证层。但"让 agent 在自己的循环里做 TDD"是另一回事：
   Böckeler 2026-08-10 的小样本评估（5 批方案，Sonnet 4.6 生成、Opus 4.8 盲评）没看到 TDD 带来可辨别的收益，
-  TDD 组整体略差，变异得分也无差异；她据此停止要求 agent 先写测试，改用变异测试监控回归测试质量
+  TDD 组整体略差，变异得分也无差异；她据此停止要求 agent 先写测试，改用[[变异测试]]监控回归测试质量
   （[TDD inside the agent loop](https://martinfowler.com/articles/exploring-gen-ai/tdd-in-the-agent-loop.html)，
   检索于 2026-09-23）。综合：对 agent 而言，验证应约束**结果**（测试能否杀死变异体），而不是规定**过程**。
 - [[Loop Engineering]] 管理规格、[[Evals|evals]]、coding agent 与人类反馈的运行循环；SDD 把其中的规格接口和

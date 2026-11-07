@@ -1,7 +1,7 @@
 ---
 tags: [主题, AI, Agent]
 created: 2026-07-03
-updated: 2026-11-06
+updated: 2026-11-07
 sources:
   - "https://arxiv.org/abs/2606.29537 （OSWorld 2.0；检索于 2026-11-06）"
   - "https://www.fool.com/earnings/call-transcripts/2026/10/21/meta-meta-q3-2026-earnings-call-transcript/ （检索于 2026-11-06）"
@@ -24,6 +24,12 @@ sources:
   - "https://arxiv.org/abs/2603.13428v4 （Deng 等，EvoClaw / SWE-Milestone；检索于 2026-09-23）"
   - "https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic （检索于 2026-09-23）"
   - "[[2026-09-14-Anthropic-CI规模化压力-源摘要]]"
+  - "https://claude.dev/blog/solving-code-review-at-anthropic/ （2026-10-15；检索于 2026-11-07）"
+  - "https://arxiv.org/abs/2610.14768 （SWE-Maintain，v1；检索于 2026-11-07）"
+  - "https://arxiv.org/abs/2608.07346v4 （A²E 现行版；检索于 2026-11-07）"
+  - "[[全AI代码库的治理决策]]"
+  - "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf （Meta Q2 电话会官方逐字稿；检索于 2026-11-07）"
+  - "https://www.fool.com/earnings/call-transcripts/2026/10/21/meta-meta-q3-2026-earnings-call-transcript/ （Meta Q3 电话会逐字稿；检索于 2026-11-07）"
 ---
 
 # Agent 生产级落地的鸿沟（Demo ≠ Production）
@@ -46,7 +52,9 @@ sources:
   生产链路长、不可挑选。
 - **成本更高、更难预测**：动态决策 + 多轮工具调用 = token 与时延成本随任务复杂度非线性上升。
 - **需要强护栏才敢上线**：沙箱、权限边界、人工把关、可观测性、回滚——这些"生产工程"部分，
-  恰恰是 Demo 里被省略的部分。[[Claude Cowork]] 的"人工把关层"就是这道护栏的产品化体现（见 [[cowork-plugins-架构]]）。
+  恰恰是 Demo 里被省略的部分。[[Claude Cowork]] 的对应做法是"权限与信任边界"这一层：connector 权限、
+  local MCP server 的本机权限，加上"consequential decisions 仍留给用户"的产品原则；具体是否弹出确认取决于工具、
+  权限与组织策略（见 [[cowork-plugins-架构]] 分层解释第 6 条）。
 - **接口/工具质量是隐性瓶颈**：agent 的上限常被 agent-computer interface（ACI）与工具文档质量卡住，
   而非模型智力——这是 [[building-effective-agents]] 反复强调的 ACI 原则。
 - **闭环层级不足**：[[Loop Engineering]] 提醒，生产产品不只有分钟级 coding loop，还需要小时级开发者反馈和
@@ -54,8 +62,9 @@ sources:
 - **意图和验收不可追溯**：没有 [[Specification-Driven Development]] 式的规格、设计、任务、测试和证据链时，
   agent 可以在局部完成任务，却难以证明它满足了完整需求、没有越界改动，并能随需求变化保持一致；流程侧补强见
   [[SDD 开发规范研究]]。限定（2026-08-27 后）：规格证据链解决的是**可追溯性**，不担保缺陷与返工下降——
-  SDD 的默认收益假设已被最大样本实证推翻，收益取决于是否配套建了调和机制，见 [[SDD 收益主张的实证赤字]]。
-- **终点分掩盖过程差异**：[[2026-08-07-A2E-Agent-Auditing-Engine-源摘要|A²E]] 的受控实验显示，同一模型下 correctness 的 harness 均值只跨 0.568–0.663，可观测 harness 的平均 token 使用却差 3.5 倍；一个同任务案例中失败轨迹用掉成功轨迹约 9.6 倍 token。因此生产门禁应同时约束 outcome、终止、工具路径和资源上限，方法见 [[Agent 全轨迹评测与审计]]。
+  SDD 的默认收益假设失去了支撑：现有最大样本的观察证据指向反向（相关非因果，原文未读全，"有规格"的定义待核），
+  收益取决于是否配套建了调和机制，见 [[SDD 收益主张的实证赤字]]。
+- **终点分掩盖过程差异**：[[2026-08-07-A2E-Agent-Auditing-Engine-源摘要|A²E]] 的受控实验（v1 结果）显示，同一模型下 correctness 的 harness 均值只跨 0.568–0.663，可观测 harness 的平均 token 使用却差 3.5 倍；一个同任务案例中失败轨迹用掉成功轨迹约 9.6 倍 token。v3 起作者替换了实验设计，这三个数字不在现行 v4 中；v4 仍写终点正确率区分 harness 的分辨率有限、没有通吃的组合（见源摘要「版本变化」）。因此生产门禁应同时约束 outcome、终止、工具路径和资源上限，方法见 [[Agent 全轨迹评测与审计]]。
 
 > 综合：因此"模型更强"与"agent 能生产落地"不是同一条曲线。前者在快速上升，后者受限于工程、护栏、
 > 组织与流程改造，斜率平缓得多——这正是"慢于预期"体感的来源。
@@ -66,15 +75,18 @@ sources:
 |---|---|---|---|
 | 2026-11-05 | Cursor 状态页事故记录 | 常驻 agent 的**运行**可靠性：2026-09-18 至 11-05 的 50 条事故里，有 25 条把 Grok Bot 列为受影响组件，其中 15 条标题直接点名；10-13 那次，大量由 webhook、Slack、git、邮件、Linear 触发的 routine 没有运行，事后也不补处理 | 厂商状态页，属一手运行数据；不含任务质量 |
 | 2026-10-31 | DeepSeek Super-agent 设计文章（[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要\|源摘要]]） | 两级架构把"要不要委派"从模型的临场判断变成结构上的保证，p95 从 29.0 降到 15.7 分钟，p50 只快约 10%；基线的长尾主要来自 5 次运行里没有委派的那 1 次 | **低权重**：合成负载，每组 5 次，官方自称 "indicative only"，没人复现；方向与 [[harness-vs-model]] 一致 |
+| 2026-10-21 | Meta Q2（07-29，官方逐字稿）与 Q3（10-21）电话会 | 07-02「还需 3–6 个月」之后的口径：Q2 Zuckerberg "The first domain that agents have really taken off in is coding, but engineers are more technical and willing to spend time making those agents work"；Q3 CFO Susan Li "adoption will likely be uneven and will take time… in the near term, we expect many experiences will remain AI assisted rather than fully autonomous" | 两次都没有直接回顾"3–6 个月"；口径转为"编码先起飞、近期多为 AI 辅助"，支持本页"以季度计"的判断。窗口到 2027-01 才走完。见 [[Meta]] |
 | 2026-10-21 | Meta Q3 电话会、Reuters（09-22）与多家媒体 | 采用端：Muse 6 周内美加超过 1,000 万人完成设置，约 25% 每天使用。可靠与治理端：内部测试由外包人员代接电话且未披露；"Allow Always" 之后在 Marketplace 泄露住址；分享页可经 DNS 查到。见 [[Meta]] | 采用口径是"设置"数，不是月活。综合：大众级分发可以瞬间拉满试用，事故却都出在授权语义上（[[Agent 授权三层]]） |
+| 2026-10-15 | Anthropic《Solving code review at Anthropic》（claude.dev） | 本表第一条质量侧的自报近似信号：6–9 月 Claude Code 代码库合并 PR **翻倍以上**，需回退的占比**降超 40%**；同期审查流程按变更风险分级（低风险自动检查全绿即可合并、限可信作者，中风险一人、高风险两人批准），约 90% 代码由 Claude 编写（博客转述） | 自报、无对照（前后对比，未说明两期可比性）、只限 Claude Code 仓库；回退占比是**相对降幅**，不是 revert 率实际值，也不是逃逸缺陷率、事故率或人工介入率。→ 见 [[Anthropic-AI原生SDLC治理循环]]、[[全AI代码库的治理决策]] |
+| 2026-10-10 | SWE-Maintain（arXiv 2610.14768，预印本） | 50 个 Python 仓库、100 个三事件维护序列、5 个编码系统 × 2 个底座：在 agent 自己的历史改动上继续维护，后续任务解决率平均 **−5.6 pp**，要求早先测试也通过时差距到 **−14.0 pp**；约三分之二的 agent 历史起点已经通不过早先测试，从这些状态出发只有 1.9% 的事件最终全部测试通过；继承代码能通过早先测试（且下一任务未被顺带解决）时惩罚消失（+2.7 pp，CI 跨零） | 与下方 SWE-Milestone 同类的持续维护基准，"Demo ≠ 生产"在维护场景的对应物。只测三事件短链、Python 单语言。综合：惩罚集中在继承下来的测试失败，"守住测试"比审风格更要紧。→ 见 [[全AI代码库的治理决策]] |
 | 2026-09-14 | Anthropic 官方工程博客 | 高 AI 出码密度的**下游代价**首次被量化：6 个月内 CI job 涨 **25×**（人均季度出码 8×、其中 80% 由 Claude 撰写、测试总量 10×、工程师人数仅 "nominal" 增加）；决定"每个 PR 跑哪些测试"的测试影响分析服务被压垮，三次临时补丁分别撑 **70 天 / 29 天 / 不到 1 天**，最终靠架构重写（无状态 worker + 内存数据存储）解决，单人 3 周完成 | 与下方 Uber 行同构：卡点与解法**都不在"模型更强"**，而在基建与架构。但本行补出 Uber 没给的一面——规模化不是免费的，原文明示新架构 "more expensive to run"，是"用更高运行成本换可扩展性"。口径：单一公司自报、无第三方审计；Anthropic 是出码密度极端值，25× 不可外推；该源不含逃逸缺陷率/事故率，证明的是基建被压垮，不是重写后质量更好。→ 见 [[2026-09-14-Anthropic-CI规模化压力-源摘要]] |
 | 2026-08-27 | [[SDD 收益主张的实证赤字]]（Hill SSRN 10 万 PR 观察研究、Scott Logic 实测等） | "主张 vs 兑现的落差"在开发方法论层复现：SDD 推广话语主张缺陷与返工下降，但当前最大样本实证指向相反方向（规格与更高返工相关，p<0.001），最响亮的主张来自零对照数据的厂商文档 | 方法论层反例信号，不是企业落地率证据；该页是本论题在方法论层的实例，限定与证据强度详见该页证据点表 |
 | 2026-08-27 | Uber 工程博客 | 非 AI 实验室的大型工程组织公开规模化数据：**>70% PR 归因于本地或云端 agent**、3,600 个 agent skills、30K 次/日 skill 执行；周活 7×、周请求 9.4×（2–8 月），总 AI 支出自 4 月起持平，固定模型下每千请求成本 −34%、每 session 成本 −52% | 目前最强的正向规模化案例，但**印证而非推翻本页论点**：其依赖的统一 harness、MCP 网关、CLI 投影、上下文图谱、真实工作 benchmark、五层度量与额度分层，**没有一项依赖模型更强**。口径边界：全部自报无第三方审计；"归因"未定义规则，≠ 自主完成 ≠ 净生产力；降的是单位成本不是总支出。→ 见 [[Uber-软件工厂的成本工程]] |
-| 2026-08-07 | A²E 预印本 | 23 benchmarks×9 harnesses 的受控运行表明，同模型的多轮成功率、工具路径和 token 成本依 harness 变化；轨迹子集中平均 token 差 3.5 倍 | 方法证据：支持“生产评测需要结果+全轨迹”，不是企业规模化落地率证据；每格仅 5 任务，不能作 framework 总排名。→ 见 [[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]] |
+| 2026-08-07 | A²E 预印本 | 23 benchmarks×9 harnesses 的受控运行表明，同模型的多轮成功率、工具路径和 token 成本依 harness 变化；轨迹子集中平均 token 差 3.5 倍 | **v1 结果**：v3 起作者已替换实验设计（现行 v4 为 2 个底座 × 4 个 benchmark 族），23×9、3.5 倍等不见于现行版，定性结论保留。方法证据：支持“生产评测需要结果+全轨迹”，不是企业规模化落地率证据；每格仅 5 任务，不能作 framework 总排名。→ 见 [[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]] |
 | 2026-07-21 | Simon Willison 对 Claude Code 团队访谈 | Claude Tag 提交该团队 **65%** 产品工程 PR；核心变更仍由 code owner 人工批准，外围变更经过六个多月的对照验证后才逐步自动 review；事故 PR 回灌 eval | 正向的一手机制证据：高自动化来自按文件和风险逐层放权，而非一次性无人化。65% 是 Claude Code 产品工程团队自报的 PR 提交口径，不是全 Anthropic、无人审查或净生产力指标。→ 见 [[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]] |
 | 2026-07-21 | Anthropic AI 原生 SDLC | 截至 5 月约 **80%** 已合并生产代码行归因于 Claude；生产控制包括设计安全评审、风险分级、多层审查、隔离环境、独立身份、人工门禁、SIEM 与事故反馈闭环 | 重要正向案例：高采用率依赖完整治理栈，而非“模型足够强”单点跨越；80% 与 8× LOC 均为公司自报代理指标，缺少独立审计和事故率对照。→ 见 [[Anthropic-AI原生SDLC治理循环]] |
 | 2026-07-02 | Meta 扎克伯格（内部全员会，Reuters 独家 / TechCrunch 转载） | 过去约四个月 AI agent 进展"没有按预期加速"（did not accelerate in the way we expected）；预计还需 **3–6 个月**才见更显著回报 | 罕见的大厂 CEO 亲口降温；同期仍计划 AI 基建投入高达 **1,450 亿美元**，且承认围绕 agent 的重组"不如预想干净"、时机判断失误。→ 见 [[Meta]] |
-| 2026-07-01 | Andrew Ng（X / The Batch） | 将 0-to-1 产品开发拆成 coding、developer feedback、external feedback 三层循环；强调 [[Evals|evals]] 与人类 context advantage | 方法论证据，不是落地率数据：只让 agent 写代码不够，必须把规格、evals、人类判断与真实用户反馈接成闭环。→ 见 [[Loop Engineering]] |
+| 2026-07-01 | Andrew Ng（X / The Batch） | 将 0-to-1 产品开发拆成 coding、developer feedback、external feedback 三层循环；强调 [[Evals\|evals]] 与人类 context advantage | 方法论证据，不是落地率数据：只让 agent 写代码不够，必须把规格、evals、人类判断与真实用户反馈接成闭环。→ 见 [[Loop Engineering]] |
 | 2026-06-28 | OSWorld 2.0（arXiv 2606.29537） | 108 个长程电脑操作任务（人类中位约 1.6 小时）：最好的 Claude Opus 4.8 严格完成率 **20.6%**，部分得分 54.8%；GPT-5.5 约 13%。失败主因不是 GUI 点错，而是丢失约束、漏看中途信息、该问不问、跳过验证 | 测的是上一代模型，当前主力模型还没有公开成绩。失败模式指向 harness 与验证层，而不是感知层 |
 | 2026-04-02 | McKinsey Technology / QuantumBlack | 全球近三分之二企业已试验 agents，但**不到 10%** 已规模化并产生可量化价值；约八成企业把数据限制列为扩展障碍 | 直接量化“试验广、规模化窄”；需注意咨询机构调查口径与样本选择。 |
 | 2026-03-13 | Deng 等，arXiv 2603.13428（首发名 EvoClaw，v3 起更名 SWE-Milestone；arXiv 注明 ICML 2026 录用） | 7 个开源仓库、98 个人工核验的里程碑、5 种语言，评测 12 个前沿模型 × 4 个 agent 框架：综合得分从**独立任务的 80% 以上**跌到**持续演化设置的最高 38.03%**（Claude Opus 4.6），按完全解决计最高仅 **13.37%**（Gemini 3 Pro）。失败集中在防回归（新功能 Recall 近线性增长、Precision 饱和），错误沿依赖链滚雪球 | "Demo ≠ 生产"在基准层的直接对应：每次从干净快照起步 ≈ Demo，在自己累积的历史上持续演化 ≈ 生产。38% 是综合得分（Recall 与 Precision 的调和），**不是成功率**——转述时最常被搞错的口径。独立任务的 80% 以上部分是构造时校准出来的（标注者修订需求规格直到前沿模型独立运行达 80–90%），所以两个数字的差距衡量的是"持续演化"本身的代价。它测的是里程碑级功能演化，不是企业落地率；持续演化失败的机制证据见 [[Agentic SE 时代的系统重构]]"验证网先行"节 |
@@ -103,6 +115,9 @@ wiki 里另有一条**乐观**主线——[[cowork-saas-资本市场冲击]] 论
   不公开逃逸缺陷率/事故率。这已经不像个别疏漏，更像**规模化案例的系统性披露偏好**：
   可归因于工程投入的指标被公开，可能归因于 AI 质量的指标被回避。在拿到质量侧数据前，
   应把这三个案例读作"规模化的工程可行性证据"，而不是"规模化的净收益证据"。
+  → 11-07 更新：Anthropic 10-15 的 code review 博客给出本页收录的第一个质量侧自报近似信号——Claude Code 仓库回退占比
+  相对降超 40%（上表 2026-10-15 行）。它只有相对值、无对照、限单一仓库；逃逸缺陷率、事故率、人工介入率的
+  实际值仍无一家公布。综合：披露偏好略有松动，但公开的仍是能讲成"流程改进"的相对指标。
 - "生产级落地"的可量化指标是什么？（任务成功率、人工介入率、单位任务成本、回滚频率）
   → 编码场景已有成型答案：[[AI编码技术债的三层治理]]"应跟踪的结果指标"节（变更失败率、回滚率、
   人工升级率、逐层转化率、复发率），其"把事故变成下一轮约束"节与上表 2026-07-21 两行证据

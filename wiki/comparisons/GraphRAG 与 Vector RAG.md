@@ -1,11 +1,12 @@
 ---
 tags: [对比, AI, RAG, 知识管理]
 created: 2026-07-28
-updated: 2026-08-11
+updated: 2026-11-07
 sources:
   - "https://li.feishu.cn/file/CXkubLDs5oF6EUxJA9Ucedi7nBh （原视频，读取于 2026-07-28）"
   - "https://www.microsoft.com/en-us/research/publication/from-local-to-global-a-graph-rag-approach-to-query-focused-summarization/ （检索于 2026-07-28）"
-  - "https://www.microsoft.com/en-us/research/blog/benchmarkqed-automated-benchmarking-of-rag-systems/ （检索于 2026-07-28）"
+  - "https://www.microsoft.com/en-us/research/blog/benchmarkqed-automated-benchmarking-of-rag-systems/ （检索于 2026-07-28；复核于 2026-11-07）"
+  - "https://www.microsoft.com/en-us/research/blog/lazygraphrag-setting-a-new-standard-for-quality-and-cost/ （检索于 2026-11-07）"
   - "https://neo4j.com/docs/neo4j-graphrag-python/current/user_guide_rag.html （检索于 2026-07-28）"
   - "[[知识图谱]]"
 ---
@@ -14,13 +15,14 @@ sources:
 
 ## 先消除术语歧义
 
-“GraphRAG”不是一个边界统一的单一算法。至少要区分四种机制：
+“GraphRAG”不是一个边界统一的单一算法。至少要区分五种机制：
 
 | 机制 | 核心做法 | 典型问题 |
 |---|---|---|
 | Vector RAG | 将问题与文本 chunk 嵌入后做相似度召回 | “哪里提到退款条件？” |
 | Text2Cypher / 图谱问答 | LLM 把问题翻译成 Cypher，再查询已有属性图 | “A 通过哪些公司与 B 关联？” |
 | Microsoft GraphRAG Global Search | 从语料构建实体图与社区摘要，再综合各社区的局部回答 | “整个语料的主要主题是什么？” |
+| Microsoft LazyGraphRAG | 索引期只做 NLP 名词短语抽取与共现社区、不用 LLM 摘要；查询期把向量 best-first 召回与社区 breadth-first 相关性测试迭代加深结合 | 同一语料既问局部事实又问全局主题，且不愿承担全量建图成本 |
 | 混合检索 | 向量召回、全文、图遍历或社区摘要按问题组合 | 查询类型未知或同时需要原文与关系 |
 
 [[从知识图谱到 Agent 编排]] 所析原视频（li.feishu.cn，读取于 2026-07-28，URL 见 frontmatter）演示的“自然语言问题 → Cypher → Neo4j → 答案”更准确地属于
@@ -38,14 +40,17 @@ HybridRetriever 和 VectorCypherRetriever 明确列为不同 Retriever；不能�
 | 溯源方式 | 返回原始 chunk | 返回路径后仍应关联原始证据 | 社区摘要仍需下钻到源文本 |
 | 更新成本 | 通常较低 | 需同步实体与关系 | 还需维护社区与摘要 |
 
-## 没有绝对赢家
+## 没有跨数据集的永久赢家
 
-Microsoft 的 BenchmarkQED 结果显示，各系统在为其设计的问题类型上相对更强：
-GraphRAG Global 对全局查询更合适，Vector RAG 对局部查询更合适，结合两类策略的
-GraphRAG Drift Search 是最强的总体挑战者之一。
+Microsoft Research 的 BenchmarkQED（2025-06-05 发布）主结论是：在同一生成模型 GPT-4o 下，
+其自家的 LazyGraphRAG 在全部 96 组比较中胜出，除 1 组外均达统计显著——注意这是**厂商评测自家方法**。
+其余竞争方法在为其设计的查询类别上相对更好：GraphRAG Global 对全局查询、Vector RAG 对局部查询；
+结合两类策略的 GraphRAG Drift Search 是对 LazyGraphRAG **最强的挑战者**。LazyGraphRAG 的索引成本
+据官方与 Vector RAG 相同、约为完整 GraphRAG 的 0.1%（LazyGraphRAG 博客，2024-11-25）。
 
-这不是对所有数据集和模型的永久排名。评测使用特定语料、查询类别、上下文预算、生成模型和自动指标；
-正式选型仍需用自己的查询集、权限规则和成本约束做 [[Evals|Eval]]。
+综合：这不是对所有数据集和模型的永久排名。评测使用特定语料（如 1,397 篇 AP News 健康类文章）、
+四类查询、上下文预算、生成模型和 LLM 裁判；正式选型仍需用自己的查询集、权限规则和成本约束做
+[[Evals|Eval]]。
 
 ## 按问题路由
 

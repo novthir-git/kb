@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 软件工程, Harness, 方法论]
 created: 2026-09-23
-updated: 2026-11-05
+updated: 2026-11-07
 sources:
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
@@ -21,7 +21,7 @@ sources:
 **一句话定义**：为 coding agent 设计它工作所处的**环境**——前馈的约束与指引（guides）、反馈的检测与信号
 （sensors），以及让两者持续改进的回路——使 agent 首次做对的概率更高、出错时在到达人眼之前自纠正。
 OpenAI 的 Ryan Lopopolo（2026-02-11）用它命名自家"零手写代码"实验的工程重心；Thoughtworks 的
-Birgitta Böckeler（2026-04-02）把它整理成面向 **coding agent 使用者**的框架，并在 2026-05-27 用一次
+[[Birgitta Böckeler]]（2026-04-02）把它整理成面向 **coding agent 使用者**的框架，并在 2026-05-27 用一次
 可维护性 sensor 实验补了实证。
 
 两位作者的共同结论：**纪律从代码转移到了支撑结构**——最难的是设计环境、反馈回路与控制系统，
@@ -35,7 +35,7 @@ Birgitta Böckeler（2026-04-02）把它整理成面向 **coding agent 使用者
 |---|---|---|
 | 是什么 | agent 运行时本身：prompt 构造、工具表示、上下文管理、执行循环、终止政策 | 使用者在 agent 之外搭的环境：规则文件、类型与结构约束、测试、linter、CI、周期性评审与清理任务 |
 | 谁来建 | agent 厂商或平台团队（Claude Code、Codex、Uber 的统一包装层） | 使用 agent 的团队，落在**仓库与流水线**里 |
-| 典型证据 | [[a2e-agent-auditing-engine|A²E]]：同模型换 harness，多轮成功率与 token 成本显著分化 | OpenAI：早期进展慢是因为缺工具、抽象与内部结构，而不是模型不够强 |
+| 典型证据 | [[a2e-agent-auditing-engine\|A²E]]：同模型换 harness，多轮成功率与 token 成本显著分化 | OpenAI：早期进展慢是因为缺工具、抽象与内部结构，而不是模型不够强 |
 | 本 wiki 页 | [[harness-vs-model]] | 本页 |
 
 Böckeler 明确把范围限定在后者："在 agent 内置 harness 之外"由用户搭建的那一层
@@ -51,14 +51,15 @@ Böckeler 的框架由两根轴组成：
 
 - **Guides（前馈）vs Sensors（反馈）**。只有反馈，agent 会反复犯同一类错；只有前馈，agent 不知道规则是否奏效。
 - **Computational vs Inferential**。前者确定、快、可靠（测试、linter、类型检查、结构分析）；后者是语义分析、
-  AI review、LLM-as-judge，更贵且非确定，但能给出语义判断。
+  AI review、LLM-as-judge，更贵且非确定，但能给出语义判断。综合：推理型 sensor 就是 [[Evals]] 里的模型 grader，
+  同样继承其自我偏好与错误相关风险。
 
 两根轴交叉成四格，Böckeler 原文自带一张示例表；下表以原文例子为主，括号内是本 wiki 从另两份源补入的：
 
 | | Computational（确定性） | Inferential（推理型） |
 |---|---|---|
 | **Guides** | codemods（带 OpenRewrite recipes 的工具）、bootstrap 脚本、LSP / code intelligence | `AGENTS.md`、skills（编码约定、如何搭新项目）；（OpenAI 的结构化 `docs/`、执行计划） |
-| **Sensors** | 测试、linter、类型检查、结构测试（如 pre-commit 钩子跑 ArchUnit 检查模块边界）、变异测试；（OpenAI 的分层依赖规则由自定义 linter 与结构测试执行；Böckeler 实验中的 dependency-cruiser、Stryker） | AI 代码评审、LLM-as-judge、"如何评审"的 skills；（Böckeler 实验中的模块化评审 skill） |
+| **Sensors** | 测试、linter、类型检查、结构测试（如 pre-commit 钩子跑 ArchUnit 检查模块边界）、[[变异测试]]；（OpenAI 的分层依赖规则由自定义 linter 与结构测试执行；Böckeler 实验中的 dependency-cruiser、Stryker） | AI 代码评审、LLM-as-judge、"如何评审"的 skills；（Böckeler 实验中的模块化评审 skill） |
 
 注意类型检查在原文里是 **sensor**（执行后给反馈），不是 guide；"框架能替 agent 屏蔽细节"在原文里属于 harnessability
 （代码库性质），不属于四格中的任何一格。
@@ -126,7 +127,7 @@ Böckeler 把这种分布放在持续集成的传统里讨论，死代码检测�
 
 Böckeler 的实验结论：计算型 sensor 在**文件与函数层面**表现最好；跨文件的模块化与耦合需要 LLM 的语义解释。
 原始耦合数据直接交给模型解读"乏善可陈"（把刻意设计的依赖注入工厂判成问题），而推理型的模块化评审 skill
-找到了一批真问题；再跑一次又找到首轮漏掉的——**重要分析值得多跑**。测试侧，覆盖率高不等于测试有效：
+找到了一批真问题；再跑一次又找到首轮漏掉的——**重要分析值得多跑**（参见 [[Evals]] 检查表的"多次运行并报告分布"）。测试侧，覆盖率高不等于测试有效：
 一个语句覆盖 100% 的文件，变异测试报出 13 个存活变异体。把大部分测试交给 AI 时，变异测试是必需的 sensor。
 
 ## Harnessability：代码库本身决定能被约束到什么程度
@@ -165,7 +166,7 @@ agent 对 agent，但每周人工清理"AI 残渣"的阶段先于自动化出现
 收录的来源里有两种把 guides 自身纳入 sensor 覆盖的做法，分别覆盖两个侧面：OpenAI 用 linter 与 CI 校验 `docs/` 的
 新鲜度与交叉链接、再由 doc-gardening agent 发修复 PR（**文档完整性**）；Anthropic 的 playbook 在 `CLAUDE.md` /
 skills / hooks 任何变更时跑 eval 回归，pass rate 下降的配置变更须先 review 才能合并（**行为回归**，见
-[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。本仓库的 Lint 对 `wiki/` 做的是前一种。
+[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]] 与 [[Evals]] 的"Agent 配置也要做回归测试"）。本仓库的 Lint 对 `wiki/` 做的是前一种。
 
 综合：最后一条可以用 [[AI工程方法论的耐久度]] 的尺子读——guides 里有不少是在补模型现在的短板（点名模式、
 可推断的约定），模型变强后会冗余；sensors 做的是验证，存在理由是"正确性无法由生成者自证"，不随能力消失。
@@ -192,3 +193,5 @@ context engineering 的机制层（compaction、外置记忆、子 agent 回传�
 - 文档作为 guide：[[代码与文档漂移的本质]]、[[llm-wiki-方法论]]
 - 成本侧：[[Uber-软件工厂的成本工程]]、[[Agent 工具上下文膨胀]]、[[上下文经济性]]
 - 耐久度：[[AI工程方法论的耐久度]]
+- 评测与测试质量：[[Evals]]（模型 grader、配置变更的 eval 回归门）、[[变异测试]]（检验测试这一 sensor 本身）
+- 人物：[[Birgitta Böckeler]]

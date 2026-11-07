@@ -1,11 +1,11 @@
 ---
 tags: [主题, AI, 方法论, 知识治理]
 created: 2026-07-29
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "https://x.com/heynavtoor/status/2067194761446920264 （上游长文，检索于 2026-08-11；存档 raw/sources/articles/2026-06-17-heynavtoor-Stanford-STORM四提示词长文.md）"
   - "https://x.com/heynavtoor/status/2061802543207067794 （同作者 2026-06-02 准确版线程，检索于 2026-08-11）"
-  - "https://gist.github.com/thevillagehacker/e09c947b2281827692d43c8ace835049 （检索于 2026-07-29）"
+  - "https://gist.github.com/thevillagehacker/e09c947b2281827692d43c8ace835049 （检索于 2026-07-29；2026-11-06 复核 404：gist 已被作者删除、作者 gist 列表无此条，Wayback 无快照；按本页证据方法说明以表中记录为准）"
   - "https://secondbrainn.substack.com/p/stanford-quietly-built-a-research （检索于 2026-07-29，第 2 个 prompt 后付费墙）"
   - "https://linas.substack.com/p/stanford-storm-claude-ai-research （检索于 2026-07-29，正文付费墙）"
   - "https://note.com/claudecode_lab/n/nfae8a85d271d （检索于 2026-07-29）"
@@ -18,6 +18,7 @@ sources:
   - "https://martinfowler.com/fragments/2026-01-08.html （Martin Fowler《Fragments: January 8》，2026-01-08；检索于 2026-08-31，逐字引用该 Kent Beck 引语并链回其 LinkedIn 出处）"
   - "https://www.linkedin.com/feed/update/urn:li:activity:7413956151144542208/ （Kent Beck 原帖，Fowler 标注的出处；检索于 2026-08-31 未能直连核验——匿名访问 302 跳转登录页）"
   - "[[SDD 收益主张的实证赤字]]"
+  - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
 ---
 
 # AI 方法论的去机制化失真
@@ -39,14 +40,14 @@ sources:
 | **M1 抽掉检索** | STORM 的 R 就是 Retrieval，每轮提问都对真实网页 grounding | 给出纯 role-play 模板，"不需要任何软件/不用联网" |
 | **M2 固定角色表** | persona 由检索到的同类主题语料反推得出，随主题变化 | 写死五个角色：practitioner / academic / skeptic / economist / historian |
 | **M3 数字失真** | 25%/10% 是相对作者自建的单一 baseline 的绝对百分点提升 | 说成"比**第二名 / best alternative / next best method**高 25%"，甚至"比**人类**强 25%" |
-| **M4 杜撰缺陷 + 自评补丁** | 论文自述局限是 source bias transfer 与 over-association | 改称"STORM 的已知弱点是**它不会自我批判**"，并据此加一步"让 AI 给自己打 1-10 分" |
+| **M4 杜撰缺陷 + 自评补丁** | 论文自述局限是 source bias transfer 与 over-association | 改称"STORM 的已知弱点是**它不会自我批判**"（上游长文说成斯坦福研究者自己指出的唯一弱点，真实局限 source bias / misassociation 只保留为其症状），并据此加一步"让 AI 给自己打 1-10 分" |
 
 ## 证据点表
 
 | 日期 | 来源 | 信号 | 备注 |
 |---|---|---|---|
-| 2026-06-17 | X 长文 / Nav Toor（@heynavtoor），存档 `raw/sources/articles/2026-06-17-heynavtoor-Stanford-STORM四提示词长文.md` | M1「No software. No GitHub. No setup. Just paste.」M2 五角色（THE PRACTITIONER…THE HISTORIAN 编号列出）M3「25 percent more organized than the next best method」M4 Phase 6 称"系统不做自我批判"+ Prompt 4 让 Claude 按 1-10 打信心分 | **上游节点，四标记齐全**；抓取时 305 万 views / 1.8 万收藏；hadufer 仓库 README 署名此文为出处（2026-08-11 取证） |
-| 2026-06-18 | gist / thevillagehacker | M1「No software. No GitHub. No setup. Just paste.」M2 五角色 M3「25 percent more organized than the next best method」M4「The system does not self critique」+ 1-10 打分 | **四标记齐全**；最早的下游复制件（上游长文次日），措辞与上游几乎逐字一致 |
+| 2026-06-17 | X 长文 / Nav Toor（@heynavtoor），存档 `raw/sources/articles/2026-06-17-heynavtoor-Stanford-STORM四提示词长文.md` | M1「No software. No GitHub. No setup. Just paste.」M2 五角色（THE PRACTITIONER…THE HISTORIAN 编号列出）M3「25 percent more organized than the next best method」M4 Phase 6 称"系统不做自我批判"+ Prompt 4 让 Claude 按 1-10 打信心分 | **上游节点，四标记齐全**；抓取时 305 万 views / 1.8 万收藏；hadufer 仓库 README 署名此文为出处（2026-08-11 取证）。**存档缺口**：4 个提示词正文转存时丢失，「编号列出」「1-10」两处存档里查不到（存档只支持「grade its own work」「reliability score」），2026-11-07 经 fxtwitter API 重抓确认原文含「1. THE PRACTITIONER…5. THE HISTORIAN」与「rate each of the 5 key findings on a 1 to 10 scale」 |
+| 2026-06-18 | gist / thevillagehacker | M1「No software. No GitHub. No setup. Just paste.」M2 五角色 M3「25 percent more organized than the next best method」M4「The system does not self critique」+ 1-10 打分 | **四标记齐全**；最早的下游复制件（上游长文次日），措辞与上游几乎逐字一致；**原链已失效**（2026-11-06 复核 404，无 Wayback 快照），以本行记录为准 |
 | 2026-06-19 | secondbrainn.substack | M1「you don't need any of the software」M2 五角色 M3 标题即「25% Better Than Humans」+ 正文「than the best alternative method」 | M3 **进一步升级**：baseline 被换成"人类"；M4 落在付费墙后未见 |
 | 2026-06-21 | 知乎（林夕，摘录存档已按质量要求移出 raw，见 git `88c8ad8`） | M1 M2 M3「比第二名高 25%」M4 杜撰"不会主动批判自己"+ 1-10 自评 | 自述转写自 `x.com/heynavtoor` 推文（即上表上游节点，2026-08-11 已证实）；知乎原文本机不可达 |
 | 2026-06-25 | linas.substack（Linas Beliūnas） | **M3 反例**：「25-percentage-point margin over outline-driven retrieval-augmented baselines」 | 数字表述**正确**；视角数为 10 而非 5；正文付费墙，M1/M4 未知 |
@@ -88,7 +89,7 @@ sources:
 
 | 日期 | 来源 | 信号 | 备注 |
 |---|---|---|---|
-| 2026-08-27 | 检索工具对 Scott Logic 实测的自动摘要 | 转述为「33 minutes and 2,577 lines of markdown to produce 689 lines of code, compared to 8 minutes using iterative prompting — **approximately 10x slower**」。但 33.5 / 8 ≈ **4 倍**；原文的「约十倍」来自**含人工 review 的总时长**（SDD 第一增量约 4 小时 vs 迭代提示约 32 分钟） | **M3 同构：数量锚点的口径被替换。**两个不同口径的数字被并列成一个比值。原文数据本身准确且 caveat 充分，失真发生在转述层。已逐项回查原文核实 |
+| 2026-08-27 | 检索工具对 Scott Logic [[GitHub Spec Kit\|Spec Kit]] 实测的自动摘要 | 转述为「33 minutes and 2,577 lines of markdown to produce 689 lines of code, compared to 8 minutes using iterative prompting — **approximately 10x slower**」。但 33.5 / 8 ≈ **4 倍**；原文的「约十倍」（"around ten times faster"）是作者的总体表述，**原文没有给出计算口径**。综合：迭代组约 1,000 行≈SDD 两个增量之和（689 + 约 300 行），按原文数字两增量合计约 387 分钟（agent 57 分钟 + review 约 5.5 小时）对迭代提示约 32 分钟（8 + 15 + 9），约 12 倍；只算第一增量（约 4 小时）约 7.6 倍（2026-11-07 重读原文校正：原写"来自含人工 review 的总时长（第一增量约 4 小时 vs 32 分钟）"，把计算归给了原文且只用了第一增量） | **M3 同构：数量锚点的口径被替换。**两个不同口径的数字被并列成一个比值。原文数据本身准确且 caveat 充分，失真发生在转述层。已逐项回查原文核实 |
 | 2026-08-27 | 检索工具对 Kent Beck 批评的自动摘要 | 归给 Beck 一句引语：SDD「encodes the (to me bizarre) assumption that you aren't going to learn anything during implementation that would change the specification」 | **原判 M5 引文归属漂移，2026-08-31 定向复查后撤销**：该句确为 Beck 本人所写，出自其 LinkedIn 帖，Martin Fowler《Fragments: January 8》（2026-01-08）在署名「Kent Beck」的引块中逐字引用并链回该帖（https://martinfowler.com/fragments/2026-01-08.html ，检索于 2026-08-31；LinkedIn 原帖匿名访问 302 跳登录，未能直连核验）。08-27 判「未见此句」是因为只核对了 Beck 的一篇 newsletter（《Earn *And* Learn》，2026-02-18），**检索范围不足，不是归属漂移**。附注：本页未记录该摘要是否同时指定了具体篇目；若曾指定为该 newsletter，则仍属「作者对、篇目错」的出处定位问题，但记录不足以判定，故不计入 M5 |
 
 ### 这一例为什么值得单独记
@@ -104,6 +105,10 @@ sources:
    「给出一个干脆的倍数」比「交代口径」省力。
    综合：原写作「**失真不挑立场**」，但那是靠两例支撑的；证伪一例后仅剩单样本，
    该一般结论**降为待补证**。
+   综合（2026-11-07 补）：第三观测对象里 The Register 一例同样发生在批评性叙事上，批评侧确认样本增至 2 个；
+   0–20% 一例虽被调研稿用于"全自动还不行"的审慎论证，但失真发生在趋势报告一层、其立场未核，暂不计入。
+   载体（人写媒体）与本例（检索摘要）不同。
+   该结论由"待补证"回升为**有初步支持**：推广侧与批评侧都有确认样本；两侧都未做系统抽样，不能说发生率相当。
 3. **原始来源是干净的。** Scott Logic 数据准确、caveat 充分。
    这排除了「源头就错」的解释，把失真严格定位在转述层。
 
@@ -128,6 +133,23 @@ M4 需要编造一个缺陷加一个补丁，M5 只需要一句话，而且越�
 > 同样只是推断，尚无样本支撑。这次复查还暴露了检查方法的缺口：只核对作者的一篇文章就下结论，
 > 会把真引语误判为漂移。**"未在原文找到"与"归属有误"是两个结论，前者不蕴含后者**；
 > 上表检查方法已据此收紧。
+
+## 第三观测对象：agentic 重构调研稿与媒体转引（2026-09-23 核验，11-07 补录）
+
+09-23 ingest 逐项回查用户调研稿时核出几例二次转引失真（[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]），
+当时只在源摘要加了关联链接、没有追加证据行，此处补录。**载体又不同**：人写媒体与用户提供的二次综合稿。
+调研稿是转述链末端，失真可能发生在它自己，也可能发生在它引用的中间节点，下表按源摘要能判定的位置写。
+
+| 日期 | 来源 | 信号 | 备注 |
+|---|---|---|---|
+| 2026-01-09 | The Register 对 Sonar 2026 State of Code 调查的报道（调研稿转引） | 转成"多数开发者不信任 AI 代码但也不检查它"；原调查：96% 不"完全"信任 AI 代码功能正确，48% 完全同意"提交前总是检查"、另 27% 部分同意 | **M3 同构：比例被推成更干脆的结论**（源摘要判 The Register 放大了两点）。人写媒体，**批评性叙事**；底层调查本身是厂商主导的自报问卷（n=1,149） |
+| 核验于 2026-09-23 | 调研稿转引的"2026 趋势报告" | "工程师 60% 的工作用 AI，能完全委派的仅 0–20%"；一手来源是 Anthropic 2025-12-02 发布的、2025-08 对 132 名内部工程师与研究员的非匿名自报调查：约 59% 的工作使用 Claude，**超过一半的受访者**表示能完全委派的只占 0–20% | **M3 同构：数量限定被丢**——"超过一半的受访者"变成全体，"Anthropic 内部 132 人"泛化成 "developers"（源摘要判失真发生在趋势报告转引时）。调研稿据此论证"全自动重构目前不成立"，用在审慎一侧；趋势报告本身的立场未核 |
+| 核验于 2026-09-23 | 用户调研稿（引 agentpatterns.ai） | ACI "提升 12.5%"；原数字是相对 shell 基线 +10.7 个百分点，绝对 pass@1 为 12.5% | **M3 同构：绝对值与增幅互换**。源摘要未分清口径错在调研稿还是 agentpatterns.ai，上游节点未定位 |
+| 核验于 2026-09-23 | 用户调研稿 §2.4、§3.2 | "AI 提供速度，护栏保证正确"作"多来源收敛"、§3.2 方法框架作"多来源共识" | 前者是 Harrer 一人的访谈原话（"Agents provide speed, guardrails provide accuracy"），后者所引清单由 Harrer 本人维护（源摘要分别判"归属错误""部分成立"）。**不计入 M1–M5**：话没有错给另一位权威（不是 M5），而是把一个来源摊成了共识，与下节"单点 → 多点复制"同向 |
+
+> 综合：前三例都是 M3 的一般化——数量锚点的口径或限定被替换，与 Scott Logic 一例同类；综述类文本本就不搬机制，
+> 所以这里看不到 M1/M2/M4。载体至此覆盖人写二手文章、检索自动摘要、人写媒体、二次综合稿四类，
+> 回原文核对数字的要求（上节识别方法补充）对四类都适用。
 
 ## 传播链形态
 
@@ -177,9 +199,13 @@ hadufer/claude-storm 的 README 明确署名该文为 four-prompt adaptation 出
 - 3 个样本（secondbrainn、linas、medium）有付费墙，只能确认可见部分，表中已逐条标注"未确认"。
 - 未把下游复制件网页存入 `raw/`：它们是活链接、可随时复核，且本页已把关键措辞逐条记入证据表；
   若某条日后失效，以表中记录为准。这与知乎样本的处理不同——那篇原文本身已不可达。
+  已出现一例：thevillagehacker gist 2026-11-06 复核 404（作者删除，Wayback 无快照），该行以表中记录为准。
 - **唯一例外是上游长文**（2026-08-11 经 fxtwitter API 抓取，Draft.js blocks 转 markdown 后存档
   `raw/sources/articles/2026-06-17-heynavtoor-Stanford-STORM四提示词长文.md`）：Wayback、archive.today、
   Rattibha、Hive 均无独立快照，抓取依赖第三方 API 可用性，故按"研究中重要网页"规则存档为一级证据。
+  **但存档不完整**：4 个提示词正文在 Draft.js 的 atomic 实体里，转 markdown 时丢失（08-11 ingest 已记为开放问题）。
+  证据行里依赖提示词正文的两处（五角色编号表、1-10 打分）由 2026-11-07 重抓核实，存档本身不支持；
+  如需补齐一级存档，应把含提示词实体的重抓结果另存为新的 raw 文件，不改旧文件。
 
 ## 关联
 
@@ -189,5 +215,6 @@ hadufer/claude-storm 的 README 明确署名该文为 four-prompt adaptation 出
 - [[代码与文档漂移的本质]]：表达漂移——同一标识符指向不同产物、权威性错挂。
 - [[Evals]]：M4 自评补丁踩中的 LLM-as-judge 自我偏好偏差实证。
 - [[llm-wiki-方法论]]：本 wiki 要求"论断必有出处 + 矛盾显式标注"，正是针对这类失真的对冲。
+- [[2026-09-23-agentic-se-refactoring-methodology-源摘要]]：第三观测对象的逐项核验出处。
 - [[SDD 收益主张的实证赤字]]：第二观测对象所在的论题；该页对 Hill 研究显式标注了「直连 403、
   经检索摘要核验」，即本页 M3/M5 教训的直接应用。

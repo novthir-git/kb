@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 软件工程, 重构, 架构, 方法论]
 created: 2026-09-23
-updated: 2026-11-05
+updated: 2026-11-07
 sources:
   - "[[2026-09-23-agentic-se-refactoring-methodology-源摘要]]"
   - "[[2026-10-08-agentic-se-refactoring-methodology-补充研究-源摘要]]"
@@ -26,8 +26,14 @@ sources:
   - "https://arxiv.org/abs/2604.04990 （Architecture Without Architects；检索于 2026-09-23）"
   - "https://arxiv.org/abs/2602.14690 （Galster 等；检索于 2026-09-23）"
   - "[[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]]"
-  - "https://github.com/hslee16/Archy/issues/386 （Thoughtworks 实验的第三方复核；检索于 2026-11-04）"
+  - "https://github.com/hslee16/Archy/issues/386 （Thoughtworks 实验的第三方复核；检索于 2026-11-04，2026-11-07 复核 10-15 结论评论）"
   - "https://arxiv.org/abs/2610.14768 （SWE-Maintain；检索于 2026-11-04）"
+  - "https://arxiv.org/html/2610.14768 （SWE-Maintain 全文；检索于 2026-11-07）"
+  - "https://codescene.com/blog/does-code-quality-affect-ai-token-costs （CodeScene 预注册研究，Markus Borg，2026-10-26；检索于 2026-11-07）"
+  - "https://arxiv.org/abs/2610.21914 （上述研究的论文，Heander、Borg 等；检索于 2026-11-07）"
+  - "https://www.anthropic.com/engineering/writing-tools-for-agents （Anthropic，2025-09-11；检索于 2026-11-07）"
+  - "https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start （Anthropic，2026-05-14；检索于 2026-11-07）"
+  - "[[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]]"
 ---
 
 # Agentic SE 时代的系统重构
@@ -40,7 +46,7 @@ sources:
 1. **重构的目标函数扩展了**：代码库不再只是给人读的产物，也是 agent 的**运行环境**（OpenAI："瓶颈在环境而非
    模型"）。综合（沿用调研稿的判断，机制有一手支撑）：对人可维护与对 agent 可维护高度重合，但 agent 对
    **上下文经济性**远比人敏感——它每次变更都要把相关代码读进上下文、且每次从零开始（Thoughtworks 实验正是利用
-   了"agent 不会学习"），也没有人带着的那套隐性 harness（Böckeler）。2026-10-08 补：证据分三层——长上下文退化
+   了"agent 不会学习"），也没有人带着的那套隐性 harness（[[Birgitta Böckeler|Böckeler]]）。2026-10-08 补：证据分三层——长上下文退化
    本身充分；对 coding agent，裸模型方向一致、带 harness 的 agent 有反例；"代码库整洁度 → agent 表现"已有少量受控
    实验，前沿模型上**成功率无显著差异、token 与返工下降**。所以"更敏感"在前沿模型上主要体现为成本，而不是做不做得成
    （[[上下文经济性]]）。
@@ -77,7 +83,7 @@ OpenAI 的另一个判断把时间点也改了：人类团队常推迟到数百�
 前提**。综合：原因是 agent 的吞吐让一个小团队在几个月内产出了过去大团队才有的代码量（约 100 万行），架构
 约束的收益随代码量增长，引入时点也随之前移。
 
-## 二、结构债的经济学：一份测量
+## 二、结构债的经济学：测量与受控对照
 
 Thoughtworks（Giles Edwards-Alexander，2026-07-30）的实验设计很干净：利用"agent 不会学习"，每做完一步重构，
 就让全新 sub-agent 重放**完全相同**的代表性变更，记录 token 后丢弃
@@ -98,15 +104,29 @@ Thoughtworks（Giles Edwards-Alexander，2026-07-30）的实验设计很干净�
 > ⚠️ 矛盾：[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]] 称拆分 17,155 行文件后同一变更输入 token −83%；但
 > [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]] 的认知热点轨（把上帝结构抽成 helper）输入 token +1.8%、基本不变。第三方复核
 > Archy issue #386（https://github.com/hslee16/Archy/issues/386 ，检索于 2026-11-04；个人分析、非发表）另称 −83% 为单次运行、
-> 无方差，"Nothing was deleted. The saving is that the agent reads less"，其 Flask 复现 token 反而 +4,213。
-> 综合：两者干预不同（拆成多文件 vs 文件内抽 helper）。可调和的读法是收益取决于 agent 能否用 grep 定位并只读最小文件子集——
-> 这与 Thoughtworks 作者自己的机制解释一致，也符合 Sonar 内部 commons-bcel（−35%）与 genie（+8%）两个案例的分化。
+> 无方差，"Nothing was deleted. The saving is that the agent reads less"，其 Flask 复现（N=10 对）token 反而 +4,213，
+> 但 issue 自己把这次实验记为零效应（null；重读文件 −1.0、5/5 平分，sign p=1.000；token 一项未给检验）。该 issue 2026-10-15 的结论评论
+> 认为两组数据并不矛盾："Experiment 1's starting file is 3.6x smaller than the article's finishing file"（Flask 的 `sansio/app.py` 1,013 → 611 行），"If the curve has a knee, it lies somewhere above ~3.7k
+> lines"，"余量"（headroom）是两组数据共同允许的唯一读法；issue 以 NO-GO 关闭（2026-11-07 复核）。
+> 综合：两边都有"拆分"。Sonar 认知热点轨同样把逻辑拆到更多、更小的文件（读文件数 +11.2%），输入 token 却基本不变；
+> 文件没变小、只在文件内抽出具名 helper 的 commons-bcel 反而 −35%（genie 加了结构却没改核心逻辑，+8%）。所以决定收益的不是
+> 拆不拆文件，更可能是规模与可定位性：单个 17,155 行文件 vs 数百行的上帝方法，以及 agent 能否用 grep 只读到最小子集。
+> 这与 Thoughtworks 作者"随机把文件切小不会有同等效果"的判断、Archy issue 的余量读法都相容。（修订于 2026-11-07）
 > 回本估算应以 Sonar 的量级为基准、Thoughtworks 为乐观上界。（发现于 2026-11-05）
+
+综合（第三个量级点，2026-11-07 补）：CodeScene 2026-10-26 的预注册研究（Heander、Borg 等，CodeScene 联合 Lund 大学，arXiv 2610.21914；博客作者 Markus Borg；465 个 agent 写的 PR、
+246 个仓库、3 个 LLM，OSF 2026-08 预注册）测得每升 1 点 Code Health，同一 review + fix 流水线的 token 少 3.5–6.1%，CH 2.8 与 9.7
+两端相差 22–35%（最强的 claude-sonnet-5 为 21.8%）；diff 大小仍是最强的成本驱动，但 Code Health 与它无关；复杂方法与复杂条件
+预测成本，重复的预测失败
+（https://codescene.com/blog/does-code-quality-affect-ai-token-costs ，检索于 2026-11-07）。限定：观察性、厂商主导，任务是
+agentic review + fix 而不是功能变更，不能与 −7.1% 或 −83% 直接换算。作者另指出不健康代码多出现在长得多的文件里，文件规模是
+Code Health 转化为 token 成本的途径之一——与上面"规模与可定位性"的读法同向。据此，"以 Sonar 量级为基准"应理解为**保守**基准：
+它是同类功能变更的受控对比；健康度两极的差距约 22–35%，−83% 仍是单实验的乐观值。
 
 综合（回本估算，非原文）：若把 500 万 token 上界全按输入价计，约 38 次同类变更回本；真实数字取决于输出/输入
 比例与缓存折扣，量级是"几十次"。（2026-11-05 补）若单次节省按 Sonar 的整体量级（约 −7%）而非 −83% 计，同样的治理成本
 需要多约一个数量级的变更才能回本；"几十次"应视为乐观下界。这给出一个可操作的选题判据：**优先重构被 agent 频繁改动、且单次变更要读进
-大量无关代码的热点**——改动频率决定复利次数，无关代码的体量决定单次收益。
+大量无关代码的热点**——改动频率决定收益累积的次数（是否复利尚无数据），无关代码的体量决定单次收益。
 
 这条经济学把重构接进了本 wiki 已有的成本框架：[[Uber-软件工厂的成本工程]] 把"agent 替自己多干的活"定义为浪费，
 接地（上下文图谱）砍的是找信息的轮次，重构砍的是读信息的体量；[[Agent 工具上下文膨胀]] 的固定开销来自工具
@@ -114,10 +134,12 @@ schema，这里来自代码文件本身。
 
 ## 三、谁来发起：重构必须是 harness 的职能
 
-三个来源同向显示 agent 不会自发**发起**重构（证据表见 [[Agent 不会自发偿还结构债]]；被明确分派后的**选题**质量则
+四个来源同向显示 agent 不会自发**发起**重构（证据表见 [[Agent 不会自发偿还结构债]]；被明确分派后的**选题**质量则
 证据分化）：Thoughtworks 的开发
 harness 里写着显式重构步骤，却从未促使 agent 处理那个 17,155 行的文件；Böckeler 的经验是 agent 在第三、四次
-重复时通常不会主动重构；OpenAI 观察到 agent 会复制仓库里已有的坏模式。
+重复时通常不会主动重构；OpenAI 观察到 agent 会复制仓库里已有的坏模式；SlopCodeBench（2026-11-05 补，第一个学术来源）
+里 15 个模型在自己的代码上迭代，77% 的轨迹结构侵蚀上升，写明质量要求的提示也不改退化速率
+（[[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]]）。
 
 可用的驱动方式，按来源整理：
 
@@ -139,7 +161,7 @@ harness 里写着显式重构步骤，却从未促使 agent 处理那个 17,155 
 
 - **让 agent 能安全执行重构**：Thoughtworks 的每一步都可单独测试、也都单独测过（原文称这比多数人类工程师的
   做法更严格）。综合：这很可能是它能 8 小时基本无人值守的条件之一。
-- **让 sensor 的"绿"可信**：Böckeler 的实验里，一个语句覆盖 100% 的文件没有任何单元测试，变异测试报出 13 个
+- **让 sensor 的"绿"可信**：Böckeler 的实验里，一个语句覆盖 100% 的文件没有任何单元测试，[[变异测试]]报出 13 个
   存活变异体。测试也由 AI 写时，覆盖率门禁要配变异测试（[[AI编码技术债的三层治理]]）。
 - **让长期演化不崩**：Deng 等的持续演化基准（EvoClaw，现名 SWE-Milestone，arXiv 2603.13428）显示，agent 在
   "每个里程碑都从标准快照起步"的独立设置下得分可超过 80%（这一水平部分是构造基准时反复修订需求规格、直到
@@ -147,8 +169,10 @@ harness 里写着显式重构步骤，却从未促使 agent 处理那个 17,155 
   非成功率），按完全解决计最高约 13%；失败集中在**防回归**，错误沿依赖链滚雪球。**适度而有纪律**的测试验证
   得分最高（验证过度同样偏低），"频繁改同一文件却很少跑测试"的盲目试错表现最差。
 - **第二个独立来源（2026-11-05 补）**：SWE-Maintain（arXiv 2610.14768，预印本；50 个 Python 仓库、1,996 个成对事件、5 个编码系统
-  × 2 个模型）里，agent 看不见测试时 68% 的继承起点已经悄悄破坏了早先行为；继承代码能通过早先测试时，测不出维护惩罚
-  （+2.7 pp，95% CI [−0.5, +6.1]）。作者建议守住测试，而不是为风格或结构漂移去审 agent 代码。
+  × 2 个模型）的主结果是：在 agent 自己的历史上继续维护，后续任务解决率十个组合**全部下降**，平均 −5.6 pp（95% CI [−7.2, −4.1]）；
+  要求早先测试也全部通过时差距扩大到 −14.0 pp，且主要来自继承下来的测试失败。agent 看不见测试时 68% 的继承起点已经悄悄
+  破坏了早先行为；继承代码能通过早先测试时，测不出维护惩罚（+2.7 pp，95% CI [−0.5, +6.1]）。作者建议守住测试，而不是为
+  风格或结构漂移去审 agent 代码——守不住测试的代价是测出来的（https://arxiv.org/html/2610.14768 ，检索于 2026-11-07）。
 
 综合：这组证据把"验证优先"从一条工程格言变成了可观察的机制——**agent 在长期演化中缺的不是写新功能的能力，
 而是不破坏旧功能的能力**，而后者正是验证网提供的东西。
@@ -217,9 +241,10 @@ Margaret-Anne Storey（ACM Queue 2026），Harrer 把它用到了现代化场景
 | Böckeler（Thoughtworks） | 系统性泼冷水 | **按风险校准审查**（影响、概率、可检测性），认可 spec-first，低风险高可检测时接受 vibe coding |
 
 综合：调研稿说"两端共同承认"生成成本趋零后验证成为稀缺资源（它原话还包括规格化与治理）。这一点在审慎一端有
-多条一手支持，口径各异：Karpathy 说在审 10,000 行 diff 时"I'm still the bottleneck"；Osmani 说瓶颈移到了"证明代码
+多条一手支持，口径各异：Karpathy 说面对 agent 一次产出的大段 diff 时"I'm still the bottleneck"（各转录稿记的行数不一，此处不引具体数字）；Osmani 说瓶颈移到了"证明代码
 能用"；Sonar 2026 调查中 96% 的受访者不完全信任 AI 代码，但坚持每次都检查的不到一半；Anthropic 内部调查里超过一半
-的人能完全委派的工作只占 0–20%；SWE-Milestone 显示 agent 缺的是系统级维护能力。激进一端对此的承认较弱——AaaS
+的人能完全委派的工作只占 0–20%；SWE-Milestone 显示 agent 缺的是系统级维护能力。人侧瓶颈转向理解与监督带宽的
+论点页见 [[LLM 输出的人类理解瓶颈]]。激进一端对此的承认较弱——AaaS
 把人定为 outcome auditor，但断言差距"非根本性"。
 
 > 综合：激进一端的代表在**工程实践**上普遍后撤到"人仍在验证环"——AaaS v2 撤回"软件工程终结"的标题、把人定为
@@ -240,7 +265,7 @@ tests 先行）、Osmani（其文中有"Parallelize last"一节）等来源方�
 | 0. 度量与缩范围 | 选几个代表性变更，记录输入 token 与改动文件数；先砍掉不必现代化的部分 | Thoughtworks 的计价法；Böckeler 的"小改动要改的文件数"信号；Harrer 的缩范围 | 知道热点在哪、基线是多少 |
 | 1. 验证网 | characterization tests、CI 门禁；AI 写测试时配变异测试 | Harrer、Osmani、Böckeler、SWE-Milestone | 热点区域的行为被锁住 |
 | 2. agent 接口层 | 短入口文件做地图（只写推断不出的约定），深层文档按需加载；统一命令入口；依赖与分层规则写成 linter | OpenAI；ETH 评测（仓库概览无益、成本 +20%）；Claude Code 修剪判据 | 规则能机械执行，而不只是写在文档里 |
-| 3. 边界重构 | 人画区域图、划 seam；按 agent 的读取路径拆热点大文件、去重 | Osmani 的区域；Harrer 的 seam；Thoughtworks 的 −83% | 代表性变更的 token 与文件数下降 |
+| 3. 边界重构 | 人画区域图、划 seam；按 agent 的读取路径拆热点大文件、去重 | Osmani 的区域；Harrer 的 seam；Thoughtworks 的 −83%（乐观上界；Sonar 热点轨拆小文件不省 token，见 §二） | 代表性变更的 token 与文件数下降 |
 | 4. 批量 campaign | 小而定向、每单元可独立测试；机械变更优先走确定性转换 | `/batch`、Bun、Google、Harrer 的 recipe | 既有测试全绿、人审每个变更 |
 | 5. 持续偿还 | 定期 GC 任务、周期性推理型评审、阈值上调可见 | OpenAI、Böckeler | ——（不结束） |
 
@@ -251,14 +276,14 @@ tests 先行）、Osmani（其文中有"Parallelize last"一节）等来源方�
 
 ## 八、争议与开放问题
 
-| 问题 | 现状（2026-09-23） |
+| 问题 | 现状（2026-09-23，部分行 11-05 / 11-07 更新） |
 |---|---|
-| spec 是否是新的源代码 | 旗手是 2025 年的 Tessl（已转型）；GitHub 的 Spec Kit 方法论文档在理念上接近 spec-as-source，但工具实际形态是 spec-first，其持久化文档另列三种变更模型并声明都不是默认；Böckeler 担心 spec-as-source 兼有僵化与非确定性。SDD 的收益证据见 [[SDD 收益主张的实证赤字]] |
+| spec 是否是新的源代码 | 旗手是 2025 年的 Tessl（已转型）；GitHub 的 [[GitHub Spec Kit\|Spec Kit]] 方法论文档在理念上接近 spec-as-source，但工具实际形态是 spec-first，其持久化文档另列几种变更模型并声明都不是默认（07–09 月为三种，2026-11-06 起增至四种）；Böckeler 担心 spec-as-source 兼有僵化与非确定性。SDD 的收益证据见 [[SDD 收益主张的实证赤字]] |
 | 规则 / 上下文文件写多详尽 | 形态已收敛为"常驻入口极简 + 深层按需加载"；但效果证据相互矛盾——ETH 测得成本 +20% 且不提升成功率，Lulla 等测得 Codex 运行时间 −28.64%；McMillan 在 25–500 行内未测到文件大小影响指令遵循，与官方"膨胀导致忽略"的说法相左（两处 ⚠️ 矛盾标注见 [[AI编码技术债的三层治理]]） |
 | 人能否退出验证环 | 没有一手来源支持"现在"退出：AaaS 也只在 2028 年以后的愿景阶段让人退到元治理层；Google 每个变更都人审 |
 | agent 该不该在循环里做 TDD | 目前唯一的评估（Böckeler，小样本）显示无收益甚至略差；需要更大样本 |
 | 重构粒度与执行质量 | OpenAI 的小 PR 顺利、Thoughtworks 的 15 步大重构粗糙；缺同仓库对照 |
-| 结构债的回本点 | Thoughtworks 单实验 −83%（第三方复核称 n=1）；Sonar 受控实验整体 −7%、集中在跨模块任务（2026-11-05 补，⚠️ 见 §二）。多轮迭代下是否复利仍无数据；处境化的回本规则见 [[全AI代码库的治理决策]] |
+| 结构债的回本点 | Thoughtworks 单实验 −83%（第三方复核称 n=1，并认为其零效应复现与之不矛盾）；Sonar 受控实验整体 −7%、集中在跨模块任务（2026-11-05 补，⚠️ 见 §二）；CodeScene 观察性研究 Code Health 两端差 22–35%（review + fix 任务，2026-11-07 补）。综合：差异更可能来自规模与可定位性而非拆不拆文件。多轮迭代下是否复利仍无数据；处境化的回本规则见 [[全AI代码库的治理决策]] |
 | 上下文经济性会不会被更强模型抹平 | 用户 2026-10-08 的判断：质量维度在收窄，经济维度不会被抹平。核验后有受控实验支持：前沿模型上整洁度不改变成功率、但降低 token 与返工；开源中等模型仍敏感。研究少、多为厂商所做，强模型组的零效应可能是功效不足（[[上下文经济性]]） |
 
 调研稿 §4 表中"模块化单体 vs 微服务"一行没有给出处，本次核验未覆盖，暂不采信。
@@ -271,14 +296,16 @@ tests 先行）、Osmani（其文中有"Parallelize last"一节）等来源方�
 
 | 形态 | 做法 | 出处与证据等级 |
 |---|---|---|
-| 上下文经济性 | 小而内聚的文件；目录浅而可预测、按领域命名（Salomon 主张"领域顶层 + 用例切片"两级，优于纯扁平）；避免缩写与重名（Marmelab 称"代码 SEO"）。Salomon 的五项特征：Locality、Blast radius、Boundary integrity、Navigability、Rebuild/test scope。上下文是有限资源、性能随长度逐渐下降（context rot），Anthropic 推荐**混合**策略：少量内容常驻，其余按需检索；长任务靠 compaction、外置笔记、子 agent 回传摘要 | Salomon、Marmelab（实践者观点）；Anthropic（2025-09-29，厂商工程文章）；收益的测量见 §二；证据分层见 [[上下文经济性]] |
+| 上下文经济性 | 小而内聚的文件；目录浅而可预测、按领域命名（Salomon 主张"领域顶层 + 用例切片"两级，优于纯扁平）；避免缩写与重名（Marmelab 称"代码 SEO"）。Salomon 的五项特征：Locality、Blast radius、Boundary integrity、Navigability、Rebuild/test scope。上下文是有限资源、性能随长度逐渐下降（context rot），Anthropic 推荐**混合**策略：少量内容常驻，其余按需检索；长任务靠 compaction、外置笔记、子 agent 回传摘要 | Salomon、Marmelab（实践者观点）；Anthropic（2025-09-29，厂商工程文章）；收益的测量见 §二（Sonar 热点轨拆成更小的文件并不省 token；综合：省的前提更可能是能被 grep 定位、只读最小子集）；证据分层见 [[上下文经济性]] |
 | 显式契约 | 强类型让接口自带文档；显式边界防止 agent 推断出错误契约；消除全局状态、时序耦合、语义耦合（Salomon 列了六类有害耦合）；抵制过早抽象。在 ARCHITECTURE.md 里点名众所周知的模式，agent 就不必读实现 | Salomon（观点）；点名模式一条是 Marmelab 与 Deska 的经验之谈，未见实证，且 ARCHITECTURE.md 这一惯例本身强调简短 |
 | 给 agent 读的文档 | 常驻入口极简、深层按需加载：OpenAI 约 100 行的 AGENTS.md 指向结构化 `docs/`；Anthropic 让 CLAUDE.md 只写删掉就会出错的内容，按场景才需要的知识放进 skills；Marmelab 用短入口加就近嵌入的文档。统一命令入口、自文档化 CLI、ADR 也是 agent 的接口。AGENTS.md 与 CLAUDE.md 并存（2,586 个有上下文文件的仓库里 CLAUDE.md 45.9%、AGENTS.md 39.5%；Claude Code 自 2026-09-18 起在无 CLAUDE.md 时读 AGENTS.md） | 形态上三方同向；**效果**证据相互矛盾（ETH vs Lulla、McMillan vs 官方说法，见 [[AI编码技术债的三层治理]]） |
-| 为 agent 设计接口（ACI） | SWE-agent 把 LM agent 当作一类新的终端用户，四条原则：动作简单、动作紧凑、反馈充分而简洁、护栏阻断错误传播；相对 shell 基线提升 10.7 个百分点（绝对 pass@1 12.5%）。可操作的错误信息、省 token 的输出，另见 Anthropic《Writing effective tools for AI agents》（2025-09） | SWE-agent（NeurIPS 2024，基准测量） |
+| 为 agent 设计接口（ACI） | SWE-agent 把 LM agent 当作一类新的终端用户，四条原则：动作简单、动作紧凑、反馈充分而简洁、护栏阻断错误传播；相对 shell 基线提升 10.7 个百分点（绝对 pass@1 12.5%）。可操作的错误信息、省 token 的输出，另见 Anthropic《Writing effective tools for AI agents》（2025-09-11，https://www.anthropic.com/engineering/writing-tools-for-agents ，检索于 2026-11-07）；Anthropic 的同一设计原则见 [[building-effective-agents]] | SWE-agent（NeurIPS 2024，基准测量） |
 | prompt 也是架构制品 | 开发者用自然语言描述需求时，agent 数秒内做出框架选择、基建与集成决策，本质是无人评审的架构决策（vibe architecting）。示意：只改 prompt，代码量 141 → 827 行（5.9 倍），依赖图与故障模式随之改变。主张在代码评审**之外新增**一层架构评审，审 prompt 规范与 agent 做出的架构决策 | arXiv 2604.04990（position paper；三个 prompt 各跑一次、单一工具，作者自称示意） |
 
 "代码库比堆 MCP / 子 agent 更根本"不作为结论采信：只有 Marmelab 接近原话，Anthropic 把表现归因于整个 harness 并推荐子
-agent 架构；它可取的部分是"基础先于工具"——Anthropic 2026-05-14 的大型代码库文章把"基础没做好就先接 MCP"列为常见错误。
+agent 架构；它可取的部分是"基础先于工具"——Anthropic 2026-05-14 的大型代码库文章（《How Claude Code works in large codebases》，
+https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start ，检索于 2026-11-07）在扩展层一览表里
+把 "Building MCP connections before the basics are working" 列为 MCP 的常见误区。
 
 > 综合：五条形态对应 §一的三条新理由——降低上下文成本 → 上下文经济性；提高可被机械约束的程度 → 显式契约；让设计意图
 > 对 agent 可执行 → 给 agent 读的文档、ACI 与 prompt 评审。它们大多是老原则，新的是 agent 对上下文成本敏感得多
@@ -300,7 +327,9 @@ agent 架构；它可取的部分是"基础先于工具"——Anthropic 2026-05-
 对 §七 顺序的含义：验证网与边界是保值资产，接口层约一半折旧，campaign 的调参仪式折旧最快，所以顺序在更强模型的
 世界里更成立。投资规则是：**依赖关系定先后，折旧速度定投入上限**——顺序本来由依赖关系决定（没有验证网就不能安全
 委派后面的步骤）；折旧快的件不是不该投，而是只做回本期短于折旧期的那部分。按 §二 约 38 次的回本量级（置信度低），
-一个每周被改动十次以上的热点一个季度内就能回本。
+一个每周被改动十次以上的热点一个季度内就能回本。综合（2026-11-07 补）：38 次是 Thoughtworks 的乐观值；按 Sonar 的约 −7%
+回本要多约一个数量级的变更，同样频率下约需三个季度，已接近用户估计的一两年折旧期的下沿——"季度回本"只对 Thoughtworks 式的
+超大单文件、单次要读进大量无关代码的热点成立。是否据此修订本段，待用户裁定。
 
 > 用户原稿的表述是"先投折旧最慢的"，四处分档也与尺子有出入（ACI 省 token 重复归档、prompt 评审与验证容量按尺子应归
 > 升值、campaign 试点有保值的一半）；维护者复查后用户于 2026-10-08 裁定按上表修订。
@@ -309,17 +338,19 @@ agent 架构；它可取的部分是"基础先于工具"——Anthropic 2026-05-
 
 - **一手实验都是单点**：Thoughtworks（单实验、单开发者、greenfield、每步只测一次）、Böckeler（单人单应用、无对照）、
   OpenAI（公司自述、无对照，且被指缺少功能与行为验证）。2026-11-05 补入的 Sonar 最小对实验是第一个多仓库受控测量，但仍是
-  单模型、单 harness、短程，且作者受雇于 SonarSource。
-- **唯一的大样本基准**是 SWE-Milestone（98 个里程碑、12 个模型），它测的是功能演化而不是专门的重构。
+  单模型、单 harness、短程，且作者受雇于 SonarSource。2026-11-07 补入的 CodeScene 研究样本大（465 个 PR、3 个 LLM），但是观察性研究（Lund 大学博士生 Heander 牵头、CodeScene 参与，用的是 CodeScene 自家的 Code Health 指标），
+  任务是 review + fix。
+- **大样本基准**有 SWE-Milestone（98 个里程碑、12 个模型）与 SWE-Maintain（1,996 个成对事件、5 个编码系统 × 2 个模型），另有
+  SlopCodeBench（15 个模型的迭代基准）；它们测的是功能演化与持续维护，都不是专门测重构。
 - **唯一的工业级迁移数据**是 Google（3 名开发者、同一类迁移、时间节省是自估）。
 - 遗留系统的方法框架主要出自 Harrer 一人，Osmani 是较独立的佐证；campaign 案例的数字来自厂商或转述。
 - 本页的回本估算、"三种批量形态"、"实践层向验证收敛"与修订版六步顺序表都是本 wiki 的综合推断；核心判断 1
   的"agent 对上下文经济性远比人敏感"沿用自调研稿，只有机制层面的一手支撑。
-- 置信度（对外引用时标注）：回本量级为**低**（分子分母口径不同，只到"几十次"）；其余综合推断为**中**——核心判断 1 的
+- 置信度（对外引用时标注）：回本量级为**低**（分子分母口径不同；量级在几十次（Thoughtworks，乐观）到数百次（按 Sonar 的约 −7%）之间）；其余综合推断为**中**——核心判断 1 的
   程度、架构约束时点前移、选题判据、驱动方式分工与"默认小步"、古德哈特形态、验证网是无人值守的条件、"缺的是不破坏
   旧功能的能力"、三种批量形态、实践层收敛、六步顺序、"重构必须是持续职能"、§九"五条形态对应三条新理由"。依据即以上几条证据边界。
-- §九的做法多为实践者观点；有测量支撑的只有 ACI（SWE-agent 基准）与上下文经济性（§二的单实验，另有 2026 年的少量
-  受控研究，见 [[上下文经济性]]）。
+- §九的做法多为实践者观点；有测量支撑的只有 ACI（SWE-agent 基准）与上下文经济性（§二：Thoughtworks 单实验 + Sonar 受控实验，
+  另有 CodeScene 观察性研究与 2026 年的少量受控研究，见 [[上下文经济性]]）。
 - §十的分档是用户判断（2026-10-08），尺子本身可用、逐条分档置信度**中低**：折旧期"一两年"是估计，没有测量；
   维护者按尺子复查出四处对不上，已经用户裁定修订（[[AI工程方法论的耐久度]] 修订记录）。
 
@@ -333,5 +364,7 @@ agent 架构；它可取的部分是"基础先于工具"——Anthropic 2026-05-
 - 文档作为运行时输入：[[代码与文档漂移的本质]]
 - 规格：[[Specification-Driven Development]]、[[SDD 收益主张的实证赤字]]
 - 落地节奏：[[agent-生产级落地的鸿沟]]
+- 人侧瓶颈：[[LLM 输出的人类理解瓶颈]]
+- ACI 的原则来源：[[building-effective-agents]]
 - 证据分层：[[上下文经济性]]
 - 耐久度：[[AI工程方法论的耐久度]]

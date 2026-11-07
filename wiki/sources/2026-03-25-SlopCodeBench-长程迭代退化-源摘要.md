@@ -1,10 +1,11 @@
 ---
 tags: [素材, AI, Agent, 软件工程, 代码质量, 基准]
 created: 2026-11-05
-updated: 2026-11-05
+updated: 2026-11-07
 sources:
   - "raw/sources/articles/2026-03-25-SlopCodeBench-长程迭代退化.md"
   - "https://arxiv.org/abs/2603.24755 （v2；检索于 2026-11-05）"
+  - "https://arxiv.org/html/2603.24755 （Table 1 图注、Figure 3 图注复核；检索于 2026-11-07）"
 ---
 
 # 2026-03-25 SlopCodeBench《How Coding Agents Degrade Over Long-Horizon Iterative Tasks》源摘要
@@ -43,7 +44,10 @@ sources:
 | 质量提示的 Strict 代价 | anti-slop −2.4 pp、plan-first −3.6 pp |
 | 提示后平均退化速度 | 仍约 1.3 pp / checkpoint |
 
-相邻代际模型的质量几乎不变：Opus 4.7 vs 4.6 的 erosion 0.76 vs 0.75、verbosity 0.48 vs 0.44；GPT 5.5 vs 5.4 为 0.49 vs 0.51、0.32 vs 0.33。
+综合（本 wiki 从 Table 1 读出，原文未作此判断）：代际趋势分化。Opus 4.5→4.6→4.7 的 erosion 为 0.70→0.75→0.76、verbosity 0.43→0.44→0.48，未降；
+GPT 5.2 Codex→5.3 Codex→5.4→5.5 的 erosion 为 0.73→0.64→0.51→0.49、verbosity 0.50→0.46→0.33→0.32，erosion 下降约三分之一。
+口径：Table 1 报的是各模型最佳 just-solve 运行在已跑 checkpoint 上的水平值（带 ±），不是每 checkpoint 的退化斜率。
+原文最接近的表述只有 Figure 3 图注"两家前沿实验室的模型退化趋势相似"。
 
 ## 口径与证据边界
 

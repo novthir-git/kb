@@ -1,16 +1,16 @@
 # Wiki 内容索引
 
 ## 概览
-- 素材（raw）：46（含 3 个 asset）
-- 页面（wiki）：77
-- 最后更新：2026-11-06
+- 素材（raw）：48（含 3 个 asset）
+- 页面（wiki）：86
+- 最后更新：2026-11-07
 
 ## 分析（analyses）
-- [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
+- [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分；§4.1 跟进 2026 Q1–Q3 财报：订单端风险三季未兑现，SAP 许可收入下滑、Dassault 指引上调含并购，估值年内跌幅已收复、前高未收复。
 - [[cowork-plugins-架构]] — 官方机制校正版：Plugin（skills/connectors/sub-agents）→ Connector → MCP Server；旧架构图 SVG 已标记废弃。
-- [[codex-agent-采用曲线]] — OpenAI Codex 2026 采用数据：周活 5×、非开发者百倍增长、99 分位单日 60+ 小时 agent turns；与体验成本的张力。
+- [[codex-agent-采用曲线]] — OpenAI Codex 2026 采用数据：周活 5×、非开发者增长更快（137×/189×/12× 倍数待核）、OpenAI 员工 99 分位单日约 71 小时 agent turns（外部用户显著更低）；与体验成本对照。
 - [[SDD 开发规范研究]] — 面向 coding agent 的 SDD v1.0：current spec + change delta、六道门禁、追溯链、Reconcile & Retire 与试点指标。
-- [[BMAD 项目文档治理方案]] — 面向实施人员的草案：明确各类 BMAD 文档的保留、回写、depublish 与生成规则，并给出存量清理和两周试点步骤。
+- [[BMAD 项目文档治理方案]] — 面向实施人员的草案：明确各类 BMAD 文档的保留、回写、depublish 与生成规则，并给出存量清理和两周试点步骤；附录 A 含 2026-11-07 版本复核（6.11+ stable 改为 AGENTS.md 受管块 + bmad-build）。
 - [[代码与文档漂移的本质]] — v2 四类漂移统一模型（表达/符合性/运行/生命周期）：本质是调和机制缺失；测试只是证据不是裁判；含 agent 时代漂移经济学与文档 GC。
 - [[论代码与文档漂移解决方案]] — 在 Artifact-Driven Agent Workflow 之上补持续调和层：Spec 控制面、关系契约、事件 Adapter、AI 调和 + 确定性门禁、自动退役与采纳分级；含自产自审实证边界、组织最小职责与反对观点。
 - [[基于IT4IT的Agent知识治理]] — 用 IT4IT Digital Product Backbone 治理企业统一 Agent 知识：Desired–Actual 调和、原子发布、权限与生命周期；新增 Knowledge Catalog 控制面与 OKF 发布制品映射。
@@ -20,32 +20,34 @@
 - [[AI编码技术债的三层治理]] — 以企业 / 成熟仓库 RCT、生产遥测、安全冲突和标准为证据，将 AI 编码治理重构为意图、证据、责任三层闭环。
 - [[叙事与故事结构方法论]] — 以 Situation × Story × Discourse → Audience Effect（事实叙事外加 Evidence）建立七层体系，并将 Story Spine、ABT、SCQA、Toulmin 等方法归位到对应层。
 - [[书与AI的优势边界及家庭组合]] — 区分书、AI、手机与阅读，以“书搭骨架、AI 做反馈、实践做验证”组织儿童学习，并附工程手工书选购与家庭规则。
-- [[STORM-知识策展系统分析]] — Stanford STORM/Co-STORM 的四个可复用机制、workflow 而非 agent 的架构定位、2025-09 后停滞并被商业 deep research 吞没的判断；含二次失真局限与"去机制化失真"样本。
+- [[STORM-知识策展系统分析]] — Stanford STORM/Co-STORM 的四个可复用机制、workflow 而非 agent 的架构定位、2025-09 后停滞（11-07 复核仍成立）并被商业 deep research 吞没的判断；Co-STORM「无商业对标」11-07 按 OpenAI 运行中插话能力收窄；含二次失真局限与"去机制化失真"样本。
 - [[Agent 全轨迹评测与审计]] — 将 Agent 评测从最终答案扩展为任务、Trace、指标与历史重评四类契约；区分 outcome 主证据与 process 归因证据。
-- [[Agentic SE 时代的系统重构]] — 代码库成为 agent 的运行环境：结构债可按 token 计价（单实验：同一变更输入 −83%），但须由 harness 驱动偿还、由验证网兜住；含 agent 友好代码库的目标形态、遗留系统方法、经核验的思想光谱与按存在理由的耐久度分档（§十）；11-05 补 Sonar 受控对照（整体 −7%、集中在跨模块），−83% 标注矛盾与第三方复核。
+- [[Agentic SE 时代的系统重构]] — 代码库成为 agent 的运行环境：结构债可按 token 计价（Thoughtworks 单实验 −83% 为乐观上界，Sonar 受控对照约 −7%，CodeScene 健康度两端 22–35%；差异更可能来自规模与可定位性），但须由 harness 驱动偿还、由验证网兜住；含 agent 友好代码库的目标形态、遗留系统方法、经核验的思想光谱与耐久度分档。
 - [[Uber-软件工厂的成本工程]] — Uber 公开的 agent 成本工程：六项成本方程、"agent 替自己多干的活"作为浪费定义、五层度量与四类杠杆；含"可计价者被优化"的张力与自报口径边界。
 - [[全AI代码库的治理决策]] — 100% AI 生成代码库要不要治：乱代码几乎不影响前沿模型单次成败，但"功能未受影响"多半未被观测；代价是随迭代递增的 token 税，治理本身也是回归源；按验证网、团队、寿命分叉的决策树，六步路线与重放法收益度量。
 - [[常驻 AI 同事的竞争格局]] — Grok Bot / Muse / Dots / Claude Cowork（含 Tag、Duet）/ Copilot Cowork / DeepSeek Super-agent：蓝图已普及，竞争退到入口、常驻单位经济学与授权；定位是商业模式的投影，现阶段是高级助理而非员工。
 
 ## 实体（entities）
-- [[Anthropic]] — Claude 系列与 MCP 的开发者；既是技术实体也是商业研究标的；10-27 增 IPO S-1 披露（上半年收入、大客户分层、~900% NRR、交叉销售漏斗、云厂商竞争与算力风险）。
+- [[Anthropic]] — Claude 系列与 MCP 的开发者；既是技术实体也是商业研究标的；10-27 增 IPO S-1 披露（上半年收入、大客户分层、~900% NRR、交叉销售漏斗、云厂商竞争与算力风险）；11-07 补 Claude Tag、playbook、routines 与 10-15 code review 数据（约 90% Claude Code 代码、回退占比降超 40%，自报）。
 - [[Claude Cowork]] — 面向非技术知识工作者、围绕"结果"设计的 agent 产品。
 - [[Codex]] — OpenAI 的 agentic 编码/工作平台，从开发者外溢到非开发者。
 - [[Claude Code]] — Anthropic 面向开发者的 agentic 编码工具；沿加速器、SDLC 载体、本库维护工具三条线追踪。
-- [[Meta]] — Facebook/Instagram/WhatsApp 母公司；当前作为 agent 生产级落地节奏的证据信号来源。
-- [[a2e-agent-auditing-engine|A²E（Agent Auditing Engine）]] — 上海 AI Lab 的 agent harness 评测引擎预印本与参考实现；当前代码许可与成熟度有明确边界。
+- [[Meta]] — Facebook/Instagram/WhatsApp 母公司；agent 落地节奏信号源（07-02「还需 3–6 个月」及 Q2/Q3 电话会后续表态）与消费级常驻 agent Muse 的主要玩家。
+- [[a2e-agent-auditing-engine|A²E（Agent Auditing Engine）]] — 上海 AI Lab 的 agent harness 评测引擎预印本与参考实现（MIT，无 release/tag，main 仍在开发；宜隔离 POC 并 pin commit）。
+- [[GitHub Spec Kit]] — GitHub 开源 SDD 工具包：三入口（SDD / bug fixing / idea assessment）、/speckit.* 命令链与 converge、四种持久化模型（2026-11 新增 Constitution-only）；含 07-16 时的历史状态与本库针对它的两项实测
+- [[Birgitta Böckeler]] — Thoughtworks Distinguished Engineer；本库引用其外层 harness 框架、可维护性 sensor 实验与 SDD 三层级；立场按核验口径记录（按风险校准审查、认可 spec-first 一般原则、已停止让 agent 先写测试），校正史在「历史」。
 
 ## 概念（concepts）
 - [[Loop Engineering]] — 围绕 AI agent 设计反馈闭环的方法论；Andrew Ng 三层产品开发循环：coding 分钟级、开发者反馈小时级、外部反馈天/周级。
-- [[Evals]] — AI/Agent 评估的 task、trial、grader、trace、outcome 与 suite；区分 capability/regression eval 及证据边界；含 LLM-as-judge 自我偏好与错误相关实证。
+- [[Evals]] — AI/Agent 评估的 task、trial、grader、trace、outcome 与 suite；区分 capability/regression eval 及证据边界；含 LLM-as-judge 自我偏好与错误相关实证、配置变更回归与多次运行的方差依据。
 - [[MCP]] — Model Context Protocol，agent↔数据/工具的开放连接标准（2024-11）。
 - [[building-effective-agents]] — Anthropic 的 agent vs workflow 设计范式与模式分类。
 - [[Agent 记忆架构]] — CoALA 的工作、情景、语义、程序记忆及内外部行动与循环决策；区分 Skills、日志和长期记忆。
-- [[Agent Skills]] — 把流程知识打包成可安装文件夹的开放格式；收拢程序记忆载体、plugin 组件、SDLC 回灌目标三种语境。
+- [[Agent Skills]] — 把流程知识打包成可安装文件夹的开放格式；收拢程序记忆载体、plugin 组件（另有 MCP 的 Skills over MCP 扩展分发通道）、SDLC 回灌目标三种语境。
 - [[Open Knowledge Format]] — Markdown + YAML 的开放知识交换格式；区分可携带制品、托管目录、知识图谱、记忆与编排，并分析 provenance、trust、freshness 和 Attested Computation。
 - [[知识图谱]] — 实体与有类型关系的知识表示；区分知识图谱、图数据库和图检索，并强调来源、时间与派生视图治理。
 - [[RPA]] — Robotic Process Automation：面向稳定重复界面任务的软件机器人；与 Workflow、Agent、API/MCP 的互补边界。
-- [[生产力-体验悖论]] — 区分感知速度、实际任务速度、活动产出、维护负担与 release 价值，解释 AI 编码的多层背离。
+- [[生产力-体验悖论]] — 区分感知速度、实际任务速度、活动产出、维护负担、单位成本与 release 价值，解释 AI 编码的多层背离；心流与认知负荷为不显著下降，METR 减速限 2025 年初工具。
 - [[llm-wiki-方法论]] — Karpathy LLM Wiki 模式：知识只编译一次、持续保鲜；三层架构 + 三大操作 + 守门判据（知识的四条边界、范围先于普遍性）。本仓库方法论源头。
 - [[Specification-Driven Development]] — 以规格为开发契约的 AI 软件工程范式；区分规格保留层级与 artifact mutation model。
 - [[控制带]] — 按信号强度分级授予 agent 自主权（1σ 记录 / 2σ 只读诊断 / 3σ 受限行动），检测端完全确定性；与 T0–T4 产物风险分级正交。
@@ -57,20 +59,22 @@
 - [[Harness Engineering]] — 为 coding agent 设计外层环境：guides/sensors × computational/inferential、steering loop、按成本分布检查点、harnessability；OpenAI 与 Böckeler 两个来源；11-05 增 2026 年三个定期维护 agent 样本与 Jain"强模型只需最终验证门"的数据点。
 - [[Agent 工具上下文膨胀]] — 工具接入方式决定 agent 开场即背的固定上下文，且每轮重发；按需检索、CLI 投影、code-mode 三条解法及其代价。
 - [[Agent 授权三层]] — 准入 / 授权语义 / 执行隔离三层；通道级授权是共同缺陷；确定性外壳必须对 agent 自身不可写（DeepSeek 反例）；模型预审只是软补充。
+- [[变异测试]] — mutation testing 在本库的两个角色：AI 写测试时"覆盖率虚高"的对策（语句覆盖 100% 仍有 13 个存活变异体；Radar 2026-11 升 Adopt），以及检验测试这一 sensor 本身的手段；约束结果而非过程。
 
 ## 对比（comparisons）
-- [[GraphRAG 与 Vector RAG]] — 区分 Vector RAG、Text2Cypher、Microsoft GraphRAG Global 与混合检索，按局部、关系、全局和实时事实路由。
+- [[GraphRAG 与 Vector RAG]] — 区分 Vector RAG、Text2Cypher、Microsoft GraphRAG Global、LazyGraphRAG 与混合检索；补 BenchmarkQED 主结论（LazyGraphRAG 厂商评测 96 组全胜），按局部、关系、全局和实时事实路由。
 - [[OKF 与 llm-wiki 的关系]] — 将 OKF 定位为宽松交换格式、llm-wiki 定位为严格维护系统；当前保留内部模型，只建议未来做单向导出 Profile。
 
 ## 主题（topics）
-- [[agent-生产级落地的鸿沟]] — 论点：Agent 试验渗透显著高于规模化价值；证据点覆盖 Gartner、Deloitte、McKinsey、Meta 与方法论边界；08-31 增 Uber 规模化正向案例（其依赖项无一来自"模型更强"）；09-23 增 OpenAI 零手写代码实验、SWE-Milestone（独立任务 >80% → 持续演化最高 38%）与 Anthropic 内部调查（超过一半受访者可完全委派仅 0–20%）。
-- [[AI方法论的去机制化失真]] — 论点：权威锚点保留、核心机制被抽掉的二次传播；9 样本证据表（含已确证上游）显示四特征可分离，固定五角色传播最广、"杜撰缺陷+自评补丁"唯一零反例；08-27 增第二观测对象（SDD 主题，载体为检索自动摘要）；同批提出的 M5 引文归属漂移唯一样本 08-31 复查证伪，降为待观察形态。
-- [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式、不自发发起重构，偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化；证据点覆盖 OpenAI、Böckeler、Thoughtworks；11-05 增 SlopCodeBench（提示不改退化斜率）、被驱动后不会停（Over-Compliant、tangled refactoring）与定期偿还的解法样本（Anthropic routines、Uber AutoClean）。
-- [[SDD 收益主张的实证赤字]] — 论点：SDD 的缺陷/返工下降主张与实证支持存在系统性赤字；8 条证据显示最大样本结论反向，主张最强处证据最弱。
+- [[agent-生产级落地的鸿沟]] — 论点：Agent 试验渗透显著高于规模化价值；证据点覆盖 Gartner、Deloitte、McKinsey、Meta 与方法论边界；08-31 增 Uber 规模化正向案例（其依赖项无一来自"模型更强"）；09-23 增 OpenAI 零手写代码实验、SWE-Milestone（独立任务 >80% → 持续演化综合得分最高 38%）与 Anthropic 内部调查（超过一半受访者可完全委派仅 0–20%）；11-07 增 SWE-Maintain 与 Anthropic Claude Code 仓库自报回退占比相对降超 40%（无对照，质量侧实际值仍空白）。
+- [[AI方法论的去机制化失真]] — 论点：权威锚点保留、核心机制被抽掉的二次传播；9 样本证据表（含已确证上游）显示四特征可分离，固定五角色传播最广、"杜撰缺陷+自评补丁"唯一零反例；08-27 增第二观测对象（SDD 主题，载体为检索自动摘要）；11-07 补第三观测对象（09-23 调研稿与媒体转引的 M3 同构样本），「失真不挑立场」回升为初步支持；M5 引文归属漂移唯一样本 08-31 复查证伪，降为待观察形态。
+- [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式，不会自发发起有针对性、有收益的结构债偿还（会做没人要求的顺手重构，但比人类少且损害可编译性）。偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化。证据点覆盖 OpenAI、Böckeler、Thoughtworks；11-05 增 SlopCodeBench（提示不改退化斜率）、被驱动后不会停（Over-Compliant）、未被要求时失控的顺手重构（tangled refactoring）与定期偿还的解法样本（Anthropic routines、Uber AutoClean）；11-07 增 CodeScene 修复后 Code Health 不升的相邻信号。
+- [[SDD 收益主张的实证赤字]] — 论点：SDD 的缺陷/返工下降主张与实证支持存在系统性赤字；8 条证据中最大样本观察证据指向反向（相关非因果，证据强度已降级），主张最强处证据最弱。
 - [[agent-工具执行的运行时授权治理]] — 论点：越权根因是环境权威，入口审批与模型自证都不够；有效控制须把权威放在模型上下文之外、核验贯穿授权前/提交前/回放时、审计取证独立于被审计者；22 条证据覆盖八个子维度（含 OpenAI CPU 缓存隐蔽信道这一硬件级隔离下限）。
-- [[LLM 输出的人类理解瓶颈]] — 论点：agent 接手跑腿后，人侧瓶颈转向理解与监督带宽；Karpathy 输出格式阶梯（受控英语 → 图示 → HTML → 讲解视频）为扩容手段，但简化丢事实（随领域术语密度上升）、富格式更难核对；6 条证据。
+- [[LLM 输出的人类理解瓶颈]] — 论点：agent 接手跑腿后，人侧瓶颈转向理解与监督带宽；Karpathy 输出格式阶梯（受控英语 → 图示 → HTML → 讲解视频）为扩容手段，但简化丢事实（随领域术语密度上升）、富格式更难核对；8 条证据（含 2025-06 Karpathy 早期信号、Anthropic 2026-01 技能形成 RCT 这一相邻测量）。
 - [[常驻 Agent 的算力经济学]] — 论点：常驻程度是预算参数（唤醒频率 × 模型档位），由谁付算力决定；定价收敛到"席位 / 订阅 + 用量"，按结果计价缺席；证据点覆盖 Grok Bot 额度风波、Muse 算力约束、Dots、Duet 与 DeepSeek。
-- [[上下文经济性]] — 论点：agent 读多少上下文分质量与经济两维——质量维度随模型代际收窄、经济维度长存；受控研究显示前沿模型上代码整洁度不改成功率、只省 token 与返工；11 行证据点表。
+- [[上下文经济性]] — 论点：agent 读多少上下文分质量与经济两维——质量维度随模型代际收窄、经济维度长存；受控研究显示前沿模型上代码整洁度不改成功率、只省 token 与返工，幅度取决于规模与可定位性而非拆不拆文件；12 行证据点表。
+- [[system-of-record 与专有数据护城河]] — 论点：agent 商品化界面层后，SaaS 的护城河在 SoR 与写入权/实时性/合规锁定，而非检索界面；三种失败模式（只卖检索界面、交付 agent 太慢被折价、控制层上移），证据点覆盖 2026 Q1–Q3 SAP/Dassault 财报、UBS/MS 分叉、TR/RELX/LSEG，附改口条件
 
 ## 综合（synthesis）
 - [[overview]] — 全局知识版图与活跃线索。
@@ -87,7 +91,7 @@
 - [[2026-08-07-AI编码技术债三层治理-用户研究草稿-源摘要]] — 对用户多源草稿逐项核验：保留 toil shift 与三债模型，校正来源等级、工具配置、复杂度与重复率门槛。
 - [[2026-08-07-AI编码治理高质量证据包-源摘要]] — 汇总企业与成熟仓库 RCT、GitHub 生产遥测、维护 / 安全研究及 NIST、DORA、OpenSSF、GitHub 官方治理材料，显式保留矛盾与外推边界。
 - [[2026-07-28-GoogleCloudPlatform-Knowledge-Catalog与OKF-源摘要]] — 区分托管 Knowledge Catalog、GitHub 工具仓与 OKF v0.2；汇总 Bundle、信任/保鲜、Reference Agent、Attested Computation 及证据边界。
-- [[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]] — A²E 论文的三层架构、1,035 次受控运行、轨迹审计方法、实验限制与代码复用边界。
+- [[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]] — A²E 论文的三层架构、轨迹审计方法与代码复用边界；v1 的 1,035 次受控运行（v3 起实验已换为两底座 × 4 个前沿 benchmark，见「版本变化」）。
 - [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]] — Anthropic 六阶段 AI 原生 SDLC 操作手册：committed artifact 产物链、控制带、eval 回归、skill/hook 分层；标注其零实证数据与产品营销性质。
 - [[2026-08-27-Uber-软件工厂成本效率-源摘要]] — Uber 软件工厂的成本方程、五层度量表、四类优化杠杆与全部自报数据；含七条口径与证据边界。
 - [[2026-02-11-OpenAI-Harness-Engineering-源摘要]] — OpenAI 五个月零手写代码、约 100 万行：瓶颈在环境而非模型；AGENTS.md 是地图、机械化不变量、定期垃圾回收；含自报口径与"缺行为验证"的外部评注。
@@ -115,7 +119,7 @@
 - sources/articles/2026-07-28-Open-Knowledge-Format-README — OKF 定位、Reference Agent、样例 Bundle 与 Viewer README verbatim 存档。
 - sources/articles/2026-07-28-Open-Knowledge-Format-v0.2-SPEC — OKF v0.2 规范 verbatim 存档（承载页 [[Open Knowledge Format]]）。
 - sources/articles/2026-06-17-heynavtoor-Stanford-STORM四提示词长文 — [[AI方法论的去机制化失真]] 传播链已确证上游节点的一级存档（fxtwitter 抓取，2026-08-11）。
-- sources/articles/2026-08-21-Anthropic-AI原生SDLC-playbook — Anthropic《The AI-Native SDLC Playbook》结构化存档，保留六阶段全部 play、配置示例与度量指标（源摘要 [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。
+- sources/articles/2026-08-21-Anthropic-AI原生SDLC-playbook — Anthropic《The AI-Native SDLC Playbook》结构化存档，保留六阶段全部 16 个 play 与配置示例；度量指标录得 12 个（原文 13 个，缺 Recurring codebase scans 一项）（源摘要 [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。
 - sources/articles/2026-08-27-Uber-软件工厂成本效率 — Uber 工程博客《Running a Software Factory Efficiently at Uber Scale》正文结构化存档；Figure 1–12 为图片未存档（源摘要 [[2026-08-27-Uber-软件工厂成本效率-源摘要]]）。
 - sources/articles/2026-10-02-Karpathy-理解LLM输出的格式阶梯 — Karpathy「理解 LLM 输出」X 长帖 verbatim 存档（fxtwitter 抓取，2026-10-08；承载页 [[LLM 输出的人类理解瓶颈]]）。
 - sources/articles/2026-09-14-Anthropic-CI规模化压力 — Anthropic 工程博客《Agentic coding is straining CI》结构化摘录；关键论断保留英文原句，非逐句原文镜像（源摘要 [[2026-09-14-Anthropic-CI规模化压力-源摘要]]）。
@@ -134,11 +138,12 @@
 - sources/articles/2026-09-08-Meta-Muse-安全架构 — Meta《How We Built Safety Into Muse》verbatim 存档（Sentinel 唯一放行者、替身 token；承载页 [[Agent 授权三层]]）。
 - sources/articles/2026-11-02-Anthropic-Claude-Cowork-架构概览 — Claude 帮助中心 Cowork architecture overview verbatim 存档（每会话临时沙箱、强制出站代理、connector token 不进沙箱）。
 - sources/articles/2026-11-06-OpenAI-dots-安全文档 — ChatGPT Learn《Safety and security in dots》中文结构化摘录（原文约 8.2 万字符超阈；Auto-review、Custom Rules、审计与保留期）。
+- sources/pdfs/2026-05-25-arXiv-2605.23135-AI编码助手对软件工程的影响.pdf — Vella & Blincoe 纵向研究 PDF 全文；Table 6 显示心流与认知负荷为不显著下降、仅反馈机制显著改善（承载页 [[生产力-体验悖论]]）。
 - sources/pdfs/2026-From-Technical-Debt-to-Cognitive-and-Intent-Debt-arXiv-2603.22106.pdf — Storey 提出的 technical / cognitive / intent debt 概念论文；ACM Queue 实践者文章的作者版本，属概念框架而非实证研究。
 - sources/pdfs/2026-Twelve-Quick-Tips-for-AI-Assisted-Coding-in-Science-PLOS.pdf — PLOS Computational Biology 同行评审实践指南；覆盖科研场景的 AI 辅助编码、测试、验证与人类责任。
 - sources/pdfs/2026-Cui-Generative-AI-Three-Field-Experiments-Software-Developers.pdf — Microsoft、Accenture 与 Fortune 100 企业、合计 4,867 名开发者的随机现场试验；短期任务 / PR 活动量提高 26.08%。
 - sources/pdfs/2024-Google-AI-Development-Speed-RCT-arXiv-2410.12944.pdf — Google 96 名工程师、单个复杂企业任务的 RCT；测得约 21% 的完成时间缩短，未评估代码质量。
-- sources/pdfs/2025-METR-Experienced-OSS-Developer-Productivity-arXiv-2507.09089.pdf — 16 名资深开源维护者、246 个成熟仓库任务的 RCT；AI 组实际慢 19% 而主观仍感觉更快。
+- sources/pdfs/2025-METR-Experienced-OSS-Developer-Productivity-arXiv-2507.09089.pdf — 16 名资深开源维护者、246 个成熟仓库任务的 RCT；AI 组实际慢 19% 而主观仍感觉更快（2025 年初工具；METR 2026-02 后续认为现在可能已加速，但自认证据很弱）。
 - sources/pdfs/2026-NBER-Writing-Code-vs-Shipping-Code-w35275.pdf — 超过 10 万名 GitHub 开发者的事件研究；代码 / commit 增长在 project、release 与用户采用层逐级衰减。
 - sources/pdfs/2026-Xu-AI-Programming-Maintenance-Burden-arXiv-2510.10165.pdf — 37,334 名开源贡献者的 Difference-in-Differences；外围产出增加、核心维护者 review 与返工负担上升。
 - sources/pdfs/2023-Perry-Insecure-Code-with-AI-Assistants-ACM-CCS.pdf — 47 人、五个安全任务的 ACM CCS 用户研究；多数任务更不安全且 AI 组信心更高。

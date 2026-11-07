@@ -1,10 +1,11 @@
 ---
 tags: [概念, AI, Agent, 方法论]
 created: 2026-07-03
-updated: 2026-07-29
+updated: 2026-11-07
 sources:
   - "https://www.anthropic.com/engineering/building-effective-agents （检索于 2026-07-28）"
   - "[[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]"
+  - "https://arxiv.org/html/2606.26959v1 （OpenAI，Codex 用量论文 v1；检索于 2026-11-07）"
 ---
 
 # Building Effective Agents（Agent 设计范式）
@@ -38,13 +39,15 @@ Anthropic 把 orchestrator-workers 放在 **Workflow** 类，而不是把它定�
 ## 三条设计原则
 - **Simplicity**（最小化架构复杂度）
 - **Transparency**（显式暴露规划步骤）
-- **Interface Design / ACI**（像重视 HCI 一样重视 agent-computer interface 与工具文档）
+- **Interface Design / ACI**（像重视 HCI 一样重视 agent-computer interface 与工具文档）。ACI 一词出自 SWE-agent；
+  其四条原则与基准增益（相对 shell 基线 +10.7 个百分点）见 [[Agentic SE 时代的系统重构]] §九
 
 ## 与本 wiki 的关联
 - 这套范式是 [[Claude Cowork]] 能"端到端完成一段工作"的能力层基础，
   参见 [[cowork-saas-资本市场冲击]] 的"能力层"分析。
-- **orchestrator-workers / parallelization** 是 [[Codex]] 重度用户"一人调度多并行 agent、
-  单日 60+ 小时 agent turns"的能力底座，见 [[codex-agent-采用曲线]]。
+- **orchestrator-workers / parallelization** 是 [[Codex]] 重度用户"一人调度多并行 agent"的能力底座：
+  OpenAI 员工中 99 分位者单日约 71 小时 agent turns，外部用户显著更低（https://arxiv.org/html/2606.26959v1 ，
+  检索于 2026-11-07；Axios 泛写成"99 分位用户 60+ 小时"），见 [[codex-agent-采用曲线]]。
 - **evaluator-optimizer** 与人类护栏对应工作从"创造转向验证"的趋势——但该转向也有代价，
   见 [[生产力-体验悖论]]。
 - [[Loop Engineering]] 可看作把本页的 workflow/agent 模式放进产品开发节奏：分钟级 coding loop、

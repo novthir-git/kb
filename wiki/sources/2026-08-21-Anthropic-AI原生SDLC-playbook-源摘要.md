@@ -1,10 +1,10 @@
 ---
 tags: [素材, AI, Agent, 软件工程, 治理]
 created: 2026-08-27
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "raw/sources/articles/2026-08-21-Anthropic-AI原生SDLC-playbook.md"
-  - "https://claude.com/blog/the-ai-native-sdlc-playbook （检索于 2026-08-27）"
+  - "https://claude.com/blog/the-ai-native-sdlc-playbook （检索于 2026-08-27；2026-11-07 复核 play 数与度量块）"
   - "[[2026-07-21-Anthropic-AI原生SDLC-源摘要]]"
 ---
 
@@ -18,7 +18,8 @@ Anthropic Applied AI team 的 Louis Claxton 于 2026-08-21 发布的六阶段操
 （六阶段、产物链、度量指标）。库内证据为单向关联——本文在 Deploy 阶段显式回指那篇（同组织出品）；
 面向客户的手册与内部 SDLC 是否完全同源未经证实。
 
-**性质判断**：这是**产品营销页面**，不是白皮书或研究报告——全部 13 个 play 绑定 Claude 产品栈，
+**性质判断**：这是**产品营销页面**，不是白皮书或研究报告——全部 16 个 play（Plan 1 / Design 1 / Build 6 /
+Test 2 / Deploy 3 / Maintain 3；原写 13，2026-11-07 按原文更正）绑定 Claude 产品栈，
 Claude Security 一节直接写了 seat 与计费要求。方法论层可移植，但原文没有做这个区分。
 
 ## 核心主张
@@ -43,6 +44,9 @@ ships under-reviewed. A regulated organization can't accept either outcome."
 
 早期阶段用 `.md`，因为产品负责人和 agent 能读同一个文件；Build 之后产物是代码及其记录。
 流程被显式描述为 **loop 而非 linear flow**：Maintain 阶段的产出写回 intent.md 重新入环。
+Maintain 的最后一个 play（Claude on call with Claude Tag，public beta）是回环的一个入口：Claude Tag 以自己的身份
+进 Slack 频道当首个响应者，"The channel is the audit trail"，复盘写入版本控制的 lessons 文件；小修复走 PR review gate，
+更大的写成 intent.md 回到 Stage 1。
 
 ## 六个可复用机制（与本 wiki 关联最强的）
 
@@ -55,8 +59,8 @@ ships under-reviewed. A regulated organization can't accept either outcome."
    makes them close to impossible." 一条必须永远成立的政策，需要 skill 背后有确定性的东西。
 4. **反馈闭环需要保护自己**——"an agent fixing code must not be able to weaken the check on that
    code"；修复任务期间用 hook 阻断 agent 编辑测试文件；先提交失败测试，再在不能改测试的前提下修复。
-5. **plan.md 与实现的同步用 hook 强制**——"When implementation departs from the plan, update plan.md
-   in the same commit. Consider using a hook to enforce synchronization between the two."
+5. **plan.md 与实现同 commit 同步是要求，用 hook 强制只是建议**——"When implementation departs from the
+   plan, update plan.md in the same commit. Consider using a hook to enforce synchronization between the two."
 6. **legacy 事实源的三种配置**——repo 为准 / legacy 系统为准 / **链接作为最低标准**
    （"accepting that there are two sources of truth"）。见 [[基于IT4IT的Agent知识治理]]。
 
@@ -70,7 +74,9 @@ ships under-reviewed. A regulated organization can't accept either outcome."
 
 ## 关键判断边界
 
-- **全文零实证数据。** 每个 play 都给了 leading / lagging indicator，但**没有任何一处实际测量结果**
+- **全文零实证数据。** 16 个 play 中 13 个给了 leading / lagging indicator（原文；raw 存档录得 12 个，漏了 Recurring
+  codebase scans 的度量；auto mode、build-time hooks、Claude Tag 三个 play 原文就没有度量——原文自述
+  每个 play 都覆盖 "How you measure whether it worked"，与实际不符），但**没有任何一处实际测量结果**
   ——没有"我们做了之后 X 从 A 变成 B"。它提供的是**度量框架，不是效果证据**。这与
   [[2026-07-21-Anthropic-AI原生SDLC-源摘要|7 月安全博客]]不同，那篇至少给了自报数字
   （80% 代码行归因、review comment 覆盖率 16%→54%）。
@@ -96,4 +102,7 @@ ships under-reviewed. A regulated organization can't accept either outcome."
 - [[SDD 收益主张的实证赤字]]：本文作为"主张强、证据无"的一个证据点。
 - [[Evals]]：agent 配置回归测试的具体做法。
 - [[基于IT4IT的Agent知识治理]]：legacy 事实源过渡期配置。
-- [[代码与文档漂移的本质]]：hook 强制 plan.md 同步 = 原则二"同一交付事务"的机制化。
+- [[代码与文档漂移的本质]]：要求实现偏离计划时同 commit 更新 plan.md（并建议用 hook 强制）= 原则二"同一交付事务"
+  的处方化；原文是写给客户的做法，没有报告实施情况或效果。
+- [[Claude Tag 驱动的团队研发流程]]：上文 Claude Tag on-call play 是该页"频道是事件总线、不是规格真相源"的官方佐证
+  （复盘入版本控制、大修复转 intent.md）；但本文只让 Claude Tag 承担这一个 play，不是端到端流程。

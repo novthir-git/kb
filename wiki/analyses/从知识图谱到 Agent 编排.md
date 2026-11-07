@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 知识管理, 架构]
 created: 2026-07-28
-updated: 2026-08-11
+updated: 2026-11-07
 sources:
   - "`raw/sources/notes/2026-07-28-从知识图谱到Agent编排-结构化内容草稿.md`（AI 派生草稿，仅作问题线索）"
   - "https://li.feishu.cn/file/CXkubLDs5oF6EUxJA9Ucedi7nBh （原视频，读取于 2026-07-28）"
@@ -42,9 +42,9 @@ sources:
 | 原草稿中的表达 | 正式结论 |
 |---|---|
 | 将“自然语言 → Cypher → 图数据库”统称为 GraphRAG | 这更准确地叫 **Text2Cypher / 知识图谱问答**。Microsoft GraphRAG 的代表性 Global Search 是“实体图谱 + 社区摘要 + 分层综合”，两者不能混为一谈，详见 [[GraphRAG 与 Vector RAG]]。 |
-| GraphRAG 比 Vector RAG 更擅长“全局结构” | 只在特定问题类型成立。Microsoft BenchmarkQED 显示 GraphRAG Global 对全局问题相对有利，Vector RAG 对局部问题相对有利，混合的 Drift Search 是更强的总体对手。 |
+| GraphRAG 比 Vector RAG 更擅长“全局结构” | 只在特定问题类型成立。Microsoft BenchmarkQED 的主结论是其自家 LazyGraphRAG 在 96 组比较中全胜（厂商评测）；相对 LazyGraphRAG 的竞争方法中，GraphRAG Global 对全局问题相对有利，Vector RAG 对局部问题相对有利，混合的 Drift Search 是最强挑战者，详见 [[GraphRAG 与 Vector RAG]]。 |
 | 四类记忆就是 Agent 的完整认知架构 | CoALA 还包括内部/外部行动空间和循环决策过程；记忆只是其中一个维度，详见 [[Agent 记忆架构]]。 |
-| Skills 等于程序记忆 | [[Agent Skills|Skills]] 是**显式程序记忆的一种工程载体**；程序记忆还包括模型权重中的隐式能力、Agent 代码、决策与工具调用程序。 |
+| Skills 等于程序记忆 | [[Agent Skills\|Skills]] 是**显式程序记忆的一种工程载体**；程序记忆还包括模型权重中的隐式能力、Agent 代码、决策与工具调用程序。 |
 | MCP 让跨系统编排自然成立 | MCP 只统一连接与交换格式；任务状态、语义适配、授权、审批、重试和补偿仍由 Host 与业务系统负责。 |
 | Agent 编排代表对 RPA 的替代 | 两者通常互补：Agent 处理模糊理解和动态决策，RPA 处理稳定、重复、尤其是无 API 的界面操作。 |
 | 降低 temperature 可保证建图正确 | 低 temperature 只能降低采样波动，不能证明实体、关系或 Cypher 正确；仍需约束、校验和来源追踪。 |
@@ -73,7 +73,7 @@ flowchart LR
 | 3. Agent 记忆 | 什么应跨步骤或跨会话保留？ | 上下文、Wiki、经验库、Skills | 写入、召回、更新、遗忘 |
 | 4. 决策与编排 | 下一步做什么、由谁做？ | 状态机、Workflow、orchestrator-workers、Agent loop | 目标、预算、终止条件、checkpoint |
 | 5. 集成与行动 | 如何读取或改变外部世界？ | API、[[MCP]]、[[RPA]]、人工操作 | 最小权限、幂等、审批、补偿 |
-| 6. 验证与调和 | 结果是否正确、系统是否漂移？ | [[Evals]]、[[Agent 全轨迹评测与审计|全轨迹审计]]、规则检查、Desired–Actual diff | 失败恢复、审计、下架、反馈闭环 |
+| 6. 验证与调和 | 结果是否正确、系统是否漂移？ | [[Evals]]、[[Agent 全轨迹评测与审计\|全轨迹审计]]、规则检查、Desired–Actual diff | 失败恢复、审计、下架、反馈闭环 |
 
 综合：这七层不是要求采购七套产品，而是要求系统设计时不要让同一组件同时冒充事实源、记忆、
 检索器和执行器。一个 Markdown 仓库也能覆盖多层，但各层的职责仍要分清。
@@ -168,7 +168,7 @@ Agent 与 RPA 的合理组合是：
 | 当前上下文 | 工作记忆 | 容量有限、任务结束后不保证保留 |
 | `AGENTS.md` 与 Skills | 显式程序记忆 | 规则仍需测试、版本化和审查 |
 | `log.md` | 审计轨迹 | 不是情景记忆；只有蒸馏后的可复用经验才进入知识页 |
-| Lint | 验证与调和 | 发现断链、矛盾、过时与派生视图漂移 |
+| Lint | 验证与调和 | 发现断链、矛盾、过时、孤儿页与 index/目录等派生表示的漂移（自 2026-08-31 起不含 `output/` 渲染视图） |
 | lark-cli、MCP、其他工具 | 集成与行动 | 调用范围受用户授权和工具权限约束 |
 
 综合：本仓库不是 Neo4j 意义上的知识图谱，但它已经形成一个人类可审阅的轻量语义网络。

@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 知识管理]
 created: 2026-07-29
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "https://github.com/stanford-oval/storm （检索于 2026-07-29）"
   - "https://cdn.openai.com/API/docs/deep_research_blog.pdf （OpenAI Deep Research 官方公告 PDF，检索于 2026-08-11）"
@@ -12,6 +12,10 @@ sources:
   - "https://arxiv.org/abs/2408.15232 Jiang et al., EMNLP 2024, pp.9917-9955（检索于 2026-07-29）"
   - "https://github.com/stanford-oval/storm/releases （检索于 2026-07-29）"
   - "https://zhuanlan.zhihu.com/p/2051623683756766563 （检索于 2026-07-29；本机不可达，摘录存档已按质量要求移除，见下方失真小节）"
+  - "https://github.com/stanford-oval/storm （git ls-remote + 浅克隆复核：HEAD 仍为 fb951af / 2025-09-30，最新 tag 仍为 v1.1.0；检索于 2026-11-07）"
+  - "https://x.com/OpenAI/status/1986194298971590988 （OpenAI 官方帖，2025-11-05：deep research / GPT-5 Pro 运行中可插入新上下文；经 fxtwitter API 读取，检索于 2026-11-07）"
+  - "https://x.com/OpenAI/status/2021299935678026168 （OpenAI 官方帖，2026-02-10：deep research 换 GPT-5.2，正文未列交互细节；经 fxtwitter API 读取，检索于 2026-11-07）"
+  - "https://www.testingcatalog.com/openai-works-on-chatgpt-skills-upgrades-deep-research/ （2026-02-11 二手报道：运行中可介入加需求或改向；检索于 2026-11-07）"
 ---
 
 # STORM 知识策展系统分析
@@ -20,7 +24,7 @@ Stanford OVAL（Monica Lam 组）的 LLM 知识策展系统。**它真正的贡�
 而是把"如何自动提出好问题"变成了可执行的工程结构。**
 
 > 综合：这是 2024 年最好的自动化研究报告开源实现，但已停止演进——
-> 最后一次 commit 停在 2025-09-30。30.4k star 是历史存量，不是活跃度。
+> 最后一次 commit 停在 2025-09-30（截至 2026-11-07 复核未变）。30.4k star 是历史存量，不是活跃度。
 
 ## 两代系统解决两个不同的问题
 
@@ -31,7 +35,8 @@ Stanford OVAL（Monica Lam 组）的 LLM 知识策展系统。**它真正的贡�
 
 综合：Co-STORM 的问题定义更有价值：LLM 聊天机器人和生成式搜索都要求你**先会提问**，
 而人在陌生领域最大的障碍恰恰是提不出问题。论文的类比是小孩通过旁听大人对话学习。
-这个需求到 2026 年仍未被商业产品很好覆盖（见下文"还剩什么价值"）。
+这个需求到 2026 年只被商业产品部分覆盖：OpenAI Deep Research 已能运行中插话，旁听多视角讨论与共享概念图
+在已复核的产品形态里仍未见（见下文"还剩什么价值"，2026-11-07 收窄）。
 
 ## 四个可复用的技术机制
 
@@ -104,13 +109,14 @@ prompt chaining + parallelization，无动态自主决策。Co-STORM 稍微挪�
 
 | 项 | 情况 |
 |---|---|
-| 最后 commit | 2025-09-30（放宽依赖版本限制） |
-| 最后 release | v1.1.0，2025-01-23（接入 litellm） |
+| 最后 commit | 2025-09-30（放宽依赖版本限制；2026-11-07 复核 HEAD 仍为 fb951af） |
+| 最后 release | v1.1.0，2025-01-23（接入 litellm；2026-11-07 复核仍为最新 tag） |
 | 2025 全年活动 | 1 月 litellm、4 月修 typo、5 月改 README、9 月松依赖 |
 | 社区 | 30.4k star / 2.8k fork；研究预览累计 70,000+ 试用 |
 
 同期该品类的商业进展（出处与检索日期见 frontmatter，2026-08-11 核实并加限定）：OpenAI Deep Research
-2025-02-02 发布（东京发布会当地时间为 2 月 3 日；首发仅 Pro 订阅，o3 特化版驱动），2026-02-10 宣布
+2025-02-02 发布（东京发布会当地时间为 2 月 3 日；首发仅 Pro 订阅，o3 特化版驱动），2025-11-05 起运行中可点
+"update" 插入新上下文、不必重启（OpenAI 官方帖），2026-02-10 宣布
 升级并于次日推送：底层换 GPT-5.2、可接任意 MCP、限定可信站点、实时看进度；Google 2026-04-21 在
 Gemini API 公开预览（付费档）Deep Research / Deep Research Max（均基于 Gemini 3.1 Pro），
 其中 **Max 版**在 DeepSearchQA 报 93.3%（2025-12 初版为 66.1%）。
@@ -126,11 +132,18 @@ Gemini API 公开预览（付费档）Deep Research / Deep Research Max（均基
 
 1. **方法论可拆下来单独用。** 机制 1 与 3 跟这个具体系统无绑定关系，可移植到任何自动研究场景。
    这是最耐用的部分，本 wiki 的移植成果见 [[STORM-研究提示词组]]。
-2. 综合：**Co-STORM 的人机协作范式至今无商业对标**（基于 2026-08-11 对该品类商业产品的
-   检索对比，见 frontmatter 源）。Deep Research 类产品的交互是
-   "提交任务 → 等 5-30 分钟 → 收报告"，用户全程缺席；Co-STORM 是"旁听 → 随时插话改方向"。
-   两者面向不同认知任务：前者适合已知道要什么，后者适合探索中才逐渐搞清要什么。
-   后一种需求真实存在，但没人做产品。
+2. > ⚠️ 矛盾：本页 2026-08-11 的品类检索称 Deep Research 类产品是"提交任务 → 等 5-30 分钟 → 收报告"、
+   > 用户全程缺席，但 OpenAI 2025-11-05 官方帖称 deep research 与 GPT-5 Pro 运行中可点 "update" 插入新上下文、
+   > 不必重启（https://x.com/OpenAI/status/1986194298971590988 ，检索于 2026-11-07）；2026-02-10 升级后
+   > 据二手报道还可在运行中介入、加需求或改向（TestingCatalog，见 frontmatter；OpenAI 当日帖只写
+   > "Deep research in ChatGPT is now powered by GPT-5.2. Rolling out starting today with more improvements."，
+   > 这一细节未经一手核实）。两者都早于 08-11 的检索。（发现于 2026-11-07）
+
+   综合（2026-11-07 收窄）：**Co-STORM 的人机协作范式仍缺完整的商业对标，但"用户全程缺席"已不成立。**
+   商业侧已补上的是"给单个 agent 的进行中任务追加要求"；公开描述里仍未见的是 Co-STORM 的另两件——
+   **旁听多专家圆桌**（看见分歧本身）与**动态 mind map**（可俯瞰的共享概念空间，见机制 4）。
+   中途插话适合已知道要什么、只需中途修正；Co-STORM 适合探索中才逐渐搞清要什么，这种需求仍真实存在。
+   本条只复核了 OpenAI，其他产品未复查。
 3. **可控性。** 开源、任意 litellm 模型、十余种检索器（含 `VectorRM` 接私有向量库、
    SearXNG 自托管）。商业 deep research 给不了"私有语料 + 指定模型 + 完全本地"这个组合。
 

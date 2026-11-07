@@ -1,7 +1,7 @@
 ---
 tags: [主题, AI, Agent, 方法论]
 created: 2026-10-08
-updated: 2026-10-08
+updated: 2026-11-07
 sources:
   - "[[2026-10-02-Karpathy-理解LLM输出的格式阶梯]]（本地存档）"
   - "https://x.com/karpathy/status/2105819303471976479 （Karpathy，2026-10-02；检索于 2026-10-08，经 fxtwitter API）"
@@ -12,6 +12,11 @@ sources:
   - "https://stashbase.ai/blog/asd-ste100-claude/ （Bing Wu，2026-10-04；检索于 2026-10-08）"
   - "[[生产力-体验悖论]]"
   - "[[代码与文档漂移的本质]]"
+  - "https://www.ycombinator.com/library/MW-andrej-karpathy-software-is-changing-again （Karpathy，YC AI Startup School，2025-06-17；检索于 2026-11-07）"
+  - "https://rosetta.to/u/ycombinator/andrej-karpathy-software-is-changing-again （上条演讲的第三方转录稿；检索于 2026-11-07）"
+  - "https://www.anthropic.com/research/AI-assistance-coding-skills （arXiv 2601.20245，2026-01-29；检索于 2026-11-07）"
+  - "[[Agentic SE 时代的系统重构]]"
+  - "[[AI编码技术债的三层治理]]"
 ---
 
 # LLM 输出的人类理解瓶颈
@@ -46,10 +51,13 @@ sources:
 
 ## 当前判断
 
-1. **人侧瓶颈转向理解带宽**——中置信。与 [[生产力-体验悖论]] 记录的"从创造到验证""从创造到清扫"同向；
-   但 Karpathy 两帖是个人经验与观点，没有测量。
+1. **人侧瓶颈转向理解带宽**——中置信。与 [[生产力-体验悖论]] 记录的"从创造到验证""从创造到清扫"同向，
+   [[Agentic SE 时代的系统重构]] §六也收了一组同向的多源信号；但 Karpathy 的几处表述（2025-06 演讲与 2026 年的几条帖子）
+   是个人经验与观点，没有测量。Sonar、Anthropic 的调查测的是信任与委派比例的自报，也不是理解带宽本身。
 2. **"要 HTML / 要图"是低成本、可立即采用的默认动作**——中置信。本仓库 `output/` 层即此实践；
    不确定的是它对**理解质量**（而非主观舒适度）的增益有多大，目前无测量。
+   综合：[[AI编码技术债的三层治理]] 在团队层警告"自动生成解释可能制造'已经理解'的外观"——同一风险落在个人层，
+   就是好读的呈现让人以为自己看懂了。所以"要 HTML / 要图"适合作默认，但不能代替复述或抽查。
 3. **受控英语有保真代价，代价随领域术语密度上升**——低置信（样本极小）。代码讲解上，正式 ASD-STE100
    让 Claude 少提 46.8% 的计分事实，宽松的"Simple Technical English"只少 8.5%；术语少的散文上，各条件
    8/8 全保留（见证据点表）。综合：代码、产品名、行话密集的内容不要用正式 STE，宽松版或"80%"更稳。
@@ -70,12 +78,15 @@ sources:
 | 2026-08-14 | Lucian Ghinda 博客（[原文](https://allaboutcoding.ghinda.com/explain-to-me-in-simple-technical-english)） | 4 段真实代码 × 3 条件（无指令 / "Simple Technical English" / 正式 ASD-STE100），每段 6 个计分事实：Claude 句长约 17.8 → 9–10 词；相对对照少提事实 STE 8.5%、ASD **46.8%**；Codex 默认已短（约 12.5 词），两种指令分别少提 43.3% / 40.0% | 早于 Karpathy 帖，测的是正式标准而非"80%"。作者自称非严谨研究：运行次数前后表述不一、未注明模型版本、首个实验的计分事实写于读过对照输出之后。作者结论：Claude 留宽松版 + 领域词指令，Codex 保持默认 |
 | 2026-08-02 | Karpathy X 帖（[原帖](https://x.com/karpathy/status/2083749667410727319)） | 给 Opus 5《指环王》首段 + 100 万 token（约 10 美元）要 three.js 渲染：约 2 小时、5500 行代码；从"没人会这么做"到"当然，几乎免费"；同时指出 LLM 无法高效原生感知视频或试玩游戏，只能缓慢截图自查，仍出了不少错 | "可丢弃定制制品"的实例 + 视觉产出**难以自验**的作者自述。可玩版本：https://karpathy.ai/lotr-movie/ |
 | 2026-05-11 | Karpathy X 帖（[原帖](https://x.com/karpathy/status/2053872850101285137)） | 在问题末尾加"structure your response as HTML"再用浏览器看；"音频是人给 AI 的首选输入，视觉是 AI 给人的首选输出"；阶梯 raw text → markdown（当前默认）→ HTML（新默认正在形成）→ … → 交互式神经视频 | 阶梯第一版。也提到输入侧不足（需要能"指着屏幕"），本页暂只跟踪输出侧 |
+| 2026-01-29 | Anthropic 研究（[原文](https://www.anthropic.com/research/AI-assistance-coding-skills)，arXiv 2601.20245） | RCT：52 名多为初级的工程师学习不熟悉的 Trio 异步库，AI 组完成任务略快但不显著；事后测验 AI 组 50%、手写组 67%（Cohen's d=0.738，p=0.01），调试题差距最大；追问概念、要求解释的用法掌握更好，重度依赖 AI 生成或调试的几种用法（含纯委派）均分不到 40% | **相邻测量**，不等于理解带宽：测的是用 AI 学新库时对自写代码的掌握（技能形成），不是审阅 agent 产出。Anthropic 自家研究，属利益相关；作者自述样本小、测验紧随任务、交互模式与学习效果的关系未作因果检验 |
+| 2025-06-17 | Karpathy YC AI Startup School 演讲《Software Is Changing (Again)》（[YC 页面](https://www.ycombinator.com/library/MW-andrej-karpathy-software-is-changing-again)） | 主张 "keep the AI on the leash"：拿到 agent 一次产出的大 diff 没有用，"I'm still the bottleneck"——代码瞬间生成，人仍要确认它没引入 bug；所以要让生成—验证循环转得快、每次改动小 | 本论点的**早期信号**，比本表 2026 年的几条帖子早约一年，同一作者。演讲观点，无测量。转录稿对 diff 行数记法不一（1,000 / 10,000 行），引用时不写具体数字 |
 
 ## 悬而未决
 
 - 讲解视频、交互页这类富格式的**保真度怎么测**？目前只有文字级的"计分事实"方法（Ghinda、StashBase），
   图示与视频没有对应方法。
-- "理解带宽"能否量化（审阅时间、漏检率、复述准确率）？没有测量，就分不清格式阶梯提升的是理解，
+- "理解带宽"能否量化（审阅时间、漏检率、复述准确率）？已有一项相邻测量（Anthropic 2026-01 的测验法 RCT，
+  测技能形成），审阅场景仍无测量。没有测量，就分不清格式阶梯提升的是理解，
   还是只提升了主观舒适度——与 [[生产力-体验悖论]] 里"感知 ≠ 实际"是同一个陷阱。
 
 ## 关联页面
@@ -85,3 +96,5 @@ sources:
 - [[代码与文档漂移的本质]] —— 原则一：可以重复展示，不能独立维护第二事实源
 - [[Claude Tag 驱动的团队研发流程]] —— Karpathy 对 LLM 交互形态"第三次重设计"的评论（交互侧）
 - [[llm-wiki-方法论]] —— 同一作者的知识编译方法论；本仓库 `output/` 层是"派生呈现"的实践
+- [[Agentic SE 时代的系统重构]] —— §六"验证成为稀缺资源"的多源论证（Karpathy、Osmani、Sonar 调查、Anthropic 内部调查）
+- [[AI编码技术债的三层治理]] —— 认知债：理解带宽是个人层，认知债是它在团队层的累积；"已经理解的外观"风险

@@ -1,13 +1,13 @@
 ---
 tags: [分析, AI, Agent, Evals, 审计, 可观测性]
 created: 2026-08-10
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "[[2026-08-07-A2E-Agent-Auditing-Engine-源摘要]]"
   - "[[Evals]]"
   - "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository （检索于 2026-08-10）"
-  - "https://github.com/datamllab/A2E （GitHub API 复查于 2026-08-31）"
-renders: []
+  - "https://github.com/datamllab/A2E （GitHub API 复查于 2026-08-31；git 克隆复查于 2026-11-07）"
+  - "https://arxiv.org/abs/2608.07346v4 （v4，2026-09-07；检索于 2026-11-07）"
 ---
 
 # Agent 全轨迹评测与审计
@@ -42,6 +42,8 @@ Trace 不只是文本日志，而应有稳定语义和因果关系：trace/run I
 
 维持轨迹原始记录，评分另存 `metric_version`、`judge_model`、`prompt_version`、`evaluator_code`、`evaluated_at` 和环境版本。这样新的安全规则或 judge 可重评旧轨迹，且不会把“系统行为变了”与“裁判标准变了”混在一起。
 
+综合：A²E 仓库自己给出了正反两个例子（2026-11-07 克隆复查）。正例：2026-10-09 新增 Jev judge，在原 LLM judge 旁为四个事实类指标并列写 `*_jev` 分数、不替换原注释，形态上正是“新 judge 叠加在旧轨迹上”；但是否真用它重评了历史轨迹，本 wiki 未核实。反例：2026-09-04 的提交把 hallucination 指标极性反转为 1 = 幻觉，却沿用同一个指标名，指标目录的 `schema_version` / `matrix_version` 也没变（提交前后均为 1.0 / V2_Matrix_27）——不单独记 `metric_version`，新旧分数就会被误当成同一把尺子。
+
 ## 最小生产实现
 
 | 层 | 最小产物 | 先证明什么 |
@@ -52,15 +54,15 @@ Trace 不只是文本日志，而应有稳定语义和因果关系：trace/run I
 | 比较 | 固定 task IDs/seed/模型配置，报告分布与失败簇 | 变化来自 harness 而非样本漂移 |
 | 治理 | 脱敏、ACL、保留期、指标/judge 版本与责任人 | trace 可用于审计且不制造新的数据风险 |
 
-第一版不需要复刻 A²E 的 23×9 矩阵。先选一条真实业务链路、一个模型和两个 harness/policy 变体，验证“同结果不同过程”与“同模型不同系统行为”是否在本地任务出现。
+第一版不需要复刻 A²E v1 的 23×9 运行矩阵（v3 起论文报告的网格已改为 9 个 harness × 2 个底座 × 4 个前沿 benchmark 族）。先选一条真实业务链路、一个模型和两个 harness/policy 变体，验证“同结果不同过程”与“同模型不同系统行为”是否在本地任务出现。
 
 ## 证据边界
 
-- A²E 是预印本；每个 harness×benchmark 仅 5 个任务，无法支持稳定总排名。
-- 论文中若干过程指标在该 benchmark mix 上变动很小，作者把“转换为 harness 设计指导”留给未来工作。
-- CrewAI 的 LLM span 缺 token 数，被排除在部分成本图之外；某些行为指标实为 instrumentation 产物。
+- A²E 是预印本；v1 每个 harness×benchmark 仅 5 个任务，无法支持稳定总排名。本条与下两条都是 v1 结果；v3 起作者已替换实验设计，单轮无差异、3.5 倍 token 差等结论未见于现行 v4。v4 改用官方指标，仍声明结果表不是排行榜，领先 harness 随任务与底座而变。
+- v1 中若干过程指标在该 benchmark mix 上变动很小，作者把“转换为 harness 设计指导”留给未来工作。
+- v1 中 CrewAI 的 LLM span 缺 token 数，被排除在部分成本图之外；某些行为指标实为 instrumentation 产物。
 - 过程评分也会被指标博弈；LLM judge 不是独立裁判者，必须与 outcome verifier 和人工 trace 抽检组合。
-- 2026-08-31 复查：A²E 仓库已于 2026-08-12 补入 MIT LICENSE，但仍无 release、无 tag，最近提交停在 2026-08-18（GitHub API `repos/datamllab/A2E`，检索于 2026-08-31）。原「未见 license，故不宜再分发」的限制已解除。综合：方法仍可独立实现，现有代码属早期参考实现，应先作隔离 POC 与设计参考，再决定是否并入生产。
+- 2026-11-07 复查（克隆 origin/main）：A²E 仓库已于 2026-08-12 补入 MIT LICENSE，原「未见 license，故不宜再分发」的限制已解除；仍无 release、无 tag（`git ls-remote --tags` 为空）。main 持续开发到 2026-10-09，2026-08-31 复查时的“最近提交停在 2026-08-18”已过时。2026-09-04 起 hallucination 指标极性反转（1 = 幻觉），不同 commit 下的评分语义不同、不可直接比较，这是“可重评的结构化存储”的实际风险。综合：方法仍可独立实现，现有代码属早期参考实现，应先作隔离 POC 与设计参考（POC pin 到具体 commit），再决定是否并入生产。
 
 ## 与现有判断的关系
 

@@ -1,10 +1,11 @@
 ---
 tags: [素材, AI, Agent, 软件工程, 重构, 成本]
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-11-07
 sources:
   - "raw/sources/articles/2026-07-30-Thoughtworks-重构的经济收益.md"
   - "https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html （检索于 2026-09-23）"
+  - "[[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]]"
 ---
 
 # 2026-07-30 Thoughtworks《The Economic Benefit of Refactoring》源摘要
@@ -85,3 +86,5 @@ sources:
   轮次，这里用重构减少"读信息"的 token，两者都在削减 agent 替自己多干的活。
 - 作为 [[Agent 工具上下文膨胀]] 的姊妹机制：那里的固定开销来自工具 schema，这里来自代码文件。
 - 作为 [[Agent 不会自发偿还结构债]] 的一条证据行。
+- 引用 −83% 时注意幅度已被修正（2026-11-07 补）：Sonar 的受控最小对实验（[[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]]）
+  整体只降 7.1%，第三方复核称本实验为单次运行；二者的矛盾与调和见 [[Agentic SE 时代的系统重构]] §二 ⚠️。

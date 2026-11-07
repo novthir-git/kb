@@ -1,7 +1,7 @@
 ---
 tags: [对比, AI, 知识管理, Agent, 方法论]
 created: 2026-07-28
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "[[Open Knowledge Format]]"
   - "[[2026-07-28-GoogleCloudPlatform-Knowledge-Catalog与OKF-源摘要]]"
@@ -75,14 +75,16 @@ OKF 与本仓库都采用 Markdown、YAML、目录、链接和 Git 友好的知�
 - v0.2 仍处早期，且对 v0.1 有两项刻意的字段替换；
 - 当前仓库的严格维护规则比 OKF 最低合规更适合作为内部 canonical model；
 - `sources`、双链、索引和日志的语义不同，直接改造会产生大面积迁移与 lint 成本；
-- Knowledge Catalog 的 OKF 往返仍是实验性、非全字段映射。
+- Knowledge Catalog 的 OKF 往返仍是实验性的，且**未证明全字段**无损：2026-08 起 aspect 已对 v0.2 信号层全量建模，
+  但往返无损只是作者对样例 Bundle 的自报，详见 [[Open Knowledge Format]]「已知边界」第 6 条。（修订于 2026-11-07）
 
 > 2026-08-31 联网复核：**决策不变，前两条理由被加强。** 规范仍是 v0.2、未发新版本，但
 > ① OKF 的权威仓库已于 2026-08-21 迁至
 > https://github.com/GoogleCloudPlatform/open-knowledge-format ，
 > 原 `knowledge-catalog/okf/` 被标注为不再维护的冻结快照；
 > ② v0.2 文档同日被**原地修订**（所有时间戳字段改为必须带显式 UTC 偏移的 ISO 8601 datetime，
-> 裸日期值消费者必须拒绝），即版本号不变而文本仍在变。
+> 裸日期值不再合规；2026-11-07 更正：规范并无“消费者必须拒绝”条款，见 [[Open Knowledge Format]]「已知边界」），
+> 即版本号不变而文本仍在变。
 > 综合：因此下方第 5 条“规范稳定后再评估双向同步”里的“稳定”不能以版本号为准——v0.2 目前
 > 不构成可锚定的稳定目标；若要建 export profile，须对齐**具体 commit** 而非版本号。
 > 变化细节见 [[Open Knowledge Format]] 的「已知边界」。（检索于 2026-08-31）

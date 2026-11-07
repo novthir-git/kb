@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, 知识管理, 企业架构]
 created: 2026-07-16
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "用户提交初稿《基于 IT4IT 的企业统一 Agent 知识治理方案》+ 评审收编修订（2026-07-16）"
   - "[[论代码与文档漂移解决方案]]"
@@ -12,6 +12,9 @@ sources:
   - "[[从知识图谱到 Agent 编排]]"
   - "[[Open Knowledge Format]]"
   - "https://docs.cloud.google.com/dataplex/docs/catalog-overview （Google Cloud Knowledge Catalog，检索于 2026-07-28）"
+  - "https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md （OKF v0.2 现行位置，检索于 2026-08-31；2026-11-07 复核仍为 v0.2）"
+  - "https://github.com/GoogleCloudPlatform/knowledge-catalog/pull/292 （检索于 2026-11-07）"
+  - "https://github.com/GoogleCloudPlatform/knowledge-catalog/pull/323 （检索于 2026-11-07）"
   - "[[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]"
 ---
 
@@ -295,12 +298,17 @@ Git diff、来源和保鲜信号，但没有对应的访问控制、正式发布
 
 综合：若企业采用 OKF，最稳健的方式是把它作为 Product Release 中的**可审阅知识包**：
 权威源和目录控制 Desired，构建流水线生成 Bundle，门禁检查来源、权限、断链、核验和 Eval，
-发布后由 Actual 状态监控保鲜与退役。当前仓库的 OKF custom Aspect 只是局部映射示例，
-尚不足以证明与 Knowledge Catalog 的全字段双向调和。
+发布后由 Actual 状态监控保鲜与退役。当前仓库的 OKF custom Aspect 仍是 demo 目录下的示例：
+2026-08-14 PR #292 起它已对 v0.2 全部信号层建模（含 `verified`、`status`、`stale_after` 与
+Attested Computation 字段），2026-08-21 PR #323 把六个时间戳字段改为 Dataplex 原生 datetime；
+作者自报 acme_retail 与 GA4 样例往返无损（#323 后 acme_retail 为 17 文件 17 ok、0 lossy），未独立核验。
+综合：字段覆盖已不再是局部映射，但样例 Bundle 的作者自报往返仍不足以证明与 Knowledge Catalog 的
+全字段双向调和。（修订于 2026-11-07）
 
 ## 参考
 
 - The Open Group IT4IT Standard, Version 3.0.1（2024-10）：https://publications.opengroup.org/c24a （检索于 2026-07-16，已核实）
 - IT4IT 七条价值流（官方文档）：https://digital-portfolio.opengroup.org/it4it-standard/latest/DigitalManagement/seven-it4it-value-streams.html （检索于 2026-07-16）
 - Google Cloud Knowledge Catalog 元数据模型与变更事件：https://docs.cloud.google.com/dataplex/docs/catalog-overview （检索于 2026-07-28）
-- OKF v0.2：https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md （检索于 2026-07-28）
+- OKF v0.2：https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md （检索于 2026-07-28；该路径已冻结，现行位置 https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md ，检索于 2026-08-31）
+- knowledge-catalog PR #292 / #323（okf aspect 全量建模与时间戳 datetime 化）：https://github.com/GoogleCloudPlatform/knowledge-catalog/pull/292 、https://github.com/GoogleCloudPlatform/knowledge-catalog/pull/323 （检索于 2026-11-07）

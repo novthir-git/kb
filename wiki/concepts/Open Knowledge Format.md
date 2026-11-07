@@ -1,12 +1,16 @@
 ---
 tags: [概念, AI, 知识管理, 数据治理, Agent]
 created: 2026-07-28
-updated: 2026-08-31
+updated: 2026-11-07
 sources:
   - "[[2026-07-28-GoogleCloudPlatform-Knowledge-Catalog与OKF-源摘要]]"
   - "https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md （v0.2，检索于 2026-07-28；该路径已于 2026-08-21 被原仓库标注为冻结快照）"
   - "https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/README.md （检索于 2026-07-28 与 2026-08-31）"
-  - "https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md （v0.2，规范新权威位置，检索于 2026-08-31）"
+  - "https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md （v0.2，规范新权威位置，检索于 2026-08-31；2026-11-07 复核仍为 v0.2）"
+  - "https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/README.md （新仓库 README，检索于 2026-11-07）"
+  - "https://github.com/GoogleCloudPlatform/knowledge-catalog/pull/292 （okf aspect 全量建模 v0.2 信号层，检索于 2026-11-07）"
+  - "https://github.com/GoogleCloudPlatform/knowledge-catalog/pull/323 （okf aspect 时间戳改 datetime，检索于 2026-11-07）"
+  - "https://github.com/GoogleCloudPlatform/open-knowledge-format/commit/0b87c52c6ef999286c745e19998fdfcd03d5dbee （PR #6 内删去 §11 时间戳消费者 MUST，检索于 2026-11-07）"
 ---
 
 # Open Knowledge Format（OKF）
@@ -28,7 +32,9 @@ Agent 编排器或访问控制系统。
 | Reference Agent / Viewer | OKF 的参考生产者与消费者 | 从 BigQuery/Web 生成 Bundle；把 Bundle 渲染为交互图 |
 
 仓库根 README 明确声明其内容“不是 Google 官方产品”。因此 OKF 的规范价值应根据文本和实现本身判断，
-不能因为仓库组织归属就推断为 Google Cloud 产品承诺。
+不能因为仓库组织归属就推断为 Google Cloud 产品承诺。迁址后的新仓库 `open-knowledge-format`
+全仓未检索到同类免责声明，README 只自述 “universal, vendor-neutral format”，许可为 Apache 2.0
+（`LICENSE.md`）：**官方属性未声明**——不能据此反推它已成为官方产品（检索于 2026-11-07）。
 
 ## Bundle 与 Concept
 
@@ -112,19 +118,28 @@ OKF Concept 通过标准 Markdown 链接形成有向图，但关系类型由链�
 > `knowledge-catalog/okf/` 被原仓库自己标注为“frozen snapshot, no longer maintained”，
 > 而本页最初引用的正是该快照路径。
 > ② **v0.2 被原地修订**：同日起所有时间戳字段必须是**带显式 UTC 偏移的 ISO 8601 datetime**，
-> 仅有日期的 `stale_after`、`sources[].last_modified`、`usage_window` 值消费者必须拒绝
+> 仅有日期的 `stale_after`、`sources[].last_modified`、`usage_window` 值不再合规
 > （此前 `stale_after` 是裸日期）。
+> 2026-11-07 更正：原写“消费者必须拒绝”有误。PR #6 中途加过一条消费者 MUST（措辞是 ignore 而非 reject），
+> 合入前已删去；现行 SPEC 只在 §5 规定格式，未规定消费者如何处置。参考实现 `is_stale` 忽略无偏移值；
+> Knowledge Catalog demo 的 Dataplex datetime 字段在 push 时拒收裸日期（#323 作者自报）。
 > 未变的部分：§12「Considered and deferred」仍把完整运行协议、receipt/verdict wire format、
 > Attester ABI、沙箱与缓存留给未来版本，故上文 Attested Computation 一节的判断仍成立。
-> （以上均检索于 2026-08-31，来源为该仓库 SPEC.md、README.md 与 commit #323 / PR #6）
+> （以上均检索于 2026-08-31，来源为该仓库 SPEC.md、README.md 与 commit #323 / PR #6；更正行检索于 2026-11-07，来源为 PR #6 的 commit 0b87c52 与参考实现 `document.py`）
 
 1. **规范早期**：当前为 v0.2，且 v0.2 对 v0.1 仍包含字段替换；更要紧的是 v0.2 文档本身会被
    **原地修订而不 bump 版本号**（见上方 2026-08-31 复核），因此“锁定 v0.2”并不等于锁定了一份稳定文本。
 2. **关系弱类型**：Markdown 边不能承载正式图模型的关系约束。
 3. **路径即身份**：重命名或移动目标 Concept 会改变 ID 并可能破坏外部引用。
 4. **信任可声明但未认证**：actor 和 verified 缺少规范级签名与身份绑定。
-5. **保鲜是静态日期**：`stale_after` 没有上游依赖变更触发和 Desired–Actual 调和。
-6. **托管目录映射不完整**：Knowledge Catalog 的 OKF custom Aspect 仍是实验性局部转换。
+5. **保鲜是静态时间点**：`stale_after` 没有上游依赖变更触发和 Desired–Actual 调和。
+6. **托管目录映射未经证明**：Knowledge Catalog 的 OKF custom Aspect 仍在 `toolbox/mdcode/demo/` 下，属实验性。
+   2026-08-14 PR #292 起它已对 v0.2 全部信号层建模（含 `verified`、`status`、`stale_after` 与
+   Attested Computation 的 `runtime`/`parameters`/`computation`/`executor`/`attester`，生产者自定义键
+   以 JSON 存入 `extra`）；2026-08-21 PR #323 把六个时间戳字段（含 `verified[].at`、`stale_after`）
+   改为 Dataplex 原生 datetime。往返无损为作者自报（#292：acme_retail 与 GA4 两个样例无损；#323 后 acme_retail 为 17 文件 17 ok、0 lossy），未独立核验。
+   综合：字段覆盖已不再是“局部转换”，但两个样例 Bundle 的作者自报往返证明不了任意 Bundle
+   全字段无损，故判断由“映射不完整”收窄为“未证明全字段”。（修订于 2026-11-07）
 7. **Viewer 非严格离线**：数据嵌入 HTML，但运行库从 CDN 加载。
 
 ## 在七层架构中的位置

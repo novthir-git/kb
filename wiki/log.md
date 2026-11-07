@@ -1591,3 +1591,103 @@ overview（删去"待裁定"线索）、index 描述、源摘要末句。属尺�
 - 更新 [[Anthropic]]：新增"2026-10 IPO S-1 披露"小节（收入、客户分层、NRR、交叉销售漏斗、云厂商竞争与算力风险）；
   数字出自 TechCrunch 解读，S-1 本身只核实了申报文件存在，正文未逐字复核。
 - 更新 `wiki/index.md`（页面 70→71）、[[overview]]。
+
+## [2026-11-07] lint | 体检修复执行：补合 3 个分支，约 50 项判断类修复，新建 4 页（用户授权按维护者建议执行）
+
+**一、分支补合**（K7#1）：本会话分支先 rebase 到已合入 PR #5 的 main，再依次合入：
+- `claude/blissful-allen-jjhv9d`（09-16）
+- `claude/admiring-dijkstra-74z2t2`（10-08）
+- `claude/blissful-allen-enp98m`（10-27）
+
+三条分支的 log 原文都排在上方 11-06 lint 条目之后、未改一字，日期保持各自原日期，因此 log 在此处不按时间顺序。语义合并了两处重叠：
+- [[Agentic SE 时代的系统重构]] 核心判断 2 与证据边界：10-08 与 11-05 两次各自补了 Sonar −7%，现写明受控测量自 10-08 起补、11-05 建源摘要。
+- [[Anthropic]] 的 S-1：10-27 一节与 11-06 一条合并为一节。
+
+合并后页面 73 → 82，素材 41 → 48。
+
+**二、修复方式**：按文件归属把 lint 发现分给 8 个修复 agent，每个文件只归一个 agent，避免并发冲突。每组改完由独立 agent 回到证据复核，并直接修正（共修正 18 处）。index、overview、log、purpose、schema、AGENTS.md 由维护者收尾。各项改动均先回证据（raw、pdftotext、一手网页）再写入。
+
+**三、论断修正（medium）**
+- Sonar 调和句已统一改写：两边都拆分；Sonar 热点轨拆到更多更小的文件也不省 token；差异更可能来自规模与可定位性。涉及 [[全AI代码库的治理决策]]、[[Agentic SE 时代的系统重构]]、[[上下文经济性]] 与 Sonar 源摘要。
+- [[生产力-体验悖论]]：心流与认知负荷改为不显著下降（p=0.195）；METR 减速加限定「2025 年初工具」，并引 2026-02 后续（"very weak evidence"）。
+- [[Agent 不会自发偿还结构债]]：tangled refactoring 改归第 1 层的限定证据；撤回 SlopCodeBench「相邻代际不变」的选择性推断。
+- [[GraphRAG 与 Vector RAG]]：补 BenchmarkQED 主结论（LazyGraphRAG 96 组全胜，厂商评测）。
+- [[codex-agent-采用曲线]] 等 4 页：99 分位改为「OpenAI 员工约 71 小时」；137×/189×/12× 标「待核」。
+- CodeScene 预注册研究补主结论（每点 Code Health 省 3.5–6.1%，两端差 22–35%）；牵头方改为 Lund 大学博士生 Heander，CodeScene 参与。
+- [[代码与文档漂移的本质]]：「对称反馈」收窄为只适用于被执行、后果可见的规则。
+- [[Evals]]：传播口径改为 9 样本。
+- A²E：URL 固定为 v1，源摘要新增「版本变化」，下游页加「v1 结果」限定。
+- 其余：SWE-Maintain 主结果；playbook 实为 16 个 play、13 个给出度量；「Consider using a hook」不再写成已配置；0.568–0.663 限定为 8 个 harness；FORGE 与 PR 挖掘的外推限定；Cowork 与鸿沟页的校正前残留；[[llm-wiki-方法论]] 标注颠倒；09-23 源摘要 Böckeler 立场按原文改为「停止让 agent 先写测试，TDD 本就没要求过」；Karpathy diff 行数各转录稿不一，不再引具体数字。
+
+**四、外部更新**（联网，2026-11-07）
+- BMAD：6.11+ stable 改为 AGENTS.md 受管块 + `bmad-build`，latest 6.12.4；08-07 描述保留为历史快照。
+- Tessl 已转型；Kiro 补 Quick Spec；Spec Kit 补三入口。
+- Spec Kit 文档站 11-06（upstream #5299）把 `how-to/spec-persistence.html` 改名为 `persisting-specs.html`，并新增第四种模型 Constitution-only，相关页已同步。
+- STORM：「停止演进」复核成立（HEAD fb951af）；Deep Research 运行中插话能力加 ⚠️ 矛盾，2026-02 的中途改向仅有二手报道。
+- A²E 仓库开发到 10-09，无 tag；09-04 反转了 hallucination 指标极性。
+- OKF：补迁仓、时间戳修订与 PR #292/#323；**更正 08-31 的说法**：「消费者须拒绝仅含日期的时间戳」并未写入规范（PR #6 合并前已删除该条）。
+- MCP 的 Skills over MCP 进入 [[Agent Skills]]。
+- Anthropic 10-15 code review 数据以「自报、无对照、限 Claude Code 仓库」的证据行写入 [[Anthropic-AI原生SDLC治理循环]] 与 [[agent-生产级落地的鸿沟]]，「质量侧空白」不改写。
+- Anthropic 2026-01 技能形成 RCT 作为相邻证据写入 [[LLM 输出的人类理解瓶颈]]。
+- Meta Q2、Q3 电话会表态写入 [[Meta]] 与鸿沟页。
+
+**五、新建页**
+- [[GitHub Spec Kit]]（实体）
+- [[Birgitta Böckeler]]（实体）
+- [[变异测试]]（概念）
+- [[system-of-record 与专有数据护城河]]（主题，见下条 research）
+
+其余建页候选（OpenAI、Claude Tag、Karpathy、agent 上下文文件，以及 08-31 批次四的 shadow mode、调和机制、Attested Computation、Knowledge Catalog）**裁定不建页**，维持纯文本。理由：它们没有需要单独承载的时间状态，散在各页也不会漂移。08-31 两条 lint 在这一项上的矛盾就此了结。
+
+**六、交叉引用、出处与格式**
+- 补双向链接：漂移本质 ↔ Harness / 结构债 / 全AI；Evals ↔ 重放法 / Harness；ACI；理解瓶颈 ↔ Agentic SE / 认知债 / 方法论；Claude Tag ↔ playbook；Codex / Cowork / Ng 源摘要 ↔ Claude Code；MCP → SoR。
+- 补出处 URL：InfoQ/CodeScene、Betterer、两篇 Anthropic 文章、Cowork 可用性（release notes）、证据包 PLOS 段、书与AI 页 PMC 引用与书单检索日期。
+- 7 行表格内的双链别名 `|` 未转义，导致 Obsidian 列数错乱，已统一转义为 `\|`（含存量）。
+- BMAD 与论代码两页 frontmatter 原有 YAML 错误，已修。
+
+**七、确定性复检**：无悬空链接、孤儿页、重名；86 页 frontmatter 全部可解析为 YAML，`sources` 均为列表；index 计数 48 素材（含 3 asset）/ 86 页，与实际一致，补列了 08-07 漏登的 Vella & Blincoe PDF；overview 60 行；topics 表头统一；表格列数一致。尚有 4 页残留 `renders:`，本次未做内容编辑，按约定留到下次编辑时再删。
+
+**仍待用户决定或无法在本环境完成**
+- [[AI工程方法论的耐久度]] 与 Agentic SE §十：用户采纳的「热点每周 10+ 次改动，一个季度内回本」以 Thoughtworks −83% 为前提；按 Sonar 约 −7% 计约需三个季度。已加维护者注，未改用户裁定。
+- heynavtoor 长文：11-07 经 fxtwitter 重抓到了含 4 个提示词正文的版本，是否另存为新 raw 文件以补齐一级存档？
+- 当前 MCP 规范页的「extensions negotiated during initialization」与 [[MCP]] §2「已移除 initialize 握手」不一致，需对照 lifecycle 页复查。
+- Hill SSRN 6515898 全文仍 403；OpenAI Deep Research 中途改向待一手核实；Wayback 快照 20260921190524 的内容未能重读（本沙箱连不上 web.archive.org）。
+
+## [2026-11-07] research | SaaS 再定价 Q3 跟进 + system-of-record 论点页；撤销 per-seat 待写页
+
+- [[cowork-saas-资本市场冲击]] §4.1 补 SAP Q3（10-21，SEC 6-K 原文）与 Dassault Q3（10-28，新闻稿 PDF），带三个口径：
+  - SAP 云收入含多季度追补收入；
+  - SAP 许可收入同比 −9%（前三季 −27%）；
+  - Dassault 上调的指引含 ArisGlobal 并表。
+
+  综合判断改为「三个财报季：订单端风险未兑现，许可收入下滑，指引上调部分来自并购」；下一跟踪点 Q4/FY（2027-01）。
+- 核对时发现并修订：
+  - 08-31 条目把 52 周涨跌误标为「年初至今」；截至 11-06，SAP 年初至今约 +1%、Dassault 约 +9%，「估值端未修复」已不成立。
+  - 08-31 的「Q1/Q2 无许可收入塌方」漏看了 SAP（H1 倒算约 −34%）。
+  - 04-14 源摘要补上 UBS 把 Q1 风险归因于海湾冲突，而不是 AI。
+  - LSEG「两日约 −19%」补注出处（02-04 raw：周二 −13%、周三 −6.9%），并注明 Reuters 02-03 通讯稿的 6%–12% 是盘中口径。
+- 新建 [[system-of-record 与专有数据护城河]]（主题）：论点、与 [[知识图谱]] 知识治理义项的区分、三种失败模式、11 行证据点表、改口条件。新证据：SAP 收购 Reltio、Dremio，理由写的是服务 AI agents 与受治理的数据访问。purpose 核心论断 5 已链入。
+- 撤销 [[per-seat 定价的黄昏]]：论点已被 [[常驻 Agent 的算力经济学]]（定价收敛到「席位 / 订阅 + 用量」，按结果计价缺席）和 cowork-saas 的 ⚠️ 矛盾吸收；原链接改为纯文本说明。
+- [[Meta]] 补 07-02「3–6 个月」窗口内的后续表态：Q2 Zuckerberg「编码先起飞」；Q3 CFO「近期多为 AI 辅助」。两次都没有回顾那个时间表。
+
+## [2026-11-07] schema | 守门顺序与引用固定版本写入 AGENTS.md；purpose 更新；本批机械修订清单
+
+**AGENTS.md**
+- 「沉淀价值判断标准」前置**守门顺序**：回答哪个关键问题 → 改变什么决定 → 未来信号能否挂上来 → 重推导贵不贵 → 一年后还引用吗；范围先于普遍性，操作教训归 log。出处 [[llm-wiki-方法论]]，方法论页已注明已写入。
+- 页面约定新增**引用会变的上游对象时固定版本**：GitHub 用 tag/commit 链接，arXiv 用 `vN`，Wayback 用完整时间戳；本意是「当时 main 的做法」时，由检索日期承载时间语义。这是 08-31 起悬置的提议，本次以 3 个新实例为据落定。
+
+**wiki/schema.md**：同步上述两条；补 lint 清单漏项（反复提及缺页的概念、值得联网补查的数据空白、只报告不自动删除）；`renders:` 补「下次编辑顺手删」；`-源摘要` 后缀改为统一规则；版本 1.4。
+
+**wiki/purpose.md**（用户授权按建议执行）
+- 核心论断 4 改为「多层可能背离、结构性尚无定论」。
+- 论断 1 补 guides 在前沿模型上只省成本、不提升单次成功率的限定。
+- 论断 5 链入新 SoR 页。
+- 当前重心更新为 2026-11：新增全 AI 代码库重放法、理解带宽、常驻 agent 授权与算力两条；SDD「推翻」降级为「失去支撑」，overview 同步。
+
+**删除根目录 `EXCLUDED.md`**：08-31 zip 打包说明，内容已与仓库现状不符（A²E PDF 已补回，symlink 已重建）；git 历史可恢复。
+
+**未 bump `updated` 的纯机械修订**
+- Spec Kit 旧 URL 加 404 标注并并列新址（只改链接处）。
+- OpenAI Harness 源摘要的 Wayback 固定为 20260921190524，并加 Böckeler 链接。
+- 两篇 Böckeler 源摘要只加了链接。
+- 7 行表格内双链别名的 `|` 转义（含 [[从知识图谱到 Agent 编排]]、[[代码与文档漂移的本质]]、[[Loop Engineering]] 的存量行）。

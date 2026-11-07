@@ -9,7 +9,7 @@ sources:
 
 # 2026-05-27 Böckeler《Maintainability sensors for coding agents》源摘要
 
-**原文**：Birgitta Böckeler（Thoughtworks），martinfowler.com，**2026-05-19 起分三批连载、05-27 完结**
+**原文**：[[Birgitta Böckeler]]（Thoughtworks），martinfowler.com，**2026-05-19 起分三批连载、05-27 完结**
 （05-19 基础 lint；05-20 依赖规则、耦合数据与 AI 模块化评审；05-27 测试与结论）。raw 存档称第三方镜像的
 05-20"不采用"，经 2026-09-23 核对，05-20 是中间那一批的日期，并非错误。
 **存档**：`raw/sources/articles/2026-05-27-Boeckeler-可维护性传感器.md`（要点式中文摘录）。
@@ -28,7 +28,7 @@ sources:
 ## 一句话
 
 一次刻意"几乎不给 guides、只看 sensors"的实验：**计算型 sensor 在文件与函数层面表现最好，跨文件的模块化
-与耦合需要推理型 sensor；把测试交给 AI 时，覆盖率会制造虚假安全感，变异测试至关重要。**
+与耦合需要推理型 sensor；把测试交给 AI 时，覆盖率会制造虚假安全感，[[变异测试]]至关重要。**
 
 ## 设置
 

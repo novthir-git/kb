@@ -1,14 +1,15 @@
 ---
 tags: [实体, 公司, AI, 投资标的]
 created: 2026-07-03
-updated: 2026-11-06
+updated: 2026-11-07
 sources:
   - "https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/ （检索于 2026-07-03）"
   - "https://www.reuters.com/business/zuckerberg-says-ai-agent-development-going-slower-than-expected-2026-07-02/ （Reuters 独家原文；检索于 2026-07-03，直连返回 401，事实经 TechCrunch 转载核验）"
   - "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/ （检索于 2026-11-06）"
   - "https://research.meta.ai/blog/security-and-safety-for-ai-agents-our-approach-with-muse （检索于 2026-11-06）"
   - "https://www.meta.com/help/subscriptions/1021145227643680/ （检索于 2026-11-06）"
-  - "https://www.fool.com/earnings/call-transcripts/2026/10/21/meta-meta-q3-2026-earnings-call-transcript/ （检索于 2026-11-06）"
+  - "https://www.fool.com/earnings/call-transcripts/2026/10/21/meta-meta-q3-2026-earnings-call-transcript/ （检索于 2026-11-06；2026-11-07 复核 agent 节奏相关段落）"
+  - "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf （Meta 官方 Q2 电话会逐字稿；检索于 2026-11-07）"
   - "https://siliconangle.com/2026/09/21/amazon-blocks-metas-muse-agent-from-shopping-on-users-behalf/ （检索于 2026-11-06）"
   - "https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/09/22/meta-testing-a-human-concierge-for-its-new-personal-ai-agent-muse-reuters-exclusive/ （Reuters 独家转载；检索于 2026-11-06）"
   - "https://www.techrepublic.com/article/news-meta-ai-facebook-marketplace-buyer-seller-address/ （检索于 2026-11-06）"
@@ -33,6 +34,11 @@ Facebook、Instagram、WhatsApp 的母公司，也是 AI 基础设施与 agent �
   - TIME 报道它约每小时更新用户及其联系人（包括非用户）的档案（10-06）；
   - 6,800 多个分享页可经被动 DNS 查到（10-20 暂停，10-22 修复）。
 - 综合：07-02 扎克伯格说 agent 进展"没有按预期加速"，两个月后 Muse 带着大众级的分发上线。采用曲线证明了需求，但上面的事故谱系都出在授权语义和数据边界上，没有一起是能力问题。这与 [[agent-生产级落地的鸿沟]] 的判断一致：落地卡在治理，不在能力。格局与定位见 [[常驻 AI 同事的竞争格局]]，授权分析见 [[Agent 授权三层]]，算力约束见 [[常驻 Agent 的算力经济学]]。
+
+## 2026-07 至 10："3–6 个月"窗口内的后续表态
+- **Q2 电话会（2026-07-29）**：Zuckerberg 称 "The first domain that agents have really taken off in is coding, but engineers are more technical and willing to spend time making those agents work"，所以个人 agent 必须是开箱即用的消费产品。（Meta 官方逐字稿：https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf ，检索于 2026-11-07）
+- **Q3 电话会（2026-10-21）**：Zuckerberg 说对模型发布的执行节奏 "very pleased"，Muse 约 8 个月从白板到产品。CFO Susan Li 谈 agentic 商业时更保守："adoption will likely be uneven and will take time. And in the near term, we expect many experiences will remain AI assisted rather than fully autonomous"（逐字稿把 uneven 转写成 "an even"，按上下文改正）。（fool.com 逐字稿，检索于 2026-11-07）
+- 综合：两次电话会都没有直接回顾 07-02 的"还需 3–6 个月"。口径从"agent 进展没有按预期加速"变成"编码已起飞、个人 agent 已上线，但近期多数体验仍是 AI 辅助而非全自主"，与 [[agent-生产级落地的鸿沟]] 所说"还有一段以季度计的工程与组织鸿沟"一致。窗口要到 2027-01 才走完，下一个观察点是 Q4 电话会。
 
 ## 2026-07：Zuckerberg 对 agent 进展降温
 - 2026-07-02，Mark Zuckerberg 在内部全员会上表示，过去约四个月 AI agent 进展"没有按预期加速"，预计还需 3-6 个月才会看到更显著回报。
