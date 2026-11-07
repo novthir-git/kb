@@ -95,6 +95,7 @@
 - [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]] — SonarSource 的最小对受控实验：6 对仓库、33 任务、660 次 Claude Code 运行；整洁度不改通过率（−0.9 pp），输入 token −7.1%、重读 −33.8%，收益集中在跨模块任务；只用隐藏测试评分、单模型、作者利益相关。
 - [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]] — 15 个 agent 在自己的代码上迭代 196 个 checkpoint：77% 轨迹侵蚀上升、增速约为人类仓库 5–7 倍；质量提示压初值不改斜率；LOC 是下一轮成本的最强预测因子；含两处原文内部矛盾。
 - [[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]] — 用户提供的 DeepSeek Super-agent 报告逐项核验：事实层大体成立；"宿主强制授权"被可改写的 Policy 与无 token 的本机 API 削弱，"差异点"并非独有，成本推算偏最便宜口径。
+- [[2026-09-14-Anthropic-CI规模化压力-源摘要]] — Anthropic 自曝 6 个月 CI job 涨 25×、测试影响分析服务被压垮与架构重写；含四条容量规划判断与"8×"口径冲突提示。
 
 ## 素材（raw）
 - sources/articles/2026-07-01-Andrew-Ng-三层产品开发循环 — Andrew Ng 关于 Loop Engineering 与三层产品开发循环的 X/The Batch post（源摘要 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
@@ -113,6 +114,7 @@
 - sources/articles/2026-08-21-Anthropic-AI原生SDLC-playbook — Anthropic《The AI-Native SDLC Playbook》结构化存档，保留六阶段全部 play、配置示例与度量指标（源摘要 [[2026-08-21-Anthropic-AI原生SDLC-playbook-源摘要]]）。
 - sources/articles/2026-08-27-Uber-软件工厂成本效率 — Uber 工程博客《Running a Software Factory Efficiently at Uber Scale》正文结构化存档；Figure 1–12 为图片未存档（源摘要 [[2026-08-27-Uber-软件工厂成本效率-源摘要]]）。
 - sources/articles/2026-10-02-Karpathy-理解LLM输出的格式阶梯 — Karpathy「理解 LLM 输出」X 长帖 verbatim 存档（fxtwitter 抓取，2026-10-08；承载页 [[LLM 输出的人类理解瓶颈]]）。
+- sources/articles/2026-09-14-Anthropic-CI规模化压力 — Anthropic 工程博客《Agentic coding is straining CI》结构化摘录；关键论断保留英文原句，非逐句原文镜像（源摘要 [[2026-09-14-Anthropic-CI规模化压力-源摘要]]）。
 - sources/notes/2026-07-28-从知识图谱到Agent编排-结构化内容草稿 — 用户确认冻结的 AI 结构化派生稿；基于飞书视频逐字稿，非一级来源，正式沉淀前须回查原始资料。
 - sources/notes/2026-09-23-agentic-se-refactoring-methodology — 用户提供的多源调研稿（范式思想 + 架构与重构方法论）；二次综合产物，逐项核验见 [[2026-09-23-agentic-se-refactoring-methodology-源摘要]]。
 - sources/articles/2026-02-11-OpenAI-Harness-Engineering — OpenAI《Harness engineering》要点式中文摘录（原站 403，经官方中文版读取；源摘要 [[2026-02-11-OpenAI-Harness-Engineering-源摘要]]）。
