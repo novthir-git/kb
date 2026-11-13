@@ -56,7 +56,8 @@ llm-wiki/
 │   ├── comparisons/   # 对比页：多方案/多工具/多观点对比
 │   ├── analyses/      # 分析页：研究问答沉淀的深度分析（主要增长来源）
 │   └── synthesis/     # 综合页：演化中的观点与论断
-├── briefs/            # 时效性阅读层：每日自动化简报，不纳入 wiki 索引
+├── briefs/            # 时效性阅读层：每日自动化简报，不纳入 wiki 索引（含关注名单 watchlist.md）
+├── tools/             # 自动化脚本（如 ai_watch.py：按关注名单生成 HTML），不是知识层
 └── output/            # 呈现层：单文件 HTML 派生视图
     ├── personal/      # 自用：稳定文件名，可原地重渲染
     └── shared/        # 对外：带日期，发出即冻结，不得原地覆盖
@@ -247,6 +248,9 @@ sources:                        # 用块状列表，不用行内数组
   判断时，才建议晋升。晋升走完整 research 沉淀流程（见核心操作 1 第 5 步），**不得整份复制进 wiki**。
 - 默认滚动保留最近 30 天。自动化不得自行删除超期文件；月末可提醒用户确认删除，或在用户明确要求
   长期保留时移入 `briefs/archive/YYYY-MM/`。删除后说明范围与可恢复性。
+- **关注名单**：`briefs/watchlist.md` 是「关注动态」唯一的人物 / 订阅源名单，增删人只改它；
+  `tools/ai_watch.py` 读取它，生成 `output/personal/ai-watch.html`（`--json` 另存结构化结果供简报使用）。
+  名单与脚本都不是知识层：不进 index、不计数、不 lint；脚本产出的条目同样只是线索。
 
 ## output/ HTML 呈现层约定（派生视图层）
 

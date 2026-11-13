@@ -1450,3 +1450,8 @@ index 概览更新为 46 素材（含 3 个 asset）/ 77 页。
 
 另有日期与范围校正：Copilot automations 应为 06-02，11-01 起按次计费只限 Search/Fetch，桌面版应为 09-29，微信原文其实可以读取。报告漏掉的也已补上：冯若航的反论点、腾讯 A.I.G 注入评测、会话日志默认上传。
 判断去向：[[常驻 AI 同事的竞争格局]]、[[Agent 授权三层]]、[[常驻 Agent 的算力经济学]]、[[控制带]]。
+
+## [2026-11-13] schema | 新增关注名单 briefs/watchlist.md 与 tools/ai_watch.py
+用户要求自动跟踪 Claude 官方与 AI 圈关键人物的动态，且不付费。新建 `briefs/watchlist.md`：23 个对象分 A/B/C 三组，标注每人的免费渠道（17 个订阅源，2026-11-13 全部实测可用）与 X 覆盖情况——8 个账号在 XNews（xnews.xgrowing.ai）信源内，5 个只在 X 发言、免费渠道拿不到；@heynavtoor 因是本库「去机制化失真」反例而排除。
+新增 `tools/` 目录与 `tools/ai_watch.py`（标准库、零 CDN）：读名单、拉订阅源、生成 `output/personal/ai-watch.html` 并可另存 JSON。AGENTS.md 仓库结构与 briefs 约定各补一处说明。不涉及 wiki 页面，未改 index。
+未接入：XNews 接口的自动读取（权限系统对未公开接口的参数试探判为未授权访问，待用户决定），以及每日简报 Routine 的改动（待合并进 main 后再改）。
