@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 记忆]
 created: 2026-07-28
-updated: 2026-08-11
+updated: 2026-11-16
 sources:
   - "https://arxiv.org/abs/2309.02427 （CoALA，检索于 2026-07-28）"
   - "https://arxiv.org/html/2309.02427v3 （CoALA 全文，检索于 2026-07-28）"
@@ -9,6 +9,7 @@ sources:
   - "https://www.anthropic.com/engineering/building-effective-agents （检索于 2026-07-28）"
   - "[[Open Knowledge Format]]"
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
+  - "[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]"
 ---
 
 # Agent 记忆架构
@@ -35,6 +36,39 @@ CoALA（Cognitive Architectures for Language Agents）不是单纯的“四类�
 
 CoALA 还指出，修改程序记忆比写入情景或语义记忆风险更高：它可能引入代码缺陷，
 甚至改变设计者原本的意图。因此 Agent 自行修改指令、代码或决策程序不应默认自动生效。
+
+## Anthropic 的记忆层级与 dreaming（2026-11 新增）
+
+CoALA 按**记什么**分类；Anthropic 2026-11 的工程文章按**信息怎么流动**分层，两者是互补的两个视角
+（[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]）。它把 agent memory 限定为"从经验中获得、跨会话保留、
+存为可读上下文"的知识，明确排除权重变化、in-context learning 和 compaction。
+
+| Anthropic 层级（自下而上） | 对应 CoALA | 作用 |
+|---|---|---|
+| Transcripts（可搜索事件日志） | 情景材料 | 纠错时的 ground truth |
+| Memory notes（会话内写的笔记） | 情景 → 语义的初步蒸馏 | 在源头捕捉 salience |
+| Memory representations（如 wiki） | 语义记忆 | 按主题聚合、互链，充当检索地图 |
+| Injected context（每会话预加载） | 工作记忆的预置部分 | 必须小，只当索引 |
+
+**Dreaming** 是把下层材料整理到上层的离线过程（借 sleep-time compute 思路）：对照 transcript 纠正笔记、
+构建与修剪 wiki、把少量内容上浮为常驻、跨会话补齐单次会话留下的空白（如悬空链接）。它对应下文
+"存储不等于记忆"闭环里的 **Update / Forget**——这正是 CoALA 没给出机制、本页此前只列了问题的部分。
+
+该文的实验给本页的五个策略补上了证据：
+
+- **Write**：前沿模型已能自行判断 salience，"告诉它记忆用来干什么，别规定怎么用"；预设"只记失败"
+  反而让 Opus 5 的记忆增益下降 0.234。记得多不等于记得好：Pokémon 里 413 个文件拿 1 枚徽章，
+  10 个文件拿 4 枚——可随时重新观察的状态存了只会过时。
+- **Retrieve**：wiki + 搜索（61%）优于纯搜索（53%），纯 wiki（48%）反而更差；增益集中在跨文档、
+  需判断的问题（并购 24 题：87% vs 73%），单文档可检索的任务无增益。
+- **Update**：错误笔记会被后续会话信任并放大；以 transcript 为准跑 dreaming 可纠正（Mt. Moon 案例）。
+- **Forget / 压缩**：常驻层要靠"细节下移、留链接"保持小；wiki 也会失败——比原文还大（1.77×）时
+  "effectively abstracted nothing"。
+- **多写者**：多个 agent 并发写同一共享页会互相覆盖，只保住 72% 的事实；改为一页一写者、逐字引用后 100%。
+
+> 综合：这组证据把"存储不等于记忆"从原则变成可测的工程问题——**写入准入可以交给强模型判断，
+> 但纠错、压缩和并发写冲突必须由离线流程或结构约束兜底**。仍是厂商自家模型、小题量实验，
+> 无第三方复现；原文自承"何时写、如何保鲜、要不要以 transcript 搜索为底座"仍是开放问题。
 
 ## Skills 在程序记忆中的位置
 
@@ -103,6 +137,9 @@ Markdown 文件**。这说明文件化、可读的记忆足以支撑早期多人
 但访谈没有回答谁能把什么写回主记忆、多人冲突怎样合并、跨频道如何授权、错误偏好如何撤销，以及何时过期
 或遗忘。因此它证明的是一种存储与共享实现，不是完整记忆治理。综合：是否改用数据库是后置的规模问题；
 Write / Update / Forget 的准入与调和规则才是先决条件。
+Anthropic 2026-11 的合同条款实验给"多人冲突怎样合并"补了一个反例：多个 agent 并发写同一共享页，
+互相覆盖后只剩 72% 的事实（[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]）。综合：每频道一个共享文件的
+Claude Tag 形态面临同一风险，写回门禁之外还需要写入粒度（一实体一页）或串行化。
 
 会话内容进入团队主记忆时需要哪些写回门禁，以及该记忆在研发闭环中的位置，见
 [[Claude Tag 驱动的团队研发流程]]。
@@ -114,5 +151,10 @@ Write / Update / Forget 的准入与调和规则才是先决条件。
 - `raw/` 与 `log.md`：来源/过程材料和审计轨迹，不自动等于情景记忆或权威事实；
 - 从真实任务复盘出的可复用案例：可作为情景记忆；
 - `AGENTS.md`、Skills、脚本与固定流程：显式程序记忆。
+
+按 Anthropic 的层级看（综合）：`raw/` ≈ transcripts 层（ground truth）；`wiki/` ≈ representations 层；
+`AGENTS.md` 与会话启动仪式读的 `log.md` 尾部、`index.md` ≈ injected context；Lint 与 research 沉淀里的
+横向整合 ≈ 由人触发的 dreaming。本仓库"`wiki/` 唯一写手"和"全库文件名唯一"两条约定，恰好规避了该文
+观察到的并发覆盖与悬空链接两类失败。
 
 总体闭环见 [[从知识图谱到 Agent 编排]]。

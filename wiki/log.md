@@ -1450,3 +1450,11 @@ index 概览更新为 46 素材（含 3 个 asset）/ 77 页。
 
 另有日期与范围校正：Copilot automations 应为 06-02，11-01 起按次计费只限 Search/Fetch，桌面版应为 09-29，微信原文其实可以读取。报告漏掉的也已补上：冯若航的反论点、腾讯 A.I.G 注入评测、会话日志默认上传。
 判断去向：[[常驻 AI 同事的竞争格局]]、[[Agent 授权三层]]、[[常驻 Agent 的算力经济学]]、[[控制带]]。
+
+## [2026-11-16] research | Anthropic《The components of agent memory》：记忆层级、dreaming 与 wiki 实测
+用户查询 Anthropic 官方 agent memory 文章，定位到 2026-11-06 Engineering 文章（Lance Martin）。curl 抓取 HTML，正文与全部图注 alt 文本逐项核对数字，存为 `raw/sources/articles/2026-11-06-Anthropic-Agent记忆的组成.md`（中文结构化摘录）。因被 ≥2 页引用，建 [[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]。
+判断去向：
+- [[Agent 记忆架构]]：新增"Anthropic 的记忆层级与 dreaming"一节，与 CoALA 对照（按内容分类 vs 按信息流动分层），用实验给 Write/Retrieve/Update/Forget 与多写者问题补证据；Claude Tag 节补并发写覆盖风险；本 wiki 映射补层级对应。
+- [[llm-wiki-方法论]]：新增"外部实证"一节（wiki+搜索 61% > 纯搜索 53% > 纯 wiki 48%；增益限于跨文档综合；wiki 膨胀 1.77× 即失效；单写手、Lint 修悬空链接得到印证），并标出适用边界；RAG 节与"地图还是手册"节各补一条。
+- [[从知识图谱到 Agent 编排]] §四、[[Claude Code]]（auto memory 只载 `MEMORY.md` 前 200 行 / 25 KB）各补一条。
+- 矛盾未新增：文中"指令文件越长遵循度越低"引自 Claude Code 自家文档，不是新测量，既有的官方说法 vs McMillan 矛盾（见 [[AI编码技术债的三层治理]]）不变。

@@ -1,8 +1,9 @@
 ---
 tags: [分析, AI, Agent, 知识管理, 架构]
 created: 2026-07-28
-updated: 2026-08-11
+updated: 2026-11-16
 sources:
+  - "[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]"
   - "`raw/sources/notes/2026-07-28-从知识图谱到Agent编排-结构化内容草稿.md`（AI 派生草稿，仅作问题线索）"
   - "https://li.feishu.cn/file/CXkubLDs5oF6EUxJA9Ucedi7nBh （原视频，读取于 2026-07-28）"
   - "https://li.feishu.cn/minutes/obcn3k1m984k377lp91lojy1 （飞书妙记，读取于 2026-07-28）"
@@ -103,6 +104,11 @@ CoALA 将信息存储分为工作记忆，以及情景、语义、程序三类�
 
 每一类长期记忆都至少需要四个策略：**何时写入、如何召回、何时修订、何时删除或降权**。
 否则“记得更多”只会扩大噪声、过时信息和越权暴露面。具体见 [[Agent 记忆架构]]。
+
+2026-11 补：Anthropic 的实验给"记得更多 ≠ 记得更好"提供了实测——Pokémon 中 413 个记忆文件只拿 1 枚徽章，
+10 个文件拿 4 枚；它的离线 dreaming 就是"修订、降权"策略的一种实现：对照 transcript 纠错、修剪 wiki、
+控制常驻层大小（[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]）。同一组实验显示 wiki + 搜索优于纯搜索，
+支持本页把检索（第 2 层）与记忆表示（第 3 层）分开、而非二选一。
 
 ## 五、编排：Workflow 与 Agent 是连续谱，不是身份标签
 

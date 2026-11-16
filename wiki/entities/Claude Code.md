@@ -1,7 +1,7 @@
 ---
 tags: [实体, 产品, AI, Agent, 软件工程]
 created: 2026-08-11
-updated: 2026-09-23
+updated: 2026-11-16
 sources:
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "https://simonwillison.net/2026/Jul/21/cat-and-thariq/ （检索于 2026-08-03）"
@@ -9,6 +9,7 @@ sources:
   - "[[2026-08-27-Uber-软件工厂成本效率-源摘要]]"
   - "[[2026-07-30-Thoughtworks-重构的经济收益-源摘要]]"
   - "[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]"
+  - "[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]"
 ---
 
 # Claude Code
@@ -59,6 +60,9 @@ sources:
   [[llm-wiki-方法论]] 的 Ingest / Query / Lint 三大操作——本仓库即"用 agent 维护语义记忆"的活体实验。
 - 其 `CLAUDE.md` 记忆文件机制对应 [[AI编码技术债的三层治理]] 的意图层：承载项目特定、可执行的约定，
   但只能提高遵循概率，硬约束仍须落在门禁。
+- auto memory（Claude 自己写的跨会话笔记）每次会话只加载 `MEMORY.md` 前 200 行或 25 KB，作为
+  "知道什么、去哪找"的索引，细节留在下层按需读取（[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]）。
+  这是 Anthropic 记忆层级里"常驻层必须小"的产品实例；与本仓库整份常驻的 `AGENTS.md` 的对照见 [[llm-wiki-方法论]]。
 - [[STORM-研究提示词组]] 的多视角检索阶段可在 Claude Code 中用 subagent 并行执行，是最接近
   原系统并行架构的手工执行方式。
 
