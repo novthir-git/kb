@@ -1450,3 +1450,23 @@ index 概览更新为 46 素材（含 3 个 asset）/ 77 页。
 
 另有日期与范围校正：Copilot automations 应为 06-02，11-01 起按次计费只限 Search/Fetch，桌面版应为 09-29，微信原文其实可以读取。报告漏掉的也已补上：冯若航的反论点、腾讯 A.I.G 注入评测、会话日志默认上传。
 判断去向：[[常驻 AI 同事的竞争格局]]、[[Agent 授权三层]]、[[常驻 Agent 的算力经济学]]、[[控制带]]。
+
+## [2026-11-16] research | Anthropic《The components of agent memory》：记忆层级、dreaming 与 wiki 实测
+用户查询 Anthropic 官方 agent memory 文章，定位到 2026-11-06 Engineering 文章（Lance Martin）。curl 抓取 HTML，正文与全部图注 alt 文本逐项核对数字，存为 `raw/sources/articles/2026-11-06-Anthropic-Agent记忆的组成.md`（中文结构化摘录）。因被 ≥2 页引用，建 [[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]。
+判断去向：
+- [[Agent 记忆架构]]：新增"Anthropic 的记忆层级与 dreaming"一节，与 CoALA 对照（按内容分类 vs 按信息流动分层），用实验给 Write/Retrieve/Update/Forget 与多写者问题补证据；Claude Tag 节补并发写覆盖风险；本 wiki 映射补层级对应。
+- [[llm-wiki-方法论]]：新增"外部实证"一节（wiki+搜索 61% > 纯搜索 53% > 纯 wiki 48%；增益限于跨文档综合；wiki 膨胀 1.77× 即失效；单写手、Lint 修悬空链接得到印证），并标出适用边界；RAG 节与"地图还是手册"节各补一条。
+- [[从知识图谱到 Agent 编排]] §四、[[Claude Code]]（auto memory 只载 `MEMORY.md` 前 200 行 / 25 KB）各补一条。
+- 矛盾未新增：文中"指令文件越长遵循度越低"引自 Claude Code 自家文档，不是新测量，既有的官方说法 vs McMillan 矛盾（见 [[AI编码技术债的三层治理]]）不变。
+
+## [2026-11-16] schema | AGENTS.md 拆为常驻索引 + rules/ 按需文件
+经用户同意执行 [[llm-wiki-方法论]]「Schema 是地图还是手册」的方案。`AGENTS.md` 从 326 行 / 23,678 字节缩到 128 行 / 约 9.3 千字节，只保留铁律、会话启动仪式、仓库结构、Query & Research 主流程与沉淀价值判断，外加新增的「按需规范索引」（触发条件 → 必读文件）。
+其余章节**原文搬移**到 `rules/`（逐行比对确认无遗漏，只降级标题、改自指措辞）：
+- `写入约定.md`：页面类型、页面约定、index 与 log；
+- `摄入流程.md`；`体检流程.md`；`briefs约定.md`；`output约定.md`；`第三方工具兼容.md`；
+- `规范维护.md`：四份配置分工、raw 重定位历史，以及新增的常驻/按需划分原则。
+随拆分一并改的地方：
+- Lint 新增确定性检查第 4 条：索引表与 `rules/` 文件两边一致（命令已实跑通过），并把 `AGENTS.md` ≤ 150 行列为判断类检查；
+- llm_wiki 的 excludeDirs 加上 `rules`；
+- `wiki/schema.md` 升到 1.4，同步目录树、权威表述与 lint 摘要；`wiki/purpose.md` 的配置分工改为 `AGENTS.md` + `rules/`。
+wiki 页：[[llm-wiki-方法论]] 记录执行结果和新的失败模式（触发条件没命中就会漏读细则）；[[Claude Code]]、[[Agent 记忆架构]] 中描述旧状态的句子已更新；overview 里对应的悬而未决条目改为"待观察"。

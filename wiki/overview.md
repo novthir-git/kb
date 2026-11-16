@@ -1,7 +1,7 @@
 ---
 tags: [综合]
 created: 2026-07-03
-updated: 2026-11-06
+updated: 2026-11-16
 sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index.md 承载（详见 AGENTS.md）
 ---
 
@@ -14,7 +14,7 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
   （[[生产力-体验悖论]]、"从创造到验证"的监督式工程）——新增企业 / 成熟仓库 RCT、生产遥测与维护负担证据，
   显示局部活动量、实际任务速度、感知速度和 release 价值可能背离；验证带宽本身成为人侧瓶颈，格式扩容手段及其保真 / 可核对代价见 [[LLM 输出的人类理解瓶颈]]。
 - **Agent 知识—记忆—行动架构**：[[从知识图谱到 Agent 编排]] 以权威事实、派生表示、检索、
-  [[Agent 记忆架构|记忆]]、编排、[[MCP]]/[[RPA]] 行动与验证调和构成七层闭环；检索选型见 [[GraphRAG 与 Vector RAG]]；
+  [[Agent 记忆架构|记忆]]（11-16 补 Anthropic 记忆层级与 dreaming 实测）、编排、[[MCP]]/[[RPA]] 行动与验证调和构成七层闭环；检索选型见 [[GraphRAG 与 Vector RAG]]；
   [[Open Knowledge Format|OKF]] 是可携带知识制品，和本仓库的边界见 [[OKF 与 llm-wiki 的关系]]。
 - **Loop Engineering / 产品开发循环**：[[Loop Engineering]] 把 coding agent 的分钟级自测自修、
   开发者小时级反馈、外部用户天/周级反馈接成三层循环；[[Claude Tag 驱动的团队研发流程]]进一步把它落到
@@ -54,7 +54,7 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
 - 哪些"软件股"是 system of record（安全），哪些只是可被 Agent 覆盖的功能层（危险）？
 - per-seat → outcome/consumption 定价迁移的实际节奏与对倍数的影响？（11-06：近端兑现的是 consumption，outcome 未见，见 [[常驻 Agent 的算力经济学]]）
 - "监督式工程"下的体验下滑，是过渡期阵痛还是结构性代价？产品/组织如何对冲？
-- 本仓库 `AGENTS.md` 是 326 行常驻的手册形态，是否该改为"地图 + 按需文件"？（schema 修改，待用户决定；见 [[llm-wiki-方法论]]）
+- 本仓库 `AGENTS.md` 已于 11-16 拆为常驻索引 + `rules/` 按需文件（见 [[llm-wiki-方法论]]）；待观察：触发条件漏命中导致细则漏读的情况是否出现。
 - AI 加速 coding loop 后，0-to-1 产品的 [[Evals|evals]] 如何覆盖功能正确性、体验质量与真实用户价值？
 - SDD 的规格成本能被什么抵消？（“返工与缺陷会下降”的前提已被最大样本证据否定）任务粒度的 Standard→Quick 降级阈值仍无量化切换点。
 - 待写页面：[[per-seat 定价的黄昏]]、[[system-of-record 与专有数据护城河]]。

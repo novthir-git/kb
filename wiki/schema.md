@@ -1,6 +1,6 @@
 # Wiki Schema（知识库配置规范）
 
-> 本文件是运行时配置摘要；具体维护铁律以 `AGENTS.md` 为准。若两者冲突，优先遵守 `AGENTS.md`，并同步修正本文件。
+> 本文件是运行时配置摘要；具体维护规范以 `AGENTS.md` 及其索引的 `rules/` 文件为准。若两者冲突，优先遵守后者，并同步修正本文件。
 > 意图与范围（为什么存在、该问什么）见 `wiki/purpose.md`，本文件不重复。
 
 ## 知识库信息
@@ -8,13 +8,13 @@
 - 主题：个人知识 Wiki
 - 创建日期：2026-04-07
 - 语言：中文
-- 版本：1.3（2026-07-29 布局适配 llm_wiki 桌面应用）
+- 版本：1.4（2026-11-16 `AGENTS.md` 拆为常驻索引 + `rules/` 按需文件；1.3 为 2026-07-29 布局适配 llm_wiki 桌面应用）
 
 ## 三层架构
 
 1. `raw/`：原始信息源，只读；研究中新增的重要网页可存入 `raw/sources/articles/`，存入后同样只读。
 2. `wiki/`：AI 维护的结构化知识层；可新建、改写、合并、横向整合。
-3. `AGENTS.md` / `wiki/schema.md` / `wiki/purpose.md`：规则与意图层。`AGENTS.md` 是完整 schema 且唯一权威；
+3. `AGENTS.md` + `rules/` / `wiki/schema.md` / `wiki/purpose.md`：规则与意图层。`AGENTS.md`（常驻：铁律、启动仪式、主流程、按需规范索引）与 `rules/`（按场景读取的细则）共同构成唯一权威 schema；
    本文件是运行时摘要，供通用 llm-wiki 工具识别语言与路径；`purpose.md` 定义目标、关键问题与范围。
 
 ## 目录结构
@@ -41,10 +41,11 @@ llm-wiki/
 │   ├── analyses/          # 一次研究问答沉淀出的深度分析
 │   └── synthesis/         # 演化中的综合观点与判断
 ├── briefs/                # 每日简报（时效性阅读层，不入索引、不计数）
-├── output/                # 交付层：对外分享的单文件 HTML；非知识资产，不进 lint（详见 AGENTS.md）
+├── output/                # 交付层：对外分享的单文件 HTML；非知识资产，不进 lint（详见 rules/output约定.md）
 │   ├── personal/          # 自用：稳定文件名，可原地重渲染
 │   └── shared/            # 对外：带日期，发出即冻结，不得原地覆盖
-├── AGENTS.md              # 完整 schema（CLAUDE.md 是其 symlink）
+├── AGENTS.md              # 常驻 schema + 按需规范索引（CLAUDE.md 是其 symlink）
+├── rules/                 # 按需规范：写入约定、摄入/体检流程、briefs、output、第三方工具、规范维护
 ├── purpose.md             # → wiki/purpose.md（symlink）
 └── schema.md              # → wiki/schema.md（symlink）
 ```
@@ -124,6 +125,7 @@ sources:                        # 必须用块状列表，不用行内数组
 - `wiki/index.md` 条目与实际 `wiki/` 文件是否一致；概览计数是否与
   `find wiki -name '*.md' -not -name 'index.md' -not -name 'log.md' -not -name 'purpose.md' -not -name 'schema.md' | wc -l` 一致。
 - 路径引用有效性：wiki 页中的 `raw/sources/...` 引用是否指向真实文件；根目录 `purpose.md`、`schema.md` symlink 是否可解析。
+- 按需规范索引一致性：`AGENTS.md` 索引表列出的 `rules/` 文件都存在，`rules/` 下每个文件都被索引列出；`AGENTS.md` 目标 ≤ 150 行。
 - `wiki/overview.md` 是否 ≤ 60 行。
 - `topics/` 证据点表是否使用统一表头。
 - URL 引用是否可达；访问受限但已有替代溯源说明的不算死链。
@@ -143,4 +145,4 @@ Lint 结果经用户确认后再修复；lint 与修复都记入 `wiki/log.md`�
 ## 第三方工具兼容
 
 布局已适配 nashsu/llm_wiki 桌面应用（可直接作为 project 打开，用其图谱与检索）。
-**Claude Code 是 `wiki/` 的唯一写手，不得使用该 App 的 ingest 写入。** 详细约束见 `AGENTS.md`「第三方工具兼容」。
+**Claude Code 是 `wiki/` 的唯一写手，不得使用该 App 的 ingest 写入。** 详细约束见 `rules/第三方工具兼容.md`。

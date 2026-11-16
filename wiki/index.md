@@ -1,9 +1,9 @@
 # Wiki 内容索引
 
 ## 概览
-- 素材（raw）：46（含 3 个 asset）
-- 页面（wiki）：77
-- 最后更新：2026-11-06
+- 素材（raw）：47（含 3 个 asset）
+- 页面（wiki）：78
+- 最后更新：2026-11-16
 
 ## 分析（analyses）
 - [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
@@ -40,13 +40,13 @@
 - [[Evals]] — AI/Agent 评估的 task、trial、grader、trace、outcome 与 suite；区分 capability/regression eval 及证据边界；含 LLM-as-judge 自我偏好与错误相关实证。
 - [[MCP]] — Model Context Protocol，agent↔数据/工具的开放连接标准（2024-11）。
 - [[building-effective-agents]] — Anthropic 的 agent vs workflow 设计范式与模式分类。
-- [[Agent 记忆架构]] — CoALA 的工作、情景、语义、程序记忆及内外部行动与循环决策；区分 Skills、日志和长期记忆。
+- [[Agent 记忆架构]] — CoALA 的工作、情景、语义、程序记忆及内外部行动与循环决策；区分 Skills、日志和长期记忆；11-16 补 Anthropic 四层记忆层级与 dreaming，及写入/召回/纠错/多写者的实测证据。
 - [[Agent Skills]] — 把流程知识打包成可安装文件夹的开放格式；收拢程序记忆载体、plugin 组件、SDLC 回灌目标三种语境。
 - [[Open Knowledge Format]] — Markdown + YAML 的开放知识交换格式；区分可携带制品、托管目录、知识图谱、记忆与编排，并分析 provenance、trust、freshness 和 Attested Computation。
 - [[知识图谱]] — 实体与有类型关系的知识表示；区分知识图谱、图数据库和图检索，并强调来源、时间与派生视图治理。
 - [[RPA]] — Robotic Process Automation：面向稳定重复界面任务的软件机器人；与 Workflow、Agent、API/MCP 的互补边界。
 - [[生产力-体验悖论]] — 区分感知速度、实际任务速度、活动产出、维护负担与 release 价值，解释 AI 编码的多层背离。
-- [[llm-wiki-方法论]] — Karpathy LLM Wiki 模式：知识只编译一次、持续保鲜；三层架构 + 三大操作 + 守门判据（知识的四条边界、范围先于普遍性）。本仓库方法论源头。
+- [[llm-wiki-方法论]] — Karpathy LLM Wiki 模式：知识只编译一次、持续保鲜；三层架构 + 三大操作 + 守门判据（知识的四条边界、范围先于普遍性）。本仓库方法论源头；11-16 补 Anthropic wiki 记忆实验作为首组外部实测（wiki+搜索优于纯搜索、单写手、防膨胀），并记录 `AGENTS.md` 拆为常驻索引 + `rules/` 的执行结果。
 - [[Specification-Driven Development]] — 以规格为开发契约的 AI 软件工程范式；区分规格保留层级与 artifact mutation model。
 - [[控制带]] — 按信号强度分级授予 agent 自主权（1σ 记录 / 2σ 只读诊断 / 3σ 受限行动），检测端完全确定性；与 T0–T4 产物风险分级正交。
 - [[STORM-研究提示词组]] — 把 Stanford STORM/Co-STORM 移植成 Claude 可执行的六阶段研究提示词；坚持检索驱动视角发现、Moderator 挖 unknown unknowns、以异源校验替代自评。
@@ -95,8 +95,10 @@
 - [[2026-05-19-Sonar-代码整洁度最小对实验-源摘要]] — SonarSource 的最小对受控实验：6 对仓库、33 任务、660 次 Claude Code 运行；整洁度不改通过率（−0.9 pp），输入 token −7.1%、重读 −33.8%，收益集中在跨模块任务；只用隐藏测试评分、单模型、作者利益相关。
 - [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]] — 15 个 agent 在自己的代码上迭代 196 个 checkpoint：77% 轨迹侵蚀上升、增速约为人类仓库 5–7 倍；质量提示压初值不改斜率；LOC 是下一轮成本的最强预测因子；含两处原文内部矛盾。
 - [[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]] — 用户提供的 DeepSeek Super-agent 报告逐项核验：事实层大体成立；"宿主强制授权"被可改写的 Policy 与无 token 的本机 API 削弱，"差异点"并非独有，成本推算偏最便宜口径。
+- [[2026-11-06-Anthropic-Agent记忆的组成-源摘要]] — Anthropic 工程文章：agent memory 的定义与四层层级（transcripts→notes→wiki→injected），dreaming 离线纠错/建 wiki；CL-Bench、Pokémon、Stainless、Harvey LAB 全部数字与小样本口径。
 
 ## 素材（raw）
+- sources/articles/2026-11-06-Anthropic-Agent记忆的组成 — Anthropic《The components of agent memory》中文结构化摘录，图中数字取自 alt 文本（源摘要 [[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]）。
 - sources/articles/2026-07-01-Andrew-Ng-三层产品开发循环 — Andrew Ng 关于 Loop Engineering 与三层产品开发循环的 X/The Batch post（源摘要 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
 - sources/articles/2026-07-03-Karpathy-LLM-Wiki-模式 — Karpathy 的 LLM Wiki 模式 gist 原文 verbatim 存档（承载页 [[llm-wiki-方法论]]）。
 - sources/articles/2026-06-25-Axios-Codex-agent-用量增长 — Axios/OpenAI 报告：Codex 采用曲线与非开发者外溢（源摘要 [[2026-06-25-Axios-Codex-agent-用量增长-源摘要]]）。
