@@ -54,7 +54,7 @@ sources: []   # 本页不罗列内部页面：关联由正文双链 + wiki/index
 - 哪些"软件股"是 system of record（安全），哪些只是可被 Agent 覆盖的功能层（危险）？
 - per-seat → outcome/consumption 定价迁移的实际节奏与对倍数的影响？（11-06：近端兑现的是 consumption，outcome 未见，见 [[常驻 Agent 的算力经济学]]）
 - "监督式工程"下的体验下滑，是过渡期阵痛还是结构性代价？产品/组织如何对冲？
-- 本仓库 `AGENTS.md` 是 326 行常驻的手册形态，是否该改为"地图 + 按需文件"？（schema 修改，待用户决定；11-16 Anthropic"常驻层必须小"再添一票，见 [[llm-wiki-方法论]]）
+- 本仓库 `AGENTS.md` 已于 11-16 拆为常驻索引 + `rules/` 按需文件（见 [[llm-wiki-方法论]]）；待观察：触发条件漏命中导致细则漏读的情况是否出现。
 - AI 加速 coding loop 后，0-to-1 产品的 [[Evals|evals]] 如何覆盖功能正确性、体验质量与真实用户价值？
 - SDD 的规格成本能被什么抵消？（“返工与缺陷会下降”的前提已被最大样本证据否定）任务粒度的 Standard→Quick 降级阈值仍无量化切换点。
 - 待写页面：[[per-seat 定价的黄昏]]、[[system-of-record 与专有数据护城河]]。

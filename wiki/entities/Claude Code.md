@@ -62,7 +62,7 @@ sources:
   但只能提高遵循概率，硬约束仍须落在门禁。
 - auto memory（Claude 自己写的跨会话笔记）每次会话只加载 `MEMORY.md` 前 200 行或 25 KB，作为
   "知道什么、去哪找"的索引，细节留在下层按需读取（[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]）。
-  这是 Anthropic 记忆层级里"常驻层必须小"的产品实例；与本仓库整份常驻的 `AGENTS.md` 的对照见 [[llm-wiki-方法论]]。
+  这是 Anthropic 记忆层级里"常驻层必须小"的产品实例；本仓库 2026-11-16 也把 `AGENTS.md` 拆成常驻索引 + `rules/` 按需文件，过程见 [[llm-wiki-方法论]]。
 - [[STORM-研究提示词组]] 的多视角检索阶段可在 Claude Code 中用 subagent 并行执行，是最接近
   原系统并行架构的手工执行方式。
 

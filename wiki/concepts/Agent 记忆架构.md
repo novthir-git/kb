@@ -153,7 +153,7 @@ Claude Tag 形态面临同一风险，写回门禁之外还需要写入粒度（
 - `AGENTS.md`、Skills、脚本与固定流程：显式程序记忆。
 
 按 Anthropic 的层级看（综合）：`raw/` ≈ transcripts 层（ground truth）；`wiki/` ≈ representations 层；
-`AGENTS.md` 与会话启动仪式读的 `log.md` 尾部、`index.md` ≈ injected context；Lint 与 research 沉淀里的
+`AGENTS.md` 与会话启动仪式读的 `log.md` 尾部、`index.md` ≈ injected context（2026-11-16 起 `AGENTS.md` 只留常驻内容，细则下移到按需读取的 `rules/`，正是该文"细节下移、留下链接"的做法）；Lint 与 research 沉淀里的
 横向整合 ≈ 由人触发的 dreaming。本仓库"`wiki/` 唯一写手"和"全库文件名唯一"两条约定，恰好规避了该文
 观察到的并发覆盖与悬空链接两类失败。
 

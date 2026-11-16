@@ -1,7 +1,7 @@
 # Purpose — 这个 wiki 为什么存在
 
 > **三份配置的分工**（不要互相抄）：
-> - `schema.md` / `AGENTS.md` —— wiki **怎么运作**：目录、页面类型、frontmatter、流程、铁律。
+> - `schema.md` / `AGENTS.md` + `rules/` —— wiki **怎么运作**：目录、页面类型、frontmatter、流程、铁律。
 > - 本文件（`purpose.md`）—— wiki **为什么存在、该问什么、边界在哪、当前立场**。以月/季为单位变。
 > - `overview.md` —— wiki **现在有什么、在跟什么**（版图快照 + 活跃线索）。每次沉淀都可能变。
 
