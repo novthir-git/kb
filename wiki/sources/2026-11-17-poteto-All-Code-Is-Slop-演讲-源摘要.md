@@ -67,13 +67,29 @@ sources:
 | 性能（5 月 → 现在） | 10 项变快（冷启动 −39%、长对话输入 p90 −65% 等）；5 项变差：打开长对话（冷）+8%、调整窗口 +130%、空闲内存 +12%、空闲 CPU +100%、启动 JS+CSS +285% |
 | 一次发版 fuzz | 与 0.79.4 对比，50 个不同 bug：新增 3（0 高 2 中 1 低），既有 47（1 高 9 中 37 低） |
 
+## 从开发到发布：各阶段自动化程度
+
+按讲者原话逐段对照（时间为转写时间戳）：
+
+| 阶段 | 讲者原话 | 自动化程度 | 人还在做什么 |
+|---|---|---|---|
+| 触发 | 外循环幻灯片：X 反馈、Linear 工单、Slack 消息、cron、Datadog/Sentry 告警（15:52）；"routines that can kick off Cursor cloud agents"（15:58） | 可由事件自动触发 | 决定做什么；日常开发自动触发与人工派发的比例未说明 |
+| 写代码 | "every engineer is now a team of hundreds or even thousands of agents"（03:32）；"ship thousands of pull requests, a lot of them, in my sleep"（01:36） | agent 写 | 纠正 agent，并把纠正写成 lint 规则（08:58） |
+| 验证 | 运行时验证、TLA+、Lean、UI 属性测试（09:44 起） | agent 产出验证证据 | 看证据："code review has shrunk into looking at verification artifacts"（09:39）；"yes, you should read the code sometimes" |
+| 合并 PR | "let agents merge most of their own pull requests"（09:19）；"most product code that we land no longer really requires deep human review"（16:36） | 大部分自动合并，无比例 | 限产品代码；基础设施、安全代码的审查方式未提及 |
+| 发版 | "we cut a new stable version about once a day"（13:36） | **未说明**：只给频率 | 发不发、灰度、回滚由谁决定未提及 |
+| 发版后 | 每次发版自动开 Cursor 项目 fuzz 整个构建，为每个 bug 开修复 PR 并 "automerge it"（16:09–16:31） | 全自动闭环，演讲中唯一明说"自动合并"的场景 | 既有高危 bug 如何处置未说明 |
+
+- 综合：**合并不等于发布。** 10 月 10,926 个 PR 对应 15 次桌面端发版，平均每版约 730 个 PR，是"合入主干、随日版发出"的批量节奏，不是逐 PR 持续部署。后端服务是否逐 PR 部署，演讲未涉及。
+- 综合：按讲者自己的三阶段框架，Grok Bot 团队处在"工厂"阶段（自动触发、agent 写、agent 验），但证据只覆盖到合并为止，外加发版后 fuzz 一个闭环；发版控制是空白，对应本库 [[Claude Tag 驱动的团队研发流程]] 与 [[控制带]] 讨论的风险分层放权问题。
+
 ## 口径与边界
 
 - 全部为讲者自报，研究对象是自家产品，无对照组；结尾推介 Grok Bot。
 - 综合：若个人 PR 计入团队口径，10 月讲者一人约占团队 PR 的 29%（6 月约 85%）；两个口径的统计范围演讲未说明。
 - 综合：revert 率不计入未被 revert 的缺陷；同场展示的 fuzz 报告仍有 47 个既有 bug。
 - 综合：口头说"性能多维度变快"，幻灯片显示资源类指标全部退化。
-- "大部分产品代码不再需要深度人工 review"、fuzz 修复 PR 自动合并：范围限于产品代码，基础设施/安全代码未提及。
+- "大部分产品代码不再需要深度人工 review"、fuzz 修复 PR 自动合并：范围限于产品代码，基础设施/安全代码未提及；发版动作是否自动化未说明（见上节）。
 - 推文标题"一个月 3000 个 PR"指讲者个人 10 月数字，团队为 10,926。
 
 ## 判断去向（待用户确认后横向整合）
