@@ -1470,3 +1470,11 @@ index 概览更新为 46 素材（含 3 个 asset）/ 77 页。
 - llm_wiki 的 excludeDirs 加上 `rules`；
 - `wiki/schema.md` 升到 1.4，同步目录树、权威表述与 lint 摘要；`wiki/purpose.md` 的配置分工改为 `AGENTS.md` + `rules/`。
 wiki 页：[[llm-wiki-方法论]] 记录执行结果和新的失败模式（触发条件没命中就会漏读细则）；[[Claude Code]]、[[Agent 记忆架构]] 中描述旧状态的句子已更新；overview 里对应的悬而未决条目改为"待观察"。
+
+## [2026-11-18] ingest | poteto〈All Code Is Slop (Except Yours)〉演讲视频转写
+用户给出 X 推文链接（@FinanceYF5 转发的 AI Engineer Code Summit 演讲视频，17:18），要求获取内容。经 fxtwitter API 取推文元数据与视频直链；已连接的字节语音识别服务返回 401（密钥无效），改用本地 faster-whisper medium.en 转写，人工校正明显识别错误；幻灯片数字由 1080p 截帧逐张读取。存为 `raw/sources/articles/2026-11-17-poteto-All-Code-Is-Slop-演讲.md`。
+新建 [[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]：论点结构（poteto 金字塔、纠正即检查、Dune 约束、文字是逃生口、验证层、别自动化坏循环、外循环）、讲者自报数据表与口径边界（自报无对照；revert 率不计未回滚缺陷；资源类性能指标全部退化；推文"3000 PR"为个人数字）。
+建页的直接原因：同日生成对外 HTML，`rules/output约定.md` 要求其内容回灌 wiki。横向整合（[[Harness Engineering]]、[[全AI代码库的治理决策]]、[[AI编码技术债的三层治理]]、[[Agent 记忆架构]]、[[常驻 AI 同事的竞争格局]]、[[Loop Engineering]]）已向用户提议，**待确认**，本次未改动这些页面。
+
+## [2026-11-18] output | All Code Is Slop 演讲解读（shared）
+按用户要求生成对外分享页 `output/shared/all-code-is-slop-演讲解读-2026-11-18.html`：以 35 张视频截帧幻灯片为主图（WebP data URI 内联，单文件约 1.4 MB，零外部请求），逐页配中文讲解、幻灯片数字表、整理者的证据边界（附置信度）与来源。内容来源为 [[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]。另以同一构建产物发布为 claude.ai 私有 Artifact，供用户自行决定分享。

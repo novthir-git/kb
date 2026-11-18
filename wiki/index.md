@@ -1,9 +1,9 @@
 # Wiki 内容索引
 
 ## 概览
-- 素材（raw）：47（含 3 个 asset）
-- 页面（wiki）：78
-- 最后更新：2026-11-16
+- 素材（raw）：48（含 3 个 asset）
+- 页面（wiki）：79
+- 最后更新：2026-11-18
 
 ## 分析（analyses）
 - [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
@@ -96,8 +96,10 @@
 - [[2026-03-25-SlopCodeBench-长程迭代退化-源摘要]] — 15 个 agent 在自己的代码上迭代 196 个 checkpoint：77% 轨迹侵蚀上升、增速约为人类仓库 5–7 倍；质量提示压初值不改斜率；LOC 是下一轮成本的最强预测因子；含两处原文内部矛盾。
 - [[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]] — 用户提供的 DeepSeek Super-agent 报告逐项核验：事实层大体成立；"宿主强制授权"被可改写的 Policy 与无 token 的本机 API 削弱，"差异点"并非独有，成本推算偏最便宜口径。
 - [[2026-11-06-Anthropic-Agent记忆的组成-源摘要]] — Anthropic 工程文章：agent memory 的定义与四层层级（transcripts→notes→wiki→injected），dreaming 离线纠错/建 wiki；CL-Bench、Pokémon、Stainless、Harvey LAB 全部数字与小样本口径。
+- [[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]] — poteto（Lauren Tan）AI Engineer Code Summit 演讲：poteto 金字塔、"每次纠正→一条确定性检查"、Dune 框架约束、验证层与"别自动化坏循环"；Grok Bot 团队自报数据（10 月 10,926 PR、revert 0.47%）及其口径边界。
 
 ## 素材（raw）
+- sources/articles/2026-11-17-poteto-All-Code-Is-Slop-演讲 — poteto〈All Code Is Slop (Except Yours)〉演讲视频的 Whisper 转写（校正明显识别错误）+ 推文正文 + 幻灯片数字截帧读数（源摘要 [[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]）。
 - sources/articles/2026-11-06-Anthropic-Agent记忆的组成 — Anthropic《The components of agent memory》中文结构化摘录，图中数字取自 alt 文本（源摘要 [[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]）。
 - sources/articles/2026-07-01-Andrew-Ng-三层产品开发循环 — Andrew Ng 关于 Loop Engineering 与三层产品开发循环的 X/The Batch post（源摘要 [[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]）。
 - sources/articles/2026-07-03-Karpathy-LLM-Wiki-模式 — Karpathy 的 LLM Wiki 模式 gist 原文 verbatim 存档（承载页 [[llm-wiki-方法论]]）。
