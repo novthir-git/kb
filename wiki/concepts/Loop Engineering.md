@@ -1,12 +1,13 @@
 ---
 tags: [概念, AI, Agent, 方法论, 产品]
 created: 2026-07-03
-updated: 2026-09-23
+updated: 2026-11-19
 sources:
   - "[[2026-07-01-Andrew-Ng-三层产品开发循环-源摘要]]"
   - "[[Evals]]"
   - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
   - "https://x.com/AndrewYNg/status/2071988145667928442 （检索于 2026-07-03；X 正文动态渲染，全文以用户粘贴原文入库）"
+  - "[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]"
 ---
 
 # Loop Engineering
@@ -28,6 +29,14 @@ sources:
 - **瓶颈从写代码转向设计循环**：coding agent 越能自测自修，人的工作越从手工 QA 上移到规格、[[Evals|evals]]、产品判断与反馈节奏设计。
 - **[[Evals]] 是规格的硬化形式**：当 agent 反复出同类错时，应把问题固化成 evals，让循环自动吸收反馈，而不是依赖下一轮人工提醒。
 - **人的价值是 context advantage**：Andrew Ng 将常被称为"品味"的人类贡献，改写成"人比 AI 更知道用户和场景"。这个说法更可操作，因为它指出了人类需要向系统注入什么。
+- **别自动化一个坏循环**（2026-11-19 补）：Grok Bot 团队的 poteto 把 coding loop 分三个阶段——低信任（agent 写 slop、人来验）、
+  高信任（agent 写好代码、agent 自己验）、"工厂"（自动触发、agent 写、agent 验）——并强调"if your inner coding loop produces slop,
+  then automating that loop just produces more slop"，还要砸越来越多 token（[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]）。综合：分钟级循环的**验证由谁来做**
+  决定它能否被放大；把人从验证环节移出之前，要先把纠正编译进代码库与 sensor（见 [[Harness Engineering]]）。
+- **外循环由事件触发，内循环负责交付**（2026-11-19 补）：同一演讲把 X 反馈、工单、Slack 消息、定时任务、监控告警接成外循环，
+  触发团队共享 Bot 再驱动内循环；例子是每次发版自动 fuzz 整个构建、为每个 bug 开修复 PR 并自动合并。综合：这对应本页
+  三层循环里"外部反馈 → coding loop"的自动接线，但讲者的证据只覆盖到合并与发版后 fuzz，**发版控制**（发不发、灰度、回滚）
+  仍未说明，团队工作面上的分层放权见 [[Claude Tag 驱动的团队研发流程]]。
 - **外部反馈没有被自动化消灭**：AI 加速的是构建速度，不会自动生成真实用户需求。0-to-1 产品仍要在构建与获取外部反馈之间平衡。
 
 ## 与已有页面的关系

@@ -1,7 +1,7 @@
 ---
 tags: [主题, AI, Agent, 软件工程, 技术债, 重构]
 created: 2026-09-23
-updated: 2026-11-05
+updated: 2026-11-19
 sources:
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-05-27-Boeckeler-可维护性传感器-源摘要]]"
@@ -14,6 +14,7 @@ sources:
   - "https://arxiv.org/abs/2605.22526 （tangled refactoring；检索于 2026-11-04）"
   - "https://x.com/bcherny/status/2088014489438621990 （Boris Cherny，Anthropic 每日 routines；检索于 2026-11-04）"
   - "https://www.uber.com/us/en/blog/ai-code-cleanup/ （Uber AutoClean；检索于 2026-11-04）"
+  - "[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]"
 ---
 
 # Agent 不会自发偿还结构债
@@ -33,6 +34,8 @@ Coding agent **放大**代码库里已有的结构，包括坏结构：它会照
    清理靠外部机制，属间接证据。独立性有限：前两者都是 Thoughtworks 作者、都发在 martinfowler.com（只有重构经济学
    一文属于 "Exploring Gen AI" 系列）；第三个来自另一家机构。2026-11-05 增第四个、也是第一个学术来源：SlopCodeBench
    的 15 个 agent 在自己的代码上迭代，77% 的轨迹结构侵蚀上升；即使提示里写明质量要求，平均退化速度也不变。
+   2026-11-19 增第五个：Grok Bot 团队的产品自述（poteto 演讲），给出一条具体的复制传播链（1 个定时器补丁 → 183 个），
+   以及"agent 用注释为临时修复辩护"这一放大机制。
 2. **被明确分派后*选题*的质量**：证据分化。Thoughtworks 的 Claude 挑不出合适的重构，需要人主动引导；但 Böckeler
    用推理型模块化评审 skill 得到了大量有价值的重构线索，OpenAI 的后台任务也会自己扫描偏差、发定向重构 PR。
 3. **被驱动后*执行*的质量**：综合，证据分化。OpenAI 自述其定向清理 PR 多数一分钟内审完并自动合并（这是评审耗时
@@ -52,6 +55,7 @@ Coding agent **放大**代码库里已有的结构，包括坏结构：它会照
 
 | 日期 | 来源 | 信号 | 备注 |
 |---|---|---|---|
+| 2026-11-17 | poteto（Lauren Tan，SpaceXSI Grok Bot 团队），AI Engineer Code Summit 演讲（[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]） | 讲者原话："any workarounds, anti-patterns, deprecated code, it's now likely to be just copied by the next agent since it looks like the established pattern"。Cursor 代码库案例：agent 用 `setTimeout(() => release(id), 0)` 修闪烁，注释写"以防它再出现"，并称根治"会是更大的改动"；这段写法 9/9 → 10/3 被复制进共享模块 → 10/17 共 183 个定时器。Grok Bot 的对策是每次纠正都写成 lint 规则（7–11 月阶梯升到 167，纵轴未标注），先禁新增、再清存量，并禁掉 99% 的注释（65,824 → 1,227） | 第 1 层新证据，并补了一个放大机制：**agent 写的辩护性注释让临时修复看起来像既定写法**。解法与 OpenAI 同向（机械规则 + 外部清理）。讲者自报、单一 Electron 产品、无对照，结尾含产品推介 |
 | 2026-10-26 | Over-Compliant Refactoring（arXiv 2610.36346，预印本） | 让 Codex 与 Claude Code 在 5 个模型上对**已经干净**的代码持续重构（>3,000 轮），没有任何模型在代码已优化后停下，最多把代码库重写到原来的 31 倍，部分模型宣称完成后又继续编辑 | 第 3 层的新失败模式：不会停。说明驱动重构时必须给外部停止条件。经研究代理核验，未建源摘要 |
 | 2026-10-20 | Uber Engineering（AutoClean） | 用 AI agent 清理过期 feature flag，累计 16,000+ flag、100 万+ 行（含早期确定性 Piranha 时代，未拆分 agent 贡献）。能确定性完成的改写交给工具而非 agent；修复 agent 权限极窄（test fixer 只能改测试，否则会改生产代码让测试通过）；多个并行审查 agent 分别核"无新增、语义保持、无意图漂移、无 agent 残留"，任一失败即废弃；明确"CI 绿 ≠ 清理正确" | **解法的证据**，与 OpenAI 同向：偿还靠外部机制，而且 agent 的权限与审查要被收窄。企业自述、无接受率与误删率 |
 | 2026-08-13 | Boris Cherny（Anthropic），X 自述 | Anthropic 用每日 routines 维护自家 app，十余类（含死代码删除、重复统一、无用测试修剪、抽象审查），数周开 388 个 PR、合并 180 个（约 46%）；每个 PR 过 Claude Code Review 加人工复审 | 解法的证据：把偿还做成**定期任务**。来源未说明代码是否 AI 生成；54% 未合并的原因未披露，46% 是合并率而非首轮正确率 |
@@ -67,6 +71,9 @@ Coding agent **放大**代码库里已有的结构，包括坏结构：它会照
 
 - **模仿是默认策略**。Agent 从上下文里的现有代码学"这个仓库怎么写"。坏模式一旦进入仓库就会被当成范例复制
   （OpenAI），重复越多、被复制的概率越高，形成正反馈。
+- **辩护性文字放大复制**（2026-11-19 补）。agent 不只照抄坏模式，还会在注释、文档里写下"为什么不做正确的事"，
+  让临时修复在下一个 agent 眼里成为有理由的先例（poteto 的定时器案例）。综合：注释因此从中性信息变成复制的加速器；
+  它也不可强制执行，"提醒下一个 agent 别这么做"的好意落不到机制上。
 - **agent 不承担未来的成本**。人重构，是因为预期自己还要再改这段代码；每次会话从零开始的 agent 没有这个预期。
   Thoughtworks 的实验设计正是利用了这一点："agent 不会学习"，所以同一变更可以反复重放测成本。
   Böckeler 列出的人的**隐性 harness**里有一项"对复杂度的痛感"，agent 没有（[[Harness Engineering]]）。
@@ -85,6 +92,9 @@ Coding agent **放大**代码库里已有的结构，包括坏结构：它会照
   （Böckeler 的做法）。
 - **给重构任务写停止条件与范围**：只许改哪些文件、改到什么程度算完成、超出范围即废弃。Over-Compliant Refactoring 与
   tangled refactoring 显示，没有这些约束时 agent 会一直改下去或改出范围；Uber AutoClean 的窄权限加并行审查是一种落地形态。
+- **先禁新增，再清存量**（2026-11-19 补）：Grok Bot 的顺序是每次纠正 agent 先写一条 lint 规则阻止新的出现，
+  再清理旧写法——旧写法留着就会继续被照抄。lint 的错误信息写明根因与正确做法，引导 agent 修根因而非绕过。
+  与 OpenAI"黄金原则编码为机械规则 + 后台 GC"同形。
 - **规则写进提示不够**：SlopCodeBench 的质量提示只压初值、不改斜率，而且更贵。综合：发起与约束都要落到机制（sensor、定时任务、权限），
   不是落到 CLAUDE.md 里的一句"保持整洁"。
 - **先铺验证网再放 agent 执行**：Thoughtworks 的每一步都可单独测试、也都单独测过。综合：这很可能是它能 8 小时

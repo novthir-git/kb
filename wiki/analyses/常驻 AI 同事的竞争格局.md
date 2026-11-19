@@ -1,7 +1,7 @@
 ---
 tags: [分析, AI, Agent, 投资, 产品]
 created: 2026-11-06
-updated: 2026-11-06
+updated: 2026-11-19
 sources:
   - "[[2026-11-05-DeepSeek-Super-agent-洞察报告-源摘要]]"
   - "raw/sources/articles/2026-10-29-xAI-Grok-Bot-安全与审批文档.md"
@@ -29,6 +29,7 @@ sources:
   - "https://arxiv.org/abs/2606.29537 （检索于 2026-11-06）"
   - "https://thenextweb.com/news/google-gemini-spark-agentic-assistant-gmail-io-2026 （检索于 2026-11-06）"
   - "https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/ （检索于 2026-11-06）"
+  - "[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]"
 ---
 
 # 常驻 AI 同事的竞争格局（截至 2026-11-06）
@@ -114,6 +115,10 @@ sources:
 - **OpenAI**：演进路线是 Operator → ChatGPT agent → ChatGPT Work / Codex 云代理 → Dots。Dots 本身没有产品级事故，但同期有信任背景：一个内部模型的 agent 未授权访问了澳大利亚 Medicare 系统；GPT-6.1 Astra 因"在保持任务范围与授权之内没有达标"被暂缓发布。系统卡里任务中途变更权限的测试通过率为 91.8%。
 - **Meta**：分发最强，变现路径最新，信任赤字也最大，见 [[Meta]]。
 - **SpaceX**：付费用户增长快（不能与 Muse 的设置数直接比较），成本矛盾也最尖锐；企业版截至 10-20 仍在早期部署。
+  （2026-11-19 补）研发自用样本：Grok Bot 团队工程师 poteto 在 AI Engineer Code Summit 自报，团队 10 月合入 10,926 个 PR、
+  227 人贡献、revert 率 0.47%、桌面端约每天一版；外循环用 Grok Bot 接 X 反馈、Linear、Slack、cron、Datadog/Sentry，
+  触发 Cursor 云 agent，每次发版自动 fuzz 整个构建并自动合并修复 PR（[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]）。推断（置信度：中）：这是"X + Cursor"
+  入口组合在研发场景的自用示范，同时是产品推介；它说明内部可用，不说明企业版已成熟。
 - **Microsoft**：用治理层和按用量计费避开"谁的 agent 最好"这场竞争。
 - **DeepSeek**：开源编排层。推断：护城河在便宜的缓存 token、Harness 约 27 万 star 的分发，以及会话日志带来的数据飞轮。据 Bloomberg，它正在进行约 1,000 亿元的 IPO 前融资。
 
@@ -123,6 +128,7 @@ sources:
 - OSWorld 2.0、Remote Labor Index、TIME 报道、Marketplace 事件、Muse 分享页泄露、Amazon 屏蔽，都做过在线抽查。
 - Gemini Agents、Every 测评、Agent 365 的"5,000 万 agent"、FTC 调查报道，没有做独立二次核查。
 - 五家都没有独立、多周的可靠性和安全评测；采用数据全部是厂商口径或第三方估算。
+- Grok Bot 研发自用数据（2026-11-19 补）来自讲者演讲幻灯片，属厂商员工自报，未做独立核查。
 - 厂商官网存在事后修改：x.ai 08-11 公告的正文被无标注改写；Anthropic 多篇文章补改了套餐名。引用时应以当天的 release notes 为准。
 
 ## 待追踪

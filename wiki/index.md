@@ -3,7 +3,7 @@
 ## 概览
 - 素材（raw）：48（含 3 个 asset）
 - 页面（wiki）：79
-- 最后更新：2026-11-18
+- 最后更新：2026-11-19
 
 ## 分析（analyses）
 - [[cowork-saas-资本市场冲击]] — Cowork 对 SaaS 估值锚、seat 模型与 UI/工作流租金的冲击；价格信号与风险分类已区分，Q1 数据完成时间校正。
@@ -11,7 +11,7 @@
 - [[codex-agent-采用曲线]] — OpenAI Codex 2026 采用数据：周活 5×、非开发者百倍增长、99 分位单日 60+ 小时 agent turns；与体验成本的张力。
 - [[SDD 开发规范研究]] — 面向 coding agent 的 SDD v1.0：current spec + change delta、六道门禁、追溯链、Reconcile & Retire 与试点指标。
 - [[BMAD 项目文档治理方案]] — 面向实施人员的草案：明确各类 BMAD 文档的保留、回写、depublish 与生成规则，并给出存量清理和两周试点步骤。
-- [[代码与文档漂移的本质]] — v2 四类漂移统一模型（表达/符合性/运行/生命周期）：本质是调和机制缺失；测试只是证据不是裁判；含 agent 时代漂移经济学与文档 GC。
+- [[代码与文档漂移的本质]] — v2 四类漂移统一模型（表达/符合性/运行/生命周期）：本质是调和机制缺失；测试只是证据不是裁判；含 agent 时代漂移经济学与文档 GC；11-19 标注与 Grok Bot"禁 99% 注释"的矛盾，补注释四分类。
 - [[论代码与文档漂移解决方案]] — 在 Artifact-Driven Agent Workflow 之上补持续调和层：Spec 控制面、关系契约、事件 Adapter、AI 调和 + 确定性门禁、自动退役与采纳分级；含自产自审实证边界、组织最小职责与反对观点。
 - [[基于IT4IT的Agent知识治理]] — 用 IT4IT Digital Product Backbone 治理企业统一 Agent 知识：Desired–Actual 调和、原子发布、权限与生命周期；新增 Knowledge Catalog 控制面与 OKF 发布制品映射。
 - [[从知识图谱到 Agent 编排]] — 将权威事实、派生表示、检索、记忆、编排、外部行动与验证调和重构为七层闭环，并校正 GraphRAG、MCP、Skills、RPA 与 OKF 的边界。
@@ -54,7 +54,7 @@
 - [[agent-task-protocol|Agent Task Protocol（ATP）]] — A²E 用于分离 benchmark 适配与 harness 执行的内部软件接口协议。
 - [[lifecycle-aligned-evaluation|Lifecycle-Aligned Evaluation]] — 按 Reasoning、Action、Final Answer 与 Runtime Quality 组织 Agent 评测指标。
 - [[harness-vs-model|Harness 不是轻量 Wrapper]] — 同模型在不同 harness 上可产生不同的成功率、轨迹、成本和终止行为；指内层（agent 运行时），外层见 [[Harness Engineering]]。
-- [[Harness Engineering]] — 为 coding agent 设计外层环境：guides/sensors × computational/inferential、steering loop、按成本分布检查点、harnessability；OpenAI 与 Böckeler 两个来源；11-05 增 2026 年三个定期维护 agent 样本与 Jain"强模型只需最终验证门"的数据点。
+- [[Harness Engineering]] — 为 coding agent 设计外层环境：guides/sensors × computational/inferential、steering loop、按成本分布检查点、harnessability；OpenAI 与 Böckeler 两个来源；11-05 增 2026 年三个定期维护 agent 样本与 Jain"强模型只需最终验证门"的数据点；11-19 补 poteto 金字塔（steering loop 的成本排序版）与"禁注释后逃生口搬家"。
 - [[Agent 工具上下文膨胀]] — 工具接入方式决定 agent 开场即背的固定上下文，且每轮重发；按需检索、CLI 投影、code-mode 三条解法及其代价。
 - [[Agent 授权三层]] — 准入 / 授权语义 / 执行隔离三层；通道级授权是共同缺陷；确定性外壳必须对 agent 自身不可写（DeepSeek 反例）；模型预审只是软补充。
 
@@ -65,7 +65,7 @@
 ## 主题（topics）
 - [[agent-生产级落地的鸿沟]] — 论点：Agent 试验渗透显著高于规模化价值；证据点覆盖 Gartner、Deloitte、McKinsey、Meta 与方法论边界；08-31 增 Uber 规模化正向案例（其依赖项无一来自"模型更强"）；09-23 增 OpenAI 零手写代码实验、SWE-Milestone（独立任务 >80% → 持续演化最高 38%）与 Anthropic 内部调查（超过一半受访者可完全委派仅 0–20%）。
 - [[AI方法论的去机制化失真]] — 论点：权威锚点保留、核心机制被抽掉的二次传播；9 样本证据表（含已确证上游）显示四特征可分离，固定五角色传播最广、"杜撰缺陷+自评补丁"唯一零反例；08-27 增第二观测对象（SDD 主题，载体为检索自动摘要）；同批提出的 M5 引文归属漂移唯一样本 08-31 复查证伪，降为待观察形态。
-- [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式、不自发发起重构，偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化；证据点覆盖 OpenAI、Böckeler、Thoughtworks；11-05 增 SlopCodeBench（提示不改退化斜率）、被驱动后不会停（Over-Compliant、tangled refactoring）与定期偿还的解法样本（Anthropic routines、Uber AutoClean）。
+- [[Agent 不会自发偿还结构债]] — 论点：agent 复制既有坏模式、不自发发起重构，偿还须由人或推理型评审选题、sensor 暴露、定期 GC 驱动；选题与执行质量证据分化；证据点覆盖 OpenAI、Böckeler、Thoughtworks；11-05 增 SlopCodeBench（提示不改退化斜率）、被驱动后不会停（Over-Compliant、tangled refactoring）与定期偿还的解法样本（Anthropic routines、Uber AutoClean）；11-19 增 Grok Bot 产品团队证据（1 个定时器补丁扩散到 183 个）与"辩护性注释放大复制"机制。
 - [[SDD 收益主张的实证赤字]] — 论点：SDD 的缺陷/返工下降主张与实证支持存在系统性赤字；8 条证据显示最大样本结论反向，主张最强处证据最弱。
 - [[LLM 输出的人类理解瓶颈]] — 论点：agent 接手跑腿后，人侧瓶颈转向理解与监督带宽；Karpathy 输出格式阶梯（受控英语 → 图示 → HTML → 讲解视频）为扩容手段，但简化丢事实（随领域术语密度上升）、富格式更难核对；6 条证据。
 - [[常驻 Agent 的算力经济学]] — 论点：常驻程度是预算参数（唤醒频率 × 模型档位），由谁付算力决定；定价收敛到"席位 / 订阅 + 用量"，按结果计价缺席；证据点覆盖 Grok Bot 额度风波、Muse 算力约束、Dots、Duet 与 DeepSeek。

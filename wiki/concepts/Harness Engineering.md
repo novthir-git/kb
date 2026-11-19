@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 软件工程, Harness, 方法论]
 created: 2026-09-23
-updated: 2026-11-05
+updated: 2026-11-19
 sources:
   - "[[2026-02-11-OpenAI-Harness-Engineering-源摘要]]"
   - "[[2026-04-02-Boeckeler-Harness-Engineering-源摘要]]"
@@ -14,6 +14,7 @@ sources:
   - "https://www.uber.com/us/en/blog/ai-code-cleanup/ （Uber AutoClean，2026-10-20；检索于 2026-11-04）"
   - "https://github.github.com/gh-aw/blog/2026-09-07-agent-of-the-day/ （GitHub gh-aw 死代码 agent；检索于 2026-11-04）"
   - "https://martinfowler.com/articles/are-harnesses-worth-the-cost.html （Naresh Jain，2026-10-13；检索于 2026-11-04）"
+  - "[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]"
 ---
 
 # Harness Engineering
@@ -78,6 +79,12 @@ Böckeler 用自定义 formatter 把规则消息改写成自纠正指引，并�
 > 综合：sensor 信号若只说"错了"不说"怎么改"，agent 找到的最短路径往往是**绕过**而非修正。
 > 这是古德哈特定律在 agent 身上的形态：阈值变成了可被优化的目标。
 
+（2026-11-19 补）Grok Bot 团队的 poteto 给了同一做法的产品团队版本：禁掉 99% 的代码注释（7/31 的 65,824 条降到 1,227 条），
+改用错误信息"引导 agent 修根因、而不是绕过去"的 lint 规则（[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]）。
+> 综合：注释被禁掉后，绕过的最短路径会搬到行内禁用指令（`eslint-disable`、`@ts-ignore`、`as any`、测试 `.skip`）和规则
+> 配置本身。所以"信号带修正指引"要和"关闭行内配置、规则文件对 agent 只读"一起做，见 [[AI编码技术债的三层治理]] 的门禁失效一节
+> 与 [[Agent 授权三层]]。
+
 ### 2. Steering loop：把重复出现的问题编译进环境
 
 某类问题重复出现，就改进对应的 guide 或 sensor；AI 也可以参与写结构测试、起草规则、搭自定义 linter
@@ -85,6 +92,14 @@ Böckeler 用自定义 formatter 把规则消息改写成自纠正指引，并�
 
 综合：这与 [[Anthropic-AI原生SDLC治理循环]] 的"把经验编译进控制面"、[[Loop Engineering]] 的"反复出同类错就固化成
 evals"是同一个动作在不同层面的名字。
+
+（2026-11-19 补）poteto（Grok Bot 团队）把它说成一条日常纪律："whenever you're correcting your agent, think about how you can
+make that a deterministic check instead of adding another line to your rules or your AGENTS.md"，并用一张倒金字塔（她称
+"poteto pyramid"）排投入顺序：codebase（API 设计、架构、重构）→ static analysis（lint、类型、编译器、测试、CI）→
+verification（运行时、形式化）→ prose（rules、skills、AGENTS.md）→ human review，越往下越贵。演讲幻灯片上的阶梯图显示
+7–11 月从 7 升到 167（纵轴未标注，推测为累计检查数）。
+> 综合：金字塔是本页四格框架的**成本排序版**：计算型 guide（API 与框架约束，让错误写法写不出来）先于计算型 sensor，
+> 验证类 sensor 居中，推理型 guide（prose）与人工审查放最后。它与四格正交、不冲突，补的是"先投哪一格"。
 
 ### 3. 时机：按成本分布检查点
 
@@ -133,6 +148,9 @@ Böckeler 的实验结论：计算型 sensor 在**文件与函数层面**表现�
 
 - **可被约束性**取决于代码库性质：强类型自带类型检查，清晰的模块边界才撑得起架构规则，框架能替 agent 屏蔽
   细节（Böckeler 引同事 Ned Letcher 称之为 ambient affordances）。
+  （2026-11-19 补）产品团队样本：Grok Bot 的 Dune 框架在产品代码里禁用 React `useEffect`（只许在框架 API 内部用），
+  `electron-renderer/` 与 `electron-main/` 互相 import（连类型）由依赖图分析器与 lint 禁止，文件名也承载约束
+  （`tick.hot.ts` 表示每 tick 运行、零分配）。讲者的原则是"需要分寸才能用好的东西往往产出 slop，那就设计更好的 API"。
 - **遗留系统的悖论**：最需要 harness 的地方最难建 harness。
 - OpenAI 的对应判断：人类团队常推迟到数百名工程师规模才引入的严格分层架构，**对 agent 是早期前提**；
   并偏好能在仓库内被完整推理的"枯燥"技术。
@@ -148,7 +166,9 @@ Böckeler 的实验结论：计算型 sensor 在**文件与函数层面**表现�
 人带着一套**隐性 harness**：约定、对复杂度的痛感、问责、组织记忆，这些 agent 都没有。Harness 只能部分
 外化它们；目标不是消除人的输入，而是把人的输入引到最重要的地方（Böckeler）。她的 sensor 实验结论相同：
 sensor 提高了对结果的信任，但**不能把人完全移出回路**。OpenAI 一侧，人主要通过提示工作，审查大部分转为
-agent 对 agent，但每周人工清理"AI 残渣"的阶段先于自动化出现。
+agent 对 agent，但每周人工清理"AI 残渣"的阶段先于自动化出现。Grok Bot 团队（2026-11-19 补）的说法是 code review
+"has shrunk into looking at verification artifacts"（视频、截图、图表、形式化验证结果），同时保留"yes, you should read the
+code sometimes"。
 
 ## 开放问题（Böckeler 原文列出）
 
@@ -177,6 +197,7 @@ skills / hooks 任何变更时跑 eval 回归，pass rate 下降的配置变更�
 > 协议后 Codex 能复现 bug、验证修复、直接推理 UI 行为，并把"关键用户旅程的 span 不超过两秒"变成可检查的约束。
 > 较准确的读法是：OpenAI 有 agent 自行验证的机制，但没有讲行为层面的系统性验证（如测试本身的质量）。（发现于 2026-09-23）
 - Böckeler harness 文：概念框架；sensor 文：单人、单应用的实践报告，无对照组。
+- poteto 演讲（Grok Bot 团队）：讲者自报，单一 Electron 产品、无对照组，结尾含产品推介；金字塔的"成本排序版"读法是本 wiki 的综合。
 - 四格框架与示例表出自 Böckeler 原文；本 wiki 只补入了括号内的例子。"阻塞门密度随爆炸半径调整"是本 wiki 的综合。
 
 ## 关联

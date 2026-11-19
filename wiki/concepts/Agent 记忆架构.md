@@ -1,7 +1,7 @@
 ---
 tags: [概念, AI, Agent, 记忆]
 created: 2026-07-28
-updated: 2026-11-16
+updated: 2026-11-19
 sources:
   - "https://arxiv.org/abs/2309.02427 （CoALA，检索于 2026-07-28）"
   - "https://arxiv.org/html/2309.02427v3 （CoALA 全文，检索于 2026-07-28）"
@@ -10,6 +10,7 @@ sources:
   - "[[Open Knowledge Format]]"
   - "[[2026-07-21-Simon-Willison-Claude-Code团队访谈-源摘要]]"
   - "[[2026-11-06-Anthropic-Agent记忆的组成-源摘要]]"
+  - "[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]"
 ---
 
 # Agent 记忆架构
@@ -36,6 +37,19 @@ CoALA（Cognitive Architectures for Language Agents）不是单纯的“四类�
 
 CoALA 还指出，修改程序记忆比写入情景或语义记忆风险更高：它可能引入代码缺陷，
 甚至改变设计者原本的意图。因此 Agent 自行修改指令、代码或决策程序不应默认自动生效。
+
+### 代码库作为 coding agent 的记忆（2026-11-19 补）
+
+Grok Bot 团队的 poteto 在演讲幻灯片上写了一句 "code is memory"：代码库是 coding agent 最大的输入（[[2026-11-17-poteto-All-Code-Is-Slop-演讲-源摘要]]）。
+综合：按 CoALA 的分类，对 coding agent 而言代码库同时是语义记忆（这个系统是什么）和程序记忆的范例来源（这个仓库怎么写），
+agent 每次会话都从代码里重新"学"写法。这带来两条和一般记忆系统不同的性质：
+
+1. **写入没有门槛**：每次合并都在写记忆，workaround 和替它辩护的注释同样进入记忆，并被当成先例召回、复制
+   （1 个定时器补丁一个多月扩散到 183 个，见 [[Agent 不会自发偿还结构债]]）。所以这类记忆的 Write 策略要落在写入时的
+   确定性检查（lint、依赖规则）上，Forget 对应"清理存量旧写法"，而不是事后整理。
+2. **prose 型程序记忆会被过度泛化**：讲者观察到 agent 会把一次小纠正写进 rules、skills，当成永远不能违反的铁律。
+   这与上文"修改程序记忆风险更高"同向。她的对策是把纠正写成确定性检查，而不是在 AGENTS.md 里加一行
+   （poteto 金字塔，见 [[Harness Engineering]]）。
 
 ## Anthropic 的记忆层级与 dreaming（2026-11 新增）
 
