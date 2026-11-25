@@ -7,11 +7,6 @@
 
 | 日期 | 领域 | 事件 | 简报条目 |
 |---|---|---|---|
-| 2026-11-18（announced；v1 于 2026-11-17 UTC 上传） | 软件工程 | Higher-Scoring Coding Models Did Not Get More Work Done（arXiv 2611.23216，单一作者 Yining Hua）：利用 2026-06-12 美国出口管制导致 Claude Fable 5 被禁 19 天这一意外事件做自然实验（297 名被迫切换用户 vs 8,908 名对照用户），加另 5 次模型升级复查（1,208 开发者、15,442 条 PR），双重差分显示模型得分差异与 PR 合并率/合并数均无统计显著关联（今日最值得细读） | 「2026-11-19」#1 |
-| 2026-11-18（announced；v1 于 2026-11-17 UTC 上传） | AI/智能体 | Done, But Still Working（arXiv 2611.22901，12 位作者，机构未披露）：回放约 6,000 条 SWE-bench Verified 执行轨迹（8 模型×2 框架）做 anytime evaluation，自测通过后可节省步骤比例 <1%-57%；"连续两次通过自测即停手"规则节省 23%（预注册非劣检验未达成），蒸馏进微调模型节省 30%（质量保持仍不确定） | 「2026-11-19」#2 |
-| 2026-11-18 | 创业/商业 | CNBC 援引知情人士：Anthropic IPO 定价 83 美元/股（高于 70-78 美元目标区间），8.25 亿股对应约 685 亿美元募资，估值超此前瞄准的 1.4 万亿美元，周四纳斯达克代码 ANT 开始交易；九个月营收 332.4 亿美元（+1200%）、净亏损 1,040 亿美元（主要为非现金公允价值变动）。同日 Center for AI Safety 牵头跨阵营（AI 安全+开源+e/acc）联署《Anthropic is Not a Safe AI Company》（"MisAnthropic Statement"），指控其安全叙事与递归自我改进路线矛盾、2026-02 弱化 RSP 单方暂停承诺、游说削弱 SB 1047/RAISE/AEGIS 法案 | 「2026-11-19」#3 |
-| 2026-11-18（announced；v1 于 2026-11-17 UTC 上传） | 汽车/自动驾驶 | Making the World React Realistically（arXiv 2611.22691，7 位作者，机构未披露）：闭环交互式世界模型，背景车策略与端到端自车规划器做多智能体强化学习闭环微调+逐高斯车辆资产保真度增强+信号灯反事实渲染；长尾场景与真实交互行为偏差降 85%，新视角车辆渲染 PSNR 提升 2.0 dB，信号灯状态在约 1/4 场景反向影响自车驾驶行为 | 「2026-11-19」#4 |
-| 2026-11-18（announced；v1 于 2026-11-17 UTC 上传；IAAI-27 Emerging Applications 已接收） | 软件工程 | Mind the Gap（arXiv 2611.23142，单一作者 Lorenzo Masoero）：已部署的文档维护多 agent 系统 TriAgent，影子模式运行 43 天，499 条工单分诊出 92 处文档缺口，81.1% 可验证论断正确（三模型家族评委多数票），70.5% 配对中评委更偏好其回答而非人工回答，修复缺口后同一工单回答被偏好比例达 71.4%（今日加选） | 「2026-11-19」#5 |
 | 2026-11-18（v1 于 2026-11-17 UTC 上传） | AI/智能体 | Idempotency Is Not Recovery（arXiv 2611.23353，单一作者 Song Xu）：故障注入研究把"写操作不重复"与"故障后能恢复"拆成两个独立属性，完整配置（鉴权+操作台账+目标端幂等+调和+证据封存）在 200 组已知崩溃-重放对中做到 0/200 重复效果（各简化基线 117/200），台账消融产生 170/170 孤儿效果且恢复成功率从 300/300 降到 200/300，关闭调和后 100 组已知故障后效果全部无法判定 | 「2026-11-20」#1 |
 | 2026-11-19（announced；v1 于 2026-11-18 UTC 上传） | 软件工程 | SWE-Growth（arXiv 2611.23876，8 位作者，机构未披露）：用教师模型验证结果筛选自我对弈中"学生全错但教师能解"的任务转 SFT、再用"教师-学生差距为正"的混合任务做 RL，Qwen3-Coder-30B-A3B-Instruct 在 SWE-bench Pro 上 27.7%→31.7%、TerminalBench 2.1 上 11.0%→17.2%（第二轮） | 「2026-11-20」#2 |
 | 2026-11-19 | 创业/商业 | TechCrunch（Rebecca Bellan）《Anthropic's IPO puts AI's circular financing boom to the test》：按 83 美元/股计算 Amazon（14.7%，已投 180 亿）与 Google（13.7%，已投 123 亿+承诺 300 亿）持股市值合计约 3,079 亿美元，Nvidia/AMD/Microsoft/Broadcom/Micron 既是供应商又联合 Google 承诺 260 亿美元私募配售；SemiAnalysis、D.A. Davidson 两位分析师给出"是否构成循环"的正反评估（今日最值得细读） | 「2026-11-20」#3 |
@@ -43,25 +38,30 @@
 | 2026-11-23 | 创业/商业 | Sierra（Bret Taylor 联合创立，企业客户体验 agent）完成 17.5 亿美元 F 轮融资，Greenoaks、Lightspeed 领投，Benchmark/Sequoia/Greenoaks/GV/Tiger Global 跟投；距 5 月 150 亿估值不到六个月，估值翻倍到 300 亿美元；run-rate 营收五个月翻倍到 4 亿美元（公司自称归因于 outcome-based 定价）；覆盖近半 Fortune 50；与 Meta/Stripe/Walmart 共定 agent 协议规范（TechCrunch，Sarah Perez） | 「2026-11-25」#3 |
 | 2026-11-23 | 汽车/自动驾驶 | ROSE-Drive（arXiv 2611.30438，9 位作者，机构未披露）：与模型无关的运行时编排框架，冻结驾驶模型/感知/VLM 权重，只靠编排层调度模型、技能、工具与反馈控制器+离线修订技能；留出 Longest6 基准上 AutoMoT 闭环 DS 25→52、SimLingo 22→47，两套系统均超 71% 控制步跳过新一轮模型推理 | 「2026-11-25」#4 |
 | 2026-11-24 | AI/智能体 | ShellBench（OpenClaw Foundation 联合 Parsewave/Hugging Face/Red Hat/UC Berkeley 等）：1000 万+真实交互提炼的 100 个日常生活委托任务基准，12 模型×5 harness，53,100 次评分运行；GPT-6 Astra 单次通过率最高 62.5%，但三次重复尝试"全部成功"仅 48.8%（"至少一次成功"75.1%，落差 26.3pp）；模型选择整体比 harness 选择影响更大，但头部模型间 harness 更关键；15.7% 运行未通过安全细则，其中 9.9% 发生在任务本身做对的运行里（OpenClaw Foundation 官方博客；另见 TechCrunch，Rebecca Bellan，今日最值得细读） | 「2026-11-25」#5 |
+| 2026-11-25（announced；v1 于 2026-11-24 UTC 18:34 上传） | AI/智能体 | Delegent（arXiv 2611.33098，Lingwei Gu、Jimmy Lin，代码已公开 castorini/delegent）：基于 Claude Code 构建的多 agent harness，前沿模型全程主导、把聚焦型子任务委派给小语言模型（SLM）子 agent；27B（FP8）SLM 使长时编码任务前沿模型成本降 67%、agentic 检索降 59%，均无性能损失，2B SLM（可本地跑）仍降 66% | 「2026-11-26」#1 |
+| 2026-11-25（announced；v1 于 2026-11-24 UTC 17:07 上传） | 软件工程 | SpecEngineeringBench（arXiv 2611.32973，13 位作者，机构未披露）：78 个开源 Python 仓库、16 应用类别、100 实例的"自主规格工程"基准，测两个任务（生成测试套件、执行分析发现缺陷）；7 款前沿 coding agent 测试有效性 91.47%、改动覆盖率 80.48%，但缺陷暴露率仅 26.36%（表层指标与真实缺陷检出脱钩）；定位召回率随粒度变细从文件级 78.11% 降到函数级 51.29% | 「2026-11-26」#2 |
+| 2026-11-24 | 创业/商业 | TechCrunch（Marina Temkin）：Anthropic 股价周二盘中跌至 76 美元，较周一收盘跌近 12%，跌破 11-19 上市时 83 美元发行价（首日开盘曾达 111.50 美元）；同日 Nvidia 盘中跌超 7%，回吐 Jensen Huang 复任 CEO 后逾 30% 涨幅的一部分；未具名风投/观察者称这是公开市场给 AI 创业生态估值的风向标，若持续走弱可能压低其他 AI 公司私募估值与 IPO 前景 | 「2026-11-26」#3 |
+| 2026-11-25（announced；v1 于 2026-11-24 UTC 12:11 上传） | 汽车/自动驾驶 | CodeWAM（arXiv 2611.32483，Zhisheng Chen 等 8 位作者，机构未披露）：驾驶世界模型里加入可执行代码显式建模自车状态演化，与学习出的场景结果模型联合打分选候选规划；NAVSIM v1 navtest PDMS 93.6、v2 navtest EPDMS 92.1、NAVHARD EPDMS 50.6，在 Hydra-MDP/DrivoR 上无需额外训练即有提升 | 「2026-11-26」#4 |
+| 2026-11-25（announced；v1 于 2026-11-24 UTC 18:05 上传） | AI/智能体 | Auditing the Judge（arXiv 2611.33065，Hamin Koo 等 4 位作者，机构未披露，NeurIPS 2026 投稿）：HUB-J 框架从人机评委意见分歧中发现可解释偏差因子、从意见一致案例中量化偏差强度，再用无训练回归方法纠偏；报告能发现新偏差因子、揭示模型间偏差易感度差异、持续降低偏差驱动的判断翻转（具体数值未在摘要层给出） | 「2026-11-26」#5 |
 
-> 注：本期 D=2026-11-25，窗口 [D-7, D-1] = [2026-11-18, 2026-11-24]，已删除表中最新日期早于
-> 2026-11-18 的 5 行（Harness Leverage Across Model Size、Embeddings vs. Grep、Isomorphic Labs
-> 融资、ExtremeDrive、Vals AI 军用武器报告，均标注于 11-17）。下一期（D=2026-11-26，窗口左界
-> 2026-11-19）生成时需按同样方式删除本表中最新日期早于 2026-11-19 的各行（届时需删除 Higher-
-> Scoring Coding Models、Done But Still Working、Anthropic IPO 定价+MisAnthropic 联署声明、
-> Making the World React Realistically、Mind the Gap 五行，均标注于 11-18）。
-> 取证模式：全文模式——Claude Ship、Sierra 融资两条经 WebFetch 直接读取官方博客/TechCrunch 正文，
-> ShellBench 经 WebFetch 直接读取 OpenClaw Foundation 官方博客正文，AgentBouncer、ROSE-Drive 两篇
-> arXiv 论文经 abs/html 页核验摘要、数值与提交时间。经 export.arxiv.org API 按 submittedDate 降序
-> 核验（cs.AI/cs.SE/cs.RO 全站查询一致），当前可见最新提交停在 2026-11-23T18:59:52Z 附近，距生成
-> 时刻（2026-11-24 22:10 UTC）约 27 小时，相比此前几期记录的延迟幅度（约 72-75 小时）明显收窄，
-> AgentBouncer（11-23 12:54 UTC）、ROSE-Drive（11-23 10:30 UTC）两篇论文距生成时刻约 33-36 小时，
-> 在扩展窗口内，已在简报引言披露。Claude Ship、Sierra 融资报道发布于 2026-11-23 美西时间（距生成
-> 时刻约 24-32 小时），ShellBench 发布于 2026-11-24（24 小时窗口内）。配图 URL（Claude Ship 架构图、
-> AgentBouncer Figure 7、ROSE-Drive Figure 2、ShellBench 模型-harness 通过率图）均经 curl 核验
-> HTTP 200；Sierra 一条 TechCrunch 头图为 2022 年旧照、与本次事件无直接关联，标注"暂无合适的公开
-> 配图"。四领域覆盖齐全，共产出 5 条：AI/智能体 2 条（含 1 条今日最值得细读）、软件工程 1 条、
-> 创业/商业 1 条、汽车/自动驾驶 1 条。
+> 注：本期 D=2026-11-26，窗口 [D-7, D-1] = [2026-11-19, 2026-11-25]，已删除表中最新日期早于
+> 2026-11-19 的 5 行（Higher-Scoring Coding Models Did Not Get More Work Done、Done But Still
+> Working、Anthropic IPO 定价公告+MisAnthropic 联署声明、Making the World React Realistically、
+> Mind the Gap，均标注于 11-18）。下一期（D=2026-11-27，窗口左界 2026-11-20）生成时需按同样方式
+> 删除本表中最新日期早于 2026-11-20 的各行（届时需删除 Idempotency Is Not Recovery 一行，标注于
+> 11-18）。
+> 取证模式：全文模式——4 篇 arXiv 论文（Delegent、SpecEngineeringBench、CodeWAM、Auditing the
+> Judge）均经 abs 页核验摘要、作者与提交时间，Delegent/CodeWAM/Auditing the Judge 另经 html 页核验
+> 数值与配图，SpecEngineeringBench 暂无 html 版本。TechCrunch（Anthropic 股价）经 WebFetch 直接
+> 读取正文与配图出处。经 export.arxiv.org API 按 submittedDate 降序核验（cs.AI/cs.SE/cs.RO 全站查询
+> 一致），当前可见最新提交停在 2026-11-24T18:59:58Z 附近，距生成时刻（2026-11-25 22:14 UTC）约 27
+> 小时，与此前几期记录的延迟幅度（约 27-37 小时）一致，属 arXiv 公示延迟导致的常规窗口扩展，非当日
+> 候选不足；4 篇论文 v1 提交于 2026-11-24 UTC 12:11-18:34，距生成时刻约 27-34 小时，TechCrunch 报道
+> 发布于 2026-11-24 美西时间上午（约 27 小时前），均在扩展窗口内，已在简报引言披露。配图 URL
+> （CodeWAM Figure 2、Auditing the Judge Figure 1、TechCrunch Getty 头图）均经 curl 核验 HTTP 200；
+> Delegent 论文 html 页图 1/图 2 为内嵌矢量图无独立图片文件、SpecEngineeringBench 无 html 版本，均
+> 标注"暂无合适的公开配图"。四领域覆盖齐全，共产出 5 条：AI/智能体 2 条（含 1 条今日最值得细读）、
+> 软件工程 1 条、创业/商业 1 条、汽车/自动驾驶 1 条。
 
 ## 跨天论点线索
 
@@ -242,6 +242,9 @@
 - 状态更新：候选中 33 条。**本期（11-25）简报评估后判断不单独提议沉淀**（理由同上，待批量处理）。证据边界：全部数字来自作者自建基准，未见第三方复现；作者机构未披露；与同日提交的《AgentMoT》作者高度重叠，两者对照关系论文未说明；蒸馏 VLM 具体底座未具名；真实道路场景验证未提及；预印本无同行评审。
 - 2026-11-24：ShellBench（OpenClaw Foundation 等）首次把该线索的覆盖范围从编码/机器人操作场景扩展到"个人生活委托任务"——12 模型×5 harness，11 个模型的 harness 均值仅相差 2.36pp（整体模型选择比 harness 选择影响更大），但表现最好的五个模型之间 harness 造成的差距（9.9pp）接近甚至超过模型造成的差距（15.2pp），与该线索已有"harness 增益随模型能力增强而收缩（但未必归零）"限定条件系列（LIMBO、Beyond the Model 等）呼应，是该系列在新任务域下的佐证。
 - 状态更新：候选中 34 条。**本期（11-25）简报评估后判断不单独提议沉淀**（理由同上，待批量处理）。证据边界：评分依赖单次 LLM 裁判；论文"待发表"，当前只有博客文章；100 个任务规模中等；harness 均值差异的具体机制（为何头部模型间差距更大）论文未展开讨论。
+- 2026-11-25：Delegent（arXiv 2611.33098，Lingwei Gu、Jimmy Lin）补上一个此前该线索少见的具体子设计——基于 Claude Code 构建的多 agent harness，让前沿模型全程主导任务、只把聚焦型子任务（代码调研、跑测试、语料检索）委派给小语言模型子 agent；27B（FP8）SLM 使长时编码任务前沿模型成本降 67%、agentic 检索降 59%，均无性能损失，2B SLM（可本地跑）编码成本仍降 66%；代码已公开（castorini/delegent），可复现性优于该线索多数仅自报数字的证据。
+- 2026-11-25：CodeWAM（arXiv 2611.32483，Zhisheng Chen 等 8 位作者）是该线索第三个自动驾驶领域证据（前两个为 11-20 Generalist Action Critic、11-23 ROSE-Drive），且带来新的具体设计变体——不是靠编排层调度冻结模型或用独立模型事后复核，而是把自车状态演化这部分直接交给确定性可执行代码计算，只让学习模型负责场景级不确定性；NAVSIM v1/v2 navtest、NAVHARD 上均有提升，在 Hydra-MDP/DrivoR 等现有规划器上无需额外训练即可改善。该设计哲学与线索 3（"不信任模型直接生成结构化产物/编辑的确定性执行范式"）呼应，但任务域差异较大，暂不合并，仅作跨领域参考记录。
+- 状态更新：候选中 36 条。**本期（11-26）简报评估后判断不单独提议沉淀**（理由同上，待批量处理）。证据边界：Delegent 仅两位作者机构未披露，具体基准/样本量未给出，"无性能损失"为作者自建评测结论；CodeWAM 8 位作者机构未披露，全部数字来自作者自建基准，"无需额外训练即有提升"的具体幅度摘要未给出；两篇均为预印本，无同行评审或第三方复现信息。
 
 ### 5. 自动驾驶技术路线与商业化打法之争：自建车队 vs 联合打车平台，纯视觉 vs 摄像头+传感器融合，及其监管后果
 - 2026-09-04：Tesla 在奥斯汀正式上路 Cybercab（纯视觉、无方向盘、FSD v15 Unsupervised），与此前 Waymo 一贯坚持"传感器融合、无纯端到端捷径"（2026-08-27 简报收录的 Waymo 2 亿英里复盘，该条已滚出去重表但判断本身仍成立）形成直接对照。
@@ -336,6 +339,8 @@
 - 状态更新：候选中 7 条。**建议在本期（11-08）简报提议沉淀**（追加证据到「Evals（AI 系统评估）」，新增"把基准当软件持续维护+资源预算是测量的一部分"维度），仍待用户批准，此前 6 条候选证据均未合并，建议用户一次性批量处理全部 7 条。证据边界：仅在单一基准族（Terminal-Bench）上验证，30% 缺陷率能否推广到其他 coding agent 基准未知；修复判定依赖作者自建的"自动化 oracle 检查+人工批准"流程，该流程本身误判率未独立核验；19 个 agent 具体版本未披露；作者自建并发布该基准，存在推广自身工具的动机。
 - 2026-11-20：同日出现两条独立新证据——① Benchmarks' Last Exam（arXiv 2611.27622，James Zhu、Zekki Cat）从第八个角度切入：审计 8 个前沿基准 749 个任务+767 次公开模型评测，发现封闭式问答基准有效性验证通过率 92.5%，6 个多步/执行类基准仅 29.3%；已确认缺陷中 71.7% 冤枉合规解法、仅 28.3% 放过作弊解法（方向不对称，意味着现有榜单分数可能系统性低估而非高估真实能力）；评分改在全新容器对已提交补丁重新评分，可把确认的运行时绕过率从 14.7% 降到 2.7%。② Who Grades the Agent?（arXiv 2611.27860，Nathan Nour Houlamy、Mattia Favretto、Earlence Fernandes、Mauro Conti）从第九个角度切入——不是诊断裁判/排行榜/基准本身是否可信，而是给出具体防御架构：SplitBench 把"运行测试"与"评分判定"权限隔离，防 agent 篡改自身评分环境，真实评测中与原生评分器 98.7% 一致，专设对抗性伪造通关攻击中拦下 75%，补上该线索此前缺失的"防御侧"维度。
 - 状态更新：候选中 9 条。**本期（11-24）简报评估后判断不单独提议沉淀**（理由同此前多期——此前 7 条候选证据均未合并，继续逐条重复提议边际价值有限，待用户批量处理「Evals（AI 系统评估）」`wiki/concepts/Evals.md` 时一并纳入）；**附加提醒**：Who Grades the Agent 的"权限隔离防御架构"建议在批量处理时作为独立的"防御侧对策"小节单独列出，与此前 7 条"诊断/测量"性质的证据区分呈现。证据边界：Benchmarks' Last Exam 仅两位作者，机构未披露，提交者姓名与作者列表不一致；Who Grades the Agent 4 位作者机构未披露；两篇论文的全部数字均为作者在自建基准/攻击集上的自报结果，均未见独立第三方复现；均为预印本，无同行评审信息。
+- 2026-11-25：Auditing the Judge（arXiv 2611.33065，Hamin Koo、Chanjoo Jung、Fangzhao Wu、Jaehyung Kim，NeurIPS 2026 投稿）从第十个独立角度切入——不是诊断"裁判不可信"这一现象，而是给出一套可操作的偏差发现+量化+无训练纠偏方法论（HUB-J）：用人机评委意见分歧案例发现可解释偏差因子，用意见一致案例通过受控输入编辑量化偏差强度，再用轻量回归方法移除偏差影响；报告能发现新偏差因子、揭示不同模型对偏差的易感程度存在差异，并在跨模型泛化时持续降低偏差驱动的判断翻转（论文页面未给出具体数值）。
+- 状态更新：候选中 10 条。**本期（11-26）简报评估后判断不单独提议沉淀**（理由同上，待批量处理）；**附加提醒**：HUB-J 的"量化纠偏方法论"与 Who Grades the Agent 的"权限隔离防御架构"同属"防御/缓解侧"证据，建议批量处理时与前 8 条"诊断/测量"性质证据分节呈现。证据边界：论文页面未给出任何数值结果，具体翻转率降幅、新发现偏差因子的清单与数量需读正文确认；4 位作者机构均未披露；回归式纠偏方法是否会引入新的系统性偏差（如过拟合已知偏差模式）论文摘要未讨论；仅为 NeurIPS 投稿状态，未经同行评审录用确认。
 
 ### 9. 代码幻觉（无根据生成）是独立于普通编程错误、可分类可测量的能力缺口
 - 2026-09-06：《Refusing the Impossible》（arXiv 2609.03267）提出代码幻觉三维分类法，在 12 个开源模型上测得：面对"不可能任务"平均约 60% 会编造无根据代码，仅 27% 正确拒绝；面对可解任务错误拒绝率为 0%，说明"正确识别不可能"与"不误判可解任务"是两种当前模型都欠缺的独立能力。
@@ -801,3 +806,7 @@
 ### 101. 企业 AI agent 定价正从 per-seat 转向 outcome-based，并直接驱动了目前观察到的最快速估值翻倍案例
 - 2026-11-23：Sierra（Bret Taylor 联合创立的企业客户体验 agent 公司）完成 17.5 亿美元 F 轮融资，Greenoaks、Lightspeed Venture Partners 领投，Benchmark/Sequoia/Greenoaks/GV/Tiger Global 跟投；距 2026 年 5 月上一轮（150 亿美元估值）不到六个月，估值翻倍到 300 亿美元。公司自称 run-rate 营收五个月内翻倍到 4 亿美元，并将其直接归因于自家的 outcome-based 定价模式（按结果而非按席位收费）；覆盖近一半 Fortune 50 企业；资金计划投向与 Meta/Stripe/Walmart 共同制定 agent 与企业系统交互的协议规范。同赛道其他公司估值：ElevenLabs 220 亿、Decagon 45 亿、Wonderful 50 亿、Parloa 30 亿美元（TechCrunch，Sarah Perez）。
 - 状态：候选中 1 条。单一公司自报数据（营收、客户占比、Fortune 50 覆盖率均未披露具体计算口径或名单来源），暂无跨公司证据链，未达门槛 a/b/c；强相关于 `wiki/purpose.md` 关键问题 2（Agent 化之后价值捕获点从哪里移到哪里）与核心论断 5（SaaS 的危险区是只有功能层、没有 system of record）——Sierra 把增长直接归因于 outcome-based 定价，且正尝试把自己变成企业与 agent 交互的"system of record"层（与 Meta/Stripe/Walmart 共定协议），与该论断高度吻合。继续观察 ElevenLabs、Decagon、Wonderful、Parloa 等同赛道公司是否也披露类似"outcome-based 定价驱动指数级增长"的具体数据，形成跨公司证据链后再评估。证据边界：营收、客户占比等全部为公司自报；"run-rate 营收翻倍到 4 亿美元"未披露 ARR 定义、计费周期或是否含一次性收入；"近一半 Fortune 50"未附具体名单来源；与 Meta/Stripe/Walmart 的协议合作具体进展未披露；Sierra 非上市公司，估值无公开市场定价验证；联合创始人 Clay Bavor 关于"员工重新调配而非替代"的说法来自会议发言，非公开发表数据。
+
+### 102. 自主规格工程基准：coding agent 把需求转成测试/定位缺陷时，表层指标（测试有效性、覆盖率）与真实缺陷检出率可测量地脱钩
+- 2026-11-25：SpecEngineeringBench（arXiv 2611.32973，13 位作者，机构未披露）在 78 个开源 Python 仓库、16 应用类别、100 个带已记录真实缺陷的实例上测试"自主规格工程"（agent 自己把需求转成可执行测试并据此发现/定位缺陷，而非被喂测试入口点或待查文件）；7 款前沿 coding agent 测试有效性（Head Pass Rate）91.47%、改动相关覆盖率 80.48%，但缺陷暴露率（Fail-to-Pass Rate）仅 26.36%——表层指标高并不代表真的抓住缺陷；定位召回率随粒度变细从文件级 78.11% 降到函数级 51.29%；让 agent 自主生成测试比只依赖仓库已有测试，能把定位召回率再提升 2.7-5.0 个百分点。
+- 状态：候选中 1 条。单一来源，13 位作者机构均未披露，论文暂无 html 版本可供核验完整正文，未达门槛 a/b；与线索 61（IR 式 Bug 定位基准 ground truth 标注本身大面积错误）方向相邻但机制不同——线索 61 指向"评测标注本身错了"，本条指向"即便标注没错，测试的表层质量指标也可能系统性误导对真实缺陷检出能力的判断"，暂不合并；与 `wiki/purpose.md` 关键问题 3（知识与规格如何在人和 agent 之间保持不漂移）相关，"可执行规格"路径（线索 34、线索 45）需要正视这类"规格/测试本身的测量方式也可能失真"的警示，但暂无可直接挂靠的已有 wiki 页（未达门槛 c）。继续观察是否有第二个独立团队在不同语言/仓库规模上复现"测试表层指标与缺陷检出脱钩"这一现象。证据边界：7 款 coding agent 的具体名称、版本未在摘要中说明；16 个应用类别的覆盖面是否有偏未讨论；100 个实例、78 个仓库的样本规模中等；预印本，无同行评审信息，无第三方复现。
